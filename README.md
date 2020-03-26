@@ -1,5 +1,5 @@
 # **S**ampling-**B**ased Optimal Experiment Design
-An open-source Python package for optimal experiment design. If you are someone who develops a model of any kind, you will relate to the difficulty of estimating its model parameters. Optimal experiment design is essential to a modeller's toolbelt (even though currently, it rarely is). This package is a simple and powerful toolkit you must have. The package has an intuitive syntax and helpful documentation. It should get you to design experiments for estimating the parameters of your model in no time.
+An open-source Python package for optimal experiment design. The optimal experimental design technique is essential to a modeller's toolbelt. If you are someone who develops a model of any kind, you will relate to the difficulty of estimating its model parameters. This tool will help design experiments for collecting essential data to develop your model. This package is a simple and powerful toolkit you must have. With an intuitive syntax and helpful documentation, it should take you little time to start designing optimal experiments for estimating the parameters of your model.
 
 ## Features:
 1. Strive to be as simple as possible to use, but not simpler.
