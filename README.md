@@ -1,4 +1,4 @@
-# SB-OED
+# **S**ampling-**B**ased Optimal Experiment Design
 An open-source Python package for optimal experiment design. 
 
 Features:
