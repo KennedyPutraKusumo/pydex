@@ -1,14 +1,14 @@
 # **S**ampling-**B**ased Optimal Experiment Design
 An open-source Python package for optimal experiment design. 
 
-Features:
+## Features:
 1. Strive to be as simple as possible to use, but not simpler.
 2. Designs continuous experimental designs.
 3. Interfaces to optimization solvers through scipy, and cvxpy.
 4. Convenient built-in visualization capabilities.
 5. Supports virtually any model, as long as it can be written as a Python function.
 
-Dependencies:
+## Dependencies:
 1. matplotlib: used for visualization.
 2. numdifftools: used for numerical estimation of parameter sensitivities.
 3. scipy: used for numerical optimization.
