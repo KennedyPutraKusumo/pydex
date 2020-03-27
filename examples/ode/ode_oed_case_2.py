@@ -12,8 +12,8 @@ def simulate(model, simulator, ti_controls, tv_controls, model_parameters, sampl
     model.theta_1.fix(model_parameters[1])
     model.alpha_a.fix(model_parameters[2])
     model.alpha_b.fix(0)
-    # model.nu.fix(model_parameters[3])
-    model.nu.fix(1)
+    model.nu.fix(model_parameters[3])
+    # model.nu.fix(1)
 
     model.tau.fix(max(sampling_times))
     model.ca[0].fix(ti_controls[0])
@@ -38,9 +38,9 @@ def simulate(model, simulator, ti_controls, tv_controls, model_parameters, sampl
     ca = np.array([model.ca[t].value for t in normalized_sampling_times])
     cb = np.array([model.cb[t].value for t in normalized_sampling_times])
 
-    # return np.array([ca, cb]).T
+    return np.array([ca, cb]).T
     # return ca
-    return cb
+    # return cb
 
 def create_model():
     """ defining the model """
@@ -73,12 +73,13 @@ def create_model():
 
     return model
 
-""" create a pyomo model """
+
 pre_exp_constant = 0.1
 activ_energy = 5000
 theta_0 = np.log(pre_exp_constant) - activ_energy / (8.314159 * 273.15)
 theta_1 = activ_energy / (8.314159 * 273.15)
 
+""" create a pyomo model """
 model_1 = create_model()
 simulator_1 = pod.Simulator(model_1, package='casadi')
 
@@ -99,19 +100,19 @@ designer_1.simulator = simulator_1
 designer_1.simulate = simulate
 
 """ specifying nominal model parameter """
-# theta_nom = np.array([theta_0, theta_1, 1, 1])  # value of theta_0, theta_1, alpha_a, nu
-theta_nom = np.array([theta_0, theta_1, 1])  # value of theta_0, theta_1, alpha_a
+theta_nom = np.array([theta_0, theta_1, 1, 1])  # value of theta_0, theta_1, alpha_a, nu
+# theta_nom = np.array([theta_0, theta_1, 1])  # value of theta_0, theta_1, alpha_a
 designer_1.model_parameters = theta_nom  # assigning it to the designer's theta
 
 """ creating experimental candidates, here, it is generated as a grid """
 n_s_times = 10  # number of equally-spaced sampling time candidates
-n_c = 10**2  # grid resolution of control candidates generated
+n_c = 5**2  # grid resolution of control candidates generated
 
 # defining sampling time candidates
 tau_upper = 100
 tau_lower = 0
-# sampling_times_candidates = np.array([np.linspace(tau_lower, tau_upper, n_s_times+_) for _ in range(n_c)])  # varing number of sampling times
-sampling_times_candidates = np.array([np.linspace(tau_lower, tau_upper, n_s_times) for _ in range(n_c)])  # varing number of sampling times
+# sampling_times_candidates = np.array([np.linspace(tau_lower, tau_upper, n_s_times+_) for _ in range(n_c)])  # varying number of sampling times
+sampling_times_candidates = np.array([np.linspace(tau_lower, tau_upper, n_s_times) for _ in range(n_c)])
 
 # specifying bounds for the grid
 Ca0_lower = 1; temp_lower = 273.15
@@ -137,14 +138,17 @@ optional, if un-specified assume all responses (from simulate function) measurab
 # designer_1.measurable_responses = [0, 1]
 
 """ initializing designer """
-designer_1.n_res = 1  # optional explicit dimension for n_res specified, saves 1 ODE evaluation during initialization
-designer_1.initialize(verbose=1)  # designer details progress
+designer_1.initialize(verbose=2)  # 0: silent, 1: overview, 2: detail
+designer_1.responses_scales = np.array([1, 1])
+
+designer_1.estimability_study(write=True)
 
 """ D-optimal design """
-# d_opt_result = designer_1.design_experiment(criterion=designer_1.d_opt_criterion, package='cvxpy', plot=False,
-#                                             optimize_sampling_times=True, write=False, optimizer='SCS')
-# designer_1.plot_current_design()
-d_opt_result = designer_1.design_experiment(criterion=designer_1.d_opt_criterion, package='cvxpy', optimizer='MOSEK',
+package, optimizer = ("cvxpy", "MOSEK")
+# package, optimizer = ("cvxpy", "SCS")
+# package, optimizer = ("scipy", "bfgs")
+# package, optimizer = ("scipy", "SLSQP")
+d_opt_result = designer_1.design_experiment(criterion=designer_1.d_opt_criterion, package=package, optimizer=optimizer,
                                             plot=False, optimize_sampling_times=True, write=False)
 designer_1.plot_current_design()
 

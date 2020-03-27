@@ -1,4 +1,5 @@
 from scipy.optimize import minimize, least_squares
+from string import Template
 from scipy.stats import chi2
 from time import time
 from matplotlib import pyplot as plt
@@ -27,11 +28,12 @@ class Designer:
     def __init__(self):
         """ core model components """
         # core user-defined variables
+        self._save_sensitivities = False
         self.sampling_times_candidates = None  # sampling times of experiment. 2D numpy array of floats. Rows are the number of candidates, columns are the sampling times for given candidate. None means non-dynamic experiment.
         self.ti_controls_candidates = None  # time-invariant controls, a 2D numpy array of floats. Rows are the number of candidates, columns are the different controls.
         self.tv_controls_candidates = None  # time-varying controls, a 2D numpy array of dictionaries. Rows are the number of candidates, columns are the different controls.
         self.model_parameters = None  # nominal model parameters, a 1D numpy array of floats.
-        self.mono_fim = None
+        self.atomic_fims = None
 
         # optional user-defined variables
         self.candidate_names = None  # plotting names
@@ -67,7 +69,7 @@ class Designer:
 
         """ continuous oed-related quantities """
         # sensitivities
-        self.p_candidates = None
+        self.efforts = None
         self.F = None  # overall regressor matrix
         self.fim = None  # the information matrix for current experimental design
         self.p_var = None  # the prediction covariance matrix
@@ -331,72 +333,74 @@ class Designer:
         return pe_result
 
     def design_experiment(self, criterion, optimize_sampling_times=False, package="cvxpy", optimizer=None,
-                          opt_options=None, p_0=None, write=True, plot=False, **kwargs):
+                          opt_options=None, p_0=None, write=True, plot=False, save_sensitivities=False, **kwargs):
+        # storing user choices
         self._optimization_package = package
         self._optimizer = optimizer
-
-        if self._optimization_package is 'scipy':
-            self._transform_p = True  # affects self.eval_fim
-            if optimizer is None:
-                self._optimizer = 'bfgs'
-
-        self._opt_sampling_times = optimize_sampling_times  # affects self.eval_F and plotting
-        self.n_p = self.n_cand  # n_p is the length of experimental efforts: total row length of F
-        if optimize_sampling_times:
-            if self._opt_sampling_times:
-                self.n_p = self.n_p * self.n_sample_time
-
-        """ set initial guess for optimal experimental efforts, if none given, equal efforts for all candidates """
-        if p_0 is None:
-            p_0 = np.array([1 / self.n_p for _ in range(self.n_p)])
-            self.p_candidates = p_0
-        else:
-            assert isinstance(p_0, (np.ndarray, list)), 'Initial guess for effort must be a 1D list or numpy array.'
-            assert len(p_0) == self.n_p, 'Length of initial guess must be equal to number of candidates (if sampling ' \
-                                         'times not optimized, or equal to the number of candidates multiplied by ' \
-                                         'largest number of sampling times (if sampling times to be optimized).'
-            self.p_candidates = p_0
+        self._opt_sampling_times = optimize_sampling_times
+        self._save_sensitivities = save_sensitivities
+        self._check_if_effort_transformation_needed_for_chosen_package()
 
         if self._verbose >= 2:
             opt_verbose = True
         else:
             opt_verbose = False
 
-        """ main codes """
-        if self._verbose >= 1:
-            print("Solving OED problem...")
-        start = time()
-        if self._optimization_package == "scipy":
+        # initializing default scipy optimizer options
+        if self._optimization_package is 'scipy':
+            self._transform_p = True  # affects self.eval_fim
+            if optimizer is None:
+                self._optimizer = 'bfgs'
             """ setting default scipy optimizer options """
             if opt_options is None:
                 opt_options = {"disp": opt_verbose}
 
+        self.n_p = self.n_cand
+        if self._opt_sampling_times:
+            self.n_p *= self.n_sample_time
+
+        """ main codes """
+        if self._verbose >= 1:
+            print("Solving OED problem...")
+
+        self.eval_atomic_fims()
+
+        # set initial guess for optimal experimental efforts, if none given, equal efforts for all candidates
+        if p_0 is None:
+            p_0 = np.array([1 / self.n_p for _ in range(self.n_p)])
+            self.efforts = p_0
+        else:
+            assert isinstance(p_0, (np.ndarray, list)), 'Initial guess for effort must be a 1D list or numpy array.'
+            assert len(p_0) == self.n_p, 'Length of initial guess must be equal to number of candidates (if sampling ' \
+                                         'times not optimized, or equal to the number of candidates multiplied by ' \
+                                         'largest number of sampling times (if sampling times to be optimized).'
+            self.efforts = p_0
+
+        # declare and solve optimization problem
+        start = time()
+        if self._optimization_package == "scipy":
             opt_result = minimize(fun=criterion, x0=p_0,
                                   method=optimizer, options=opt_options)
-            p_opt = opt_result.x
-            p_opt = p_opt ** 2
-            p_opt = p_opt / sum(p_opt)
-            self.p_candidates = p_opt
+            self.efforts = opt_result.x
+            self._apply_p_transform()
             opt_fun = opt_result.fun
         elif self._optimization_package == "cvxpy":
             p = cp.Variable(self.n_p, nonneg=True)
-            p.value = self.p_candidates
+            p.value = self.efforts
             p_cons = [cp.sum(p) == 1]
             obj = cp.Maximize(criterion(p))
             problem = cp.Problem(obj, p_cons)
             opt_fun = problem.solve(verbose=opt_verbose, solver=optimizer, **kwargs)
-            self.p_candidates = p.value
+            self.efforts = p.value
         else:
             print("Unrecognized package, reverting to default: scipy.")
-            opt_fun = None  # optional line to remove warning in PyCharm to follow PEP8
+            opt_fun = None  # optional line to follow PEP8
             self.design_experiment(criterion, optimize_sampling_times, "scipy",
                                    optimizer, opt_options, p_0, write, plot)
         finish = time()
 
         """ report status and performance """
         self._optimization_time = finish - start
-        if not self._sensitivity_analysis_done:
-            self._optimization_time -= self._sensitivity_analysis_time
         if self._verbose:
             print(
                 "Solved: sensitivity analysis took %.2f CPU seconds; the optimizer '%s' interfaced via the"
@@ -418,7 +422,7 @@ class Designer:
             "tv_controls_candidates": self.tv_controls_candidates,
             "model_parameters": self.model_parameters,
             "sampling_times_candidates": self.sampling_times_candidates,
-            "optimal_efforts": self.p_candidates,
+            "optimal_efforts": self.efforts,
             "criterion_value": self._criterion_value,
             "optimizer": self._optimizer
         }
@@ -448,7 +452,7 @@ class Designer:
             # p_0 = np.array([1 / self.n_p for _ in range(self.n_p)])
             p_0 = np.zeros(self.n_p)
             p_0[0] = n_exp
-            self.p_candidates = p_0
+            self.efforts = p_0
 
         if self._verbose >= 2:
             opt_verbose = True
@@ -489,7 +493,7 @@ class Designer:
             }
             print(cones)
             opt_fun = problem.solve(verbose=opt_verbose, solver=optimizer)
-            self.p_candidates = p.value
+            self.efforts = p.value
         else:
             print("Unrecognized package, reverting to default: scipy.")
             opt_fun = None  # optional line to remove warning in PyCharm to follow PEP8
@@ -520,7 +524,7 @@ class Designer:
             "tv_controls_candidates": self.tv_controls_candidates,
             "model_parameters": self.model_parameters,
             "sampling_times_candidates": self.sampling_times_candidates,
-            "optimal_efforts": self.p_candidates,
+            "optimal_efforts": self.efforts,
             "criterion_value": self._criterion_value,
             "optimizer": self._optimizer
         }
@@ -531,33 +535,37 @@ class Designer:
         return oed_result
 
     def estimability_study(self, base_step=None, step_ratio=None, num_steps=None, estimable_tolerance=0.04,
-                           write=False):
-        self.estimable_columns = np.array([])
-
+                           write=False, save_sensitivities=False):
+        self._save_sensitivities = save_sensitivities
         self.get_sensitivities(base_step=base_step, step_ratio=step_ratio, num_steps=num_steps, normalize=True)
 
         z = self.sensitivity[:, :, self.measurable_responses, :].reshape(
             self.n_sample_time * self.n_m_res * self.n_cand, self.n_theta)
 
-        column_magnitude = np.sum(np.power(z, 2), axis=0)
-        largest_column = np.argmax(column_magnitude)
-        estimable_columns = np.array([largest_column])
+        z_col_mag = np.sum(np.power(z, 2), axis=0)
+        next_estim_param = np.argmax(z_col_mag)
+        self.estimable_columns = np.array([next_estim_param])
         finished = False
         while not finished:
-            x_l = z[:, estimable_columns]
+            x_l = z[:, self.estimable_columns]
             z_theta = np.linalg.inv(x_l.T.dot(x_l)).dot(x_l.T).dot(z)
             z_hat = x_l.dot(z_theta)
             r = z - z_hat
-            residual_col_mag = np.sum(np.power(r, 2), axis=0)
-            largest_column = np.argmax(residual_col_mag)
-            self.estimable_columns = np.append(self.estimable_columns, largest_column)
-            if residual_col_mag[largest_column] <= estimable_tolerance:
-                finished = True
-
-        if write:
-            pass
-
-        return self.estimable_columns
+            r_col_mag = np.sum(np.power(r, 2), axis=0)
+            next_estim_param = np.argmax(r_col_mag)
+            if r_col_mag[next_estim_param] <= estimable_tolerance:
+                if write:
+                    self.create_result_dir()
+                    self.run_no = 1
+                    result_file_template = Template("${result_dir}/estimability_study_${run_no}.pkl")
+                    result_file = result_file_template.substitute(result_dir=self.result_dir, run_no=self.run_no)
+                    while path.isfile(result_file):
+                        self.run_no += 1
+                        result_file = result_file_template.substitute(result_dir=self.result_dir, run_no=self.run_no)
+                    dump(self.estimable_columns, open(result_file, 'wb'))
+                print('Identified estimable parameters are: {self.estimable_columns}'.format(self=self))
+                return self.estimable_columns
+            self.estimable_columns = np.append(self.estimable_columns, next_estim_param)
 
     """ core utilities """
     # create grid
@@ -797,7 +805,8 @@ class Designer:
 
     """ model linearization """
     def get_sensitivities(self, normalize=False, method='forward', base_step=None, step_ratio=None, num_steps=None,
-                          store_predictions=True, plot_analysis_times=False, write=False):
+                          store_predictions=True, plot_analysis_times=False, save_sensitivities=False):
+        self._save_sensitivities = save_sensitivities
 
         """ check if model parameters have been changed or not """
         self._check_if_model_parameters_changed()
@@ -866,6 +875,7 @@ class Designer:
             if self._verbose >= 1:
                 print('Sensitivity analysis using numdifftools with forward scheme finite difference took '
                       'a total of %.2f CPU seconds.' % (finish - start))
+            self._sensitivity_analysis_time = finish - start
 
             # converting sens into a numpy array for optimizing further computations
             sens = np.array(sens)
@@ -876,9 +886,10 @@ class Designer:
 
             # normalizing the sensitivities by multiplying by the nominal parameter values and dividing by responses
             if self._sensitivity_is_normalized:
-                assert np.all(self.model_parameters > 0), 'At least one nominal model parameter value is equal to 0, ' \
-                                                          'cannot normalize sensitivities. Consider re-estimating ' \
-                                                          'your parameters or re-parameterize your model.'
+                assert not np.allclose(self.model_parameters, 0), 'At least one nominal model parameter value is ' \
+                                                                  'equal to 0, cannot normalize sensitivities. ' \
+                                                                  'Consider re-estimating your parameters or ' \
+                                                                  're-parameterize your model.'
                 # normalize parameter values
                 sens = np.multiply(sens, self.model_parameters[np.newaxis, np.newaxis, np.newaxis, :])
                 if self.responses_scales is None:
@@ -900,7 +911,7 @@ class Designer:
             if self._var_n_sampling_time:
                 self._pad_sensitivities()
 
-            if write:
+            if self._save_sensitivities:
                 self.create_result_dir()
                 self.run_no = 1
                 sens_file = self.result_dir + '/sensitivity_%d.pkl' % self.run_no
@@ -917,98 +928,66 @@ class Designer:
         return self.sensitivity
 
     """ optimal experiment design """
-    def eval_F(self, base_step=None, step_ratio=None, num_steps=None, normalize=False, store_predictions=False):
-        """ should return F as a 2D numpy array.
-        N_sampling.N_candidates times N_theta matrix if sampling time is optimized;
-        N_candidates times N_theta matrix if sampling time not optimized. """
+    def eval_atomic_fims(self):
+        self.get_sensitivities()
+        if self._verbose >= 1:
+            print('Computing atomic fims from sensitivities...')
+        start = time()
+        self.atomic_fims = np.array([[[np.outer(f, f) for f in F_sp] for F_sp in F_c] for F_c in self.sensitivity])
+        finish = time()
+        if self._verbose >= 2:
+            print("Atomic fim computation took {0:.2f} CPU seconds.".format(finish-start))
+        return self.atomic_fims
 
-        self.n_p = self.n_cand  # n_p is the length of experimental efforts: total row length of F
+    def eval_fim(self):
+        self.fim = np.nansum([atomic_fim for atomic_fim in self.atomic_fims], axis=2)  # sum atomic fims over responses
         if self._opt_sampling_times:
-            self.n_p = self.n_p * self.n_sample_time
-
-        " always get sensitivity, but get_sensitivities will only redo the analysis if needed "
-        start = time()
-        self.get_sensitivities(base_step=base_step, step_ratio=step_ratio, num_steps=num_steps, normalize=normalize,
-                               store_predictions=store_predictions)
-        finish = time()
-        self._sensitivity_analysis_time = finish - start
-
-        if self._verbose >= 3:
-            print('Reshaping sensitivity to obtain F.')
-        """ main line for obtaining F from reshaping of the sensitivities """
-
-        start = time()
-        F = np.nansum(self.sensitivity[:, :, self.measurable_responses, :], axis=2)  # sum information b/w responses
-        if not self._opt_sampling_times:
-            F = np.nansum(F, axis=1)  # sum all information matrices between sampling times
-        F = np.reshape(F, newshape=(self.n_p, self.n_theta))
-        self.F = F
-        finish = time()
-
-        if self._verbose >= 3:
-            print('Reshaping took %.3f CPU microseconds.' % ((finish - start) * 1e6))
-
-        return F
-
-    def eval_fim(self, p=None):
-        """ optional line that will replace current experimental efforts when given """
-        if p is not None:
-            self.p_candidates = p
-
-        self._check_if_model_parameters_changed()
-
-        """ check if F is available, if yes, don't re-evaluate """
-        if self.F is None or self._model_parameters_changed:
-            self.eval_F()
-
-        """ transform the efforts if needed """
-        if self._transform_p:
-            self._apply_p_transform()
-
-        """ main codes for evaluation """
-        if self._optimization_package is 'scipy':
-            self.p_candidates = np.diag(self.p_candidates)
-            self.fim = self.F.T.dot(self.p_candidates.dot(self.F))
-        elif self._optimization_package is 'cvxpy':
-            self.p_candidates = cp.diag(self.p_candidates)
-            self.fim = self.F.T * self.p_candidates * self.F
-            # self.fim = self.F.T.dot(self.p_candidates).dot(self.F)
+            self.fim = np.reshape(self.fim, newshape=(self.n_cand * self.n_sample_time, self.n_theta, self.n_theta))
+        else:
+            self.fim = np.nansum(self.fim, axis=1)  # sum atomic fims over sampling times
+        self.fim = np.nansum([atomic_fim * effort for atomic_fim, effort in zip(self.fim, self.efforts)], axis=0)  # sum atomic fims over candidates
         return self.fim
 
-    def d_opt_criterion(self, p):
-        self._check_if_effort_transformation_needed_for_chosen_package()
+    def d_opt_criterion(self, efforts):
+        self.efforts = efforts
+        self._apply_p_transform()
 
-        """ evaluate fim at current experimental effort """
-        self.eval_fim(p)
+        self.eval_fim()
 
-        """ evaluate the criterion """
+        # evaluate the criterion """
         if self._optimization_package is 'scipy':
-            return -np.prod(np.linalg.slogdet(self.fim))
+            non_zero_fim_elements = self.fim[np.where(self.fim != 0)]
+            if non_zero_fim_elements.size is 1:
+                return -non_zero_fim_elements[0]
+            else:
+                return -np.prod(np.linalg.slogdet(self.fim))
         elif self._optimization_package is 'cvxpy':
             if self.fim.size == 1:
                 return self.fim
             else:
-                # self.mono_fim = []
-                # for _ in range(self.n_p):
-                #     self.mono_fim.append(np.outer(self.F[_, :], self.F[_, :]))
                 return cp.log_det(self.fim)
-                # return cp.log_det(cp.sum([self.p_candidates[_] * self.mono_fim[_] for _ in range(self.n_p)]))
 
-    def a_opt_criterion(self, p):
-        self._check_if_effort_transformation_needed_for_chosen_package()
+    def a_opt_criterion(self, efforts):
+        # check and transform efforts if needed
+        self.efforts = efforts
+        self._apply_p_transform()
+
+        self.eval_fim()
 
         if self._optimization_package is 'scipy':
-            self.eval_fim(p)
             return np.trace(np.linalg.inv(self.fim))
         elif self._optimization_package is 'cvxpy':
             raise NotImplementedError(
                 'A-optimal is not a convex optimization problem, optimizers from cvxpy package not available.'
             )
 
-    def e_opt_criterion(self, p):
-        self._check_if_effort_transformation_needed_for_chosen_package()
+    def e_opt_criterion(self, efforts):
+        # check and transform efforts if needed
+        self.efforts = efforts
+        self._apply_p_transform()
 
-        self.eval_fim(p)
+        self.eval_fim()
+
         if self._optimization_package is 'scipy':
             return -np.min(np.linalg.eigvals(self.fim))
         elif self._optimization_package is 'cvxpy':
@@ -1057,13 +1036,17 @@ class Designer:
         return response
 
     def _apply_p_transform(self):
-        assert self.p_candidates is not None, "UNKNOWN ERROR: trying to transform efforts but none have been specified."
-        if not isinstance(self.p_candidates, np.ndarray):
-            self.p_candidates = np.array(self.p_candidates)
-        self.p_candidates = self.p_candidates ** 2
-        self.p_candidates = self.p_candidates / np.sum(self.p_candidates)
+        assert self.efforts is not None, "UNKNOWN ERROR: trying to transform efforts but none have been specified."
 
-        return self.p_candidates
+        if not self._transform_p:
+            return self.efforts
+
+        if not isinstance(self.efforts, np.ndarray):
+            self.efforts = np.array(self.efforts)
+        self.efforts = self.efforts ** 2
+        self.efforts = self.efforts / np.sum(self.efforts)
+
+        return self.efforts
 
     def _check_if_model_parameters_changed(self):
         if self._current_model_parameters is None:
@@ -1086,7 +1069,7 @@ class Designer:
         if width is None:
             width = 0.7
 
-        p = self.p_candidates.reshape([self.n_cand])
+        p = self.efforts.reshape([self.n_cand])
 
         x = np.arange(
             start=1,
@@ -1120,7 +1103,7 @@ class Designer:
         if width is None:
             width = 0.3
 
-        p = self.p_candidates.reshape([self.n_cand, self.n_sample_time])
+        p = self.efforts.reshape([self.n_cand, self.n_sample_time])
 
         sampling_time_scale = np.nanmin(np.diff(self.sampling_times_candidates, axis=1))
 
@@ -1211,8 +1194,9 @@ class Designer:
         start = time()
         if self.response is None:  # if it is the first response to be stored, initialize response list
             self.response = []
+
         if self.n_sample_time is 1:
-            self._current_response = self._current_response[np.newaxis, :]
+            self._current_response = self._current_response[np.newaxis]
         elif self.n_res is 1:
             self._current_response = self._current_response[:, np.newaxis]
 
