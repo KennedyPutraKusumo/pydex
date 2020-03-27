@@ -380,7 +380,7 @@ class Designer:
         # declare and solve optimization problem
         start = time()
         if self._optimization_package == "scipy":
-            opt_result = minimize(fun=-criterion, x0=p_0,
+            opt_result = minimize(fun=criterion, x0=p_0,
                                   method=optimizer, options=opt_options)
             self.efforts = opt_result.x
             self._apply_p_transform()
@@ -389,7 +389,7 @@ class Designer:
             p = cp.Variable(self.n_p, nonneg=True)
             p.value = self.efforts
             p_cons = [cp.sum(p) == 1]
-            obj = cp.Maximize(criterion(p))
+            obj = cp.Minimize(criterion(p))
             problem = cp.Problem(obj, p_cons)
             opt_fun = problem.solve(verbose=opt_verbose, solver=optimizer, **kwargs)
             self.efforts = p.value
@@ -949,16 +949,19 @@ class Designer:
         self.fim = np.nansum([atomic_fim * effort for atomic_fim, effort in zip(self.fim, self.efforts)], axis=0)  # sum atomic fims over candidates
 
         # trim the fim of non-estimable parameters
-        self.estimable_model_parameters = []
+        self.estimable_model_parameters = np.array([])
         if self._optimization_package is 'cvxpy':
             fim_value = self.fim.value
         else:
             fim_value = self.fim
         for i, row in enumerate(fim_value):
             if not np.allclose(row, 0):
-                self.estimable_model_parameters.append(i)
-        if len(self.estimable_model_parameters) is not 0:
-            self.fim = self.fim[self.estimable_model_parameters, self.estimable_model_parameters]
+                self.estimable_model_parameters = np.append(self.estimable_model_parameters, i)
+        self.estimable_model_parameters = self.estimable_model_parameters.astype(int)
+        if len(self.estimable_model_parameters) is 0:
+            self.fim = np.array([0])
+        else:
+            self.fim = self.fim[np.ix_(self.estimable_model_parameters, self.estimable_model_parameters)]
 
         return self.fim
 
@@ -970,12 +973,12 @@ class Designer:
 
         # evaluate the criterion
         if self.fim.size == 1:
-            return self.fim
+            return -np.log1p(self.fim)
 
         if self._optimization_package is 'scipy':
-            return np.prod(np.linalg.slogdet(self.fim))
+            return -np.prod(np.linalg.slogdet(self.fim))
         elif self._optimization_package is 'cvxpy':
-            return cp.log_det(self.fim)
+            return -cp.log_det(self.fim)
 
     def a_opt_criterion(self, efforts):
         # check and transform efforts if needed
@@ -985,10 +988,10 @@ class Designer:
         self.eval_fim()
 
         if self.fim.size == 1:
-            return self.fim
+            return -np.log1p(self.fim)
 
         if self._optimization_package is 'scipy':
-            return np.trace(np.linalg.inv(self.fim))
+            return -np.trace(np.linalg.inv(self.fim))
         elif self._optimization_package is 'cvxpy':
             raise NotImplementedError(
                 'A-optimal is not a convex optimization problem, optimizers from cvxpy package not available.'
@@ -1002,12 +1005,12 @@ class Designer:
         self.eval_fim()
 
         if self.fim.size == 1:
-            return self.fim
+            return -np.log1p(self.fim)
 
         if self._optimization_package is 'scipy':
-            return np.min(np.linalg.eigvals(self.fim))
+            return -np.min(np.linalg.eigvals(self.fim))
         elif self._optimization_package is 'cvxpy':
-            return cp.lambda_min(self.fim)
+            return -cp.lambda_min(self.fim)
 
     # prediction-oriented information
     def eval_pvar(self, x):
