@@ -28,6 +28,7 @@ class Designer:
     def __init__(self):
         """ core model components """
         # core user-defined variables
+        self.estimable_model_parameters = []
         self._save_sensitivities = False
         self.sampling_times_candidates = None  # sampling times of experiment. 2D numpy array of floats. Rows are the number of candidates, columns are the sampling times for given candidate. None means non-dynamic experiment.
         self.ti_controls_candidates = None  # time-invariant controls, a 2D numpy array of floats. Rows are the number of candidates, columns are the different controls.
@@ -379,7 +380,7 @@ class Designer:
         # declare and solve optimization problem
         start = time()
         if self._optimization_package == "scipy":
-            opt_result = minimize(fun=criterion, x0=p_0,
+            opt_result = minimize(fun=-criterion, x0=p_0,
                                   method=optimizer, options=opt_options)
             self.efforts = opt_result.x
             self._apply_p_transform()
@@ -946,6 +947,19 @@ class Designer:
         else:
             self.fim = np.nansum(self.fim, axis=1)  # sum atomic fims over sampling times
         self.fim = np.nansum([atomic_fim * effort for atomic_fim, effort in zip(self.fim, self.efforts)], axis=0)  # sum atomic fims over candidates
+
+        # trim the fim of non-estimable parameters
+        self.estimable_model_parameters = []
+        if self._optimization_package is 'cvxpy':
+            fim_value = self.fim.value
+        else:
+            fim_value = self.fim
+        for i, row in enumerate(fim_value):
+            if not np.allclose(row, 0):
+                self.estimable_model_parameters.append(i)
+        if len(self.estimable_model_parameters) is not 0:
+            self.fim = self.fim[self.estimable_model_parameters, self.estimable_model_parameters]
+
         return self.fim
 
     def d_opt_criterion(self, efforts):
@@ -954,18 +968,14 @@ class Designer:
 
         self.eval_fim()
 
-        # evaluate the criterion """
+        # evaluate the criterion
+        if self.fim.size == 1:
+            return self.fim
+
         if self._optimization_package is 'scipy':
-            non_zero_fim_elements = self.fim[np.where(self.fim != 0)]
-            if non_zero_fim_elements.size is 1:
-                return -non_zero_fim_elements[0]
-            else:
-                return -np.prod(np.linalg.slogdet(self.fim))
+            return np.prod(np.linalg.slogdet(self.fim))
         elif self._optimization_package is 'cvxpy':
-            if self.fim.size == 1:
-                return self.fim
-            else:
-                return cp.log_det(self.fim)
+            return cp.log_det(self.fim)
 
     def a_opt_criterion(self, efforts):
         # check and transform efforts if needed
@@ -973,6 +983,9 @@ class Designer:
         self._apply_p_transform()
 
         self.eval_fim()
+
+        if self.fim.size == 1:
+            return self.fim
 
         if self._optimization_package is 'scipy':
             return np.trace(np.linalg.inv(self.fim))
@@ -988,10 +1001,13 @@ class Designer:
 
         self.eval_fim()
 
+        if self.fim.size == 1:
+            return self.fim
+
         if self._optimization_package is 'scipy':
-            return -np.min(np.linalg.eigvals(self.fim))
+            return np.min(np.linalg.eigvals(self.fim))
         elif self._optimization_package is 'cvxpy':
-            return -cp.lambda_min(self.fim)
+            return cp.lambda_min(self.fim)
 
     # prediction-oriented information
     def eval_pvar(self, x):

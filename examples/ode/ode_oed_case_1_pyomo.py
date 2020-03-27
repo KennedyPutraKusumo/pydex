@@ -66,7 +66,7 @@ if __name__ == '__main__':
     designer_1.simulate = simulate
 
     """ specifying nominal model parameter """
-    theta_nom = np.array([0.25])  # value of beta, has to be an array
+    theta_nom = np.array([0.25, 5, 10, 15])  # value of beta, has to be an array
     designer_1.model_parameters = theta_nom  # assigning it to the designer's theta
 
     """ creating experimental candidates, here, it is generated as a grid """
