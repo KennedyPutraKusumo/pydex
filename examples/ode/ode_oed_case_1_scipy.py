@@ -49,11 +49,10 @@ if __name__ == '__main__':
     designer_1.tv_controls_candidates = tvc_candidates
     designer_1.sampling_times_candidates = sampling_times_candidates
 
-    designer_1.n_res = 1  # optional explicit dimension for n_res specified, saves 1 ODE evaluation during initialization
     designer_1.initialize(verbose=2)
 
     """ we can use the designer to get and plot the sensitivities for all experimental candidates """
-    sens = designer_1.get_sensitivities(write=False)
+    sens = designer_1.get_sensitivities(save_sensitivities=False)
     designer_1.plot_sensitivities()
 
     """ solve OED problem """

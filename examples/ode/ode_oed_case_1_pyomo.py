@@ -14,6 +14,8 @@ def simulate(model, simulator, ti_controls, tv_controls, model_parameters, sampl
     # no time-varying control for this example
 
     """ ensuring pyomo returns state values at given sampling times """
+    for t in model.t:  # IMPORTANT: if not added, simulation time will increase as function is repeatedly called
+        model.t.remove(t)
     model.t.initialize = np.array(sampling_times) / model.tau.value
     model.t.order_dict = {}  # to suppress pyomo warnings for duplicate elements
     model.t._constructed = False  # needed so we can re-initialize the continuous set
@@ -26,9 +28,6 @@ def simulate(model, simulator, ti_controls, tv_controls, model_parameters, sampl
     """" extracting results and returning it in appropriate format """
     normalized_sampling_times = sampling_times / model.tau.value
     ca = np.array([model.ca[t].value for t in normalized_sampling_times])
-
-    for t in model.t:  # IMPORTANT: if not added, simulation time will increase as function is repeatedly called
-        model.t.remove(t)
 
     return ca
 
@@ -67,11 +66,11 @@ if __name__ == '__main__':
     designer_1.simulate = simulate
 
     """ specifying nominal model parameter """
-    theta_nom = np.array([0.25, 1])  # value of beta, has to be an array
+    theta_nom = np.array([0.25])  # value of beta, has to be an array
     designer_1.model_parameters = theta_nom  # assigning it to the designer's theta
 
     """ creating experimental candidates, here, it is generated as a grid """
-    n_s_times = 20  # number of equally-spaced sampling time candidates
+    n_s_times = 10  # number of equally-spaced sampling time candidates
     n_c = 10  # grid resolution of control candidates generated
 
     # defining sampling time candidates
@@ -104,22 +103,18 @@ if __name__ == '__main__':
     # designer_1.measurable_responses = [1, 2]
 
     """ initializing designer """
-    # designer_1.n_res = 2  # optional explicit dimension for n_res specified, saves 1 ODE evaluation during initialization
     designer_1.initialize(verbose=2)  # designer details progress
 
-    designer_1.save_state()
-    designer_1.get_sensitivities(store_predictions=True, write=True)
-    designer_1.eval_F()
-
     """ D-optimal continuous design """
-    d_opt_result = designer_1.design_experiment(criterion=designer_1.d_opt_criterion, package='cvxpy', plot=False,
-                                                optimize_sampling_times=True, write=False, optimizer='ECOS_BB')
-
-    # exact_d_opt_result = designer_1.design_exact_experiment(n_exp=9, criterion=designer_1.d_opt_criterion, package='cvxpy',
-    #                                                         plot=False, optimize_sampling_times=True, write=False,
-    #                                                         optimizer='ECOS_BB')
-
-    designer_1.plot_sensitivities()
+    package, optimizer = ('cvxpy', 'MOSEK')
+    # package, optimizer = ('cvxpy', 'SCS')
+    # package, optimizer = ('scipy', 'bfgs')
+    # package, optimizer = ('scipy', 'SLSQP')
+    # package, optimizer = ('scipy', 'COBYLA')
+    # package, optimizer = ('scipy', 'l-bfgs-b')
+    d_opt_result = designer_1.design_experiment(criterion=designer_1.d_opt_criterion, package=package, plot=False,
+                                                optimize_sampling_times=True, write=False, optimizer=optimizer)
+    # designer_1.plot_sensitivities()
     designer_1.plot_current_design(write=False)
 
     """ an option for saving current designer state """
@@ -128,5 +123,3 @@ if __name__ == '__main__':
     """ simulate candidates to show model predictions for each candidate """
     # designer_1.simulate_all_candidates(plot_simulation_times=True)
     # designer_1.plot_all_predictions()
-
-    """ simulate optimal candidates only """
