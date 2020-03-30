@@ -28,6 +28,8 @@ class Designer:
     def __init__(self):
         """ core model components """
         # core user-defined variables
+        self._dynamic_system = None
+        self.optimal_candidates = None
         self.estimable_model_parameters = []
         self._save_sensitivities = False
         self.sampling_times_candidates = None  # sampling times of experiment. 2D numpy array of floats. Rows are the number of candidates, columns are the sampling times for given candidate. None means non-dynamic experiment.
@@ -126,17 +128,20 @@ class Designer:
     def initialize(self, verbose=0):
         """ check if all required components are specified to model """
         assert self.ti_controls_candidates is not None, 'Please specify time-invariant controls candidates.'
-        assert self.tv_controls_candidates is not None, 'Please specify time-varying controls candidates.'
-        assert self.sampling_times_candidates is not None, 'Please specify sampling times candidates.'
         assert self.model_parameters is not None, 'Please specify nominal model parameters.'
+
+        if self.tv_controls_candidates is not None or self.sampling_times_candidates is not None:
+            assert isinstance(self.tv_controls_candidates, np.ndarray), \
+                'tv_controls_candidates must be supplied as a numpy array.'
+            assert isinstance(self.sampling_times_candidates, np.ndarray), \
+                'sampling_times_candidates must be supplied as a numpy array.'
+            self._dynamic_system = True
+        else:
+            self._dynamic_system = False
 
         """ check if required components are in right datatypes """
         assert isinstance(self.ti_controls_candidates, np.ndarray), \
             'ti_controls_candidates must be supplied as a numpy array.'
-        assert isinstance(self.tv_controls_candidates, np.ndarray), \
-            'tv_controls_candidates must be supplied as a numpy array.'
-        assert isinstance(self.sampling_times_candidates, np.ndarray), \
-            'sampling_times_candidates must be supplied as a numpy array.'
         assert isinstance(self.model_parameters, (list, np.ndarray)), \
             'model_parameters must be supplied as a numpy array.'
 
@@ -153,25 +158,27 @@ class Designer:
             print("Unrecognized simulate function signature, please check if you have specified it correctly.")
         self._initialize_simulate_function()
 
-        """ check if given time-invariant controls, time-varying controls, and
-         sampling times have the same number of candidates specified """
-        n_tic_cand = len(self.ti_controls_candidates)
-        n_tvc_cand = len(self.tv_controls_candidates)
-        n_spt_cand = len(self.sampling_times_candidates)
-        assert n_tic_cand == n_tvc_cand and n_tic_cand == n_spt_cand, \
-            "Number of candidates given in ti_controls, tv_controls, and sampling_times are inconsistent."
+        if self._dynamic_system:
+            """ check if given time-invariant controls, time-varying controls, and sampling times have the same
+             number of candidates specified """
+            n_tic_cand = len(self.ti_controls_candidates)
+            n_spt_cand = len(self.sampling_times_candidates)
+            n_tvc_cand = len(self.tv_controls_candidates)
+            assert n_tic_cand == n_tvc_cand and n_tic_cand == n_spt_cand, \
+                "Number of candidates given in ti_controls, tv_controls, and sampling_times are inconsistent."
 
-        """ checking that all sampling times candidates have equal number of sampling times """
-        if all(len(samp_t) == len(self.sampling_times_candidates[0]) for samp_t in self.sampling_times_candidates):
-            self._var_n_sampling_time = False
-        else:
-            self._var_n_sampling_time = True
-            self._pad_sampling_times()
+            """ checking that all sampling times candidates have equal number of sampling times """
+            if all(len(samp_t) == len(self.sampling_times_candidates[0]) for samp_t in self.sampling_times_candidates):
+                self._var_n_sampling_time = False
+            else:
+                self._var_n_sampling_time = True
+                self._pad_sampling_times()
 
         """ saving number of candidates, sampling times, and model parameters """
-        self.n_cand = len(self.sampling_times_candidates)
-        self.n_sample_time = len(self.sampling_times_candidates[0])
+        self.n_cand = len(self.ti_controls_candidates)
         self.n_theta = len(self.model_parameters)
+        if self._dynamic_system:
+            self.n_sample_time = len(self.sampling_times_candidates[0])
         if self.n_res is None:
             y = self._simulate_internal(self.ti_controls_candidates[0],
                                         self.tv_controls_candidates[0],
@@ -580,7 +587,7 @@ class Designer:
         self.grid = self.grid.reshape(np.array(levels).size, np.prod(levels)).T
         return self.grid
 
-    # plotting
+    # visualization and result retrieval
     def plot_current_design(self, width=None, write=False, dpi=720, quality=95, force_3d=False):
         if self._opt_sampling_times or force_3d:
             self._plot_current_continuous_design_3d(width=width, write=write, dpi=dpi, quality=quality)
@@ -720,7 +727,57 @@ class Designer:
             tight_layout = 'fig%d.tight_layout()' % res
             exec(tight_layout)
 
-        plt.show()
+        plt.show()#
+        
+    def get_optimal_candidates(self):
+        if self.efforts is None:
+            raise SyntaxError('Please solve an experiment design before attempting to get optimal candidates.')
+
+        self.optimal_candidates = []
+        if self._opt_sampling_times:
+            efforts = self.efforts.reshape(self.n_cand, self.n_sample_time)
+            candidate_efforts = np.sum(efforts, axis=1)
+        else:
+            efforts = self.efforts
+            candidate_efforts = self.efforts
+
+        for i, eff_sp in enumerate(efforts):
+            if np.sum(eff_sp) > 1e-4:
+                opt_candidate = [
+                    i+1,
+                    self.ti_controls_candidates[i],
+                    self.tv_controls_candidates[i],
+                    [],
+                    [],
+                    []
+                ]
+                if self._opt_sampling_times:
+                    for j, eff in enumerate(eff_sp):
+                        if eff > 1e-4:
+                            opt_candidate[3].append(self.sampling_times_candidates[i][j])
+                            opt_candidate[4].append(eff)
+                else:
+                    opt_candidate[4].append(eff_sp)
+                self.optimal_candidates.append(opt_candidate)
+        return self.optimal_candidates
+
+    def print_optimal_candidates(self):
+        if self.optimal_candidates is None:
+            self.get_optimal_candidates()
+        for i, opt_cand in enumerate(self.optimal_candidates):
+            print("{0:-^100}".format("[Candidate {0:d}]".format(opt_cand[0])))
+            print("{0:^100}".format("Recommended Effort: {0:.2f}% of budget".format(np.sum(opt_cand[4])*100)))
+            print("Time-invariant Controls:")
+            print(opt_cand[1])
+            print("Time-varying Controls:")
+            print(opt_cand[2])
+            if self._opt_sampling_times:
+                print("Sampling Times:")
+                if self._opt_sampling_times:
+                    for j, sp_time in enumerate(opt_cand[3]):
+                        print("[{0:>10}]: dedicate {1:.2f}% of budget".format("{0:.2f}".format(sp_time),
+                                                                              opt_cand[4][j]*100))
+        print("{0:#^100}".format(""))
 
     # saving, loading, writing
     def load_oed_result(self, result_path):
@@ -991,7 +1048,8 @@ class Designer:
             return -np.log1p(self.fim)
 
         if self._optimization_package is 'scipy':
-            return -np.trace(np.linalg.inv(self.fim))
+            fim_eigvals = np.linalg.eigvals(self.fim)
+            return np.sum(1/fim_eigvals)
         elif self._optimization_package is 'cvxpy':
             raise NotImplementedError(
                 'A-optimal is not a convex optimization problem because of the matrix inverse operation, optimizers '

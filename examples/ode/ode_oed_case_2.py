@@ -106,10 +106,10 @@ designer_1.model_parameters = theta_nom  # assigning it to the designer's theta
 
 """ creating experimental candidates, here, it is generated as a grid """
 n_s_times = 10  # number of equally-spaced sampling time candidates
-n_c = 5**2  # grid resolution of control candidates generated
+n_c = 3**2  # grid resolution of control candidates generated
 
 # defining sampling time candidates
-tau_upper = 100
+tau_upper = 140
 tau_lower = 0
 # sampling_times_candidates = np.array([np.linspace(tau_lower, tau_upper, n_s_times+_) for _ in range(n_c)])  # varying number of sampling times
 sampling_times_candidates = np.array([np.linspace(tau_lower, tau_upper, n_s_times) for _ in range(n_c)])
@@ -123,7 +123,7 @@ Ca0_cand = Ca0_cand.flatten(); temp_cand = temp_cand.flatten()
 tic_candidates = np.array([Ca0_cand, temp_cand]).T
 
 # there are no time-varying control for this example, so the next line is optional
-tvc_candidates = np.array([{0: 0, 2.5: 10, 7.5: 2} for _ in range(n_c)])  # empty
+tvc_candidates = np.array([0 for _ in range(n_c)])  # empty
 
 """ passing the experimental candidates to the designer """
 designer_1.ti_controls_candidates = tic_candidates
@@ -138,7 +138,7 @@ optional, if un-specified assume all responses (from simulate function) measurab
 # designer_1.measurable_responses = [0, 1]
 
 """ initializing designer """
-designer_1.initialize(verbose=2)  # 0: silent, 1: overview, 2: detail
+designer_1.initialize(verbose=0)  # 0: silent, 1: overview, 2: detail
 designer_1.responses_scales = np.array([1, 1])
 
 designer_1.estimability_study(write=True)
@@ -150,15 +150,19 @@ package, optimizer = ("cvxpy", "MOSEK")
 # package, optimizer = ("scipy", "SLSQP")
 d_opt_result = designer_1.design_experiment(criterion=designer_1.d_opt_criterion, package=package, optimizer=optimizer,
                                             plot=False, optimize_sampling_times=True, write=False)
-designer_1.plot_current_design(force_3d=True)
-a_opt_result = designer_1.design_experiment(criterion=designer_1.a_opt_criterion, package='scipy', optimizer='bfgs',
-                                            plot=False, optimize_sampling_times=True, write=False)
+designer_1.print_optimal_candidates()
 designer_1.plot_current_design()
-e_opt_result = designer_1.design_experiment(criterion=designer_1.e_opt_criterion, package=package, optimizer=optimizer,
-                                            plot=False, optimize_sampling_times=True, write=False)
-designer_1.plot_current_design()
+# e_opt_result = designer_1.design_experiment(criterion=designer_1.e_opt_criterion, package=package, optimizer=optimizer,
+#                                             plot=False, optimize_sampling_times=True, write=False)
+# designer_1.plot_current_design()
+# designer_1.print_optimal_candidates()
+# a_opt_result = designer_1.design_experiment(criterion=designer_1.a_opt_criterion, package='scipy', optimizer='SLSQP',
+#                                             plot=False, optimize_sampling_times=True, write=False,
+#                                             opt_options={"disp": True, "maxiter": 1e6})
+# designer_1.plot_current_design()
+# designer_1.print_optimal_candidates()
 # """ an option for saving current designer and the specified candidates """
 # designer_1.save()
-
+#
 # designer_1.simulate_all_candidates(plot_simulation_times=True)
 # designer_1.plot_all_predictions()
