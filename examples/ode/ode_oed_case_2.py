@@ -83,8 +83,8 @@ theta_1 = activ_energy / (8.314159 * 273.15)
 model_1 = create_model()
 simulator_1 = pod.Simulator(model_1, package='casadi')
 
-""" testing model validity """
-# res = simulate(model_1, simulator_1, ti_controls=[1, 300], tv_controls=None, model_parameters=[theta_0, theta_1, 1, 0, 1],
+""" simulating a single experimental candidate """
+# res = simulate(model_1, simulator_1, ti_controls=[1, 300], tv_controls=None, model_parameters=[theta_0, theta_1, 1, 1],
 #                sampling_times=np.linspace(0, 100, 100))
 # plt.plot(res)
 # plt.show()
@@ -101,7 +101,6 @@ designer_1.simulate = simulate
 
 """ specifying nominal model parameter """
 theta_nom = np.array([theta_0, theta_1, 1, 1])  # value of theta_0, theta_1, alpha_a, nu
-# theta_nom = np.array([theta_0, theta_1, 1])  # value of theta_0, theta_1, alpha_a
 designer_1.model_parameters = theta_nom  # assigning it to the designer's theta
 
 """ creating experimental candidates, here, it is generated as a grid """
@@ -109,25 +108,21 @@ n_s_times = 10  # number of equally-spaced sampling time candidates
 n_c = 5**2  # grid resolution of control candidates generated
 
 # defining sampling time candidates
-tau_upper = 100
+tau_upper = 200
 tau_lower = 0
-# sampling_times_candidates = np.array([np.linspace(tau_lower, tau_upper, n_s_times+_) for _ in range(n_c)])  # varying number of sampling times
-sampling_times_candidates = np.array([np.linspace(tau_lower, tau_upper, n_s_times) for _ in range(n_c)])
+sampling_times_candidates = np.array([np.linspace(tau_lower, tau_upper, n_s_times+_) for _ in range(n_c)])
+# sampling_times_candidates = np.array([np.linspace(tau_lower, tau_upper, n_s_times) for _ in range(n_c)])
 
 # specifying bounds for the grid
 Ca0_lower = 1; temp_lower = 273.15
-Ca0_upper = 5; temp_upper = 273.15 + 30
+Ca0_upper = 5; temp_upper = 273.15 + 50
 # creating the grid, just some numpy syntax for grid creation
 Ca0_cand, temp_cand = np.mgrid[Ca0_lower:Ca0_upper:complex(0, np.sqrt(n_c)), temp_lower:temp_upper:complex(0, np.sqrt(n_c))]
 Ca0_cand = Ca0_cand.flatten(); temp_cand = temp_cand.flatten()
 tic_candidates = np.array([Ca0_cand, temp_cand]).T
 
-# there are no time-varying control for this example, so the next line is optional
-tvc_candidates = np.array([{0: 0, 2.5: 10, 7.5: 2} for _ in range(n_c)])  # empty
-
 """ passing the experimental candidates to the designer """
 designer_1.ti_controls_candidates = tic_candidates
-designer_1.tv_controls_candidates = tvc_candidates
 designer_1.sampling_times_candidates = sampling_times_candidates
 
 """
@@ -138,10 +133,11 @@ optional, if un-specified assume all responses (from simulate function) measurab
 # designer_1.measurable_responses = [0, 1]
 
 """ initializing designer """
-designer_1.initialize(verbose=2)  # 0: silent, 1: overview, 2: detail
+designer_1.initialize(verbose=1)  # 0: silent, 1: overview, 2: detail
 designer_1.responses_scales = np.array([1, 1])
 
-designer_1.estimability_study(write=True)
+designer_1.estimability_study_fim()
+designer_1.candidate_names = np.array(["Candidate {0:d}".format(i+1) for i, _ in enumerate(tic_candidates)])
 
 """ D-optimal design """
 package, optimizer = ("cvxpy", "MOSEK")
@@ -150,10 +146,28 @@ package, optimizer = ("cvxpy", "MOSEK")
 # package, optimizer = ("scipy", "SLSQP")
 d_opt_result = designer_1.design_experiment(criterion=designer_1.d_opt_criterion, package=package, optimizer=optimizer,
                                             plot=False, optimize_sampling_times=True, write=False)
+designer_1.print_optimal_candidates()
+designer_1.plot_optimal_predictions()
+designer_1.plot_optimal_sensitivities(absolute=True)
 designer_1.plot_current_design()
+
+# e_opt_result = designer_1.design_experiment(criterion=designer_1.e_opt_criterion, package=package, optimizer=optimizer,
+#                                             plot=False, optimize_sampling_times=True, write=False)
+# designer_1.print_optimal_candidates()
+# # designer_1.plot_optimal_predictions()
+# designer_1.plot_optimal_sensitivities(absolute=True)
+# designer_1.plot_current_design()
+
+# a_opt_result = designer_1.design_experiment(criterion=designer_1.a_opt_criterion, package='scipy', optimizer='SLSQP',
+#                                             plot=False, optimize_sampling_times=True, write=False,
+#                                             opt_options={"disp": True, "maxiter": 1e6})
+# designer_1.print_optimal_candidates()
+# # designer_1.plot_optimal_predictions()
+# designer_1.plot_optimal_sensitivities(absolute=True)
+# designer_1.plot_current_design()
 
 # """ an option for saving current designer and the specified candidates """
 # designer_1.save()
-
+#
 # designer_1.simulate_all_candidates(plot_simulation_times=True)
 # designer_1.plot_all_predictions()

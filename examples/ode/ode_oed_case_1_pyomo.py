@@ -76,8 +76,8 @@ if __name__ == '__main__':
     # defining sampling time candidates
     tau_upper = 20
     tau_lower = 0
-    # sampling_times_candidates = np.array([np.linspace(tau_lower, tau_upper, n_s_times+_) for _ in range(n_c)])  # varing number of sampling times
-    sampling_times_candidates = np.array([np.linspace(tau_lower, tau_upper, n_s_times) for _ in range(n_c)])  # varing number of sampling times
+    sampling_times_candidates = np.array([np.linspace(tau_lower, tau_upper, n_s_times+_) for _ in range(n_c)])
+    # sampling_times_candidates = np.array([np.linspace(tau_lower, tau_upper, n_s_times) for _ in range(n_c)])
 
     # specifying bounds for the grid
     Ca0_lower = 1
@@ -87,12 +87,8 @@ if __name__ == '__main__':
     Ca0_cand = Ca0_cand.flatten()
     tic_candidates = np.array([Ca0_cand]).T
 
-    # there are no time-varying control for this example, so the next line is optional
-    tvc_candidates = np.array([{0: 0, 2.5: 10, 7.5: 2} for _ in range(n_c)])  # empty
-
     """ passing the experimental candidates to the designer """
     designer_1.ti_controls_candidates = tic_candidates
-    designer_1.tv_controls_candidates = tvc_candidates
     designer_1.sampling_times_candidates = sampling_times_candidates
 
     """
@@ -103,7 +99,7 @@ if __name__ == '__main__':
     # designer_1.measurable_responses = [1, 2]
 
     """ initializing designer """
-    designer_1.initialize(verbose=2)  # designer details progress
+    designer_1.initialize(verbose=1)  # 0: silent, 1: overview, 2: detail
 
     """ D-optimal continuous design """
     package, optimizer = ('cvxpy', 'MOSEK')
@@ -114,8 +110,10 @@ if __name__ == '__main__':
     # package, optimizer = ('scipy', 'l-bfgs-b')
     d_opt_result = designer_1.design_experiment(criterion=designer_1.d_opt_criterion, package=package, plot=False,
                                                 optimize_sampling_times=True, write=False, optimizer=optimizer)
-    # designer_1.plot_sensitivities()
+    designer_1.print_optimal_candidates()
     designer_1.plot_current_design(write=False)
+    designer_1.plot_optimal_predictions()
+    designer_1.plot_optimal_sensitivities()
 
     """ an option for saving current designer state """
     # designer_1.save_state()
