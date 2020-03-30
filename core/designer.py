@@ -581,8 +581,8 @@ class Designer:
         return self.grid
 
     # plotting
-    def plot_current_design(self, width=None, write=False, dpi=720, quality=95):
-        if self._opt_sampling_times:
+    def plot_current_design(self, width=None, write=False, dpi=720, quality=95, force_3d=False):
+        if self._opt_sampling_times or force_3d:
             self._plot_current_continuous_design_3d(width=width, write=write, dpi=dpi, quality=quality)
         else:
             self._plot_current_continuous_design_2d(width=width, write=write, dpi=dpi, quality=quality)
@@ -994,7 +994,8 @@ class Designer:
             return -np.trace(np.linalg.inv(self.fim))
         elif self._optimization_package is 'cvxpy':
             raise NotImplementedError(
-                'A-optimal is not a convex optimization problem, optimizers from cvxpy package not available.'
+                'A-optimal is not a convex optimization problem because of the matrix inverse operation, optimizers '
+                'from cvxpy package not available.'
             )
 
     def e_opt_criterion(self, efforts):
@@ -1122,7 +1123,11 @@ class Designer:
         if width is None:
             width = 0.3
 
-        p = self.efforts.reshape([self.n_cand, self.n_sample_time])
+        if self._opt_sampling_times:
+            p = self.efforts.reshape([self.n_cand, self.n_sample_time])
+        else:
+            p = np.repeat(self.efforts[:, None], self.n_sample_time, axis=1)
+            p = np.multiply(p, 1/self.n_sample_time)
 
         sampling_time_scale = np.nanmin(np.diff(self.sampling_times_candidates, axis=1))
 

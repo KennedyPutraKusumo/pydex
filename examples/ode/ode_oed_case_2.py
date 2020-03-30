@@ -150,8 +150,13 @@ package, optimizer = ("cvxpy", "MOSEK")
 # package, optimizer = ("scipy", "SLSQP")
 d_opt_result = designer_1.design_experiment(criterion=designer_1.d_opt_criterion, package=package, optimizer=optimizer,
                                             plot=False, optimize_sampling_times=True, write=False)
+designer_1.plot_current_design(force_3d=True)
+a_opt_result = designer_1.design_experiment(criterion=designer_1.a_opt_criterion, package='scipy', optimizer='bfgs',
+                                            plot=False, optimize_sampling_times=True, write=False)
 designer_1.plot_current_design()
-
+e_opt_result = designer_1.design_experiment(criterion=designer_1.e_opt_criterion, package=package, optimizer=optimizer,
+                                            plot=False, optimize_sampling_times=True, write=False)
+designer_1.plot_current_design()
 # """ an option for saving current designer and the specified candidates """
 # designer_1.save()
 
