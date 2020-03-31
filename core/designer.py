@@ -28,6 +28,7 @@ class Designer:
     def __init__(self):
         """ core model components """
         # unorganized
+        self._current_criterion = None
         self.estimability = None
         self.normalized_sensitivity = None
         self._dynamic_controls = None
@@ -163,6 +164,10 @@ class Designer:
             self.tv_controls_candidates = np.array([{0: 0} for _ in range(self.n_cand)])
             self._dynamic_controls = False
 
+        if self.sampling_times_candidates is None:
+            self.sampling_times_candidates = np.array([0 for _ in range(self.n_cand)])
+            self.n_sample_time = 1
+
         """ handling simulate signature """
         simulate_signature = list(signature(self.simulate).parameters.keys())
         pyomo_simulate_signature = ['model', 'simulator', 'ti_controls', 'tv_controls', 'model_parameters',
@@ -204,7 +209,10 @@ class Designer:
             try:
                 _, self.n_res = y.shape
             except ValueError:
-                self.n_res = 1
+                if self._dynamic_system and self.n_sample_time > 1:
+                    self.n_res = 1
+                else:
+                    self.n_res = y.shape[0]
         if self.measurable_responses is None:
             self.n_m_res = self.n_res
             self.measurable_responses = np.array([_ for _ in range(self.n_res)])
@@ -403,13 +411,18 @@ class Designer:
         if self._optimization_package is 'scipy':
             self._transform_p = True  # tell designer to transform p or not
             if optimizer is None:
-                self._optimizer = 'bfgs'
+                self._optimizer = 'SLSQP'
             """ setting default scipy optimizer options """
             if opt_options is None:
                 opt_options = {"disp": opt_verbose}
+        if self._optimization_package is 'cvxpy':
+            if optimizer is None:
+                self._optimizer = 'MOSEK'
 
         self.n_p = self.n_cand
         if self._opt_sampling_times:
+            if not self._dynamic_system:
+                raise SyntaxError('The system is non-dynamic, sampling times cannot be optimized.')
             self.n_p *= self.n_sample_time
 
         """ main codes """
@@ -442,7 +455,7 @@ class Designer:
             p_cons = [cp.sum(p) == 1]
             obj = cp.Minimize(criterion(p))
             problem = cp.Problem(obj, p_cons)
-            opt_fun = problem.solve(verbose=opt_verbose, solver=optimizer, **kwargs)
+            opt_fun = problem.solve(verbose=opt_verbose, solver=self._optimizer, **kwargs)
             self.efforts = p.value
         else:
             print("Unrecognized package, reverting to default: scipy.")
@@ -1190,7 +1203,7 @@ class Designer:
         return self.atomic_fims
 
     def eval_fim(self):
-        self.fim = np.nansum(self.atomic_fims * (1/self.responses_scales[None, None, :, None, None]), axis=2)  # sum atoms over res
+        self.fim = np.nansum(self.atomic_fims, axis=2)  # sum atoms over res
         if self._opt_sampling_times:
             self.fim = np.reshape(self.fim, newshape=(self.n_cand * self.n_sample_time, self.n_theta, self.n_theta))
         else:
