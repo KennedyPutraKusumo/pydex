@@ -52,15 +52,15 @@ if __name__ == '__main__':
     designer_1.initialize(verbose=2)
 
     """ we can use the designer to get and plot the sensitivities for all experimental candidates """
-    sens = designer_1.get_sensitivities(save_sensitivities=False)
+    sens = designer_1.eval_sensitivities(save_sensitivities=False)
     designer_1.plot_sensitivities()
 
     """ solve OED problem """
-    d_opt_cvxpy_result = designer_1.design_experiment(
-        criterion=designer_1.d_opt_criterion,
-        package='cvxpy',
-        plot=False, optimize_sampling_times=True
-    )
+    package, optimizer = ('cvxpy', 'MOSEK')
+    # package, optimizer = ('cvxpy', 'SCS')
+    # package, optimizer = ('scipy', 'SLSQP')
+    d_opt_result = designer_1.design_experiment(criterion=designer_1.d_opt_criterion, package=package, plot=False,
+                                                optimize_sampling_times=True, write=False, optimizer=optimizer)
     designer_1.plot_current_design()
 
     designer_1.save_state()

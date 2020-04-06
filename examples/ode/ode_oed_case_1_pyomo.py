@@ -102,21 +102,25 @@ if __name__ == '__main__':
     designer_1.initialize(verbose=1)  # 0: silent, 1: overview, 2: detail
 
     """ D-optimal continuous design """
-    package, optimizer = ('cvxpy', 'MOSEK')
-    # package, optimizer = ('cvxpy', 'SCS')
-    # package, optimizer = ('scipy', 'bfgs')
-    # package, optimizer = ('scipy', 'SLSQP')
-    # package, optimizer = ('scipy', 'COBYLA')
-    # package, optimizer = ('scipy', 'l-bfgs-b')
+    package, optimizer = ("cvxpy", "MOSEK")
+    # package, optimizer = ("cvxpy", "SCS")
+    # package, optimizer = ("cvxpy", "CVXOPT")
+    # package, optimizer = ("scipy", "SLSQP")
+
+    criterion = designer_1.d_opt_criterion
+    # criterion = designer_1.a_opt_criterion
+    # criterion = designer_1.e_opt_criterion
+
     d_opt_result = designer_1.design_experiment(criterion=designer_1.d_opt_criterion, package=package, plot=False,
-                                                optimize_sampling_times=True, write=False, optimizer=optimizer)
+                                                optimize_sampling_times=True, write=False, optimizer=optimizer,
+                                                save_sensitivities=True)
     designer_1.print_optimal_candidates()
     designer_1.plot_current_design(write=False)
     designer_1.plot_optimal_predictions()
     designer_1.plot_optimal_sensitivities()
 
     """ an option for saving current designer state """
-    # designer_1.save_state()
+    designer_1.save_state()
 
     """ simulate candidates to show model predictions for each candidate """
     # designer_1.simulate_all_candidates(plot_simulation_times=True)
