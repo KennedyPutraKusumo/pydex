@@ -133,41 +133,31 @@ optional, if un-specified assume all responses (from simulate function) measurab
 # designer_1.measurable_responses = [0, 1]
 
 """ initializing designer """
-designer_1.initialize(verbose=1)  # 0: silent, 1: overview, 2: detail
-designer_1.responses_scales = np.array([1, 1])
+designer_1.initialize(verbose=2)  # 0: silent, 1: overview, 2: detail
+# designer_1.responses_scales = np.array([1, 1])
 
-designer_1.estimability_study_fim()
-designer_1.candidate_names = np.array(["Candidate {0:d}".format(i+1) for i, _ in enumerate(tic_candidates)])
+# designer_1.estimability_study_fim()
+# designer_1.candidate_names = np.array(["Candidate {0:d}".format(i+1) for i, _ in enumerate(tic_candidates)])
 
 """ D-optimal design """
 package, optimizer = ("cvxpy", "MOSEK")
 # package, optimizer = ("cvxpy", "SCS")
-# package, optimizer = ("scipy", "bfgs")
+# package, optimizer = ("cvxpy", "CVXOPT")
 # package, optimizer = ("scipy", "SLSQP")
-d_opt_result = designer_1.design_experiment(criterion=designer_1.d_opt_criterion, package=package, optimizer=optimizer,
-                                            plot=False, optimize_sampling_times=True, write=False)
+
+criterion = designer_1.d_opt_criterion
+# criterion = designer_1.a_opt_criterion
+# criterion = designer_1.e_opt_criterion
+
+result = designer_1.design_experiment(criterion=criterion, package=package, optimizer=optimizer,
+                                      plot=False, optimize_sampling_times=True, write=False, save_sensitivities=True)
+
 designer_1.print_optimal_candidates()
 designer_1.plot_optimal_predictions()
 designer_1.plot_optimal_sensitivities(absolute=True)
 designer_1.plot_current_design()
+designer_1.simulate_all_candidates(plot_simulation_times=True)
+designer_1.plot_all_predictions()
 
-# e_opt_result = designer_1.design_experiment(criterion=designer_1.e_opt_criterion, package=package, optimizer=optimizer,
-#                                             plot=False, optimize_sampling_times=True, write=False)
-# designer_1.print_optimal_candidates()
-# # designer_1.plot_optimal_predictions()
-# designer_1.plot_optimal_sensitivities(absolute=True)
-# designer_1.plot_current_design()
-
-# a_opt_result = designer_1.design_experiment(criterion=designer_1.a_opt_criterion, package='scipy', optimizer='SLSQP',
-#                                             plot=False, optimize_sampling_times=True, write=False,
-#                                             opt_options={"disp": True, "maxiter": 1e6})
-# designer_1.print_optimal_candidates()
-# # designer_1.plot_optimal_predictions()
-# designer_1.plot_optimal_sensitivities(absolute=True)
-# designer_1.plot_current_design()
-
-# """ an option for saving current designer and the specified candidates """
-# designer_1.save()
-#
-# designer_1.simulate_all_candidates(plot_simulation_times=True)
-# designer_1.plot_all_predictions()
+""" an option for saving current designer and the specified candidates """
+designer_1.save_state()

@@ -5,33 +5,28 @@ import numpy as np
 
 """ 
 Setting: a non-dynamic experimental system with 2 time-invariant control variables and 1 response.
-Problem: develop a statistical model using an exponential regression model. Use integer values for the exponential
-         growth rates between (and including) -2 and 2. 
-Solution: non-standard design
+Problem: design optimal experiment for a order 1 polynomial, with complete interaction
+Solution: a full 2^2 factorial design (2 level)
 """
 def simulate(ti_controls, tv_controls, model_parameters, sampling_times):
     return np.array([
-        model_parameters[0]                                     +
-
-        model_parameters[1] * np.exp(-1 * ti_controls[0])       +
-        model_parameters[2] * np.exp( 1 * ti_controls[0])       +
-        model_parameters[3] * np.exp(-2 * ti_controls[0])       +
-        model_parameters[4] * np.exp( 2 * ti_controls[0])       +
-
-        model_parameters[5] * np.exp(-1 * ti_controls[1])       +
-        model_parameters[6] * np.exp( 1 * ti_controls[1])       +
-        model_parameters[7] * np.exp(-2 * ti_controls[1])       +
-        model_parameters[8] * np.exp( 2 * ti_controls[1])
+        # constant term
+        model_parameters[0] +
+        # linear term
+        model_parameters[1] * ti_controls[0]                    +
+        model_parameters[2] * ti_controls[1]                    +
+        # interaction term
+        model_parameters[3] * ti_controls[0] * ti_controls[1]
     ])
 
 designer_1 = Designer()
 designer_1.simulate = simulate
 
-tic_1, tic_2 = np.mgrid[-1:1:21j, -1:1:21j]
+tic_1, tic_2 = np.mgrid[-1:1:11j, -1:1:11j]
 tic_1 = tic_1.flatten(); tic_2 = tic_2.flatten()
 designer_1.ti_controls_candidates = np.array([tic_1, tic_2]).T
 
-designer_1.model_parameters = np.ones(9)  # values won't affect design, but still needed
+designer_1.model_parameters = np.ones(4)  # values won't affect design, but still needed
 
 designer_1.initialize(verbose=2)  # 0: silent, 1: overview, 2: detailed, 3: very detailed
 
