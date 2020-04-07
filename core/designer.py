@@ -4,7 +4,6 @@ from os import getcwd, path, makedirs
 from pickle import dump, load
 from string import Template
 from time import time
-from mpl_toolkits.mplot3d import Axes3D
 
 import __main__ as main
 import cvxpy as cp
@@ -445,8 +444,8 @@ class Designer:
 
     def design_experiment(self, criterion, optimize_sampling_times=False,
                           package="cvxpy", optimizer=None, opt_options=None, e0=None,
-                          write=True, plot=False, save_sensitivities=False,
-                          fd_jac=True, unconstrained_form=False, **kwargs):
+                          write=True, save_sensitivities=False, fd_jac=True,
+                          unconstrained_form=False, **kwargs):
         # storing user choices
         self._optimization_package = package
         self._optimizer = optimizer
@@ -552,7 +551,7 @@ class Designer:
             print("Unrecognized package, reverting to default: scipy.")
             opt_fun = None  # optional line to follow PEP8
             self.design_experiment(criterion, optimize_sampling_times, "scipy",
-                                   optimizer, opt_options, e0, write, plot)
+                                   optimizer, opt_options, e0, write)
 
         self.transform_efforts()
         finish = time()
@@ -790,19 +789,11 @@ class Designer:
                 """ adjusting axes limits, chosen so all subplots include all data and 
                 all subplots have same scale """
                 set_ylim = 'axes%d_fig%d.set_ylim(y_axis_lim[0] - 0.1 * (y_axis_lim[1] ' \
-                           '' \
-                           '' \
-                           '' \
-                           '' \
                            '- y_axis_lim[0]),' \
                            ' y_axis_lim[1] + 0.1 * (y_axis_lim[1] - y_axis_lim[0]))' % (
                                i + 1, res)
                 exec(set_ylim)
                 set_xlim = 'axes%d_fig%d.set_xlim(x_axis_lim[0] - 0.1 * (x_axis_lim[1] ' \
-                           '' \
-                           '' \
-                           '' \
-                           '' \
                            '- x_axis_lim[0]),' \
                            ' x_axis_lim[1] + 0.1 * (x_axis_lim[1] - x_axis_lim[0]))' % (
                                i + 1, res)
@@ -914,19 +905,11 @@ class Designer:
                 """ adjusting axes limits, chosen so all subplots include all data and 
                 all subplots have same scale """
                 set_ylim = 'axes%d_fig%d.set_ylim(y_axis_lim[0] - 0.1 * (y_axis_lim[1] ' \
-                           '' \
-                           '' \
-                           '' \
-                           '' \
                            '- y_axis_lim[0]),' \
                            ' y_axis_lim[1] + 0.1 * (y_axis_lim[1] - y_axis_lim[0]))' % (
                                i + 1, res)
                 exec(set_ylim)
                 set_xlim = 'axes%d_fig%d.set_xlim(x_axis_lim[0] - 0.1 * (x_axis_lim[1] ' \
-                           '' \
-                           '' \
-                           '' \
-                           '' \
                            '- x_axis_lim[0]),' \
                            ' x_axis_lim[1] + 0.1 * (x_axis_lim[1] - x_axis_lim[0]))' % (
                                i + 1, res)
@@ -1489,18 +1472,7 @@ class Designer:
                               np.ndarray), "Please specify responses_scales as a 1D " \
                                            "numpy array."
             assert self.responses_scales.size == self.n_r, 'Length of responses scales ' \
-                                                           '' \
-                                                           '' \
-                                                           '' \
-                                                           '' \
-                                                           'is different from ' \
-                                                           'the total number of ' \
-                                                           'responses (includes ' \
                                                            'those which are measurable ' \
-                                                           '' \
-                                                           '' \
-                                                           '' \
-                                                           '' \
                                                            'and not).)'
             self.normalized_sensitivity = np.divide(self.normalized_sensitivity,
                                                     self.responses_scales[None, None, :,

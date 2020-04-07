@@ -151,18 +151,13 @@ designer_1.estimability_study_fim()
 
 """ D-optimal design """
 # package, optimizer = ("cvxpy", "MOSEK")
-# package, optimizer = ("cvxpy", "SCS")
-# package, optimizer = ("cvxpy", "CVXOPT")
-package, optimizer = ("scipy", "SLSQP")
 
 # criterion = designer_1.d_opt_criterion
 criterion = designer_1.a_opt_criterion
 # criterion = designer_1.e_opt_criterion
 
-result = designer_1.design_experiment(criterion=criterion, package=package,
-                                      optimizer=optimizer, plot=False,
-                                      optimize_sampling_times=True, write=False,
-                                      save_sensitivities=True, fd_jac=False)
+result = designer_1.design_experiment(criterion=criterion, optimize_sampling_times=True,
+                                      write=False, save_sensitivities=True, fd_jac=False)
 
 designer_1.print_optimal_candidates()
 designer_1.plot_optimal_predictions()
