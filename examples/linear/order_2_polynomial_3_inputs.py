@@ -46,7 +46,7 @@ designer_1.model_parameters = np.ones(11)  # values won't affect design, but sti
 designer_1.initialize(verbose=2)  # 0: silent, 1: overview, 2: detailed, 3: very detailed
 
 """ cvxpy solvers """
-# package, optimizer = ("cvxpy", "MOSEK")
+package, optimizer = ("cvxpy", "MOSEK")
 # package, optimizer = ("cvxpy", "SCS")
 # package, optimizer = ("cvxpy", "CVXOPT")
 
@@ -54,7 +54,7 @@ designer_1.initialize(verbose=2)  # 0: silent, 1: overview, 2: detailed, 3: very
 # package, optimizer = ("scipy", "powell")
 # package, optimizer = ("scipy", "cg")
 # package, optimizer = ("scipy", "tnc")
-package, optimizer = ("scipy", "l-bfgs-b")
+# package, optimizer = ("scipy", "l-bfgs-b")
 # package, optimizer = ("scipy", "bfgs")
 # package, optimizer = ("scipy", "nelder-mead")
 # package, optimizer = ("scipy", "SLSQP")  # supports constrained form

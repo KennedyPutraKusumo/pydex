@@ -1199,7 +1199,7 @@ class Designer:
                 return a_opt, jac
 
         elif self._optimization_package is 'cvxpy':
-            return cp.matrix_frac(np.identity(self.n_mp), self.fim)
+            return cp.matrix_frac(np.identity(self.fim.shape[0]), self.fim)
 
     def e_opt_criterion(self, efforts):
         """ it is a PSD criterion """

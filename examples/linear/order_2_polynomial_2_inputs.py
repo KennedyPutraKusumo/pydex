@@ -39,12 +39,12 @@ designer_1.model_parameters = np.ones(6)  # values won't affect design, but stil
 designer_1.initialize(verbose=2)  # 0: silent, 1: overview, 2: detailed, 3: very detailed
 
 """ cvxpy solvers """
-# package, optimizer = ("cvxpy", "MOSEK")
+package, optimizer = ("cvxpy", "MOSEK")
 # package, optimizer = ("cvxpy", "SCS")
 # package, optimizer = ("cvxpy", "CVXOPT")
 
 """ scipy solvers, all supported, but many require unconstrained form """
-package, optimizer = ("scipy", "powell")
+# package, optimizer = ("scipy", "powell")
 # package, optimizer = ("scipy", "cg")
 # package, optimizer = ("scipy", "tnc")
 # package, optimizer = ("scipy", "l-bfgs-b")
@@ -60,7 +60,7 @@ criterion = designer_1.d_opt_criterion
 """ designing experiment """
 designer_1.design_experiment(criterion=criterion, package=package, optimizer=optimizer,
                              write=False)
-# designer_1.print_optimal_candidates()
+designer_1.print_optimal_candidates()
 designer_1.plot_current_design()
 
 fig1 = plt.figure()
