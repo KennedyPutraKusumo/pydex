@@ -440,6 +440,8 @@ class Designer:
             if self._verbose >= 2:
                 print('Parameter estimation result saved to: %s.' % result_dir)
 
+        # TODO: implement a quasi-newton approximation of Covariance from Jacobian
+
         return pe_result
 
     def design_experiment(self, criterion, optimize_sampling_times=False,
@@ -1200,6 +1202,8 @@ class Designer:
                 raise NotImplementedError  # TODO: implement analytic jac for e-opt
         elif self._optimization_package is 'cvxpy':
             return -cp.lambda_min(self.fim)
+
+    # TODO: implement prediction-oriented criteria
 
     """ evaluators """
 
