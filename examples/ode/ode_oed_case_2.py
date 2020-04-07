@@ -1,7 +1,6 @@
 from core.designer import Designer
 from pyomo import environ as po
 from pyomo import dae as pod
-from matplotlib import pyplot as plt
 import numpy as np
 
 
@@ -22,11 +21,13 @@ def simulate(model, simulator, ti_controls, tv_controls, model_parameters, sampl
     # no time-varying control for this example
 
     """ ensuring pyomo returns state values at given sampling times """
-    for t in model.t:  # IMPORTANT: if not added, simulation time will increase as function is repeatedly called
-        model.t.remove(t)
     model.t.initialize = np.array(sampling_times) / model.tau.value
     model.t.order_dict = {}  # to suppress pyomo warnings for duplicate elements
     model.t._constructed = False  # needed so we can re-initialize the continuous set
+    model.t._data = {}
+    model.t._fe = []
+    model.t.value = set()
+    model.t.value_list = []
     model.t.construct()  # line that re-initializes the continuous set
 
     """ simulating """
@@ -39,8 +40,7 @@ def simulate(model, simulator, ti_controls, tv_controls, model_parameters, sampl
     cb = np.array([model.cb[t].value for t in normalized_sampling_times])
 
     return np.array([ca, cb]).T
-    # return ca
-    # return cb
+
 
 def create_model():
     """ defining the model """
@@ -83,12 +83,6 @@ theta_1 = activ_energy / (8.314159 * 273.15)
 model_1 = create_model()
 simulator_1 = pod.Simulator(model_1, package='casadi')
 
-""" simulating a single experimental candidate """
-# res = simulate(model_1, simulator_1, ti_controls=[1, 300], tv_controls=None, model_parameters=[theta_0, theta_1, 1, 1],
-#                sampling_times=np.linspace(0, 100, 100))
-# plt.plot(res)
-# plt.show()
-
 """ create a designer """
 designer_1 = Designer()
 
@@ -110,47 +104,57 @@ n_c = 5**2  # grid resolution of control candidates generated
 # defining sampling time candidates
 tau_upper = 200
 tau_lower = 0
-sampling_times_candidates = np.array([np.linspace(tau_lower, tau_upper, n_s_times+_) for _ in range(n_c)])
-# sampling_times_candidates = np.array([np.linspace(tau_lower, tau_upper, n_s_times) for _ in range(n_c)])
+spt_candidates = np.array([np.linspace(tau_lower, tau_upper, n_s_times + _) for _ in range(n_c)])
+# spt_candidates = np.array([np.linspace(tau_lower, tau_upper, n_s_times) for _ in range(n_c)])
 
 # specifying bounds for the grid
-Ca0_lower = 1; temp_lower = 273.15
-Ca0_upper = 5; temp_upper = 273.15 + 50
+Ca0_lower = 1
+Ca0_upper = 5
+temp_lower = 273.15
+temp_upper = 273.15 + 50
 # creating the grid, just some numpy syntax for grid creation
-Ca0_cand, temp_cand = np.mgrid[Ca0_lower:Ca0_upper:complex(0, np.sqrt(n_c)), temp_lower:temp_upper:complex(0, np.sqrt(n_c))]
-Ca0_cand = Ca0_cand.flatten(); temp_cand = temp_cand.flatten()
+Ca0_cand, temp_cand = np.mgrid[Ca0_lower:Ca0_upper:complex(0, np.sqrt(n_c)),
+                               temp_lower:temp_upper:complex(0, np.sqrt(n_c))]
+Ca0_cand = Ca0_cand.flatten()
+temp_cand = temp_cand.flatten()
 tic_candidates = np.array([Ca0_cand, temp_cand]).T
 
 """ passing the experimental candidates to the designer """
 designer_1.ti_controls_candidates = tic_candidates
-designer_1.sampling_times_candidates = sampling_times_candidates
+designer_1.sampling_times_candidates = spt_candidates
 
 """
-only allow some states to be measurable:
-as a list or array with column numbers where the measurable states are returned in the simulate function
-optional, if un-specified assume all responses (from simulate function) measurable
+Specify measurable states:
+A list or array with column numbers where the measurable states are returned in the simulate 
+function. Optional, if un-specified assume all responses (from simulate function) measurable
 """
 # designer_1.measurable_responses = [0, 1]
 
+""" optional information for plotting purposes, if unspecified empty axes titles """
+designer_1.candidate_names = np.array(["Candidate {:d}".format(i+1)
+                                       for i, _ in enumerate(tic_candidates)])
+
+""" optional information for estimability study """
+designer_1.responses_scales = np.array([1, 1])
+
 """ initializing designer """
 designer_1.initialize(verbose=2)  # 0: silent, 1: overview, 2: detail
-# designer_1.responses_scales = np.array([1, 1])
 
 # designer_1.estimability_study_fim()
-# designer_1.candidate_names = np.array(["Candidate {0:d}".format(i+1) for i, _ in enumerate(tic_candidates)])
 
 """ D-optimal design """
-package, optimizer = ("cvxpy", "MOSEK")
+# package, optimizer = ("cvxpy", "MOSEK")
 # package, optimizer = ("cvxpy", "SCS")
 # package, optimizer = ("cvxpy", "CVXOPT")
-# package, optimizer = ("scipy", "SLSQP")
+package, optimizer = ("scipy", "SLSQP")
 
 criterion = designer_1.d_opt_criterion
 # criterion = designer_1.a_opt_criterion
 # criterion = designer_1.e_opt_criterion
 
 result = designer_1.design_experiment(criterion=criterion, package=package, optimizer=optimizer,
-                                      plot=False, optimize_sampling_times=True, write=False, save_sensitivities=True)
+                                      plot=False, optimize_sampling_times=True, write=False,
+                                      save_sensitivities=True, fd_jac=False, max_iters=20000)
 
 designer_1.print_optimal_candidates()
 designer_1.plot_optimal_predictions()

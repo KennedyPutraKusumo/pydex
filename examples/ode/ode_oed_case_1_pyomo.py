@@ -14,11 +14,13 @@ def simulate(model, simulator, ti_controls, tv_controls, model_parameters, sampl
     # no time-varying control for this example
 
     """ ensuring pyomo returns state values at given sampling times """
-    for t in model.t:  # IMPORTANT: if not added, simulation time will increase as function is repeatedly called
-        model.t.remove(t)
     model.t.initialize = np.array(sampling_times) / model.tau.value
     model.t.order_dict = {}  # to suppress pyomo warnings for duplicate elements
     model.t._constructed = False  # needed so we can re-initialize the continuous set
+    model.t._data = {}
+    model.t._fe = []
+    model.t.value = set()
+    model.t.value_list = []
     model.t.construct()  # line that re-initializes the continuous set
 
     """ simulating """
@@ -102,10 +104,10 @@ if __name__ == '__main__':
     designer_1.initialize(verbose=1)  # 0: silent, 1: overview, 2: detail
 
     """ D-optimal continuous design """
-    package, optimizer = ("cvxpy", "MOSEK")
+    # package, optimizer = ("cvxpy", "MOSEK")
     # package, optimizer = ("cvxpy", "SCS")
     # package, optimizer = ("cvxpy", "CVXOPT")
-    # package, optimizer = ("scipy", "SLSQP")
+    package, optimizer = ("scipy", "SLSQP")
 
     criterion = designer_1.d_opt_criterion
     # criterion = designer_1.a_opt_criterion
@@ -113,7 +115,7 @@ if __name__ == '__main__':
 
     d_opt_result = designer_1.design_experiment(criterion=designer_1.d_opt_criterion, package=package, plot=False,
                                                 optimize_sampling_times=True, write=False, optimizer=optimizer,
-                                                save_sensitivities=True)
+                                                save_sensitivities=True, fd_jac=False)
     designer_1.print_optimal_candidates()
     designer_1.plot_current_design(write=False)
     designer_1.plot_optimal_predictions()
