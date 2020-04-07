@@ -34,7 +34,8 @@ def simulate(ti_controls, tv_controls, model_parameters, sampling_times):
 designer_1 = Designer()
 designer_1.simulate = simulate
 
-tic_1, tic_2, tic_3 = np.mgrid[-1:1:11j, -1:1:11j, -1:1:11j]
+reso = 9j
+tic_1, tic_2, tic_3 = np.mgrid[-1:1:reso, -1:1:reso, -1:1:reso]
 tic_1 = tic_1.flatten()
 tic_2 = tic_2.flatten()
 tic_3 = tic_3.flatten()
@@ -45,7 +46,7 @@ designer_1.model_parameters = np.ones(11)  # values won't affect design, but sti
 designer_1.initialize(verbose=2)  # 0: silent, 1: overview, 2: detailed, 3: very detailed
 
 """ cvxpy solvers """
-package, optimizer = ("cvxpy", "MOSEK")
+# package, optimizer = ("cvxpy", "MOSEK")
 # package, optimizer = ("cvxpy", "SCS")
 # package, optimizer = ("cvxpy", "CVXOPT")
 
@@ -53,20 +54,19 @@ package, optimizer = ("cvxpy", "MOSEK")
 # package, optimizer = ("scipy", "powell")
 # package, optimizer = ("scipy", "cg")
 # package, optimizer = ("scipy", "tnc")
-# package, optimizer = ("scipy", "l-bfgs-b")
+package, optimizer = ("scipy", "l-bfgs-b")
 # package, optimizer = ("scipy", "bfgs")
 # package, optimizer = ("scipy", "nelder-mead")
 # package, optimizer = ("scipy", "SLSQP")  # supports constrained form
 
 """ criterion choice """
-# criterion = designer_1.d_opt_criterion
-criterion = designer_1.a_opt_criterion
+criterion = designer_1.d_opt_criterion
+# criterion = designer_1.a_opt_criterion
 # criterion = designer_1.e_opt_criterion
 
 """ designing experiment """
-designer_1.design_experiment(criterion, package=package,
-                             optimizer=optimizer, write=False, fd_jac=True,
-                             unconstrained_form=True)
+designer_1.design_experiment(criterion=criterion, package=package, optimizer=optimizer,
+                             write=False)
 designer_1.print_optimal_candidates()
 designer_1.plot_current_design()
 
@@ -78,7 +78,6 @@ axes1.scatter(
     designer_1.ti_controls_candidates[np.where(designer_1.efforts > 1e-4)][:, 2],
     s=designer_1.efforts[np.where(designer_1.efforts > 1e-4)] * 1000)
 axes1.grid(False)
-axes1.set_title(r"Full $3^3$ Factorial Design")
 axes1.set_xlabel("Control 1")
 axes1.set_ylabel("Control 2")
 axes1.set_zlabel("Experimental Effort")

@@ -461,6 +461,12 @@ class Designer:
         else:
             opt_verbose = False
 
+        """ deal with fd_jac for large problems """
+        if self._large_memory_requirement and not self._fd_jac:
+            print("Warning: analytic Jacobian is specified on a large problem."
+                  "Overwriting and continuing with finite differences.")
+            self._fd_jac = True
+
         """ setting default optimizers, and its options """
         if self._optimization_package is "scipy":
             if optimizer is None:
@@ -525,8 +531,7 @@ class Designer:
 
             else:
                 e_bound = [(0, 1) for _ in e0]
-                constraint = [{"type": "ineq", "fun": lambda e: np.sum(e) - 0.99},
-                              {"type": "ineq", "fun": lambda e: 1.01 - np.sum(e)}]
+                constraint = {"type": "eq", "fun": lambda e: np.sum(e) - 1}
                 opt_result = minimize(fun=criterion, x0=e0, method=optimizer,
                                       options=opt_options, constraints=constraint,
                                       bounds=e_bound, jac=not self._fd_jac, **kwargs)
@@ -1123,77 +1128,81 @@ class Designer:
 
         self.eval_fim()
 
-        # evaluate the criterion
         if self.fim.size == 1:
             if self._optimization_package is "scipy":
+                d_opt = -np.log1p(self.fim)
                 if self._fd_jac:
-                    return -np.log1p(self.fim)
+                    return d_opt
                 else:
-                    # jac = np.array([np.sum([-1 / self.fim * m], axis=(1, 2))
-                    #                 for m in self.atomic_fims])
-                    fim_pinv = np.linalg.pinv(self.fim)
                     jac = -np.array([
-                        np.sum(fim_pinv.T * m)
+                        1 / self.fim * m
                         for m in self.atomic_fims
                     ])
-                    return -np.log1p(self.fim), jac
+                    return d_opt, jac
             elif self._optimization_package is 'cvxpy':
                 return -cp.log1p(self.fim)
 
         if self._optimization_package is "scipy":
-            d_opt = -np.prod(np.linalg.slogdet(self.fim))
             if self._fd_jac:
+                d_opt = -np.prod(np.linalg.slogdet(self.fim))
                 return d_opt
             else:
-                # jac = np.array([np.sum([-np.linalg.pinv(self.fim).T * m], axis=(1, 2))
-                #                 for m in self.atomic_fims])
-                # fim_pinv = np.linalg.pinv(self.fim, rcond=1e-20)
-                # fim_pinv = np.linalg.inv(self.fim)
-                # fim_pinv = self.fim.__invert__()
-                # jac = -np.array([
-                #     np.sum(self.fim.T * m)
-                #     for m in self.atomic_fims
-                # ])
-                # return d_opt, jac
-                raise NotImplementedError  # TODO: implement analytic jac for d-opt
+                try:
+                    fim_inv = np.linalg.inv(self.fim)
+                    d_opt = np.log(np.linalg.eigvalsh(fim_inv).prod())
+                    jac = -np.array([
+                        np.sum(fim_inv.T * m)
+                        for m in self.atomic_fims
+                    ])
+                except np.linalg.LinAlgError:
+                    d_opt = np.inf
+                    jac = np.full(self.n_e, np.inf)
+                return d_opt, jac
+
         elif self._optimization_package is 'cvxpy':
             return -cp.log_det(self.fim)
 
     def a_opt_criterion(self, efforts):
         """ it is a PSD criterion """
-        # check and transform efforts if needed
         self.efforts = efforts
 
         self.eval_fim()
 
         if self.fim.size == 1:
-            return -np.log1p(self.fim)
+            if self._optimization_package is "scipy":
+                if self._fd_jac:
+                    return -self.fim
+                else:
+                    jac = np.array([
+                        m for m in self.atomic_fims
+                    ])
+                    return -self.fim, jac
+            elif self._optimization_package is "cvxpy":
+                return -self.fim
 
         if self._optimization_package is "scipy":
-            start = time()
-            a_opt = np.linalg.pinv(self.fim).trace()
-            finish = time()
-            print("1", finish - start)
-
-            start = time()
-            eig_vals = np.linalg.eigvals(self.fim)
-            a_opt = np.sum(np.divide(1, eig_vals, where=np.where(eig_vals > 0)))
-            finish = time()
-            print("2", finish - start)
-
             if self._fd_jac:
+                eigvals = np.linalg.eigvalsh(self.fim)
+                a_opt = np.sum(1 / eigvals)
                 return a_opt
             else:
-                # jac = np.array([ for m in self.atomic_fims])
-                #  analytic jacobian for a_opt
-                # return a_opt, jac
-                raise NotImplementedError  # TODO: implement analytic jac for a-opt
+                jac = np.zeros(self.n_e)
+                try:
+                    fim_inv = np.linalg.inv(self.fim)
+                    a_opt = fim_inv.trace()
+                    if not self._fd_jac:
+                        jac = -np.array([
+                            np.sum((fim_inv @ fim_inv) * m) for m in self.atomic_fims
+                        ])
+                except np.linalg.LinAlgError:
+                    a_opt = 0
+                return a_opt, jac
+
         elif self._optimization_package is 'cvxpy':
             return cp.matrix_frac(np.identity(self.n_mp), self.fim)
 
     def e_opt_criterion(self, efforts):
         """ it is a PSD criterion """
-        # check and transform efforts if needed
         self.efforts = efforts
 
         self.eval_fim()
@@ -1375,7 +1384,7 @@ class Designer:
                 _atom_fim = f.T @ f
                 self.fim += e * _atom_fim
             else:
-                _atom_fim = 0
+                _atom_fim = np.zeros(shape=(self.n_mp, self.n_mp))
             if self._optimization_package is "scipy" and \
                     not self._large_memory_requirement:
                 self.atomic_fims.append(_atom_fim)

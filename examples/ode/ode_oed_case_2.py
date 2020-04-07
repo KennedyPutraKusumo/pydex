@@ -1,10 +1,12 @@
-from core.designer import Designer
-from pyomo import environ as po
-from pyomo import dae as pod
 import numpy as np
+from pyomo import dae as pod
+from pyomo import environ as po
+
+from core.designer import Designer
 
 
-def simulate(model, simulator, ti_controls, tv_controls, model_parameters, sampling_times):
+def simulate(model, simulator, ti_controls, tv_controls, model_parameters,
+             sampling_times):
     """ fixing the control variables """
     # time-invariant
     model.theta_0.fix(model_parameters[0])
@@ -63,12 +65,16 @@ def create_model():
 
     def _material_balance_a(m, t):
         k = po.exp(m.theta_0 + m.theta_1 * (m.temp - 273.15) / m.temp)
-        return m.dca_dt[t] / m.tau == - k * (m.ca[t] ** model.alpha_a) * (model.cb[t] ** model.alpha_b)
+        return m.dca_dt[t] / m.tau == - k * (m.ca[t] ** model.alpha_a) * (
+                model.cb[t] ** model.alpha_b)
+
     model.material_balance_a = po.Constraint(model.t, rule=_material_balance_a)
 
     def _material_balance_b(m, t):
         k = po.exp(m.theta_0 + m.theta_1 * (m.temp - 273.15) / m.temp)
-        return m.dcb_dt[t] / m.tau == m.nu * k * (m.ca[t] ** model.alpha_a) * (model.cb[t] ** model.alpha_b)
+        return m.dcb_dt[t] / m.tau == m.nu * k * (m.ca[t] ** model.alpha_a) * (
+                model.cb[t] ** model.alpha_b)
+
     model.material_balance_b = po.Constraint(model.t, rule=_material_balance_b)
 
     return model
@@ -99,13 +105,15 @@ designer_1.model_parameters = theta_nom  # assigning it to the designer's theta
 
 """ creating experimental candidates, here, it is generated as a grid """
 n_s_times = 10  # number of equally-spaced sampling time candidates
-n_c = 5**2  # grid resolution of control candidates generated
+n_c = 5 ** 2  # grid resolution of control candidates generated
 
 # defining sampling time candidates
 tau_upper = 200
 tau_lower = 0
-spt_candidates = np.array([np.linspace(tau_lower, tau_upper, n_s_times + _) for _ in range(n_c)])
-# spt_candidates = np.array([np.linspace(tau_lower, tau_upper, n_s_times) for _ in range(n_c)])
+spt_candidates = np.array([np.linspace(tau_lower, tau_upper, n_s_times + _)
+                           for _ in range(n_c)])
+# spt_candidates = np.array([np.linspace(tau_lower, tau_upper, n_s_times)
+#                            for _ in range(n_c)])
 
 # specifying bounds for the grid
 Ca0_lower = 1
@@ -114,7 +122,7 @@ temp_lower = 273.15
 temp_upper = 273.15 + 50
 # creating the grid, just some numpy syntax for grid creation
 Ca0_cand, temp_cand = np.mgrid[Ca0_lower:Ca0_upper:complex(0, np.sqrt(n_c)),
-                               temp_lower:temp_upper:complex(0, np.sqrt(n_c))]
+                      temp_lower:temp_upper:complex(0, np.sqrt(n_c))]
 Ca0_cand = Ca0_cand.flatten()
 temp_cand = temp_cand.flatten()
 tic_candidates = np.array([Ca0_cand, temp_cand]).T
@@ -131,7 +139,7 @@ function. Optional, if un-specified assume all responses (from simulate function
 # designer_1.measurable_responses = [0, 1]
 
 """ optional information for plotting purposes, if unspecified empty axes titles """
-designer_1.candidate_names = np.array(["Candidate {:d}".format(i+1)
+designer_1.candidate_names = np.array(["Candidate {:d}".format(i + 1)
                                        for i, _ in enumerate(tic_candidates)])
 
 """ optional information for estimability study """
@@ -147,13 +155,14 @@ designer_1.estimability_study_fim()
 # package, optimizer = ("cvxpy", "CVXOPT")
 package, optimizer = ("scipy", "SLSQP")
 
-criterion = designer_1.d_opt_criterion
-# criterion = designer_1.a_opt_criterion
+# criterion = designer_1.d_opt_criterion
+criterion = designer_1.a_opt_criterion
 # criterion = designer_1.e_opt_criterion
 
-result = designer_1.design_experiment(criterion=criterion, package=package, optimizer=optimizer,
-                                      plot=False, optimize_sampling_times=True, write=False,
-                                      save_sensitivities=True, fd_jac=False, max_iters=20000)
+result = designer_1.design_experiment(criterion=criterion, package=package,
+                                      optimizer=optimizer, plot=False,
+                                      optimize_sampling_times=True, write=False,
+                                      save_sensitivities=True, fd_jac=False)
 
 designer_1.print_optimal_candidates()
 designer_1.plot_optimal_predictions()
