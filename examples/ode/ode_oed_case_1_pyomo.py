@@ -1,7 +1,6 @@
 from core.designer import Designer
 from pyomo import environ as po
 from pyomo import dae as pod
-from matplotlib import pyplot as plt
 import numpy as np
 
 
@@ -19,7 +18,7 @@ def simulate(model, simulator, ti_controls, tv_controls, model_parameters, sampl
     model.t._constructed = False  # needed so we can re-initialize the continuous set
     model.t._data = {}
     model.t._fe = []
-    model.t.value = set()
+    model.t.value = []
     model.t.value_list = []
     model.t.construct()  # line that re-initializes the continuous set
 

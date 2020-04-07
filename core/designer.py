@@ -1,19 +1,18 @@
-from scipy.optimize import minimize, least_squares
-from string import Template
-from scipy.stats import chi2
-from time import time
-from matplotlib import pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
-from pickle import dump, load
-from os import getcwd, path, makedirs
 from datetime import datetime
 from inspect import signature
+from os import getcwd, path, makedirs
+from pickle import dump, load
+from string import Template
+from time import time
+from mpl_toolkits.mplot3d import Axes3D
+
+import __main__ as main
+import cvxpy as cp
 import dill
 import numdifftools as nd
-import cvxpy as cp
-import keyboard
 import numpy as np
-import __main__ as main
+from matplotlib import pyplot as plt
+from scipy.optimize import minimize
 
 
 class Designer:
@@ -32,7 +31,11 @@ class Designer:
     def __init__(self):
         """ core model components """
         # unorganized
-        self._fd_jac = False
+        self._efforts_changed = False
+        self._current_efforts = []
+        self._efforts_transformed = False
+        self._unconstrained_form = False
+        self._fd_jac = True
         self._fim_eval_time = None
         # memory threshold in which large requirement is defined in bytes, default: 1 GB
         self._memory_threshold = None
@@ -83,7 +86,7 @@ class Designer:
         self.n_spt = None
         self.n_r = None
         self.n_mp = None
-        self.n_p = None
+        self.n_e = None
         self.n_m_r = None
 
         """ parameter estimation """
@@ -441,9 +444,9 @@ class Designer:
         return pe_result
 
     def design_experiment(self, criterion, optimize_sampling_times=False,
-                          package="cvxpy", optimizer=None, opt_options=None, p_0=None,
+                          package="cvxpy", optimizer=None, opt_options=None, e0=None,
                           write=True, plot=False, save_sensitivities=False,
-                          fd_jac=False, **kwargs):
+                          fd_jac=True, unconstrained_form=False, **kwargs):
         # storing user choices
         self._optimization_package = package
         self._optimizer = optimizer
@@ -451,29 +454,44 @@ class Designer:
         self._save_sensitivities = save_sensitivities
         self._current_criterion = criterion.__name__
         self._fd_jac = fd_jac
+        self._unconstrained_form = unconstrained_form
 
         if self._verbose >= 2:
             opt_verbose = True
         else:
             opt_verbose = False
 
-        # initializing default scipy optimizer options
-        if self._optimization_package is 'scipy':
+        """ setting default optimizers, and its options """
+        if self._optimization_package is "scipy":
             if optimizer is None:
-                self._optimizer = 'SLSQP'
-            """ setting default scipy optimizer options """
+                self._optimizer = "SLSQP"
             if opt_options is None:
                 opt_options = {"disp": opt_verbose}
-        if self._optimization_package is 'cvxpy':
+        if self._optimization_package is "cvxpy":
             if optimizer is None:
-                self._optimizer = 'MOSEK'
+                self._optimizer = "MOSEK"
 
-        self.n_p = self.n_c
+        """ deal with unconstrained form """
+        if self._optimization_package is "scipy":
+            if self._optimizer not in ["COBYLA", "SLSQP", "trust-constr"]:
+                if self._verbose >= 2:
+                    print(f"Note: {self._optimization_package}'s optimizer "
+                          f"{self._optimizer} requires unconstrained form.")
+                self._unconstrained_form = True
+        if self._optimization_package is "cvxpy":
+            if self._unconstrained_form:
+                self._unconstrained_form = False
+                print("Warning: unconstrained form is not supported by cvxpy; "
+                      "continuing normally with constrained form.")
+
+        self.n_e = self.n_c
         if self._opt_sampling_times:
             if not self._dynamic_system:
-                raise SyntaxError(
-                    'The system is non-dynamic, sampling times cannot be optimized.')
-            self.n_p *= self.n_spt
+                print('Warning: system is non-dynamic; '
+                      'proceeding normally without optimizing sampling times.')
+                self._opt_sampling_times = False
+            else:
+                self.n_e *= self.n_spt
 
         """ main codes """
         if self._verbose >= 1:
@@ -481,53 +499,57 @@ class Designer:
 
         # set initial guess for optimal experimental efforts, if none given,
         # equal efforts for all candidates
-        if p_0 is None:
-            p_0 = np.array([1 / self.n_p for _ in range(self.n_p)])
-            self.efforts = p_0
+        if e0 is None:
+            e0 = np.array([1 / self.n_e for _ in range(self.n_e)])
+            self.efforts = e0
         else:
-            assert isinstance(p_0, (np.ndarray,
-                                    list)), 'Initial guess for effort must be a 1D ' \
-                                            'list or numpy array.'
-            assert len(
-                p_0) == self.n_p, 'Length of initial guess must be equal to number of ' \
-                                  'candidates (if sampling ' \
-                                  'times not optimized, or equal to the number of ' \
-                                  'candidates multiplied by ' \
-                                  'largest number of sampling times (if sampling times ' \
-                                  '' \
-                                  '' \
-                                  '' \
-                                  '' \
-                                  'to be optimized).'
-            self.efforts = p_0
+            if not isinstance(e0, (np.ndarray, list)):
+                msg = 'Initial guess for effort must be a 1D ' \
+                      'list or numpy array.'
+                raise SyntaxError(msg)
+            if len(e0) != self.n_e:
+                msg = 'Length of initial guess must be equal to ' \
+                      '(i) sampling times not optimized: number of candidates; or ' \
+                      '(ii) sampling times optimized: number of candidates times ' \
+                      'number of sampling times. '
+                raise SyntaxError(msg)
+            self.efforts = e0
 
         # declare and solve optimization problem
         start = time()  # TODO: re-implement p transform to allow use of other scipy
         # solvers
         if self._optimization_package == "scipy":
-            p_bound = [(0, 1) for _ in p_0]
-            constraint = [{"type": "ineq", "fun": lambda p: np.sum(p) - 0.95},
-                          {"type": "ineq", "fun": lambda p: 1.05 - np.sum(p)}]
-            opt_result = minimize(fun=criterion, x0=p_0, method=optimizer,
-                                  options=opt_options,
-                                  constraints=constraint, bounds=p_bound,
-                                  jac=not self._fd_jac)
+            if self._unconstrained_form:
+                opt_result = minimize(fun=criterion, x0=e0, method=optimizer,
+                                      options=opt_options, jac=not self._fd_jac)
+
+            else:
+                e_bound = [(0, 1) for _ in e0]
+                constraint = [{"type": "ineq", "fun": lambda e: np.sum(e) - 0.99},
+                              {"type": "ineq", "fun": lambda e: 1.01 - np.sum(e)}]
+                opt_result = minimize(fun=criterion, x0=e0, method=optimizer,
+                                      options=opt_options, constraints=constraint,
+                                      bounds=e_bound, jac=not self._fd_jac, **kwargs)
+
             self.efforts = opt_result.x
+            self._efforts_transformed = False
             opt_fun = opt_result.fun
         elif self._optimization_package == "cvxpy":
-            p = cp.Variable(self.n_p, nonneg=True)
-            p.value = self.efforts
-            p_cons = [cp.sum(p) == 1]
-            obj = cp.Minimize(criterion(p))
+            e = cp.Variable(self.n_e, nonneg=True)
+            p_cons = [cp.sum(e) == 1]
+            e.value = self.efforts
+            obj = cp.Minimize(criterion(e))
             problem = cp.Problem(obj, p_cons)
             opt_fun = problem.solve(verbose=opt_verbose, solver=self._optimizer,
                                     **kwargs)
-            self.efforts = p.value
+            self.efforts = e.value
         else:
             print("Unrecognized package, reverting to default: scipy.")
             opt_fun = None  # optional line to follow PEP8
             self.design_experiment(criterion, optimize_sampling_times, "scipy",
-                                   optimizer, opt_options, p_0, write, plot)
+                                   optimizer, opt_options, e0, write, plot)
+
+        self.transform_efforts()
         finish = time()
 
         """ report status and performance """
@@ -599,10 +621,7 @@ class Designer:
                         result_file = result_file_template.substitute(
                             result_dir=self.result_dir, run_no=self.run_no)
                     dump(self.estimable_columns, open(result_file, 'wb'))
-                print(
-                    'Identified estimable parameters are: {'
-                    'self.estimable_columns}'.format(
-                        self=self))
+                print(f'Identified estimable parameters are: {self}.estimable_columns')
                 return self.estimable_columns
             self.estimable_columns = np.append(self.estimable_columns, next_estim_param)
 
@@ -610,10 +629,8 @@ class Designer:
         self.efforts = np.ones(self.n_c * self.n_spt)
         # self.eval_atomic_fims()
         self.eval_fim()
-        print("Estimable parameters:")
-        print(self.estimable_model_parameters)
-        print("Degree of Estimability:")
-        print(self.estimability)
+        print(f"Estimable parameters: {self.estimable_model_parameters}")
+        print(f"Degree of Estimability: {self.estimability}")
         return self.estimable_model_parameters, self.estimability
 
     """ core utilities """
@@ -1108,24 +1125,37 @@ class Designer:
 
         # evaluate the criterion
         if self.fim.size == 1:
-            if self._optimization_package is 'scipy':
+            if self._optimization_package is "scipy":
                 if self._fd_jac:
                     return -np.log1p(self.fim)
                 else:
-                    return -np.log1p(self.fim), \
-                           np.array([np.sum([-1 / self.fim * m], axis=(1, 2))
-                                     for m in self.atomic_fims])
+                    # jac = np.array([np.sum([-1 / self.fim * m], axis=(1, 2))
+                    #                 for m in self.atomic_fims])
+                    fim_pinv = np.linalg.pinv(self.fim)
+                    jac = -np.array([
+                        np.sum(fim_pinv.T * m)
+                        for m in self.atomic_fims
+                    ])
+                    return -np.log1p(self.fim), jac
             elif self._optimization_package is 'cvxpy':
                 return -cp.log1p(self.fim)
 
-        if self._optimization_package is 'scipy':
+        if self._optimization_package is "scipy":
             d_opt = -np.prod(np.linalg.slogdet(self.fim))
             if self._fd_jac:
                 return d_opt
             else:
-                jac = np.array([np.sum([-np.linalg.pinv(self.fim).T * m], axis=(1, 2))
-                                for m in self.atomic_fims])
-                return d_opt, jac
+                # jac = np.array([np.sum([-np.linalg.pinv(self.fim).T * m], axis=(1, 2))
+                #                 for m in self.atomic_fims])
+                # fim_pinv = np.linalg.pinv(self.fim, rcond=1e-20)
+                # fim_pinv = np.linalg.inv(self.fim)
+                # fim_pinv = self.fim.__invert__()
+                # jac = -np.array([
+                #     np.sum(self.fim.T * m)
+                #     for m in self.atomic_fims
+                # ])
+                # return d_opt, jac
+                raise NotImplementedError  # TODO: implement analytic jac for d-opt
         elif self._optimization_package is 'cvxpy':
             return -cp.log_det(self.fim)
 
@@ -1139,16 +1169,25 @@ class Designer:
         if self.fim.size == 1:
             return -np.log1p(self.fim)
 
-        if self._optimization_package is 'scipy':
+        if self._optimization_package is "scipy":
+            start = time()
+            a_opt = np.linalg.pinv(self.fim).trace()
+            finish = time()
+            print("1", finish - start)
+
+            start = time()
             eig_vals = np.linalg.eigvals(self.fim)
             a_opt = np.sum(np.divide(1, eig_vals, where=np.where(eig_vals > 0)))
+            finish = time()
+            print("2", finish - start)
+
             if self._fd_jac:
                 return a_opt
             else:
-                # jac = np.array([ for m in self.atomic_fims]) TODO: implement
+                # jac = np.array([ for m in self.atomic_fims])
                 #  analytic jacobian for a_opt
                 # return a_opt, jac
-                raise NotImplementedError
+                raise NotImplementedError  # TODO: implement analytic jac for a-opt
         elif self._optimization_package is 'cvxpy':
             return cp.matrix_frac(np.identity(self.n_mp), self.fim)
 
@@ -1162,8 +1201,11 @@ class Designer:
         if self.fim.size == 1:
             return -np.log1p(self.fim)
 
-        if self._optimization_package is 'scipy':
-            return -np.min(np.linalg.eigvals(self.fim))
+        if self._optimization_package is "scipy":
+            if self._fd_jac:
+                return -np.linalg.eigvalsh(self.fim).min()
+            else:
+                raise NotImplementedError  # TODO: implement analytic jac for e-opt
         elif self._optimization_package is 'cvxpy':
             return -cp.lambda_min(self.fim)
 
@@ -1297,18 +1339,36 @@ class Designer:
         return self.sensitivities
 
     def eval_fim(self):
+        """
+        Main evaluator for constructing the fim from obtained sensitivities.
+        When scipy is used as optimization package and problem does not require large
+        memory, will store atomic fims for analytical Jacobian.
+        """
         self.eval_sensitivities(save_sensitivities=self._save_sensitivities)
 
-        start = time()
+        """ update efforts """
+        if self._optimization_package is "cvxpy":
+            e = self.efforts.value
+        else:
+            e = self.efforts
+        self._efforts_changed = True
+        self._efforts_transformed = False
 
+        """ deal with unconstrained form, i.e. transform efforts """
+        self.transform_efforts()  # only transform if required, logic incorporated there
+        self._current_efforts = e
+
+        """ deal with opt_sampling_times """
         if self._opt_sampling_times:
             sens = self.sensitivities.reshape(self.n_c * self.n_spt, self.n_m_r,
                                               self.n_mp)
         else:
             sens = np.nansum(self.sensitivities, axis=1)
 
+        """ evaluate fim """
+        start = time()
         self.fim = 0
-        if self._optimization_package is 'scipy' and not self._large_memory_requirement:
+        if self._optimization_package is "scipy" and not self._large_memory_requirement:
             self.atomic_fims = []
         for e, f in zip(self.efforts.flatten(), sens):
             if not np.any(np.isnan(f)):
@@ -1316,10 +1376,9 @@ class Designer:
                 self.fim += e * _atom_fim
             else:
                 _atom_fim = 0
-            if self._optimization_package is 'scipy' and not \
-                    self._large_memory_requirement:
+            if self._optimization_package is "scipy" and \
+                    not self._large_memory_requirement:
                 self.atomic_fims.append(_atom_fim)
-
         finish = time()
         self._fim_eval_time = finish - start
         if self._verbose >= 3:
@@ -1657,3 +1716,14 @@ class Designer:
         else:
             raise SyntaxError(
                 'Cannot initialize simulate function properly, check your syntax.')
+
+    def transform_efforts(self):
+        if self._unconstrained_form:
+            if self._efforts_changed or not self._efforts_transformed:
+                self.efforts = np.square(self.efforts)
+                self.efforts /= np.sum(self.efforts)
+                self._efforts_transformed = True
+                if self._verbose >= 3:
+                    print("Efforts transformed.")
+
+        return self.efforts

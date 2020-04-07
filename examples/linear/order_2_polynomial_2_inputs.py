@@ -1,6 +1,7 @@
-from core.designer import Designer
-from matplotlib import pyplot as plt
 import numpy as np
+from matplotlib import pyplot as plt
+
+from core.designer import Designer
 
 """ 
 Setting: a non-dynamic experimental system with 2 time-invariant control variables and 
@@ -37,13 +38,30 @@ designer_1.model_parameters = np.ones(6)  # values won't affect design, but stil
 
 designer_1.initialize(verbose=2)  # 0: silent, 1: overview, 2: detailed, 3: very detailed
 
+""" cvxpy solvers """
 package, optimizer = ("cvxpy", "MOSEK")
 # package, optimizer = ("cvxpy", "SCS")
-# package, optimizer = ("scipy", "SLSQP")
-designer_1.design_experiment(designer_1.d_opt_criterion, package=package,
-                             optimizer=optimizer,
-                             write=False, fd_jac=False)
-designer_1.print_optimal_candidates()
+# package, optimizer = ("cvxpy", "CVXOPT")
+
+""" scipy solvers, all supported, but many require unconstrained form """
+# package, optimizer = ("scipy", "powell")
+# package, optimizer = ("scipy", "cg")
+# package, optimizer = ("scipy", "tnc")
+# package, optimizer = ("scipy", "l-bfgs-b")
+# package, optimizer = ("scipy", "bfgs")
+# package, optimizer = ("scipy", "nelder-mead")
+# package, optimizer = ("scipy", "SLSQP")  # supports constrained form
+
+""" criterion choice """
+criterion = designer_1.d_opt_criterion
+# criterion = designer_1.a_opt_criterion
+# criterion = designer_1.e_opt_criterion
+
+""" designing experiment """
+designer_1.design_experiment(criterion=criterion, package=package,
+                             optimizer=optimizer, write=False, fd_jac=True,
+                             unconstrained_form=False)
+# designer_1.print_optimal_candidates()
 designer_1.plot_current_design()
 
 fig1 = plt.figure()

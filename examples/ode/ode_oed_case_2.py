@@ -26,7 +26,7 @@ def simulate(model, simulator, ti_controls, tv_controls, model_parameters, sampl
     model.t._constructed = False  # needed so we can re-initialize the continuous set
     model.t._data = {}
     model.t._fe = []
-    model.t.value = set()
+    model.t.value = []
     model.t.value_list = []
     model.t.construct()  # line that re-initializes the continuous set
 
@@ -139,8 +139,7 @@ designer_1.responses_scales = np.array([1, 1])
 
 """ initializing designer """
 designer_1.initialize(verbose=2)  # 0: silent, 1: overview, 2: detail
-
-# designer_1.estimability_study_fim()
+designer_1.estimability_study_fim()
 
 """ D-optimal design """
 # package, optimizer = ("cvxpy", "MOSEK")

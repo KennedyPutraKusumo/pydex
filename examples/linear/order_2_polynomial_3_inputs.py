@@ -1,12 +1,12 @@
-from core.designer import Designer
-from matplotlib import pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
 import numpy as np
+from matplotlib import pyplot as plt
+
+from core.designer import Designer
 
 """ 
 Setting: a non-dynamic experimental system with 3 time-invariant control variables and 1 response.
 Problem: design optimal experiment for a order 2 polynomial, with complete interaction
-Solution: a full 3^3 factorial design (3 level), with more effort on corner points
+Solution: D-optimal full 3^3 factorial design, A- and E-optimal Central Composite Design
 """
 
 
@@ -44,20 +44,39 @@ designer_1.model_parameters = np.ones(11)  # values won't affect design, but sti
 
 designer_1.initialize(verbose=2)  # 0: silent, 1: overview, 2: detailed, 3: very detailed
 
-# package, optimizer = ("cvxpy", "MOSEK")
-package, optimizer = ("cvxpy", "SCS")
-# package, optimizer = ("scipy", "SLSQP")
-designer_1.design_experiment(designer_1.d_opt_criterion, package=package, optimizer=optimizer,
-                             write=False, fd_jac=False)
+""" cvxpy solvers """
+package, optimizer = ("cvxpy", "MOSEK")
+# package, optimizer = ("cvxpy", "SCS")
+# package, optimizer = ("cvxpy", "CVXOPT")
+
+""" scipy solvers, all supported, but many require unconstrained form """
+# package, optimizer = ("scipy", "powell")
+# package, optimizer = ("scipy", "cg")
+# package, optimizer = ("scipy", "tnc")
+# package, optimizer = ("scipy", "l-bfgs-b")
+# package, optimizer = ("scipy", "bfgs")
+# package, optimizer = ("scipy", "nelder-mead")
+# package, optimizer = ("scipy", "SLSQP")  # supports constrained form
+
+""" criterion choice """
+# criterion = designer_1.d_opt_criterion
+criterion = designer_1.a_opt_criterion
+# criterion = designer_1.e_opt_criterion
+
+""" designing experiment """
+designer_1.design_experiment(criterion, package=package,
+                             optimizer=optimizer, write=False, fd_jac=True,
+                             unconstrained_form=True)
 designer_1.print_optimal_candidates()
 designer_1.plot_current_design()
 
 fig1 = plt.figure()
 axes1 = fig1.add_subplot(111, projection='3d')
-axes1.scatter(designer_1.ti_controls_candidates[np.where(designer_1.efforts > 1e-4)][:, 0],
-              designer_1.ti_controls_candidates[np.where(designer_1.efforts > 1e-4)][:, 1],
-              designer_1.ti_controls_candidates[np.where(designer_1.efforts > 1e-4)][:, 2],
-              s=designer_1.efforts[np.where(designer_1.efforts > 1e-4)] * 1000)
+axes1.scatter(
+    designer_1.ti_controls_candidates[np.where(designer_1.efforts > 1e-4)][:, 0],
+    designer_1.ti_controls_candidates[np.where(designer_1.efforts > 1e-4)][:, 1],
+    designer_1.ti_controls_candidates[np.where(designer_1.efforts > 1e-4)][:, 2],
+    s=designer_1.efforts[np.where(designer_1.efforts > 1e-4)] * 1000)
 axes1.grid(False)
 axes1.set_title(r"Full $3^3$ Factorial Design")
 axes1.set_xlabel("Control 1")
