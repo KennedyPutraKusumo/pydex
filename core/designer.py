@@ -521,7 +521,7 @@ class Designer:
             self.efforts = e0
 
         # declare and solve optimization problem
-        start = time()  # TODO: re-implement p transform to allow use of other scipy
+        start = time()
         # solvers
         if self._optimization_package == "scipy":
             if self._unconstrained_form:
