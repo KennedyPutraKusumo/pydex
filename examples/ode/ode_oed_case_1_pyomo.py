@@ -127,5 +127,5 @@ if __name__ == '__main__':
     designer_1.save_state()
 
     """ simulate candidates to show model predictions for each candidate """
-    # designer_1.simulate_all_candidates(plot_simulation_times=True)
-    # designer_1.plot_all_predictions()
+    designer_1.simulate_all_candidates(plot_simulation_times=True)
+    designer_1.plot_all_predictions()

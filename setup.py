@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="pydex",
-    version="0.0.3",
+    version="0.0.1",
     author="Kennedy Putra Kusumo",
     author_email="kennedy.putra.kusumo@gmail.com",
     description="An open-source package for optimal continuous experiment design using the discrete method.",

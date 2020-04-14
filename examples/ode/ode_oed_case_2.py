@@ -149,9 +149,6 @@ designer_1.responses_scales = np.array([1, 1])
 designer_1.initialize(verbose=2)  # 0: silent, 1: overview, 2: detail
 designer_1.estimability_study_fim()
 
-pim = designer_1.eval_pim()
-print(pim)
-
 """ D-optimal design """
 criterion = designer_1.d_opt_criterion
 # criterion = designer_1.a_opt_criterion
