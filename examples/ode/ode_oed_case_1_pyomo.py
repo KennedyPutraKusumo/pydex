@@ -1,4 +1,4 @@
-from core.designer import Designer
+from pydex.core.designer import Designer
 from pyomo import environ as po
 from pyomo import dae as pod
 import numpy as np
@@ -77,8 +77,9 @@ if __name__ == '__main__':
     # defining sampling time candidates
     tau_upper = 20
     tau_lower = 0
-    sampling_times_candidates = np.array([np.linspace(tau_lower, tau_upper, n_s_times+_) for _ in range(n_c)])
-    # sampling_times_candidates = np.array([np.linspace(tau_lower, tau_upper, n_s_times) for _ in range(n_c)])
+    # sampling_times_candidates = np.array([np.linspace(tau_lower, tau_upper, n_s_times+_) for _ in range(n_c)])
+    sampling_times_candidates = np.array(
+        [np.linspace(tau_lower, tau_upper, n_s_times) for _ in range(n_c)])
 
     # specifying bounds for the grid
     Ca0_lower = 1
@@ -112,8 +113,10 @@ if __name__ == '__main__':
     # criterion = designer_1.a_opt_criterion
     # criterion = designer_1.e_opt_criterion
 
-    d_opt_result = designer_1.design_experiment(criterion=designer_1.d_opt_criterion, package=package, plot=False,
-                                                optimize_sampling_times=True, write=False, optimizer=optimizer,
+    d_opt_result = designer_1.design_experiment(criterion=designer_1.d_opt_criterion,
+                                                package=package,
+                                                optimize_sampling_times=True,
+                                                write=False, optimizer=optimizer,
                                                 save_sensitivities=True, fd_jac=False)
     designer_1.print_optimal_candidates()
     designer_1.plot_current_design(write=False)

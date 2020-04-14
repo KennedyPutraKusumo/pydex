@@ -2,7 +2,7 @@ import numpy as np
 from pyomo import dae as pod
 from pyomo import environ as po
 
-from core.designer import Designer
+from pydex.core.designer import Designer
 
 
 def simulate(model, simulator, ti_controls, tv_controls, model_parameters,
@@ -149,11 +149,12 @@ designer_1.responses_scales = np.array([1, 1])
 designer_1.initialize(verbose=2)  # 0: silent, 1: overview, 2: detail
 designer_1.estimability_study_fim()
 
-""" D-optimal design """
-# package, optimizer = ("cvxpy", "MOSEK")
+pim = designer_1.eval_pim()
+print(pim)
 
-# criterion = designer_1.d_opt_criterion
-criterion = designer_1.a_opt_criterion
+""" D-optimal design """
+criterion = designer_1.d_opt_criterion
+# criterion = designer_1.a_opt_criterion
 # criterion = designer_1.e_opt_criterion
 
 result = designer_1.design_experiment(criterion=criterion, optimize_sampling_times=True,

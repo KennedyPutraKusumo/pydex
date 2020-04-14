@@ -19,6 +19,6 @@ An open-source Python package for optimal experiment design, essential to a mode
 7. python 3.x: a core package.
 
 ## Examples
-In this repository, you will find examples of designing an optimal experiment for a model made of ordinary differential equations. Currently, there are examples for using scipy and pyomo for solving the model. Syntax for solution, visualization, and saving & loading progress is shown in the examples.
+In this repository, you will find examples of designing optimal experiments for a handful response surface models, and models made of a system of ordinary differential equations. Currently, there are examples for using scipy and pyomo for integrating the ODE models. Syntax for solution, visualization, and saving & loading progress are shown in the examples.
 
 Do you feel something is confusing? Something can be improved? Interested to contribute? Have a feature to request? Feel free to drop a line at: kennedy.putra.kusumo@gmail.com.

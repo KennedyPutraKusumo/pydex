@@ -1,7 +1,7 @@
 import numpy as np
 from matplotlib import pyplot as plt
 
-from core.designer import Designer
+from pydex.core.designer import Designer
 
 """ 
 Setting: a non-dynamic experimental system with 2 time-invariant control variables and 1 response.

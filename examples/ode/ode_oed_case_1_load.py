@@ -1,4 +1,4 @@
-from core.designer import Designer
+from pydex.core.designer import Designer
 from examples.ode.ode_oed_case_1_pyomo import create_model, simulate, create_simulator
 
 """ loading only saves states and results, need to redeclare the model, simulate function, and simulator """

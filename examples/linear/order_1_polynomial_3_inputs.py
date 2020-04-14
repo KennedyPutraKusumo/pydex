@@ -1,6 +1,5 @@
-from core.designer import Designer
+from pydex.core.designer import Designer
 from matplotlib import pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
 import numpy as np
 
 """ 
@@ -41,7 +40,7 @@ designer_1.model_parameters = np.ones(8)  # values won't affect design, but stil
 
 designer_1.initialize(verbose=2)  # 0: silent, 1: overview, 2: detailed, 3: very detailed
 
-designer_1.design_experiment(designer_1.a_opt_criterion, write=False)
+designer_1.design_experiment(designer_1.d_opt_criterion, write=False, package="cvxpy")
 designer_1.print_optimal_candidates()
 designer_1.plot_current_design()
 
@@ -55,7 +54,7 @@ axes1.grid(False)
 axes1.set_title(r"Full $2^3$ Factorial Design")
 axes1.set_xlabel("Control 1")
 axes1.set_ylabel("Control 2")
-axes1.set_zlabel("Experimental Effort")
+axes1.set_zlabel("Control 3")
 axes1.set_xticks([-1, -.5, 0, .5, 1])
 axes1.set_yticks([-1, -.5, 0, .5, 1])
 axes1.set_zticks([-1, -.5, 0, .5, 1])

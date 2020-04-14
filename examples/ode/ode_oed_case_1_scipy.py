@@ -1,4 +1,4 @@
-from core.designer import Designer
+from pydex.core.designer import Designer
 from scipy.integrate import odeint
 import numpy as np
 
