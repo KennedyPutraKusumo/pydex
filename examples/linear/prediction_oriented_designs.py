@@ -5,7 +5,7 @@ from pydex.core.designer import Designer
 
 """ 
 Setting: a non-dynamic experimental system with 2 time-invariant control variables and 1 response.
-Problem: design optimal experiment for a order 1 polynomial, with complete interaction
+Problem: design a prediction-oriented experiment for order 1 polynomial with interaction
 Solution: a full 2^2 factorial design (2 level)
 """
 def simulate(ti_controls, tv_controls, model_parameters, sampling_times):
@@ -23,12 +23,9 @@ def simulate(ti_controls, tv_controls, model_parameters, sampling_times):
 designer_1 = Designer()
 designer_1.simulate = simulate
 
-reso = 9j
-tic_1, tic_2, tic_3 = np.mgrid[-1:1:reso, -1:1:reso, -1:1:reso]
-tic_1 = tic_1.flatten()
-tic_2 = tic_2.flatten()
-tic_3 = tic_3.flatten()
-designer_1.ti_controls_candidates = np.array([tic_1, tic_2, tic_3]).T
+tic_1, tic_2 = np.mgrid[-1:1:11j, -1:1:11j]
+tic_1 = tic_1.flatten(); tic_2 = tic_2.flatten()
+designer_1.ti_controls_candidates = np.array([tic_1, tic_2]).T
 
 designer_1.model_parameters = np.ones(4)  # values won't affect design, but still needed
 
@@ -43,13 +40,13 @@ designer_1.initialize(verbose=2)  # 0: silent, 1: overview, 2: detailed, 3: very
 # package, optimizer = ("scipy", "nelder-mead")
 package, optimizer = ("scipy", "SLSQP")  # supports constrained form
 
-""" criterion choice """
+""" prediction-oriented criteria choices """
 # criterion = designer_1.dg_opt_criterion
 # criterion = designer_1.di_opt_criterion
 # criterion = designer_1.ag_opt_criterion
 # criterion = designer_1.ai_opt_criterion
-# criterion = designer_1.eg_opt_criterion
-criterion = designer_1.ei_opt_criterion
+criterion = designer_1.eg_opt_criterion
+# criterion = designer_1.ei_opt_criterion
 
 """ designing experiment """
 designer_1.design_experiment(criterion=criterion, package=package, optimizer=optimizer,
