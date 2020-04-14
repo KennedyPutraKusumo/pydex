@@ -1223,7 +1223,7 @@ class Designer:
             for spt, pvar in enumerate(PVAR):
                 sign, temp_dg = np.linalg.slogdet(pvar)
                 if sign != 1:
-                    temp_dg = -np.inf
+                    temp_dg = np.inf
                 dg_opts[c, spt] = temp_dg
         dg_opt = np.max(dg_opts)
 
@@ -1232,8 +1232,107 @@ class Designer:
         else:
             raise NotImplementedError("Analytic Jacobian for dg_opt unavailable.")
 
+    def di_opt_criterion(self, efforts):
+        if self._optimization_package is "cvxpy":
+            raise NotImplementedError("CVXPY unavailable for di_opt.")
+
+        self.efforts = efforts
+
+        self.eval_pim()
+        # di_opt: average det of the pvar matrix over candidates and sampling times
+        dg_opts = np.empty((self.n_c, self.n_spt))
+        for c, PVAR in enumerate(self.pvars):
+            for spt, pvar in enumerate(PVAR):
+                sign, temp_dg = np.linalg.slogdet(pvar)
+                if sign != 1:
+                    temp_dg = np.inf
+                dg_opts[c, spt] = temp_dg
+        dg_opt = np.sum(dg_opts)
+
+        if self._fd_jac:
+            return dg_opt
+        else:
+            raise NotImplementedError("Analytic Jacobian for di_opt unavailable.")
+
     def ag_opt_criterion(self, efforts):
-        raise NotImplementedError
+        if self._optimization_package is "cvxpy":
+            raise NotImplementedError("CVXPY unavailable for ag_opt.")
+
+        self.efforts = efforts
+
+        self.eval_pim()
+        # ag_opt: max trace of the pvar matrix over candidates and sampling times
+        ag_opts = np.empty((self.n_c, self.n_spt))
+        for c, PVAR in enumerate(self.pvars):
+            for spt, pvar in enumerate(PVAR):
+                temp_dg = np.trace(pvar)
+                ag_opts[c, spt] = temp_dg
+        ag_opt = np.max(ag_opts)
+
+        if self._fd_jac:
+            return ag_opt
+        else:
+            raise NotImplementedError("Analytic Jacobian for ag_opt unavailable.")
+
+    def ai_opt_criterion(self, efforts):
+        if self._optimization_package is "cvxpy":
+            raise NotImplementedError("CVXPY unavailable for ai_opt.")
+
+        self.efforts = efforts
+
+        self.eval_pim()
+        # ai_opt: average trace of the pvar matrix over candidates and sampling times
+        ai_opts = np.empty((self.n_c, self.n_spt))
+        for c, PVAR in enumerate(self.pvars):
+            for spt, pvar in enumerate(PVAR):
+                temp_dg = np.trace(pvar)
+                ai_opts[c, spt] = temp_dg
+        ag_opt = np.sum(ai_opts)
+
+        if self._fd_jac:
+            return ag_opt
+        else:
+            raise NotImplementedError("Analytic Jacobian for ai_opt unavailable.")
+
+    def eg_opt_criterion(self, efforts):
+        if self._optimization_package is "cvxpy":
+            raise NotImplementedError("CVXPY unavailable for eg_opt.")
+
+        self.efforts = efforts
+
+        self.eval_pim()
+        # eg_opt: max of the max_eigenval of the pvar matrix over candidates and sampling times
+        eg_opts = np.empty((self.n_c, self.n_spt))
+        for c, PVAR in enumerate(self.pvars):
+            for spt, pvar in enumerate(PVAR):
+                temp_dg = np.linalg.eigvals(pvar).max()
+                eg_opts[c, spt] = temp_dg
+        eg_opt = np.max(eg_opts)
+
+        if self._fd_jac:
+            return eg_opt
+        else:
+            raise NotImplementedError("Analytic Jacobian for eg_opt unavailable.")
+
+    def ei_opt_criterion(self, efforts):
+        if self._optimization_package is "cvxpy":
+            raise NotImplementedError("CVXPY unavailable for ei_opt.")
+
+        self.efforts = efforts
+
+        self.eval_pim()
+        # ei_opts: average of the max_eigenval of the pvar matrix over candidates and sampling times
+        ei_opts = np.empty((self.n_c, self.n_spt))
+        for c, PVAR in enumerate(self.pvars):
+            for spt, pvar in enumerate(PVAR):
+                temp_dg = np.linalg.eigvals(pvar).max()
+                ei_opts[c, spt] = temp_dg
+        ei_opt = np.sum(ei_opts)
+
+        if self._fd_jac:
+            return ei_opt
+        else:
+            raise NotImplementedError("Analytic Jacobian for ei_opt unavailable.")
 
     """ evaluators """
 
