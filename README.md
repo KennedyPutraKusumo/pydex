@@ -9,7 +9,7 @@ An open-source Python package for optimal experiment design, essential to a mode
 
 ## Quick Start
   * [IPython demo](
-  https://colab.research.google.com/drive/1mGE8-WBhT5rAEQvQOaT1IBorGeHemyVG
+  https://github.com/KennedyPutraKusumo/pydex/blob/master/examples/pydex_quickstart.ipynb
   ) of basic features.
   
 
