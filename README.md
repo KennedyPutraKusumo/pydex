@@ -1,6 +1,17 @@
-Discrete optimal EXperiment Design
+Discrete optimal EXperiment design
 ============================================
 An open-source Python package for optimal experiment design, essential to a modeller's toolbelt. If you are someone who develops a model of any kind, you will relate to the difficulty of estimating its model parameters. This tool will help design maximally informative experiments for collecting data to calibrate your model. This package is a simple and powerful toolkit you must have. With an intuitive syntax and helpful documentation, it should take you little time to start designing optimal experiments for estimating the parameters of your model.
+
+## Installation
+  * PyPI
+
+        $ pip install pydex
+
+## Quick Start
+  * [IPython demo](
+  https://colab.research.google.com/drive/1mGE8-WBhT5rAEQvQOaT1IBorGeHemyVG
+  ) of basic features.
+  
 
 ## Features:
 1. Strive to be as simple as possible to use, but not simpler.
