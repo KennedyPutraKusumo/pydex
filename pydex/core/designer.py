@@ -35,8 +35,6 @@ class Designer:
         # unorganized
         self.pvars = None
         self._trim_fim = True
-        self._efforts_changed = False
-        self._current_efforts = np.array([])
         self._efforts_transformed = False
         self._unconstrained_form = False
         self._fd_jac = True
@@ -1132,24 +1130,22 @@ class Designer:
                 return -cp.log1p(self.fim)
 
         if self._optimization_package is "scipy":
+            sign, d_opt = np.linalg.slogdet(self.fim)
             if self._fd_jac:
-                sign, d_opt = np.linalg.slogdet(self.fim)
                 if sign == 1:
-                    return d_opt
+                    return -d_opt
                 else:
-                    return -np.inf
+                    return np.inf
             else:
-                try:
-                    fim_inv = np.linalg.inv(self.fim)
-                    d_opt = np.log(np.linalg.eigvalsh(fim_inv).prod())
-                    jac = -np.array([
-                        np.sum(fim_inv.T * m)
-                        for m in self.atomic_fims
-                    ])
-                except np.linalg.LinAlgError:
-                    d_opt = 0
-                    jac = np.full(self.n_e, np.inf)
-                return d_opt, jac
+                fim_inv = np.linalg.inv(self.fim)
+                jac = -np.array([
+                    np.sum(fim_inv.T * m)
+                    for m in self.atomic_fims
+                ])
+                if sign == 1:
+                    return -d_opt, jac
+                else:
+                    return np.inf, jac
 
         elif self._optimization_package is 'cvxpy':
             return -cp.log_det(self.fim)
@@ -1378,21 +1374,15 @@ class Designer:
         """ eval_sensitivities, only runs if model parameters or candidates changed """
         self.eval_sensitivities(save_sensitivities=self._save_sensitivities)
 
-        """ avoid computation and simply return fim if efforts did not change """
-        if np.array_equal(self._current_efforts, self.efforts):
-            return self.fim
-
         """ update efforts """
         if self._optimization_package is "cvxpy":
             e = self.efforts.value
         else:
             e = self.efforts
-        self._efforts_changed = True
         self._efforts_transformed = False
 
         """ deal with unconstrained form, i.e. transform efforts """
         self.transform_efforts()  # only transform if required, logic incorporated there
-        self._current_efforts = e  # store current efforts for smart evaluator
 
         """ deal with opt_sampling_times """
         if self._opt_sampling_times:
@@ -1764,7 +1754,7 @@ class Designer:
 
     def transform_efforts(self):
         if self._unconstrained_form:
-            if self._efforts_changed or not self._efforts_transformed:
+            if not self._efforts_transformed:
                 self.efforts = np.square(self.efforts)
                 self.efforts /= np.sum(self.efforts)
                 self._efforts_transformed = True
