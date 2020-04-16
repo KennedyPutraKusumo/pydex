@@ -23,8 +23,7 @@ designer_1.initialize()
 
 """ estimability study without redoing sensitivity analysis """
 designer_1.responses_scales = np.ones(2)  # equal scale of responses
-estimable_params = designer_1.estimability_study()
-print(estimable_params)
+designer_1.estimability_study_fim()
 
 """ design experiment without redoing sensitivity analysis """
 package, optimizer = ("cvxpy", "MOSEK")
