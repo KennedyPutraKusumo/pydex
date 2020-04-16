@@ -11,7 +11,7 @@ Solution: non-standard design
 """
 
 
-def simulate(ti_controls, tv_controls, model_parameters, sampling_times):
+def simulate(ti_controls, model_parameters):
     return np.array([
         model_parameters[0] +
 

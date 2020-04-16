@@ -33,6 +33,7 @@ class Designer:
     def __init__(self):
         """ core model components """
         # unorganized
+        self._simulate_sig_id = 0
         self.pvars = None
         self._trim_fim = True
         self._efforts_transformed = False
@@ -211,21 +212,31 @@ class Designer:
 
         """ handling simulate signature """
         simulate_signature = list(signature(self.simulate).parameters.keys())
-        pyomo_simulate_signature = ['model', 'simulator', 'ti_controls', 'tv_controls',
-                                    'model_parameters',
-                                    'sampling_times']
-        non_pyomo_simulate_signature = ['ti_controls', 'tv_controls', 'model_parameters',
-                                        'sampling_times']
-        if np.all([entry in simulate_signature for entry in pyomo_simulate_signature]):
-            self._model_package = 'pyomo'
-        elif np.all(
-                [entry in simulate_signature for entry in non_pyomo_simulate_signature]):
-            self._model_package = 'non-pyomo'
+        base_sig = ["ti_controls", "model_parameters"]
+        dyn_sig = ["sampling_times"]
+        tvc_sig = ["tv_controls"]
+        pyomo_sig = ["model", "simulator"]
+        if np.all([entry in simulate_signature for entry in pyomo_sig]):
+            self._model_package = "pyomo"
         else:
+            self._model_package = "non-pyomo"
+        if np.all([entry in simulate_signature for entry in base_sig]):
+            self._simulate_sig_id += 1
+        if np.all([entry in simulate_signature for entry in dyn_sig]):
+            self._simulate_sig_id *= 2
+            if np.all([entry in simulate_signature for entry in tvc_sig]):
+                self._simulate_sig_id *= 2
+        if self._simulate_sig_id is 0:
             print(
                 "Unrecognized simulate function signature, please check if you have "
-                "specified it correctly.")
-        self._initialize_simulate_function()
+                "specified it correctly. The base signature requires 'ti_controls',"
+                "and 'model_parameters. Adding 'sampling_times' makes it dynamic,"
+                "adding 'tv_controls' and 'sampling_times' makes a dynamic system with"
+                " time-varying controls. Adding 'tv_controls' without 'sampling_times' "
+                "does not work. Adding 'model' and 'simulator' makes it a pyomo "
+                "simulate signature."
+            )
+        self._initialize_internal_simulate_function()
 
         if self._dynamic_system:
             """ check if given time-invariant controls, time-varying controls, 
@@ -628,11 +639,12 @@ class Designer:
                         result_file = result_file_template.substitute(
                             result_dir=self.result_dir, run_no=self.run_no)
                     dump(self.estimable_columns, open(result_file, 'wb'))
-                print(f'Identified estimable parameters are: {self}.estimable_columns')
+                print(f'Identified estimable parameters are: {self.estimable_columns}')
                 return self.estimable_columns
             self.estimable_columns = np.append(self.estimable_columns, next_estim_param)
 
-    def estimability_study_fim(self):
+    def estimability_study_fim(self, save_sensitivities=False):
+        self._save_sensitivities = save_sensitivities
         self.efforts = np.ones(self.n_c * self.n_spt)
         # self.eval_atomic_fims()
         self.eval_fim()
@@ -1602,8 +1614,6 @@ class Designer:
                                    'equal to 0, cannot normalize sensitivities. ' \
                                    'Consider re-estimating your parameters or ' \
                                    're-parameterize your model.'
-        if self.response is None:
-            self.simulate_all_candidates(store_predictions=True)
 
         # normalize parameter values
         self.normalized_sensitivity = np.multiply(self.sensitivities,
@@ -1617,9 +1627,11 @@ class Designer:
                     'likely to fail (e.g. if responses are near 0). Recommend: provide '
                     'designer with scale '
                     'info through: "designer.responses_scale = <your_scale_array>."')
-                # normalize response values
-                self.normalized_sensitivity = np.divide(self.normalized_sensitivity,
-                                                        self.response[:, :, :, None])
+            if self.response is None:
+                self.simulate_all_candidates(store_predictions=True)
+            # normalize response values
+            self.normalized_sensitivity = np.divide(self.normalized_sensitivity,
+                                                    self.response[:, :, :, None])
         else:
             assert isinstance(self.responses_scales,
                               np.ndarray), "Please specify responses_scales as a 1D " \
@@ -1839,14 +1851,27 @@ class Designer:
             "function correctly."
         )
 
-    def _initialize_simulate_function(self):
+    def _initialize_internal_simulate_function(self):
         if self._model_package == 'pyomo':
-            self._simulate_internal = lambda tic, tvc, mp, spt: self.simulate(self.model,
-                                                                              self.simulator,
-                                                                              tic, tvc,
-                                                                              mp, spt)
+            if self._simulate_sig_id is 1:
+                self._simulate_internal = lambda tic, tvc, mp, spt: \
+                  self.simulate(self.model, self.simulator, tic, mp)
+            elif self._simulate_sig_id is 2:
+                self._simulate_internal = lambda tic, tvc, mp, spt: \
+                    self.simulate(self.model, self.simulator, tic, spt, mp)
+            elif self._simulate_sig_id is 4:
+                self._simulate_internal = lambda tic, tvc, mp, spt: \
+                    self.simulate(self.model, self.simulator, tic, tvc, spt, mp)
         elif self._model_package == 'non-pyomo':
-            self._simulate_internal = self.simulate
+            if self._simulate_sig_id is 1:
+                self._simulate_internal = lambda tic, tvc, mp, spt: \
+                  self.simulate(tic, mp)
+            elif self._simulate_sig_id is 2:
+                self._simulate_internal = lambda tic, tvc, mp, spt: \
+                    self.simulate(tic, spt, mp)
+            elif self._simulate_sig_id is 4:
+                self._simulate_internal = lambda tic, tvc, mp, spt: \
+                    self.simulate(tic, tvc, spt, mp)
         else:
             raise SyntaxError(
                 'Cannot initialize simulate function properly, check your syntax.')

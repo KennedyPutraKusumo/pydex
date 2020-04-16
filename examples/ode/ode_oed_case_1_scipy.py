@@ -3,7 +3,7 @@ from scipy.integrate import odeint
 import numpy as np
 
 
-def simulate(ti_controls, tv_controls, model_parameters, sampling_times):
+def simulate(ti_controls, sampling_times, model_parameters):
     sol = odeint(dca_dt, args=(model_parameters, 1), y0=ti_controls[0], t=sampling_times, tfirst=True)
     ca = sol[:, 0]
     return ca
@@ -59,8 +59,8 @@ if __name__ == '__main__':
     package, optimizer = ('cvxpy', 'MOSEK')
     # package, optimizer = ('cvxpy', 'SCS')
     # package, optimizer = ('scipy', 'SLSQP')
-    d_opt_result = designer_1.design_experiment(criterion=designer_1.d_opt_criterion, package=package, plot=False,
-                                                optimize_sampling_times=True, write=False, optimizer=optimizer)
-    designer_1.plot_current_design()
-
-    designer_1.save_state()
+    d_opt_result = designer_1.design_experiment(criterion=designer_1.d_opt_criterion,
+                                                package=package,
+                                                optimize_sampling_times=True,
+                                                write=False, optimizer=optimizer)
+    designer_1.print_optimal_candidates()

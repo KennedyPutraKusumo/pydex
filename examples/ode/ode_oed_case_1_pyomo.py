@@ -4,7 +4,7 @@ from pyomo import dae as pod
 import numpy as np
 
 
-def simulate(model, simulator, ti_controls, tv_controls, model_parameters, sampling_times):
+def simulate(model, simulator, ti_controls, sampling_times, model_parameters):
     """ fixing the control variables """
     # time-invariant
     model.beta.fix(model_parameters[0])
@@ -122,9 +122,6 @@ if __name__ == '__main__':
     designer_1.plot_current_design(write=False)
     designer_1.plot_optimal_predictions()
     designer_1.plot_optimal_sensitivities()
-
-    """ an option for saving current designer state """
-    designer_1.save_state()
 
     """ simulate candidates to show model predictions for each candidate """
     designer_1.simulate_all_candidates(plot_simulation_times=True)

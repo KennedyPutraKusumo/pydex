@@ -8,7 +8,7 @@ Setting: a non-dynamic experimental system with 2 time-invariant control variabl
 Problem: design a prediction-oriented experiment for order 1 polynomial with interaction
 Solution: a full 2^2 factorial design (2 level)
 """
-def simulate(ti_controls, tv_controls, model_parameters, sampling_times):
+def simulate(ti_controls, model_parameters):
     return np.array([
         # constant term
         model_parameters[0] +

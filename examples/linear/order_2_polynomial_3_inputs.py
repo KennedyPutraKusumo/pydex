@@ -10,7 +10,7 @@ Solution: D-optimal full 3^3 factorial design, A- and E-optimal Central Composit
 """
 
 
-def simulate(ti_controls, tv_controls, model_parameters, sampling_times):
+def simulate(ti_controls, model_parameters):
     return np.array([
         # constant term
         model_parameters[0] +

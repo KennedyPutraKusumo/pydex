@@ -10,7 +10,7 @@ Solution: a full 2^3 factorial design (2 level)
 """
 
 
-def simulate(ti_controls, tv_controls, model_parameters, sampling_times):
+def simulate(ti_controls, model_parameters):
     return np.array([
         # constant term
         model_parameters[0] +

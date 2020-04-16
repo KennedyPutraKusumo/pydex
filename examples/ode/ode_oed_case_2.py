@@ -5,8 +5,7 @@ from pyomo import environ as po
 from pydex.core.designer import Designer
 
 
-def simulate(model, simulator, ti_controls, tv_controls, model_parameters,
-             sampling_times):
+def simulate(model, simulator, ti_controls, sampling_times, model_parameters):
     """ fixing the control variables """
     # time-invariant
     model.theta_0.fix(model_parameters[0])
@@ -147,7 +146,12 @@ designer_1.responses_scales = np.array([1, 1])
 
 """ initializing designer """
 designer_1.initialize(verbose=2)  # 0: silent, 1: overview, 2: detail
-designer_1.estimability_study_fim()
+
+""" option to save current designer state """
+designer_1.save_state()
+
+""" do an estimability study """
+designer_1.estimability_study(save_sensitivities=True)
 
 """ D-optimal design """
 criterion = designer_1.d_opt_criterion
@@ -155,14 +159,13 @@ criterion = designer_1.d_opt_criterion
 # criterion = designer_1.e_opt_criterion
 
 result = designer_1.design_experiment(criterion=criterion, optimize_sampling_times=True,
-                                      write=False, save_sensitivities=True, fd_jac=False)
+                                      write=False, fd_jac=False)
 
 designer_1.print_optimal_candidates()
+designer_1.plot_current_design()
+
 designer_1.plot_optimal_predictions()
 designer_1.plot_optimal_sensitivities(absolute=True)
-designer_1.plot_current_design()
+
 designer_1.simulate_all_candidates(plot_simulation_times=True)
 designer_1.plot_all_predictions()
-
-""" an option for saving current designer and the specified candidates """
-designer_1.save_state()
