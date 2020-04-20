@@ -33,6 +33,7 @@ class Designer:
     def __init__(self):
         """ core model components """
         # unorganized
+        self._semi_bayesian = False
         self._simulate_sig_id = 0
         self.pvars = None
         self._trim_fim = True
@@ -48,8 +49,8 @@ class Designer:
         self._current_criterion = None
         self.estimability = None
         self.normalized_sensitivity = None
-        self._dynamic_controls = None
-        self._dynamic_system = None
+        self._dynamic_controls = False
+        self._dynamic_system = False
         self.optimal_candidates = None
         self.estimable_model_parameters = []
         self._save_sensitivities = False
@@ -86,6 +87,7 @@ class Designer:
 
         """ problem dimension sizes """
         self.n_c = None
+        self.n_tic = None
         self.n_spt = None
         self.n_r = None
         self.n_mp = None
@@ -160,150 +162,26 @@ class Designer:
 
     """ user-defined methods: must be overwritten by user to work """
 
-    def simulate(self, model, simulator, ti_controls, tv_controls, model_parameters,
-                 sampling_times):
+    def simulate(self, unspecified):
         raise SyntaxError("Don't forget to specify the simulate function.")
 
     """ core activity interfaces """
-
     def initialize(self, verbose=0, memory_threshold=int(1e9)):
-        """ check if all required components are specified to model """
-        if self.ti_controls_candidates is None:
-            raise SyntaxError('Time-invariant controls candidates empty.')
-        assert self.model_parameters is not None, 'Please specify nominal model ' \
-                                                  'parameters.'
+        """ check for syntax errors, runs one simulation to determine n_r """
 
-        """ check if required components are in right datatypes and determine if (i) 
-        system is dynamic; (ii) there  
-        exists time-invariant controls """
-        if self.sampling_times_candidates is not None:
-            if not isinstance(self.sampling_times_candidates, np.ndarray):
-                raise SyntaxError(
-                    'sampling_times_candidates must be supplied as a numpy array.')
-            self._dynamic_system = True
-        else:
-            self._dynamic_system = False
-
-        if not isinstance(self.ti_controls_candidates, np.ndarray):
-            raise SyntaxError(
-                'ti_controls_candidates must be supplied as a numpy array.')
-        if not isinstance(self.model_parameters, (list, np.ndarray)):
-            raise SyntaxError('model_parameters must be supplied as a numpy array.')
-
-        """ saving number of candidates, sampling times, and model parameters """
-        self.n_c = len(self.ti_controls_candidates)
-        self.n_mp = len(self.model_parameters)
-
-        if self.tv_controls_candidates is not None:
-            if not isinstance(self.tv_controls_candidates, np.ndarray):
-                raise SyntaxError(
-                    'tv_controls_candidates must be supplied as a numpy array.')
-            if not self._dynamic_system:
-                raise SyntaxError(
-                    'Time-varying control supplied, but sampling times is unsupplied.')
-            self._dynamic_controls = True
-        else:
-            self.tv_controls_candidates = np.array([{0: 0} for _ in range(self.n_c)])
-            self._dynamic_controls = False
-
-        if self.sampling_times_candidates is None:
-            self.sampling_times_candidates = np.array([0 for _ in range(self.n_c)])
-            self.n_spt = 1
-
-        """ handling simulate signature """
-        simulate_signature = list(signature(self.simulate).parameters.keys())
-        base_sig = ["ti_controls", "model_parameters"]
-        dyn_sig = ["sampling_times"]
-        tvc_sig = ["tv_controls"]
-        pyomo_sig = ["model", "simulator"]
-        if np.all([entry in simulate_signature for entry in pyomo_sig]):
-            self._model_package = "pyomo"
-        else:
-            self._model_package = "non-pyomo"
-        if np.all([entry in simulate_signature for entry in base_sig]):
-            self._simulate_sig_id += 1
-        if np.all([entry in simulate_signature for entry in dyn_sig]):
-            self._simulate_sig_id *= 2
-            if np.all([entry in simulate_signature for entry in tvc_sig]):
-                self._simulate_sig_id *= 2
-        if self._simulate_sig_id is 0:
-            print(
-                "Unrecognized simulate function signature, please check if you have "
-                "specified it correctly. The base signature requires 'ti_controls',"
-                "and 'model_parameters. Adding 'sampling_times' makes it dynamic,"
-                "adding 'tv_controls' and 'sampling_times' makes a dynamic system with"
-                " time-varying controls. Adding 'tv_controls' without 'sampling_times' "
-                "does not work. Adding 'model' and 'simulator' makes it a pyomo "
-                "simulate signature."
-            )
-        self._initialize_internal_simulate_function()
+        """ check if simulate function has been specified """
+        self._handle_simulate_sig()
+        self._check_missing_components()
+        self._data_type_check()
 
         if self._dynamic_system:
-            """ check if given time-invariant controls, time-varying controls, 
-            and sampling times have the same
-             number of candidates specified """
-            n_tic_cand = len(self.ti_controls_candidates)
-            n_spt_cand = len(self.sampling_times_candidates)
-            if not n_tic_cand == n_spt_cand:
-                raise SyntaxError(
-                    "Number of candidates given in ti_controls, and sampling times are "
-                    "inconsistent.")
-            if self._dynamic_controls:
-                n_tvc_cand = len(self.tv_controls_candidates)
-                if not n_tvc_cand == n_spt_cand:
-                    raise SyntaxError(
-                        "Number of candidates given in tv_controls are inconsistent "
-                        "with ti_controls "
-                        "and sampling times.")
-            """ checking that all sampling times candidates have equal number of 
-            sampling times """
-            if np.all([len(spt) == len(self.sampling_times_candidates[0]) for spt in
-                       self.sampling_times_candidates]) \
-                    and np.all(~np.isnan(self.sampling_times_candidates)):
-                self._var_n_sampling_time = False
-            else:
-                self._var_n_sampling_time = True
-                self._pad_sampling_times()
-            self.n_spt = len(self.sampling_times_candidates[0])
+            self._check_candidate_lengths()
+            self._check_var_spt()
 
-        if self.n_r is None:
-            print(
-                "Running one simulation for initialization (required to determine "
-                "number of responses).")
-            y = self._simulate_internal(self.ti_controls_candidates[0],
-                                        self.tv_controls_candidates[0],
-                                        self.model_parameters,
-                                        self.sampling_times_candidates[0][~np.isnan(
-                                            self.sampling_times_candidates[0])])
-            try:
-                _, self.n_r = y.shape
-            except ValueError:
-                if self._dynamic_system and self.n_spt > 1:
-                    self.n_r = 1
-                else:
-                    self.n_r = y.shape[0]
-        if self.measurable_responses is None:
-            self.n_m_r = self.n_r
-            self.measurable_responses = np.array([_ for _ in range(self.n_r)])
-        elif self.n_m_r != len(self.measurable_responses):
-            if self.n_m_r > self.n_r:
-                raise SyntaxError(
-                    "Given number of measurable responses is greater than number of "
-                    "responses given.")
-            self.n_m_r = len(self.measurable_responses)
+        self._check_stats_framework()
+        self._get_component_sizes()
 
-        # check problem size (affects if designer will be memory-efficient or quick)
-        self._memory_threshold = memory_threshold
-        memory_req = self.n_c * self.n_spt * self.n_m_r * self.n_mp ** 2 * 8
-
-        if memory_req > self._memory_threshold:
-            print(
-                'Atomic fim will take {0:.2f} GB of memory space (more than {1:.2f} GB '
-                'threshold) if vectorized '
-                'evaluation is chosen. Changing to memory-efficient (but slower) '
-                'computation of information '
-                'matrices.'.format(memory_req / 1e9, self._memory_threshold / 1e9))
-            self._large_memory_requirement = True
+        self._check_memory_req(memory_threshold)
 
         self._status = 'ready'
         self._verbose = verbose
@@ -570,7 +448,7 @@ class Designer:
             self.design_experiment(criterion, optimize_sampling_times, "scipy",
                                    optimizer, opt_options, e0, write)
 
-        self.transform_efforts()
+        self._transform_efforts()
         finish = time()
 
         """ report status and performance """
@@ -1119,7 +997,6 @@ class Designer:
         return self.sensitivities
 
     """ criteria """
-
     # calibration-oriented
     def d_opt_criterion(self, efforts):
         """ it is a PSD criterion, with exponential cone """
@@ -1493,7 +1370,7 @@ class Designer:
         self._efforts_transformed = False
 
         """ deal with unconstrained form, i.e. transform efforts """
-        self.transform_efforts()  # only transform if required, logic incorporated there
+        self._transform_efforts()  # only transform if required, logic incorporated there
 
         """ deal with opt_sampling_times """
         if self._opt_sampling_times:
@@ -1876,7 +1753,7 @@ class Designer:
             raise SyntaxError(
                 'Cannot initialize simulate function properly, check your syntax.')
 
-    def transform_efforts(self):
+    def _transform_efforts(self):
         if self._unconstrained_form:
             if not self._efforts_transformed:
                 self.efforts = np.square(self.efforts)
@@ -1886,3 +1763,166 @@ class Designer:
                     print("Efforts transformed.")
 
         return self.efforts
+
+    def _check_missing_components(self):
+        # basic components
+        if self.ti_controls_candidates is None:
+            raise SyntaxError("Time-invariant controls candidates empty.")
+        if self.model_parameters is None:
+            raise SyntaxError("Please specify nominal model parameters.")
+
+        # dynamic system
+        if self._dynamic_system:
+            if self.sampling_times_candidates is None:
+                raise SyntaxError("Don't forget to specify sampling_times_candidates "
+                                  "for dynamic systems.")
+
+            if self._dynamic_controls:
+                if self.tv_controls_candidates is None:
+                    raise SyntaxError("Don't forget to specify tv_controls_candidates "
+                                      "for dynamic_systems with tv_controls.")
+            else:
+                self.tv_controls_candidates = np.empty_like(self.ti_controls_candidates)
+        else:
+            self.sampling_times_candidates = np.empty_like(self.ti_controls_candidates)
+            self.tv_controls_candidates = np.empty_like(self.ti_controls_candidates)
+
+    def _data_type_check(self):
+        if not isinstance(self.ti_controls_candidates, np.ndarray):
+            raise SyntaxError(
+                'ti_controls_candidates must be supplied as a numpy array.'
+            )
+        if not isinstance(self.model_parameters, (list, np.ndarray)):
+            raise SyntaxError('model_parameters must be supplied as a numpy array.')
+
+        if self._dynamic_system:
+            if not isinstance(self.sampling_times_candidates, np.ndarray):
+                raise SyntaxError("sampling_times_candidates must be supplied as a "
+                                  "numpy array.")
+            if self._dynamic_controls:
+                if not isinstance(self.tv_controls_candidates, np.ndarray):
+                    raise SyntaxError("tv_controls_candidates must be supplied as a "
+                                      "numpy array.")
+
+    def _handle_simulate_sig(self):
+        """ determines type of model from simulate signature """
+        sim_sig = list(signature(self.simulate).parameters.keys())
+        unspecified_sig = ["unspecified"]
+        if np.all([entry in sim_sig for entry in unspecified_sig]):
+            raise SyntaxError("Don't forget to specify the simulate function.")
+
+        base_sig = ["ti_controls", "model_parameters"]
+        dyn_sig = ["sampling_times"]
+        tvc_sig = ["tv_controls"]
+        pyomo_sig = ["model", "simulator"]
+        if np.all([entry in sim_sig for entry in pyomo_sig]):
+            self._model_package = "pyomo"
+        else:
+            self._model_package = "non-pyomo"
+        if np.all([entry in sim_sig for entry in base_sig]):
+            self._simulate_sig_id += 1
+        if np.all([entry in sim_sig for entry in dyn_sig]):
+            self._simulate_sig_id *= 2
+            self._dynamic_system = True
+            if np.all([entry in sim_sig for entry in tvc_sig]):
+                self._simulate_sig_id *= 2
+                self._dynamic_controls = True
+        if self._simulate_sig_id is 0:
+            print(
+                "Unrecognized simulate function signature, please check if you have "
+                "specified it correctly. The base signature requires 'ti_controls',"
+                "and 'model_parameters. Adding 'sampling_times' makes it dynamic,"
+                "adding 'tv_controls' and 'sampling_times' makes a dynamic system with"
+                " time-varying controls. Adding 'tv_controls' without 'sampling_times' "
+                "does not work. Adding 'model' and 'simulator' makes it a pyomo "
+                "simulate signature."
+            )
+        self._initialize_internal_simulate_function()
+
+    def _check_stats_framework(self):
+        """ check if local or semi-bayesian designs """
+        if self.model_parameters.ndim is 1:
+            self._semi_bayesian = False
+        elif self.model_parameters.ndim is 2:
+            self._semi_bayesian = True
+        else:
+            raise SyntaxError(
+                "model_parameters must be fed in as a 1D numpy array for local "
+                "designs, and a 2D numpy array for a semi-bayesian designs."
+            )
+
+    def _check_candidate_lengths(self):
+        if self._dynamic_system:
+            n_c_tic = len(self.ti_controls_candidates)
+            n_c_spt = len(self.sampling_times_candidates)
+            if not n_c_tic == n_c_spt:
+                raise SyntaxError(
+                    "Number of candidates given in ti_controls, and sampling times are "
+                    "inconsistent."
+                )
+
+            if self._dynamic_controls:
+                n_c_tvc = len(self.tv_controls_candidates)
+                if not n_c_tvc == n_c_spt:
+                    raise SyntaxError(
+                        "Number of candidates given in tv_controls are inconsistent "
+                        "with ti_controls and sampling times."
+                    )
+
+    def _check_var_spt(self):
+        if np.all([len(spt) == len(self.sampling_times_candidates[0]) for spt in
+                   self.sampling_times_candidates]) \
+                and np.all(~np.isnan(self.sampling_times_candidates)):
+            self._var_n_sampling_time = False
+        else:
+            self._var_n_sampling_time = True
+            self._pad_sampling_times()
+
+    def _get_component_sizes(self):
+        self.n_c, self.n_tic = self.ti_controls_candidates.shape
+        self.n_mp = len(self.model_parameters)
+
+        if self._dynamic_system:
+            self.n_spt = len(self.sampling_times_candidates[0])
+        else:
+            self.n_spt = 1
+
+        if self.n_r is None:
+            print(
+                "Running one simulation for initialization (required to determine "
+                "number of responses).")
+            y = self._simulate_internal(self.ti_controls_candidates[0],
+                                        self.tv_controls_candidates[0],
+                                        self.model_parameters,
+                                        self.sampling_times_candidates[0][~np.isnan(
+                                            self.sampling_times_candidates[0])])
+            try:
+                _, self.n_r = y.shape
+            except ValueError:
+                if self._dynamic_system and self.n_spt > 1:
+                    self.n_r = 1
+                else:
+                    self.n_r = y.shape[0]
+        if self.measurable_responses is None:
+            self.n_m_r = self.n_r
+            self.measurable_responses = np.array([_ for _ in range(self.n_r)])
+        elif self.n_m_r != len(self.measurable_responses):
+            if self.n_m_r > self.n_r:
+                raise SyntaxError(
+                    "Given number of measurable responses is greater than number of "
+                    "responses given.")
+            self.n_m_r = len(self.measurable_responses)
+
+    def _check_memory_req(self, threshold):
+        # check problem size (affects if designer will be memory-efficient or quick)
+        self._memory_threshold = threshold
+        memory_req = self.n_c * self.n_spt * self.n_m_r * self.n_mp ** 2 * 8
+
+        if memory_req > self._memory_threshold:
+            print(
+                'Atomic fim will take {0:.2f} GB of memory space (more than {1:.2f} GB '
+                'threshold) if vectorized '
+                'evaluation is chosen. Changing to memory-efficient (but slower) '
+                'computation of information '
+                'matrices.'.format(memory_req / 1e9, self._memory_threshold / 1e9))
+            self._large_memory_requirement = True

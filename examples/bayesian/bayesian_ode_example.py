@@ -27,6 +27,7 @@ def simulate(model, simulator, ti_controls, sampling_times, model_parameters):
     model.t._constructed = False  # needed so we can re-initialize the continuous set
     model.t._data = {}
     model.t._fe = []
+    model.t.value = []
     model.t.value_list = []
     model.t.construct()  # line that re-initializes the continuous set
 
@@ -99,17 +100,21 @@ designer_1.simulate = simulate
 
 """ specifying nominal model parameter """
 theta_nom = np.array([theta_0, theta_1, 1, 1])  # value of theta_0, theta_1, alpha_a, nu
+theta = np.random.multivariate_normal(mean=theta_nom, cov=0.1 * np.identity(4),
+                                      size=5 ** 4)
 designer_1.model_parameters = theta_nom  # assigning it to the designer's theta
 
 """ creating experimental candidates, here, it is generated as a grid """
-n_s_times = 50  # number of equally-spaced sampling time candidates
-n_c = 10 ** 2  # grid resolution of control candidates generated
+n_s_times = 10  # number of equally-spaced sampling time candidates
+n_c = 5 ** 2  # grid resolution of control candidates generated
 
 # defining sampling time candidates
 tau_upper = 200
 tau_lower = 0
-spt_candidates = np.array([np.linspace(tau_lower, tau_upper, n_s_times)
+spt_candidates = np.array([np.linspace(tau_lower, tau_upper, n_s_times + _)
                            for _ in range(n_c)])
+# spt_candidates = np.array([np.linspace(tau_lower, tau_upper, n_s_times)
+#                            for _ in range(n_c)])
 
 # specifying bounds for the grid
 Ca0_lower = 1
@@ -117,11 +122,10 @@ Ca0_upper = 5
 temp_lower = 273.15
 temp_upper = 273.15 + 50
 # creating the grid, just some numpy syntax for grid creation
-Ca0_cand, temp_cand = np.mgrid[Ca0_lower:Ca0_upper:complex(0, np.sqrt(n_c)),
-                      temp_lower:temp_upper:complex(0, np.sqrt(n_c))]
-Ca0_cand = Ca0_cand.flatten()
-temp_cand = temp_cand.flatten()
-tic_candidates = np.array([Ca0_cand, temp_cand]).T
+Ca0, temp = np.mgrid[Ca0_lower:Ca0_upper:complex(0, np.sqrt(n_c)), temp_lower:temp_upper:complex(0, np.sqrt(n_c))]
+Ca0 = Ca0.flatten()
+temp = temp.flatten()
+tic_candidates = np.array([Ca0, temp]).T
 
 """ passing the experimental candidates to the designer """
 designer_1.ti_controls_candidates = tic_candidates
@@ -129,8 +133,10 @@ designer_1.sampling_times_candidates = spt_candidates
 
 """
 Specify measurable states:
-A list or array with column numbers where the measurable states are returned in the simulate 
-function. Optional, if un-specified assume all responses (from simulate function) measurable
+A list or array with column numbers where the measurable states are returned in the 
+simulate 
+function. Optional, if un-specified assume all responses (from simulate function) 
+measurable
 """
 # designer_1.measurable_responses = [0, 1]
 
