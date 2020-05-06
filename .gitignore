@@ -205,4 +205,4 @@ dmypy.json
 
 t_project/
 **/__init__.py
-**/in_paper/
+examples/in_paper/

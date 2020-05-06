@@ -491,7 +491,7 @@ class Designer:
         finish = time()
 
         """ report status and performance """
-        self._optimization_time = finish - start
+        self._optimization_time = finish - start - self._sensitivity_analysis_time
         if self._verbose:
             print(
                 f"Done: sensitivity analysis took {self._sensitivity_analysis_time:.2f}"
