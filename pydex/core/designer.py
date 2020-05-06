@@ -4,7 +4,7 @@ from os import getcwd, path, makedirs
 from pickle import dump, load
 from string import Template
 from time import time
-from mpl_toolkits.mplot3d import Axes3D
+import itertools
 
 import __main__ as main
 import cvxpy as cp
@@ -12,27 +12,43 @@ import dill
 import numdifftools as nd
 import numpy as np
 from matplotlib import pyplot as plt
+from matplotlib import cm
 from scipy.optimize import minimize
+from mpl_toolkits.mplot3d import Axes3D
+from pydex.utils.trellis_plotter import TrellisPlotter
 
 
 class Designer:
     """
     An experiment designer with capabilities to do parameter estimation, parameter
-    estimability study, and
-    solve continuous experiment design problems.
+    estimability study, and computes continuous experimental designs.
 
     Interfaces to optimization solvers via Pyomo. Supports virtually any Python
-    functions as long as one can specify
-    the model within the required general syntax. Designer comes equipped with various
-    convenient and automated plotting
-     functions, leveraging the pyplot library from matplotlib.
+    functions as long as one can specify the model within the required general syntax.
+    Designer comes equipped with convenient built-in visualization capabilities, using
+    matplotlib.
     """
-    # TODO: implement hash functions to avoid saving large numpy arrays for current
-    #  model parameters, efforts
-    # TODO: add attribute to store current candidates
     def __init__(self):
         """ core model components """
         # unorganized
+        self._old_tvc = None
+        self._old_spt = None
+        self._tvc_changed = None
+        self._spt_changed = None
+        self._tic_changed = None
+        self._old_tic = None
+        self.model_parameter_names = None
+        self.response_names = None
+        self._scr_sens = None
+        self.scr_responses = None
+        self._current_scr = None
+        self._model_parameters_changed = None
+        self._old_model_parameters = None
+        self._semi_bayes_type = None
+        self.scr_fims = None
+        self.scr_criterion_val = None
+        self._current_scr_mp = None
+
         self._semi_bayesian = False
         self._simulate_sig_id = 0
         self.pvars = None
@@ -87,12 +103,16 @@ class Designer:
 
         """ problem dimension sizes """
         self.n_c = None
+        self.n_c_tic = None
+        self.n_c_tvc = None
+        self.n_c_spt = None
         self.n_tic = None
         self.n_spt = None
         self.n_r = None
         self.n_mp = None
         self.n_e = None
         self.n_m_r = None
+        self.n_scr = None
 
         """ parameter estimation """
         self.data = None  # stored data, a 3D numpy array, same shape as response.
@@ -133,7 +153,7 @@ class Designer:
         self._sampling_times = None
         self._current_response = None  # a 2D numpy array. 1st dim are sampling times,
         # 2nd dim are different responses
-        self._current_model_parameters = None
+        self._last_scr_mp = None
 
         # store user-selected problem types
         self._sensitivity_is_normalized = None
@@ -146,7 +166,7 @@ class Designer:
         self._optimizer = None
 
         # storing states that helps minimize evaluations
-        self._model_parameters_changed = True
+        self._scr_changed = True
 
         # temporary performance results for current design
         self._sensitivity_analysis_time = 0
@@ -175,11 +195,11 @@ class Designer:
         self._data_type_check()
 
         if self._dynamic_system:
-            self._check_candidate_lengths()
             self._check_var_spt()
 
         self._check_stats_framework()
         self._get_component_sizes()
+        self._check_candidate_lengths()
 
         self._check_memory_req(memory_threshold)
 
@@ -339,7 +359,8 @@ class Designer:
     def design_experiment(self, criterion, optimize_sampling_times=False,
                           package="cvxpy", optimizer=None, opt_options=None, e0=None,
                           write=True, save_sensitivities=False, fd_jac=True,
-                          unconstrained_form=False, trim_fim=True, **kwargs):
+                          unconstrained_form=False, trim_fim=True, semi_bayes_type=None,
+                          **kwargs):
         # storing user choices
         self._optimization_package = package
         self._optimizer = optimizer
@@ -355,7 +376,25 @@ class Designer:
         else:
             opt_verbose = False
 
-        """ deal with fd_jac for large problems """
+        """ setting default semi-bayes behaviour """
+        if self._semi_bayesian:
+            if semi_bayes_type is None:
+                self._semi_bayes_type = 0
+            else:
+                valid_types = [
+                    0, 1,
+                    "avg_inf", "avg_crit",
+                    "average_information", "average_criterion"
+                ]
+                if semi_bayes_type in valid_types:
+                    self._semi_bayes_type = semi_bayes_type
+                else:
+                    raise SyntaxError(
+                        "Unrecognized semi-semi_bayesian criterion type. Valid types: '0' for"
+                        " average information, '1' for average criterion."
+                    )
+
+        """ force fd_jac for large problems """
         if self._large_memory_requirement and not self._fd_jac:
             print("Warning: analytic Jacobian is specified on a large problem."
                   "Overwriting and continuing with finite differences.")
@@ -524,8 +563,7 @@ class Designer:
     def estimability_study_fim(self, save_sensitivities=False):
         self._save_sensitivities = save_sensitivities
         self.efforts = np.ones(self.n_c * self.n_spt)
-        # self.eval_atomic_fims()
-        self.eval_fim()
+        self.eval_fim(self.efforts, self.model_parameters)
         print(f"Estimable parameters: {self.estimable_model_parameters}")
         print(f"Degree of Estimability: {self.estimability}")
         return self.estimable_model_parameters, self.estimability
@@ -544,8 +582,8 @@ class Designer:
         return self.grid
 
     # visualization and result retrieval
-    def plot_current_design(self, width=None, write=False, dpi=720, quality=95,
-                            force_3d=False):
+    def plot_optimal_efforts(self, width=None, write=False, dpi=720, quality=95,
+                             force_3d=False):
         if (self._opt_sampling_times or force_3d) and self._dynamic_system:
             self._plot_current_continuous_design_3d(width=width, write=write, dpi=dpi,
                                                     quality=quality)
@@ -553,9 +591,85 @@ class Designer:
             if force_3d:
                 print(
                     "Warning: force 3d only works for dynamic systems, plotting "
-                    "current design in 2D.")
+                    "current design in 2D."
+                )
             self._plot_current_continuous_design_2d(width=width, write=write, dpi=dpi,
                                                     quality=quality)
+
+    def plot_controls(self, alpha=0.2, markersize=1, non_opt_candidates=False,
+                      n_ticks=3):
+        if self._dynamic_controls:
+            raise NotImplementedError(
+                "Plot controls not implemented for dynamic controls"
+            )
+        if self.n_tic > 4:
+            raise NotImplementedError(
+                "Plot controls not implemented for systems with more than 4 ti_controls"
+            )
+        if self.n_tic == 1:
+            self.plot_optimal_efforts()
+        elif self.n_tic == 2:
+            fig, axes = plt.subplots(1, 1)
+            if non_opt_candidates:
+                axes.scatter(
+                    self.ti_controls_candidates[:, 0],
+                    self.ti_controls_candidates[:, 1],
+                    alpha=alpha,
+                    marker="o",
+                    s=18*markersize,
+                )
+            axes.scatter(
+                self.ti_controls_candidates[:, 0],
+                self.ti_controls_candidates[:, 1],
+                facecolor="red",
+                edgecolor="red",
+                marker="o",
+                s=self.efforts*500*markersize,
+            )
+            axes.set_xlabel("Time-invariant Control 1")
+            axes.set_ylabel("Time-invariant Control 2")
+            axes.set_xticks(
+                np.linspace(
+                    self.ti_controls_candidates[:, 0].min(),
+                    self.ti_controls_candidates[:, 0].max(),
+                    n_ticks
+                )
+            )
+            axes.set_yticks(
+                np.linspace(
+                    self.ti_controls_candidates[:, 1].min(),
+                    self.ti_controls_candidates[:, 1].max(),
+                    n_ticks
+                )
+            )
+            plt.show()
+        elif self.n_tic == 3:
+            fig = plt.figure()
+            axes = fig.add_subplot(111, projection="3d")
+            if non_opt_candidates:
+                axes.scatter(
+                    self.ti_controls_candidates[:, 0],
+                    self.ti_controls_candidates[:, 1],
+                    self.ti_controls_candidates[:, 2],
+                    alpha=alpha,
+                    marker="o",
+                    s=18*markersize,
+                )
+            axes.scatter(
+                self.ti_controls_candidates[:, 0],
+                self.ti_controls_candidates[:, 1],
+                self.ti_controls_candidates[:, 2],
+                facecolor="r",
+                edgecolor="r",
+                s=self.efforts*500*markersize,
+            )
+            axes.grid(False)
+            plt.show()
+        elif self.n_tic == 4:
+            trellis_plotter = TrellisPlotter()
+            trellis_plotter.data = self.ti_controls_candidates
+            trellis_plotter.intervals = np.array([5, 7])
+            trellis_plotter.plot()
 
     def plot_sensitivities(self, absolute=False, draw_legend=True):
         # n_c, n_s_times, n_res, n_theta = self.sensitivity.shape
@@ -731,129 +845,172 @@ class Designer:
 
         plt.show()
 
-    def plot_optimal_predictions(self, plot_simulation_times=False, legend=True,
-                                 figsize=(10, 7.5), markersize=10, fontsize=10,
-                                 legend_size=8, opt_spt_only=False):
-        assert self._status is 'ready', 'Initialize the designer first.'
-        assert self.response is not None, 'Cannot plot prediction vs data when ' \
-                                          'response is empty, please run and ' \
-                                          'store predictions.'
+    def plot_optimal_predictions(self, legend=True, figsize=None, markersize=10,
+                                 fontsize=10, legend_size=8, colour_map="Spectral",
+                                 write=False, dpi=720, quality=95):
+        if not self._dynamic_system:
+            raise SyntaxError("Prediction plots are only for dynamic systems.")
+
+        if self._status is not 'ready':
+            raise SyntaxError(
+                'Initialize the designer first.'
+            )
+
+        if self._semi_bayesian:
+            if self.scr_responses is None:
+                raise SyntaxError(
+                    'Cannot plot prediction vs data when scr_response is empty, please '
+                    'run a semi-bayes experimental design, and store predictions.'
+                )
+            mean_res = np.average(self.scr_responses, axis=0)
+            std_res = np.std(self.scr_responses, axis=0)
+        else:
+            if self.response is None:
+                raise SyntaxError(
+                    'Cannot plot prediction vs data when response is empty, please run '
+                    'and store predictions.'
+                )
 
         self.get_optimal_candidates()
 
+        if figsize is None:
+            figsize = (4.0, 1.0 + 2.5 * self.n_m_r)
+
+        f = plt.figure(figsize=figsize, constrained_layout=True)
+        """ creating the necessary subplots """
+        gs = plt.GridSpec(self.n_m_r, 1, f)
+        x_axis_lim = [
+            np.min(self.sampling_times_candidates[
+                       ~np.isnan(self.sampling_times_candidates)]),
+            np.max(self.sampling_times_candidates[
+                       ~np.isnan(self.sampling_times_candidates)])
+        ]
         for res in range(self.n_m_r):
-            """ creating the necessary figures """
-            create_fig = 'fig%d = plt.figure(figsize=figsize)' % res
-            exec(create_fig)
+            """ defining fig's subplot axes limits """
 
-            n_fig_col = np.floor(np.sqrt(len(self.optimal_candidates))).astype(int)
-            n_fig_row = np.floor(np.sqrt(len(self.optimal_candidates))).astype(int)
+            if self._semi_bayesian:
+                res_max = np.nanmax(mean_res[:, :, res] + std_res[:, :, res])
+                res_min = np.nanmin(mean_res[:, :, res] - std_res[:, :, res])
+            else:
+                res_max = np.nanmax(self.response[:, :, res])
+                res_min = np.nanmin(self.response[:, :, res])
 
-            while n_fig_col * n_fig_row < len(self.optimal_candidates):
-                n_fig_col += 1
+            y_axis_lim = [res_min, res_max]
 
-            """ creating the necessary subplots """
-            for row in range(n_fig_row):
-                for col in range(n_fig_col):
-                    draw_subplots = 'axes%d_fig%d = fig%d.add_subplot(n_fig_row, ' \
-                                    'n_fig_col, ' \
-                                    'row * n_fig_col + (col + 1) )' % (
-                                        row * n_fig_col + (col + 1), res, res)
-                    exec(draw_subplots)
+            if self._semi_bayesian:
+                plot_response = mean_res
+            else:
+                plot_response = self.response
 
-            """ defining a universal subplot axes limits """
-            x_axis_lim = [
-                np.min(self.sampling_times_candidates[
-                           ~np.isnan(self.sampling_times_candidates)]),
-                np.max(self.sampling_times_candidates[
-                           ~np.isnan(self.sampling_times_candidates)])
-            ]
+            ax = f.add_subplot(gs[res, 0])
+            cmap = cm.get_cmap(colour_map, len(self.optimal_candidates))
+            colors = itertools.cycle([
+                cmap(_) for _ in np.linspace(0, 1, len(self.optimal_candidates))
+            ])
+            for c, opt_cand in enumerate(self.optimal_candidates):
+                color = next(colors)
+                ax.plot(
+                    self.sampling_times_candidates[opt_cand[0]],
+                    plot_response[
+                        opt_cand[0],
+                        :,
+                        self.measurable_responses[res]
+                    ],
+                    linestyle="--", label=f"Candidate {opt_cand[0] + 1:d}",
+                    zorder=0,
+                    c=color,
+                )
+                if self._semi_bayesian:
+                    ax.fill_between(
+                        self.sampling_times_candidates[opt_cand[0]],
+                        plot_response[
+                            opt_cand[0],
+                            :,
+                            self.measurable_responses[res]
+                        ]
+                        +
+                        std_res[
+                            opt_cand[0],
+                            :,
+                            self.measurable_responses[res]
+                        ],
+                        mean_res[
+                            opt_cand[0],
+                            :,
+                            self.measurable_responses[res]
+                        ]
+                        -
+                        std_res[
+                            opt_cand[0],
+                            :,
+                            self.measurable_responses[res]
+                        ],
+                        alpha=0.1,
+                        facecolor=color,
+                        zorder=1
+                    )
+                ax.scatter(
+                    opt_cand[3],
+                    plot_response[
+                        opt_cand[0],
+                        opt_cand[5],
+                        self.measurable_responses[res]
+                    ],
+                    marker="o",
+                    s=markersize * 50 * np.array(opt_cand[4]),
+                    # label="Optimal Sampling Times",
+                    zorder=2,
+                    c=np.array([color]),
+                )
+                ax.set_xlim(
+                    x_axis_lim[0] - 0.1 * (x_axis_lim[1] - x_axis_lim[0]),
+                    x_axis_lim[1] + 0.1 * (x_axis_lim[1] - x_axis_lim[0])
+                )
+                ax.set_ylim(
+                    y_axis_lim[0] - 0.1 * (y_axis_lim[1] - y_axis_lim[0]),
+                    y_axis_lim[1] + 0.1 * (y_axis_lim[1] - y_axis_lim[0])
+                )
+                ax.tick_params(axis="both", which="major", labelsize=fontsize)
+                ax.yaxis.get_offset_text().set_fontsize(fontsize)
+                ax.set_xlabel("Time")
+                if self.response_names is None:
+                    ax.set_ylabel(f"Response {res+1}")
+                else:
+                    ax.set_ylabel(f"${self.response_names[res]}$")
+                if legend and len(self.optimal_candidates) > 1:
+                    ax.legend(prop={"size": legend_size})
 
-            pred_max = np.max(
-                self.response[:, :, res][~np.isnan(self.response[:, :, res])])
-            pred_min = np.min(
-                self.response[:, :, res][~np.isnan(self.response[:, :, res])])
-
-            y_axis_lim = [pred_min, pred_max]
-
-            for i, opt_cand in enumerate(self.optimal_candidates):
-                """ plotting predictions """
-                if not opt_spt_only:
-                    plot_pred = 'spt_pred_lines = axes%d_fig%d.plot(' \
-                                'self.sampling_times_candidates[opt_cand[0]], ' \
-                                'self.response[opt_cand[0], :, ' \
-                                'self.measurable_responses[res]], ' \
-                                'linestyle="--", label="Predictions", zorder=0)' % (
-                                    i + 1, res)
-                    exec(plot_pred)
-
-                plot_opt_pred = 'pred_lines = axes%d_fig%d.scatter(opt_cand[3], ' \
-                                'self.response[opt_cand[0], opt_cand[5], ' \
-                                'self.measurable_responses[res]], marker="o", ' \
-                                's=markersize*100*np.array(opt_cand[4]), ' \
-                                'label="Optimal Sampling Times", c="r", zorder=1)' % (
-                                    i + 1, res)
-                exec(plot_opt_pred)
-
-                """ adjusting axes limits, chosen so all subplots include all data and 
-                all subplots have same scale """
-                set_ylim = 'axes%d_fig%d.set_ylim(y_axis_lim[0] - 0.1 * (y_axis_lim[1] ' \
-                           '- y_axis_lim[0]),' \
-                           ' y_axis_lim[1] + 0.1 * (y_axis_lim[1] - y_axis_lim[0]))' % (
-                               i + 1, res)
-                exec(set_ylim)
-                set_xlim = 'axes%d_fig%d.set_xlim(x_axis_lim[0] - 0.1 * (x_axis_lim[1] ' \
-                           '- x_axis_lim[0]),' \
-                           ' x_axis_lim[1] + 0.1 * (x_axis_lim[1] - x_axis_lim[0]))' % (
-                               i + 1, res)
-                exec(set_xlim)
-
-                """ setting a smaller fontsize to accommodate for plots with larger 
-                number of candidates """
-                set_ticks_params = 'axes%d_fig%d.tick_params(axis="both", ' \
-                                   'which="major", labelsize=fontsize)' % (
-                                       i + 1, res)
-                exec(set_ticks_params)
-                set_yaxis_offset_fsize = "axes%d_fig%d.yaxis.get_offset_text(" \
-                                         ").set_fontsize(fontsize)" % (
-                                             i + 1, res)
-                exec(set_yaxis_offset_fsize)
-
-                """ give title to each subplot if names for candidates are given """
-                if self.candidate_names is not None:
-                    set_subplot_title = 'axes%d_fig%d.set_title(self.candidate_names[' \
-                                        'opt_cand[0]], fontsize=fontsize)' % (
-                                            i + 1, res)
-                    try:
-                        exec(set_subplot_title)
-                    except ValueError:
-                        print(
-                            'Mild warning when plotting: error in labelling candidate '
-                            'name for candidate %d.' % i)
-
-                if legend:
-                    draw_legend = 'axes%d_fig%d.legend(prop={"size": legend_size})' % (
-                        i + 1, res)
-                    exec(draw_legend)
-                set_yaxis_offset_fsize = "axes%d_fig%d.yaxis.get_offset_text(" \
-                                         ").set_fontsize(fontsize)" % (
-                                             i + 1, res)
-                exec(set_yaxis_offset_fsize)
-
-        """ make all figures use tight_layout for tidiness """
-        for res in range(self.n_m_r):
-            tight_layout = 'fig%d.tight_layout()' % res
-            exec(tight_layout)
+        if write:
+            self.create_result_dir()
+            fn = f"response_plot" \
+                 f"_{self.oed_result['optimality_criterion']}" \
+                 f"_{self.run_no}.png"
+            fp = self.result_dir + fn
+            while path.isfile(fp):
+                self.run_no += 1
+                fn = f"response_plot" \
+                     f"_{self.oed_result['optimality_criterion']}" \
+                     f"_{self.run_no}.png"
+                fp = self.result_dir + fn
+            f.savefig(fname=fp, dpi=dpi, quality=quality)
+            self.run_no = 1
 
         plt.show()
 
-    def plot_optimal_sensitivities(self, absolute=False, draw_legend=True,
-                                   markersize=10):
-        # n_c, n_s_times, n_res, n_theta = self.sensitivity.shape
+    def plot_optimal_sensitivities(self, absolute=False, legend=True,
+                                   markersize=10, colour_map="Spectral",
+                                   write=False, dpi=720, quality=95, figsize=None):
+        if not self._dynamic_system:
+            raise SyntaxError("Sensitivity plots are only for dynamic systems.")
+
         self.get_optimal_candidates()
 
+        if figsize is None:
+            figsize = (self.n_mp * 4.0, 1.0 + 2.5 * self.n_m_r)
+
         fig1 = plt.figure(
-            figsize=(self.n_mp * 4.0, 2.5 + 3.5 * self.n_m_r)
+            figsize=figsize,
+            constrained_layout=True,
         )
         if self._sensitivity_is_normalized:
             norm_status = 'Normalized '
@@ -863,46 +1020,119 @@ class Designer:
             abs_status = 'Absolute '
         else:
             abs_status = 'Directional '
-        fig1.suptitle('%s%sSensitivity Plots' % (norm_status, abs_status))
-        i = 0
+
+        if self._semi_bayesian:
+            mean_sens = np.nanmean(self._scr_sens, axis=0)
+            std_sens = np.nanstd(self._scr_sens, axis=0)
+
+        gs = plt.GridSpec(self.n_m_r, self.n_mp, fig1)
         for row in range(self.n_m_r):
             for col in range(self.n_mp):
-                i += 1
-                create_axes = 'axes_%d_%d = fig1.add_subplot(%d, %d, %d)' % (
-                    row, col, self.n_m_r, self.n_mp, i)
-                exec(create_axes)
+                cmap = cm.get_cmap(colour_map, len(self.optimal_candidates))
+                colors = itertools.cycle(
+                    cmap(_) for _ in np.linspace(0, 1, len(self.optimal_candidates))
+                )
                 for c, cand in enumerate(self.optimal_candidates):
-                    if absolute:
-                        sens = np.abs(self.sensitivities[cand[0], :,
-                                      self.measurable_responses[row], col])
+                    opt_spt = self.sampling_times_candidates[cand[0]]
+                    if self._semi_bayesian:
+                        sens = mean_sens[
+                                   cand[0],
+                                   :,
+                                   self.measurable_responses[row],
+                                   col
+                               ]
+                        std = std_sens[
+                                  cand[0],
+                                  :,
+                                  self.measurable_responses[row],
+                                  col
+                              ]
                     else:
-                        sens = self.sensitivities[cand[0], :,
-                               self.measurable_responses[row], col]
-                    plot_opt_sens = 'axes_%d_%d.plot(self.sampling_times_candidates[' \
-                                    'cand[0]], sens, "--", ' \
-                                    'label="Candidate %d")' % (row, col, cand[0] + 1)
-                    exec(plot_opt_sens)
-                    plot_sens = 'axes_%d_%d.scatter(cand[3], sens[cand[5]], ' \
-                                'marker="o",' \
-                                's=markersize*100*np.array(cand[4]))' % (row, col)
-                    exec(plot_sens)
-                    ticklabel = 'axes_%d_%d.ticklabel_format(axis="y", style="sci", ' \
-                                'scilimits=(0,0))' % (
-                                    row, col)
-                    exec(ticklabel)
-                if draw_legend and len(self.optimal_candidates) <= 10:
-                    make_legend = 'axes_%d_%d.legend()' % (row, col)
-                    exec(make_legend)
-        fig1.tight_layout()
+                        sens = self.sensitivities[
+                                   cand[0],
+                                   :,
+                                   self.measurable_responses[row],
+                                   col
+                               ]
+                    color = next(colors)
+                    if absolute:
+                        sens = np.abs(sens)
+
+                    ax = fig1.add_subplot(gs[row, col])
+                    ax.plot(
+                        opt_spt,
+                        sens,
+                        linestyle="--",
+                        label=f"Candidate {cand[0] + 1:d}",
+                        color=color
+                    )
+                    ax.scatter(
+                        cand[3],
+                        sens[cand[5]],
+                        marker="o",
+                        s=markersize * 50 * np.array(cand[4]),
+                        color=color
+                    )
+                    if self._semi_bayesian:
+                        ax.fill_between(
+                            opt_spt,
+                            sens + std,
+                            sens - std,
+                            facecolor=color,
+                            alpha=0.1
+                        )
+                    ax.ticklabel_format(axis="y", style="sci", scilimits=(0, 0))
+
+                    ax.set_xlabel("Time")
+                    if self.response_names is None:
+                        pass
+                    else:
+                        ax.set_ylabel(
+                            f"$\\partial {self.response_names[self.measurable_responses[row]]}"
+                            f"/"
+                            f"\\partial {self.model_parameter_names[col]}$"
+                        )
+                    if legend and len(self.optimal_candidates) > 1:
+                        ax.legend()
+
+        if write:
+            self.create_result_dir()
+            fn = f"sensitivity_plot" \
+                 f"_{self.oed_result['optimality_criterion']}" \
+                 f"_{self.run_no}.png"
+            fp = self.result_dir + fn
+            while path.isfile(fp):
+                self.run_no += 1
+                fn = f"sensitivity_plot" \
+                     f"_{self.oed_result['optimality_criterion']}" \
+                     f"_{self.run_no}.png"
+                fp = self.result_dir + fn
+            fig1.savefig(fname=fp, dpi=dpi, quality=quality)
+            self.run_no = 1
+
         plt.show()
 
     def print_optimal_candidates(self):
+        print("")
+        print(f"{' Optimal Candidates ':#^100}")
+        print(f"{'Obtained on':<30}: {datetime.now()}")
+        print(f"{'Criterion':<30}: {self._current_criterion}")
+        print(f"{'Semi-bayesian':<30}: {self._semi_bayesian}")
+        if self._semi_bayesian:
+            print(f"{'Semi-bayesian Criterion Type':<30}: {self._semi_bayes_type}")
+        print(f"{'Dynamic':<30}: {self._dynamic_system}")
+        print(f"{'Time-varying Controls':<30}: {self._dynamic_controls}")
+        print(f"{'Number of Candidates':<30}: {self.n_c}")
+        if self._dynamic_system:
+            print(f"{'Number of Sampling Times':<30}: {self.n_spt}")
+        if self._semi_bayesian:
+            print(f"{'Number of Scenarios':<30}: {self.n_scr}")
+
         if self.optimal_candidates is None:
             self.get_optimal_candidates()
         for i, opt_cand in enumerate(self.optimal_candidates):
-            print("{0:-^100}".format("[Candidate {0:d}]".format(opt_cand[0] + 1)))
-            print("{0:^100}".format("Recommended Effort: {0:.2f}% of budget".format(
-                np.sum(opt_cand[4]) * 100)))
+            print(f"{f'[Candidate {opt_cand[0] + 1:d}]':-^100}")
+            print(f"{f'Recommended Effort: {np.sum(opt_cand[4]):.2%} of budget':^100}")
             print("Time-invariant Controls:")
             print(opt_cand[1])
             if self._dynamic_controls:
@@ -912,10 +1142,9 @@ class Designer:
                 print("Sampling Times:")
                 if self._opt_sampling_times:
                     for j, sp_time in enumerate(opt_cand[3]):
-                        print("[{0:>10}]: dedicate {1:.2f}% of budget".format(
-                            "{0:.2f}".format(sp_time),
-                            opt_cand[4][j] * 100))
-        print("{0:#^100}".format(""))
+                        print(f"[{f'{sp_time:.2f}':>10}]: "
+                              f"dedicate {f'{opt_cand[4][j]:.2%}':>6} of budget")
+        print(f"{'':#^100}")
 
     # saving, loading, writing
     def load_oed_result(self, result_path):
@@ -972,6 +1201,7 @@ class Designer:
             self.run_no += 1
             self.save_state()
         else:
+            self.run_no = 1  # revert run numbers
             dill.dump(state, open(designer_file, "wb"))
 
     def load_state(self, designer_path):
@@ -981,15 +1211,18 @@ class Designer:
         self.n_r = state[2]
         self.n_mp = state[3]
         self.ti_controls_candidates = state[4]
+        self._old_tic = state[4]
         self.tv_controls_candidates = state[5]
+        self._old_tvc = state[5]
         self.sampling_times_candidates = state[6]
+        self._old_spt = state[6]
         self.measurable_responses = state[7]
         self.n_m_r = state[8]
         self.model_parameters = state[9]
-        self._opt_sampling_times = state[10]
-        self._sensitivity_is_normalized = state[11]
+        # self._opt_sampling_times = state[10]
+        # self._sensitivity_is_normalized = state[11]
 
-        self._current_model_parameters = self.model_parameters
+        self._last_scr_mp = self.model_parameters
         return None
 
     def load_sensitivity(self, sens_path):
@@ -1000,228 +1233,61 @@ class Designer:
     # calibration-oriented
     def d_opt_criterion(self, efforts):
         """ it is a PSD criterion, with exponential cone """
-        self.efforts = efforts
-
-        self.eval_fim()
-
-        if self.fim.size == 1:
-            if self._optimization_package is "scipy":
-                d_opt = -np.log1p(self.fim)
-                if self._fd_jac:
-                    return d_opt
-                else:
-                    jac = -np.array([
-                        1 / self.fim * m
-                        for m in self.atomic_fims
-                    ])
-                    return d_opt, jac
-            elif self._optimization_package is 'cvxpy':
-                return -cp.log1p(self.fim)
-
-        if self._optimization_package is "scipy":
-            sign, d_opt = np.linalg.slogdet(self.fim)
-            if self._fd_jac:
-                if sign == 1:
-                    return -d_opt
-                else:
-                    return np.inf
-            else:
-                fim_inv = np.linalg.inv(self.fim)
-                jac = -np.array([
-                    np.sum(fim_inv.T * m)
-                    for m in self.atomic_fims
-                ])
-                if sign == 1:
-                    return -d_opt, jac
-                else:
-                    return np.inf, jac
-
-        elif self._optimization_package is 'cvxpy':
-            return -cp.log_det(self.fim)
+        if self._semi_bayesian:
+            return self._sb_d_opt_criterion(efforts)
+        else:
+            return self._d_opt_criterion(efforts)
 
     def a_opt_criterion(self, efforts):
         """ it is a PSD criterion """
-        self.efforts = efforts
-
-        self.eval_fim()
-
-        if self.fim.size == 1:
-            if self._optimization_package is "scipy":
-                if self._fd_jac:
-                    return -self.fim
-                else:
-                    jac = np.array([
-                        m for m in self.atomic_fims
-                    ])
-                    return -self.fim, jac
-            elif self._optimization_package is "cvxpy":
-                return -self.fim
-
-        if self._optimization_package is "scipy":
-            if self._fd_jac:
-                eigvals = np.linalg.eigvalsh(self.fim)
-                if np.all(eigvals > 0):
-                    a_opt = np.sum(1 / eigvals)
-                else:
-                    a_opt = 0
-                return a_opt
-            else:
-                jac = np.zeros(self.n_e)
-                try:
-                    fim_inv = np.linalg.inv(self.fim)
-                    a_opt = fim_inv.trace()
-                    if not self._fd_jac:
-                        jac = -np.array([
-                            np.sum((fim_inv @ fim_inv) * m) for m in self.atomic_fims
-                        ])
-                except np.linalg.LinAlgError:
-                    a_opt = 0
-                return a_opt, jac
-
-        elif self._optimization_package is 'cvxpy':
-            return cp.matrix_frac(np.identity(self.fim.shape[0]), self.fim)
+        if self._semi_bayesian:
+            return self._sb_a_opt_criterion(efforts)
+        else:
+            return self._a_opt_criterion(efforts)
 
     def e_opt_criterion(self, efforts):
         """ it is a PSD criterion """
-        self.efforts = efforts
-
-        self.eval_fim()
-
-        if self.fim.size == 1:
-            return -np.log1p(self.fim)
-
-        if self._optimization_package is "scipy":
-            if self._fd_jac:
-                return -np.linalg.eigvalsh(self.fim).min()
-            else:
-                raise NotImplementedError  # TODO: implement analytic jac for e-opt
-        elif self._optimization_package is 'cvxpy':
-            return -cp.lambda_min(self.fim)
+        if self._semi_bayesian:
+            return self._sb_e_opt_criterion(efforts)
+        else:
+            return self._e_opt_criterion(efforts)
 
     # prediction-oriented
     def dg_opt_criterion(self, efforts):
-        if self._optimization_package is "cvxpy":
-            raise NotImplementedError("CVXPY unavailable for dg_opt.")
-
-        self.efforts = efforts
-
-        self.eval_pim()
-        # dg_opt: max det of the pvar matrix over candidates and sampling times
-        dg_opts = np.empty((self.n_c, self.n_spt))
-        for c, PVAR in enumerate(self.pvars):
-            for spt, pvar in enumerate(PVAR):
-                sign, temp_dg = np.linalg.slogdet(pvar)
-                if sign != 1:
-                    temp_dg = np.inf
-                dg_opts[c, spt] = temp_dg
-        dg_opt = np.max(dg_opts)
-
-        if self._fd_jac:
-            return dg_opt
+        if self._semi_bayesian:
+            return self._sb_dg_opt_criterion(efforts)
         else:
-            raise NotImplementedError("Analytic Jacobian for dg_opt unavailable.")
+            return self._dg_opt_criterion(efforts)
 
     def di_opt_criterion(self, efforts):
-        if self._optimization_package is "cvxpy":
-            raise NotImplementedError("CVXPY unavailable for di_opt.")
-
-        self.efforts = efforts
-
-        self.eval_pim()
-        # di_opt: average det of the pvar matrix over candidates and sampling times
-        dg_opts = np.empty((self.n_c, self.n_spt))
-        for c, PVAR in enumerate(self.pvars):
-            for spt, pvar in enumerate(PVAR):
-                sign, temp_dg = np.linalg.slogdet(pvar)
-                if sign != 1:
-                    temp_dg = np.inf
-                dg_opts[c, spt] = temp_dg
-        dg_opt = np.sum(dg_opts)
-
-        if self._fd_jac:
-            return dg_opt
+        if self._semi_bayesian:
+            return self._sb_di_opt_criterion(efforts)
         else:
-            raise NotImplementedError("Analytic Jacobian for di_opt unavailable.")
+            return self._di_opt_criterion(efforts)
 
     def ag_opt_criterion(self, efforts):
-        if self._optimization_package is "cvxpy":
-            raise NotImplementedError("CVXPY unavailable for ag_opt.")
-
-        self.efforts = efforts
-
-        self.eval_pim()
-        # ag_opt: max trace of the pvar matrix over candidates and sampling times
-        ag_opts = np.empty((self.n_c, self.n_spt))
-        for c, PVAR in enumerate(self.pvars):
-            for spt, pvar in enumerate(PVAR):
-                temp_dg = np.trace(pvar)
-                ag_opts[c, spt] = temp_dg
-        ag_opt = np.max(ag_opts)
-
-        if self._fd_jac:
-            return ag_opt
+        if self._semi_bayesian:
+            return self._sb_ag_opt_criterion(efforts)
         else:
-            raise NotImplementedError("Analytic Jacobian for ag_opt unavailable.")
+            return self._ag_opt_criterion(efforts)
 
     def ai_opt_criterion(self, efforts):
-        if self._optimization_package is "cvxpy":
-            raise NotImplementedError("CVXPY unavailable for ai_opt.")
-
-        self.efforts = efforts
-
-        self.eval_pim()
-        # ai_opt: average trace of the pvar matrix over candidates and sampling times
-        ai_opts = np.empty((self.n_c, self.n_spt))
-        for c, PVAR in enumerate(self.pvars):
-            for spt, pvar in enumerate(PVAR):
-                temp_dg = np.trace(pvar)
-                ai_opts[c, spt] = temp_dg
-        ag_opt = np.sum(ai_opts)
-
-        if self._fd_jac:
-            return ag_opt
+        if self._semi_bayesian:
+            return self._sb_ai_opt_criterion(efforts)
         else:
-            raise NotImplementedError("Analytic Jacobian for ai_opt unavailable.")
+            return self._ai_opt_criterion(efforts)
 
     def eg_opt_criterion(self, efforts):
-        if self._optimization_package is "cvxpy":
-            raise NotImplementedError("CVXPY unavailable for eg_opt.")
-
-        self.efforts = efforts
-
-        self.eval_pim()
-        # eg_opt: max of the max_eigenval of the pvar matrix over candidates and sampling times
-        eg_opts = np.empty((self.n_c, self.n_spt))
-        for c, PVAR in enumerate(self.pvars):
-            for spt, pvar in enumerate(PVAR):
-                temp_dg = np.linalg.eigvals(pvar).max()
-                eg_opts[c, spt] = temp_dg
-        eg_opt = np.max(eg_opts)
-
-        if self._fd_jac:
-            return eg_opt
+        if self._semi_bayesian:
+            return self._sb_eg_opt_criterion(efforts)
         else:
-            raise NotImplementedError("Analytic Jacobian for eg_opt unavailable.")
+            return self._eg_opt_criterion(efforts)
 
     def ei_opt_criterion(self, efforts):
-        if self._optimization_package is "cvxpy":
-            raise NotImplementedError("CVXPY unavailable for ei_opt.")
-
-        self.efforts = efforts
-
-        self.eval_pim()
-        # ei_opts: average of the max_eigenval of the pvar matrix over candidates and sampling times
-        ei_opts = np.empty((self.n_c, self.n_spt))
-        for c, PVAR in enumerate(self.pvars):
-            for spt, pvar in enumerate(PVAR):
-                temp_dg = np.linalg.eigvals(pvar).max()
-                ei_opts[c, spt] = temp_dg
-        ei_opt = np.sum(ei_opts)
-
-        if self._fd_jac:
-            return ei_opt
+        if self._semi_bayesian:
+            return self._sb_ei_opt_criterion(efforts)
         else:
-            raise NotImplementedError("Analytic Jacobian for ei_opt unavailable.")
+            return self._ei_opt_criterion(efforts)
 
     """ evaluators """
 
@@ -1240,22 +1306,25 @@ class Designer:
                            num_steps=None,
                            store_predictions=True, plot_analysis_times=False,
                            save_sensitivities=False, reporting_frequency=10):
-        self._save_sensitivities = save_sensitivities
-
-        """ check if model parameters have been changed or not """
-        self._check_if_model_parameters_changed()
-
         # setting default behaviour for step generators
         step_generator = nd.step_generators.MaxStepGenerator(base_step=base_step,
                                                              step_ratio=step_ratio,
                                                              num_steps=num_steps)
 
-        """ do sensitivity analysis if not done before or model parameters were 
-        changed """
-        # TODO: add check condition for if candidates are changed
-        if self.sensitivities is None or self._model_parameters_changed:
+        self._save_sensitivities = save_sensitivities
+
+        """ check if model parameters have been changed or not """
+        self._check_if_scr_changed()
+        self._check_if_candidates_changed()
+
+        """ init scr_sens if semi-bayes and scr_sens is empty """
+        if self._scr_sens is None and self._semi_bayesian:
+            self._scr_sens = []
+
+        """ do analysis if empty or model parameters were changed """
+        if self.sensitivities is None or self._scr_changed or self._candidates_changed:
             self._sensitivity_analysis_done = False
-            if self._verbose >= 1:
+            if self._verbose >= 2:
                 print('Running sensitivity analysis...')
             start = time()
             sens = []
@@ -1274,7 +1343,7 @@ class Designer:
 
                 self.feval_sensitivity = 0
                 single_start = time()
-                temp_sens = jacob_fun(self.model_parameters, store_predictions)
+                temp_sens = jacob_fun(self._current_scr_mp, store_predictions)
                 finish = time()
                 if self._verbose >= 2:
                     if (i + 1) % np.ceil(self.n_c / reporting_frequency) == 0 or (
@@ -1321,21 +1390,24 @@ class Designer:
                 the final list to be returned """
                 sens.append(temp_sens)
             finish = time()
-            if self._verbose >= 1:
-                print(
-                    'Sensitivity analysis using numdifftools with forward scheme '
-                    'finite difference took '
-                    'a total of %.2f CPU seconds.' % (finish - start))
-            self._sensitivity_analysis_time = finish - start
+            if self._verbose >= 2:
+                print(f"Forward scheme finite difference via numdifftools took {finish - start:.2f} CPU seconds.")
+            self._sensitivity_analysis_time += finish - start
 
             # converting sens into a numpy array for optimizing further computations
             self.sensitivities = np.array(sens)
 
             # saving current model parameters
-            self._current_model_parameters = np.copy(self.model_parameters)
+            self._last_scr_mp = np.copy(self.model_parameters)
 
             if self._var_n_sampling_time:
                 self._pad_sensitivities()
+
+            if self._semi_bayesian and not self._large_memory_requirement:
+                if isinstance(self._scr_sens, np.ndarray):
+                    self._scr_sens = self._scr_sens.tolist()
+                self._scr_sens.append(self.sensitivities)
+                self._scr_sens = np.array(self._scr_sens)
 
             if self._save_sensitivities:
                 self.create_result_dir()
@@ -1351,23 +1423,26 @@ class Designer:
                 plt.show()
 
         self._sensitivity_analysis_done = True
+        self._old_tic = self.ti_controls_candidates
+        if self._dynamic_system:
+            self._old_spt = self.sampling_times_candidates
+            if self._dynamic_controls:
+                self._old_tvc = self.tv_controls_candidates
         return self.sensitivities
 
-    def eval_fim(self):
+    def eval_fim(self, efforts, mp, store_predictions=True):
         """
         Main evaluator for constructing the fim from obtained sensitivities.
         When scipy is used as optimization package and problem does not require large
         memory, will store atomic fims for analytical Jacobian.
         """
-        """ eval_sensitivities, only runs if model parameters or candidates changed """
-        self.eval_sensitivities(save_sensitivities=self._save_sensitivities)
+        """ update mp, and efforts """
+        self.efforts = efforts
+        self._current_scr_mp = mp
 
-        """ update efforts """
-        if self._optimization_package is "cvxpy":
-            e = self.efforts.value
-        else:
-            e = self.efforts
-        self._efforts_transformed = False
+        """ eval_sensitivities, only runs if model parameters changed """
+        self.eval_sensitivities(save_sensitivities=self._save_sensitivities,
+                                store_predictions=store_predictions)
 
         """ deal with unconstrained form, i.e. transform efforts """
         self._transform_efforts()  # only transform if required, logic incorporated there
@@ -1404,11 +1479,12 @@ class Designer:
 
         return self.fim
 
-    def eval_pim(self, vector=False):
+    def eval_pim(self, efforts, mp, vector=False):
         if self._optimization_package is "cvxpy":
             raise NotImplementedError
 
-        self.eval_fim()
+        """ update mp, and efforts """
+        self.eval_fim(efforts, mp)
 
         fim_inv = np.linalg.inv(self.fim)
         if vector:
@@ -1429,7 +1505,8 @@ class Designer:
         if self.efforts is None:
             raise SyntaxError(
                 'Please solve an experiment design before attempting to get optimal '
-                'candidates.')
+                'candidates.'
+            )
 
         self.optimal_candidates = []
         if self._opt_sampling_times:
@@ -1525,26 +1602,497 @@ class Designer:
             return self.sensitivities
         return self.normalized_sensitivity
 
+    """ local criterion """
+
+    # calibration-oriented
+    def _d_opt_criterion(self, efforts):
+        """ it is a PSD criterion, with exponential cone """
+        self.eval_fim(efforts, self.model_parameters)
+
+        if self.fim.size == 1:
+            if self._optimization_package is "scipy":
+                d_opt = -np.log1p(self.fim)
+                if self._fd_jac:
+                    return d_opt
+                else:
+                    jac = -np.array([
+                        1 / self.fim * m
+                        for m in self.atomic_fims
+                    ])
+                    return d_opt, jac
+            elif self._optimization_package is 'cvxpy':
+                return -cp.log1p(self.fim)
+
+        if self._optimization_package is "scipy":
+            sign, d_opt = np.linalg.slogdet(self.fim)
+            if self._fd_jac:
+                if sign == 1:
+                    return -d_opt
+                else:
+                    return np.inf
+            else:
+                fim_inv = np.linalg.inv(self.fim)
+                jac = -np.array([
+                    np.sum(fim_inv.T * m)
+                    for m in self.atomic_fims
+                ])
+                if sign == 1:
+                    return -d_opt, jac
+                else:
+                    return np.inf, jac
+
+        elif self._optimization_package is 'cvxpy':
+            return -cp.log_det(self.fim)
+
+    def _a_opt_criterion(self, efforts):
+        """ it is a PSD criterion """
+        self.eval_fim(efforts, self.model_parameters)
+
+        if self.fim.size == 1:
+            if self._optimization_package is "scipy":
+                if self._fd_jac:
+                    return -self.fim
+                else:
+                    jac = np.array([
+                        m for m in self.atomic_fims
+                    ])
+                    return -self.fim, jac
+            elif self._optimization_package is "cvxpy":
+                return -self.fim
+
+        if self._optimization_package is "scipy":
+            if self._fd_jac:
+                eigvals = np.linalg.eigvalsh(self.fim)
+                if np.all(eigvals > 0):
+                    a_opt = np.sum(1 / eigvals)
+                else:
+                    a_opt = 0
+                return a_opt
+            else:
+                jac = np.zeros(self.n_e)
+                try:
+                    fim_inv = np.linalg.inv(self.fim)
+                    a_opt = fim_inv.trace()
+                    if not self._fd_jac:
+                        jac = -np.array([
+                            np.sum((fim_inv @ fim_inv) * m) for m in self.atomic_fims
+                        ])
+                except np.linalg.LinAlgError:
+                    a_opt = 0
+                return a_opt, jac
+
+        elif self._optimization_package is 'cvxpy':
+            return cp.matrix_frac(np.identity(self.fim.shape[0]), self.fim)
+
+    def _e_opt_criterion(self, efforts):
+        """ it is a PSD criterion """
+        self.eval_fim(efforts, self.model_parameters)
+
+        if self.fim.size == 1:
+            return -np.log1p(self.fim)
+
+        if self._optimization_package is "scipy":
+            if self._fd_jac:
+                return -np.linalg.eigvalsh(self.fim).min()
+            else:
+                raise NotImplementedError  # TODO: implement analytic jac for e-opt
+        elif self._optimization_package is 'cvxpy':
+            return -cp.lambda_min(self.fim)
+
+    # prediction-oriented
+    def _dg_opt_criterion(self, efforts):
+        if self._optimization_package is "cvxpy":
+            raise NotImplementedError("CVXPY unavailable for dg_opt.")
+
+        self.eval_pim(efforts, self.model_parameters)
+        # dg_opt: max det of the pvar matrix over candidates and sampling times
+        dg_opts = np.empty((self.n_c, self.n_spt))
+        for c, PVAR in enumerate(self.pvars):
+            for spt, pvar in enumerate(PVAR):
+                sign, temp_dg = np.linalg.slogdet(pvar)
+                if sign != 1:
+                    temp_dg = np.inf
+                dg_opts[c, spt] = temp_dg
+        dg_opt = np.max(dg_opts)
+
+        if self._fd_jac:
+            return dg_opt
+        else:
+            raise NotImplementedError("Analytic Jacobian for dg_opt unavailable.")
+
+    def _di_opt_criterion(self, efforts):
+        if self._optimization_package is "cvxpy":
+            raise NotImplementedError("CVXPY unavailable for di_opt.")
+
+        self.eval_pim(efforts, self.model_parameters)
+        # di_opt: average det of the pvar matrix over candidates and sampling times
+        dg_opts = np.empty((self.n_c, self.n_spt))
+        for c, PVAR in enumerate(self.pvars):
+            for spt, pvar in enumerate(PVAR):
+                sign, temp_dg = np.linalg.slogdet(pvar)
+                if sign != 1:
+                    temp_dg = np.inf
+                dg_opts[c, spt] = temp_dg
+        dg_opt = np.sum(dg_opts)
+
+        if self._fd_jac:
+            return dg_opt
+        else:
+            raise NotImplementedError("Analytic Jacobian for di_opt unavailable.")
+
+    def _ag_opt_criterion(self, efforts):
+        if self._optimization_package is "cvxpy":
+            raise NotImplementedError("CVXPY unavailable for ag_opt.")
+
+        self.eval_pim(efforts, self.model_parameters)
+        # ag_opt: max trace of the pvar matrix over candidates and sampling times
+        ag_opts = np.empty((self.n_c, self.n_spt))
+        for c, PVAR in enumerate(self.pvars):
+            for spt, pvar in enumerate(PVAR):
+                temp_dg = np.trace(pvar)
+                ag_opts[c, spt] = temp_dg
+        ag_opt = np.max(ag_opts)
+
+        if self._fd_jac:
+            return ag_opt
+        else:
+            raise NotImplementedError("Analytic Jacobian for ag_opt unavailable.")
+
+    def _ai_opt_criterion(self, efforts):
+        if self._optimization_package is "cvxpy":
+            raise NotImplementedError("CVXPY unavailable for ai_opt.")
+
+        self.eval_pim(efforts, self.model_parameters)
+        # ai_opt: average trace of the pvar matrix over candidates and sampling times
+        ai_opts = np.empty((self.n_c, self.n_spt))
+        for c, PVAR in enumerate(self.pvars):
+            for spt, pvar in enumerate(PVAR):
+                temp_dg = np.trace(pvar)
+                ai_opts[c, spt] = temp_dg
+        ag_opt = np.sum(ai_opts)
+
+        if self._fd_jac:
+            return ag_opt
+        else:
+            raise NotImplementedError("Analytic Jacobian for ai_opt unavailable.")
+
+    def _eg_opt_criterion(self, efforts):
+        if self._optimization_package is "cvxpy":
+            raise NotImplementedError("CVXPY unavailable for eg_opt.")
+
+        self.eval_pim(efforts, self.model_parameters)
+        # eg_opt: max of the max_eigenval of the pvar matrix over candidates and sampling times
+        eg_opts = np.empty((self.n_c, self.n_spt))
+        for c, PVAR in enumerate(self.pvars):
+            for spt, pvar in enumerate(PVAR):
+                temp_dg = np.linalg.eigvals(pvar).max()
+                eg_opts[c, spt] = temp_dg
+        eg_opt = np.max(eg_opts)
+
+        if self._fd_jac:
+            return eg_opt
+        else:
+            raise NotImplementedError("Analytic Jacobian for eg_opt unavailable.")
+
+    def _ei_opt_criterion(self, efforts):
+        if self._optimization_package is "cvxpy":
+            raise NotImplementedError("CVXPY unavailable for ei_opt.")
+
+        self.eval_pim(efforts, self.model_parameters)
+        # ei_opts: average of the max_eigenval of the pvar matrix over candidates and sampling times
+        ei_opts = np.empty((self.n_c, self.n_spt))
+        for c, PVAR in enumerate(self.pvars):
+            for spt, pvar in enumerate(PVAR):
+                temp_dg = np.linalg.eigvals(pvar).max()
+                ei_opts[c, spt] = temp_dg
+        ei_opt = np.sum(ei_opts)
+
+        if self._fd_jac:
+            return ei_opt
+        else:
+            raise NotImplementedError("Analytic Jacobian for ei_opt unavailable.")
+
+    """ semi-semi_bayesian criterion """
+
+    def eval_scr_fims(self, store_predictions=True):
+
+        # self._check_if_model_parameters_changed()
+        # only redo scr_fim evaluation if model_parameter is changed
+        # if not(self.scr_fims is None or self._model_parameters_changed):
+        #     return self.scr_fims
+
+        if self._verbose >= 2:
+            print(f"{' Semi-semi_bayesian ':#^100}")
+        if self._verbose >= 1:
+            print(f'Evaluating information for each scenario...')
+        self.scr_fims = []
+        if store_predictions:
+            self.scr_responses = []
+        for scr, mp in enumerate(self.model_parameters):
+            self._current_scr = scr
+            if self._verbose >= 2:
+                print(f"{f'[Scenario {scr+1}/{self.n_scr}]':-^100}")
+                print("Model Parameters:")
+                print(mp)
+                print("")
+            self.eval_fim(self.efforts, mp, store_predictions)
+            self.scr_fims.append(self.fim)
+            if store_predictions:
+                self.scr_responses.append(self.response)
+            self.response = None
+        self.scr_responses = np.array(self.scr_responses)
+
+        return self.scr_fims
+
+    # calibration-oriented
+    def _sb_d_opt_criterion(self, efforts):
+        """ it is a PSD criterion, with exponential cone """
+        self.efforts = efforts
+
+        self.eval_scr_fims()
+
+        if self._optimization_package is "scipy":
+            if self._fd_jac:
+                if self._semi_bayes_type in [0, "avg_inf", "average_information"]:
+                    avg_fim = np.sum([fim for fim in self.scr_fims], axis=0)
+                    sign, d_opt = np.linalg.slogdet(avg_fim)
+                    if sign != 1:
+                        return np.inf
+                    else:
+                        return -d_opt
+                elif self._semi_bayes_type in [1, "avg_crit", "average_criterion"]:
+                    d_opt = 0
+                    for fim in self.scr_fims:
+                        sign, scr_d_opt = np.linalg.slogdet(fim)
+                        if sign != 1:
+                            scr_d_opt = np.inf
+                        d_opt += scr_d_opt
+                    return -d_opt
+            else:
+                raise NotImplementedError(
+                    "Analytical Jacobian unimplemented for Semi-Bayesian D-optimal."
+                )
+
+        elif self._optimization_package is 'cvxpy':
+            if np.any([fim.shape == (1, 1) for fim in self.scr_fims]):
+                return cp.sum([-fim for fim in self.scr_fims])
+            else:
+                if self._semi_bayes_type in [0, "avg_inf", "average_information"]:
+                    avg_fim = cp.sum([fim for fim in self.scr_fims], axis=0)
+                    return -cp.log_det(avg_fim)
+                elif self._semi_bayes_type in [1, "avg_crit", "average_criterion"]:
+                    return cp.sum([
+                        -cp.log_det(fim) for fim in self.scr_fims
+                    ])
+
+    def _sb_a_opt_criterion(self, efforts):
+        """ it is a PSD criterion """
+        self.efforts = efforts
+
+        self.eval_scr_fims()
+
+        if self._optimization_package is "scipy":
+            if self._fd_jac:
+                if self._semi_bayes_type in [0, "avg_inf", "average_information"]:
+                    a_opt = np.linalg.inv(
+                        np.sum([fim for fim in self.scr_fims], axis=0)
+                    ).trace()
+                elif self._semi_bayes_type in [1, "avg_crit", "average_criterion"]:
+                    np.sum([
+                        np.linalg.inv(fim).trace()
+                        for fim in self.scr_fims
+                    ])
+            else:
+                raise NotImplementedError(
+                    "Analytical Jacobian unimplemented for Semi-Bayesian D-optimal."
+                )
+
+        elif self._optimization_package is 'cvxpy':
+            if self._semi_bayes_type in [0, "avg_inf", "average_information"]:
+                avg_fim = cp.sum([fim for fim in self.scr_fims], axis=0)
+                return cp.matrix_frac(np.identity(avg_fim.shape[0]), avg_fim)
+            elif self._semi_bayes_type in [1, "avg_crit", "average_criterion"]:
+                return cp.sum([
+                    cp.matrix_frac(np.identity(fim.shape[0]), fim)
+                    for fim in self.scr_fims
+                ])
+
+    def _sb_e_opt_criterion(self, efforts):
+        """ it is a PSD criterion """
+        self.efforts = efforts
+
+        self.eval_scr_fims()
+
+        if self._optimization_package is "scipy":
+            if self._fd_jac:
+                if self._semi_bayes_type in [0, "avg_inf", "average_information"]:
+                    avg_fim = np.sum([fim for fim in self.scr_fims], axis=0)
+                    return -np.linalg.eigvalsh(avg_fim).min()
+                elif self._semi_bayes_type in [1, "avg_crit", "average_criterion"]:
+                    return np.sum([
+                        -np.linalg.eigvalsh(fim).min()
+                        for fim in self.scr_fims
+                    ])
+            else:
+                raise NotImplementedError(
+                    "Analytical Jacobian unimplemented for Semi-Bayesian D-optimal."
+                )
+
+        elif self._optimization_package is 'cvxpy':
+            if self._semi_bayes_type in [0, "avg_inf", "average_information"]:
+                avg_fim = cp.sum([fim for fim in self.scr_fims], axis=0)
+                return -cp.lambda_min(avg_fim)
+            elif self._semi_bayes_type in [1, "avg_crit", "average_criterion"]:
+                return cp.sum([
+                    -cp.lambda_min(fim)
+                    for fim in self.scr_fims
+                ])
+
+    # prediction-oriented
+    def _sb_dg_opt_criterion(self, efforts):
+        if self._optimization_package is "cvxpy":
+            raise NotImplementedError("CVXPY unavailable for dg_opt.")
+
+        self.efforts = efforts
+
+        self.eval_pim(efforts, self._current_scr_mp)
+        # dg_opt: max det of the pvar matrix over candidates and sampling times
+        dg_opts = np.empty((self.n_c, self.n_spt))
+        for c, PVAR in enumerate(self.pvars):
+            for spt, pvar in enumerate(PVAR):
+                sign, temp_dg = np.linalg.slogdet(pvar)
+                if sign != 1:
+                    temp_dg = np.inf
+                dg_opts[c, spt] = temp_dg
+        dg_opt = np.max(dg_opts)
+
+        if self._fd_jac:
+            return dg_opt
+        else:
+            raise NotImplementedError("Analytic Jacobian for dg_opt unavailable.")
+
+    def _sb_di_opt_criterion(self, efforts):
+        if self._optimization_package is "cvxpy":
+            raise NotImplementedError("CVXPY unavailable for di_opt.")
+
+        self.efforts = efforts
+
+        self.eval_pim()
+        # di_opt: average det of the pvar matrix over candidates and sampling times
+        dg_opts = np.empty((self.n_c, self.n_spt))
+        for c, PVAR in enumerate(self.pvars):
+            for spt, pvar in enumerate(PVAR):
+                sign, temp_dg = np.linalg.slogdet(pvar)
+                if sign != 1:
+                    temp_dg = np.inf
+                dg_opts[c, spt] = temp_dg
+        dg_opt = np.sum(dg_opts)
+
+        if self._fd_jac:
+            return dg_opt
+        else:
+            raise NotImplementedError("Analytic Jacobian for di_opt unavailable.")
+
+    def _sb_ag_opt_criterion(self, efforts):
+        if self._optimization_package is "cvxpy":
+            raise NotImplementedError("CVXPY unavailable for ag_opt.")
+
+        self.efforts = efforts
+
+        self.eval_pim()
+        # ag_opt: max trace of the pvar matrix over candidates and sampling times
+        ag_opts = np.empty((self.n_c, self.n_spt))
+        for c, PVAR in enumerate(self.pvars):
+            for spt, pvar in enumerate(PVAR):
+                temp_dg = np.trace(pvar)
+                ag_opts[c, spt] = temp_dg
+        ag_opt = np.max(ag_opts)
+
+        if self._fd_jac:
+            return ag_opt
+        else:
+            raise NotImplementedError("Analytic Jacobian for ag_opt unavailable.")
+
+    def _sb_ai_opt_criterion(self, efforts):
+        if self._optimization_package is "cvxpy":
+            raise NotImplementedError("CVXPY unavailable for ai_opt.")
+
+        self.efforts = efforts
+
+        self.eval_pim()
+        # ai_opt: average trace of the pvar matrix over candidates and sampling times
+        ai_opts = np.empty((self.n_c, self.n_spt))
+        for c, PVAR in enumerate(self.pvars):
+            for spt, pvar in enumerate(PVAR):
+                temp_dg = np.trace(pvar)
+                ai_opts[c, spt] = temp_dg
+        ag_opt = np.sum(ai_opts)
+
+        if self._fd_jac:
+            return ag_opt
+        else:
+            raise NotImplementedError("Analytic Jacobian for ai_opt unavailable.")
+
+    def _sb_eg_opt_criterion(self, efforts):
+        if self._optimization_package is "cvxpy":
+            raise NotImplementedError("CVXPY unavailable for eg_opt.")
+
+        self.efforts = efforts
+
+        self.eval_pim()
+        # eg_opt: max of the max_eigenval of the pvar matrix over candidates and sampling times
+        eg_opts = np.empty((self.n_c, self.n_spt))
+        for c, PVAR in enumerate(self.pvars):
+            for spt, pvar in enumerate(PVAR):
+                temp_dg = np.linalg.eigvals(pvar).max()
+                eg_opts[c, spt] = temp_dg
+        eg_opt = np.max(eg_opts)
+
+        if self._fd_jac:
+            return eg_opt
+        else:
+            raise NotImplementedError("Analytic Jacobian for eg_opt unavailable.")
+
+    def _sb_ei_opt_criterion(self, efforts):
+        if self._optimization_package is "cvxpy":
+            raise NotImplementedError("CVXPY unavailable for ei_opt.")
+
+        self.efforts = efforts
+
+        self.eval_pim()
+        # ei_opts: average of the max_eigenval of the pvar matrix over candidates and sampling times
+        ei_opts = np.empty((self.n_c, self.n_spt))
+        for c, PVAR in enumerate(self.pvars):
+            for spt, pvar in enumerate(PVAR):
+                temp_dg = np.linalg.eigvals(pvar).max()
+                ei_opts[c, spt] = temp_dg
+        ei_opt = np.sum(ei_opts)
+
+        if self._fd_jac:
+            return ei_opt
+        else:
+            raise NotImplementedError("Analytic Jacobian for ei_opt unavailable.")
+
     """ private methods """
 
-    def _sensitivity_sim_wrapper(self, theta_try, store_responses=False):
+    def _sensitivity_sim_wrapper(self, theta_try, store_responses=True):
         response = self._simulate_internal(self._ti_controls, self._tv_controls,
                                            theta_try, self._sampling_times)
         self.feval_sensitivity += 1
         """ store responses whenever required, and model parameters are the same as 
         current model's """
-        if store_responses and np.allclose(theta_try, self.model_parameters):
+        if store_responses and np.allclose(theta_try, self._current_scr_mp):
             self._current_response = response
             self._store_current_response()
         return response
 
-    def _check_if_model_parameters_changed(self):
-        if self._current_model_parameters is None:
-            self._current_model_parameters = np.empty(1)
-        if np.allclose(self.model_parameters, self._current_model_parameters):
-            self._model_parameters_changed = False
+    def _check_if_scr_changed(self):
+        if self._last_scr_mp is None:
+            self._last_scr_mp = np.empty(1)
+        if np.allclose(self._current_scr_mp, self._last_scr_mp):
+            self._scr_changed = False
         else:
-            self._model_parameters_changed = True
+            self._scr_changed = True
 
     def _plot_current_continuous_design_2d(self, width=None, write=False, dpi=720,
                                            quality=95):
@@ -1640,6 +2188,8 @@ class Designer:
         axes1.set_zlim([0, 1])
         axes1.set_zticks(np.linspace(0, 1, 6))
 
+        fig1.tight_layout()
+
         if write:
             self.create_result_dir()
             figname = 'fig_%s_design_%d.png' % (
@@ -1652,7 +2202,6 @@ class Designer:
                 figfile = self.result_dir + figname
             fig1.savefig(fname=figfile, dpi=dpi, quality=quality)
             self.run_no = 1
-        fig1.tight_layout()
         plt.show()
 
     def _pad_sampling_times(self):
@@ -1695,7 +2244,7 @@ class Designer:
 
         if self.n_spt is 1:
             self._current_response = self._current_response[np.newaxis]
-        elif self.n_r is 1:
+        if self.n_r is 1:
             self._current_response = self._current_response[:, np.newaxis]
 
         if self._var_n_sampling_time:
@@ -1719,8 +2268,13 @@ class Designer:
         return self.response
 
     def _residuals_wrapper_f(self, model_parameters):
-        residuals = self.eval_residuals(model_parameters)
-        return np.inner(residuals, residuals)
+        if self.responses_scales is None:
+            self.responses_scales = np.nanmean(self.data, axis=(0, 1))
+
+        self.eval_residuals(model_parameters)
+        res = self.residuals / self.responses_scales[None, None, :]
+        res = res[~np.isnan(res)]
+        return res[None, :] @ res[:, None]
 
     def _simulate_internal(self, ti_controls, tv_controls, theta, sampling_times):
         raise SyntaxError(
@@ -1819,6 +2373,7 @@ class Designer:
             self._model_package = "pyomo"
         else:
             self._model_package = "non-pyomo"
+        self._simulate_sig_id = 0
         if np.all([entry in sim_sig for entry in base_sig]):
             self._simulate_sig_id += 1
         if np.all([entry in sim_sig for entry in dyn_sig]):
@@ -1848,26 +2403,23 @@ class Designer:
         else:
             raise SyntaxError(
                 "model_parameters must be fed in as a 1D numpy array for local "
-                "designs, and a 2D numpy array for a semi-bayesian designs."
+                "designs, and a 2D numpy array for semi-bayesian designs."
             )
 
     def _check_candidate_lengths(self):
         if self._dynamic_system:
-            n_c_tic = len(self.ti_controls_candidates)
-            n_c_spt = len(self.sampling_times_candidates)
-            if not n_c_tic == n_c_spt:
+            if not self.n_c_tic == self.n_c_spt:
                 raise SyntaxError(
-                    "Number of candidates given in ti_controls, and sampling times are "
-                    "inconsistent."
+                    "Number of candidates given in ti_controls_candidates, and "
+                    "sampling_times_candidates are inconsistent."
                 )
-
             if self._dynamic_controls:
-                n_c_tvc = len(self.tv_controls_candidates)
-                if not n_c_tvc == n_c_spt:
+                if not self.n_c_tic == self.n_c_tvc:
                     raise SyntaxError(
-                        "Number of candidates given in tv_controls are inconsistent "
-                        "with ti_controls and sampling times."
+                        "Number of candidates in supplied ti_controls_candidates, and "
+                        "tv_controls_candidates are inconsistent."
                     )
+        self.n_c = self.n_c_tic
 
     def _check_var_spt(self):
         if np.all([len(spt) == len(self.sampling_times_candidates[0]) for spt in
@@ -1879,39 +2431,59 @@ class Designer:
             self._pad_sampling_times()
 
     def _get_component_sizes(self):
-        self.n_c, self.n_tic = self.ti_controls_candidates.shape
-        self.n_mp = len(self.model_parameters)
+        # number of candidates from tic, number of tic
+        self.n_c_tic, self.n_tic = self.ti_controls_candidates.shape
+        # number of tvc
+        self.n_c_tvc, self.n_tvc = self.tv_controls_candidates.shape
 
-        if self._dynamic_system:
-            self.n_spt = len(self.sampling_times_candidates[0])
+        # number of model parameters, and scenarios (if semi-semi_bayesian)
+        if self._semi_bayesian:
+            self.n_scr, self.n_mp = self.model_parameters.shape
+            self._current_scr_mp = self.model_parameters[0]
         else:
+            self.n_mp = self.model_parameters.shape[0]
+            self._current_scr_mp = self.model_parameters
+
+        # number of sampling times (if dynamic)
+        if self._dynamic_system:
+            self.n_c_spt, self.n_spt = self.sampling_times_candidates.shape
+        else:
+            self.n_c_spt = self.n_c_tic
             self.n_spt = 1
 
+        # number of responses
         if self.n_r is None:
-            print(
-                "Running one simulation for initialization (required to determine "
-                "number of responses).")
+            if self._verbose >= 3:
+                print(
+                    "Running one simulation for initialization "
+                    "(required to determine number of responses)."
+                )
             y = self._simulate_internal(self.ti_controls_candidates[0],
                                         self.tv_controls_candidates[0],
-                                        self.model_parameters,
+                                        self._current_scr_mp,
                                         self.sampling_times_candidates[0][~np.isnan(
                                             self.sampling_times_candidates[0])])
             try:
-                _, self.n_r = y.shape
-            except ValueError:
+                self.n_spt_r, self.n_r = y.shape
+            except ValueError:  # output not two dimensional
+                # case 1: n_r is 1
                 if self._dynamic_system and self.n_spt > 1:
                     self.n_r = 1
+                # case 2: n_spt is 1
                 else:
                     self.n_r = y.shape[0]
+
+        # number of measurable responses (if not all)
         if self.measurable_responses is None:
             self.n_m_r = self.n_r
             self.measurable_responses = np.array([_ for _ in range(self.n_r)])
         elif self.n_m_r != len(self.measurable_responses):
+            self.n_m_r = len(self.measurable_responses)
             if self.n_m_r > self.n_r:
                 raise SyntaxError(
                     "Given number of measurable responses is greater than number of "
-                    "responses given.")
-            self.n_m_r = len(self.measurable_responses)
+                    "responses given."
+                )
 
     def _check_memory_req(self, threshold):
         # check problem size (affects if designer will be memory-efficient or quick)
@@ -1926,3 +2498,37 @@ class Designer:
                 'computation of information '
                 'matrices.'.format(memory_req / 1e9, self._memory_threshold / 1e9))
             self._large_memory_requirement = True
+
+    def _check_if_model_parameters_changed(self):
+        if self._old_model_parameters is None:
+            self._model_parameters_changed = True
+            return self._model_parameters_changed
+
+        if np.allclose(self._old_model_parameters, self.model_parameters):
+            self._model_parameters_changed = False
+        else:
+            self._model_parameters_changed = True
+        return self._model_parameters_changed
+
+    def _check_if_candidates_changed(self):
+        if self._old_tic is None:
+            self._tic_changed = True
+        elif np.all(np.array_equal(self._old_tic, self.ti_controls_candidates)):
+            self._tic_changed = False
+        else:
+            self._tic_changed = True
+        if self._dynamic_system:
+            if self._old_spt is None:
+                self._spt_changed = True
+            elif np.array_equal(self._old_spt, self.sampling_times_candidates):
+                self._spt_changed = False
+            if self._dynamic_controls:
+                if self._old_tvc is None:
+                    self._tvc_changed = True
+                elif np.array_equal(self._old_tvc, self.tv_controls_candidates):
+                    self._tvc_changed = False
+        if np.any([self._tic_changed, self._spt_changed, self._tvc_changed]):
+            self._candidates_changed = True
+        else:
+            self._candidates_changed = False
+        return self._candidates_changed

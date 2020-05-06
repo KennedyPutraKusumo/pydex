@@ -1,5 +1,4 @@
 import numpy as np
-from matplotlib import pyplot as plt
 
 from pydex.core.designer import Designer
 
@@ -26,7 +25,8 @@ def simulate(ti_controls, model_parameters):
 designer_1 = Designer()
 designer_1.simulate = simulate
 
-tic_1, tic_2 = np.mgrid[-1:1:11j, -1:1:11j]
+reso = 11j
+tic_1, tic_2 = np.mgrid[-1:1:reso, -1:1:reso]
 tic_1 = tic_1.flatten()
 tic_2 = tic_2.flatten()
 designer_1.ti_controls_candidates = np.array([tic_1, tic_2]).T
@@ -36,12 +36,7 @@ designer_1.model_parameters = np.ones(5)  # values won't affect design, but stil
 designer_1.initialize(verbose=2)  # 0: silent, 1: overview, 2: detailed, 3: very detailed
 
 designer_1.design_experiment(designer_1.d_opt_criterion, write=False)
-designer_1.print_optimal_candidates()
-designer_1.plot_current_design()
 
-fig1 = plt.figure()
-axes1 = fig1.add_subplot(111)
-axes1.scatter(designer_1.ti_controls_candidates[:, 0],
-              designer_1.ti_controls_candidates[:, 1],
-              s=np.round(designer_1.efforts * 1000, decimals=2))
-plt.show()
+designer_1.print_optimal_candidates()
+designer_1.plot_optimal_efforts()
+designer_1.plot_controls()

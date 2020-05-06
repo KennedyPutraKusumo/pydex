@@ -98,12 +98,12 @@ designer_1.simulator = simulator_1
 designer_1.simulate = simulate
 
 """ specifying nominal model parameter """
-theta_nom = np.array([theta_0, theta_1, 1, 1])  # value of theta_0, theta_1, alpha_a, nu
+theta_nom = np.array([theta_0, theta_1, 1, 0.5])  # value of theta_0, theta_1, alpha_a, nu
 designer_1.model_parameters = theta_nom  # assigning it to the designer's theta
 
 """ creating experimental candidates, here, it is generated as a grid """
-n_s_times = 50  # number of equally-spaced sampling time candidates
-n_c = 10 ** 2  # grid resolution of control candidates generated
+n_s_times = 21  # number of equally-spaced sampling time candidates
+n_c = 3 ** 2  # grid resolution of control candidates generated
 
 # defining sampling time candidates
 tau_upper = 200
@@ -145,10 +145,14 @@ designer_1.responses_scales = np.array([1, 1])
 designer_1.initialize(verbose=2)  # 0: silent, 1: overview, 2: detail
 
 """ option to save current designer state """
-designer_1.save_state()
+# designer_1.save_state()
 
 """ do an estimability study """
-designer_1.estimability_study(save_sensitivities=True)
+# designer_1.estimability_study(save_sensitivities=True)
+
+""" (optional) plotting attributes """
+designer_1.response_names = ["c_A", "c_B"]
+designer_1.model_parameter_names = ["\\theta_0", "\\theta_1", "\\alpha", "\\nu"]
 
 """ D-optimal design """
 criterion = designer_1.d_opt_criterion
@@ -156,13 +160,10 @@ criterion = designer_1.d_opt_criterion
 # criterion = designer_1.e_opt_criterion
 
 result = designer_1.design_experiment(criterion=criterion, optimize_sampling_times=True,
-                                      write=False, fd_jac=False)
+                                      write=False, fd_jac=False, package="scipy")
 
 designer_1.print_optimal_candidates()
-designer_1.plot_current_design()
+designer_1.plot_optimal_efforts()
 
-designer_1.plot_optimal_predictions()
-designer_1.plot_optimal_sensitivities(absolute=True)
-
-designer_1.simulate_all_candidates(plot_simulation_times=True)
-designer_1.plot_all_predictions()
+designer_1.plot_optimal_predictions(write=True)
+designer_1.plot_optimal_sensitivities(write=True)

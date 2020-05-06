@@ -1,5 +1,4 @@
 import numpy as np
-from matplotlib import pyplot as plt
 
 from pydex.core.designer import Designer
 
@@ -29,7 +28,8 @@ def simulate(ti_controls, model_parameters):
 designer_1 = Designer()
 designer_1.simulate = simulate
 
-tic_1, tic_2 = np.mgrid[-1:1:21j, -1:1:21j]
+reso = 11j
+tic_1, tic_2 = np.mgrid[-1:1:reso, -1:1:reso]
 tic_1 = tic_1.flatten()
 tic_2 = tic_2.flatten()
 designer_1.ti_controls_candidates = np.array([tic_1, tic_2]).T
@@ -39,7 +39,7 @@ designer_1.model_parameters = np.ones(6)  # values won't affect design, but stil
 designer_1.initialize(verbose=2)  # 0: silent, 1: overview, 2: detailed, 3: very detailed
 
 """ cvxpy solvers """
-# package, optimizer = ("cvxpy", "MOSEK")
+package, optimizer = ("cvxpy", "MOSEK")
 # package, optimizer = ("cvxpy", "SCS")
 # package, optimizer = ("cvxpy", "CVXOPT")
 
@@ -47,26 +47,20 @@ designer_1.initialize(verbose=2)  # 0: silent, 1: overview, 2: detailed, 3: very
 # package, optimizer = ("scipy", "powell")
 # package, optimizer = ("scipy", "cg")
 # package, optimizer = ("scipy", "tnc")
-package, optimizer = ("scipy", "l-bfgs-b")
+# package, optimizer = ("scipy", "l-bfgs-b")
 # package, optimizer = ("scipy", "bfgs")
 # package, optimizer = ("scipy", "nelder-mead")
 # package, optimizer = ("scipy", "SLSQP")  # supports constrained form
 
 """ criterion choice """
-# criterion = designer_1.d_opt_criterion
+criterion = designer_1.d_opt_criterion
 # criterion = designer_1.a_opt_criterion
 # criterion = designer_1.e_opt_criterion
-criterion = designer_1.dg_opt_criterion
 
 """ designing experiment """
 designer_1.design_experiment(criterion=criterion, package=package, optimizer=optimizer,
-                             write=False, tol=1e-15, maxfun=int(1e6), maxiter=int(1e6))
-designer_1.print_optimal_candidates()
-designer_1.plot_current_design()
+                             write=False)
 
-fig1 = plt.figure()
-axes1 = fig1.add_subplot(111)
-axes1.scatter(designer_1.ti_controls_candidates[:, 0],
-              designer_1.ti_controls_candidates[:, 1],
-              s=np.round(designer_1.efforts * 1000, decimals=2))
-plt.show()
+designer_1.print_optimal_candidates()
+designer_1.plot_optimal_efforts()
+designer_1.plot_controls(non_opt_candidates=True, alpha=0.2)

@@ -79,11 +79,6 @@ def create_model():
     return model
 
 
-pre_exp_constant = 0.1
-activ_energy = 5000
-theta_0 = np.log(pre_exp_constant) - activ_energy / (8.314159 * 273.15)
-theta_1 = activ_energy / (8.314159 * 273.15)
-
 """ create a pyomo model """
 model_1 = create_model()
 simulator_1 = pod.Simulator(model_1, package='casadi')
@@ -98,77 +93,63 @@ designer_1.simulator = simulator_1
 """ overwrite the designer's simulate function """
 designer_1.simulate = simulate
 
-""" specifying nominal model parameter """
-theta_nom = np.array([theta_0, theta_1, 1, 1])  # value of theta_0, theta_1, alpha_a, nu
-theta = np.random.multivariate_normal(mean=theta_nom, cov=0.1 * np.identity(4),
-                                      size=5 ** 4)
-designer_1.model_parameters = theta_nom  # assigning it to the designer's theta
+""" drawing model parameter scenarios from prior """
+pre_exp_constant = 0.1
+activ_energy = 4000
+theta_0 = np.log(pre_exp_constant) - activ_energy / (8.314159 * 273.15)
+theta_1 = activ_energy / (8.314159 * 273.15)
 
-""" creating experimental candidates, here, it is generated as a grid """
-n_s_times = 10  # number of equally-spaced sampling time candidates
-n_c = 5 ** 2  # grid resolution of control candidates generated
+np.random.seed(123)  # set a seed for reproducibility
+theta_nom = np.array([theta_0, theta_1, 2, 1])  # value of theta_0, theta_1, alpha_a, nu
+theta_cov = np.diag(0.40**2 * np.abs(theta_nom))
+n_scr = 100
+theta = np.random.multivariate_normal(mean=theta_nom, cov=theta_cov, size=n_scr)
+theta[:, 2] = np.round(theta[:, 2])
+designer_1.model_parameters = theta  # assigning it to the designer's theta
 
-# defining sampling time candidates
-tau_upper = 200
-tau_lower = 0
-spt_candidates = np.array([np.linspace(tau_lower, tau_upper, n_s_times + _)
-                           for _ in range(n_c)])
-# spt_candidates = np.array([np.linspace(tau_lower, tau_upper, n_s_times)
-#                            for _ in range(n_c)])
-
-# specifying bounds for the grid
+""" defining control candidates """
+n_c = 3 ** 2  # grid resolution of control candidates generated
 Ca0_lower = 1
 Ca0_upper = 5
 temp_lower = 273.15
 temp_upper = 273.15 + 50
-# creating the grid, just some numpy syntax for grid creation
-Ca0, temp = np.mgrid[Ca0_lower:Ca0_upper:complex(0, np.sqrt(n_c)), temp_lower:temp_upper:complex(0, np.sqrt(n_c))]
+Ca0, temp = np.mgrid[
+                Ca0_lower:Ca0_upper:complex(0, np.sqrt(n_c)),
+                temp_lower:temp_upper:complex(0, np.sqrt(n_c))
+            ]
 Ca0 = Ca0.flatten()
 temp = temp.flatten()
 tic_candidates = np.array([Ca0, temp]).T
-
-""" passing the experimental candidates to the designer """
 designer_1.ti_controls_candidates = tic_candidates
+
+""" defining sampling time choices for each candidate """
+n_s_times = 10  # number of equally-spaced sampling time candidates
+tau_upper = 200
+tau_lower = 0
+spt_candidates = np.array([
+    np.linspace(tau_lower, tau_upper, n_s_times)
+    for _ in range(n_c)
+])
 designer_1.sampling_times_candidates = spt_candidates
-
-"""
-Specify measurable states:
-A list or array with column numbers where the measurable states are returned in the 
-simulate 
-function. Optional, if un-specified assume all responses (from simulate function) 
-measurable
-"""
-# designer_1.measurable_responses = [0, 1]
-
-""" optional information for plotting purposes, if unspecified empty axes titles """
-designer_1.candidate_names = np.array(["Candidate {:d}".format(i + 1)
-                                       for i, _ in enumerate(tic_candidates)])
-
-""" optional information for estimability study """
-designer_1.responses_scales = np.array([1, 1])
 
 """ initializing designer """
 designer_1.initialize(verbose=2)  # 0: silent, 1: overview, 2: detail
 
-""" option to save current designer state """
-designer_1.save_state()
-
-""" do an estimability study """
-designer_1.estimability_study(save_sensitivities=True)
-
 """ D-optimal design """
 criterion = designer_1.d_opt_criterion
-# criterion = designer_1.a_opt_criterion
-# criterion = designer_1.e_opt_criterion
 
-result = designer_1.design_experiment(criterion=criterion, optimize_sampling_times=True,
-                                      write=False, fd_jac=False)
+""" Semi-Bayes Type """
+# default behaviour: cheap
+# sb_type = 0  # aliases: "average_information", or "avg_inf"
+# better interpretation, more expensive
+sb_type = 1  # aliases: "average_criterion", or "avg_crit"
 
+result = designer_1.design_experiment(criterion=criterion,
+                                      optimize_sampling_times=True,
+                                      write=False,
+                                      semi_bayes_type=sb_type)
 designer_1.print_optimal_candidates()
-designer_1.plot_current_design()
+designer_1.plot_optimal_efforts()
 
 designer_1.plot_optimal_predictions()
-designer_1.plot_optimal_sensitivities(absolute=True)
-
-designer_1.simulate_all_candidates(plot_simulation_times=True)
-designer_1.plot_all_predictions()
+designer_1.plot_optimal_sensitivities()

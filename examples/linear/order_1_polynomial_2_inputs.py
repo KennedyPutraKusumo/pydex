@@ -1,10 +1,9 @@
 from pydex.core.designer import Designer
-from matplotlib import pyplot as plt
 import numpy as np
 
 
 """ 
-Setting: a non-dynamic experimental system with 2 time-invariant control variables and 1 response.
+Setting: a non-dynamic experimental system with 2 time-invariant control variables and 1 response
 Problem: design optimal experiment for a order 1 polynomial, with complete interaction
 Solution: a full 2^2 factorial design (2 level)
 """
@@ -22,9 +21,12 @@ def simulate(ti_controls, model_parameters):
 designer_1 = Designer()
 designer_1.simulate = simulate
 
-tic_1, tic_2 = np.mgrid[-1:1:11j, -1:1:11j]
-tic_1 = tic_1.flatten(); tic_2 = tic_2.flatten()
-designer_1.ti_controls_candidates = np.array([tic_1, tic_2]).T
+reso = 11
+tic = designer_1.create_grid(
+    bounds=np.array([(-1, 1), (-1, 1)]),
+    levels=np.array([reso, reso])
+)
+designer_1.ti_controls_candidates = tic
 
 designer_1.model_parameters = np.ones(4)  # values won't affect design, but still needed
 
@@ -32,10 +34,6 @@ designer_1.initialize(verbose=2)  # 0: silent, 1: overview, 2: detailed, 3: very
 
 designer_1.design_experiment(designer_1.d_opt_criterion, write=False)
 designer_1.print_optimal_candidates()
-designer_1.plot_current_design()
+designer_1.plot_optimal_efforts()
 
-fig1 = plt.figure()
-axes1 = fig1.add_subplot(111)
-axes1.scatter(designer_1.ti_controls_candidates[:, 0], designer_1.ti_controls_candidates[:, 1],
-              s=np.round(designer_1.efforts*1000, decimals=2))
-plt.show()
+designer_1.plot_controls(alpha=0.3, non_opt_candidates=True)

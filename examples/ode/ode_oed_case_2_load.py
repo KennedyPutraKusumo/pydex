@@ -39,4 +39,4 @@ d_opt_result = designer_1.design_experiment(criterion=designer_1.d_opt_criterion
                                             package=package, write=False,
                                             optimize_sampling_times=True,
                                             optimizer=optimizer)
-designer_1.plot_current_design()
+designer_1.plot_optimal_efforts()

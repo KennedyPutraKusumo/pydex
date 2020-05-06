@@ -106,8 +106,8 @@ if __name__ == '__main__':
     """ D-optimal continuous design """
     # package, optimizer = ("cvxpy", "MOSEK")
     # package, optimizer = ("cvxpy", "SCS")
-    # package, optimizer = ("cvxpy", "CVXOPT")
-    package, optimizer = ("scipy", "SLSQP")
+    package, optimizer = ("cvxpy", "ECOS")
+    # package, optimizer = ("scipy", "SLSQP")
 
     criterion = designer_1.d_opt_criterion
     # criterion = designer_1.a_opt_criterion
@@ -117,9 +117,9 @@ if __name__ == '__main__':
                                                 package=package,
                                                 optimize_sampling_times=True,
                                                 write=False, optimizer=optimizer,
-                                                save_sensitivities=True, fd_jac=False)
+                                                save_sensitivities=False, fd_jac=False)
     designer_1.print_optimal_candidates()
-    designer_1.plot_current_design(write=False)
+    designer_1.plot_optimal_efforts()
     designer_1.plot_optimal_predictions()
     designer_1.plot_optimal_sensitivities()
 
