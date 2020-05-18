@@ -133,7 +133,9 @@ Specify measurable states:
 A list or array with column numbers where the measurable states are returned in the simulate 
 function. Optional, if un-specified assume all responses (from simulate function) measurable
 """
-# designer_1.measurable_responses = [0, 1]
+designer_1.measurable_responses = [0, 1]
+# designer_1.measurable_responses = [0]
+# designer_1.measurable_responses = [1]
 
 """ optional information for plotting purposes, if unspecified empty axes titles """
 designer_1.candidate_names = np.array(["Candidate {:d}".format(i + 1)

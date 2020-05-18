@@ -33,7 +33,7 @@ def simulate(ti_controls, model_parameters):
 designer_1 = Designer()
 designer_1.simulate = simulate
 
-reso = 5j
+reso = 7j
 tic_1, tic_2, tic_3 = np.mgrid[-1:1:reso, -1:1:reso, -1:1:reso]
 tic_1 = tic_1.flatten()
 tic_2 = tic_2.flatten()
@@ -59,14 +59,13 @@ package, optimizer = ("cvxpy", "MOSEK")
 # package, optimizer = ("scipy", "SLSQP")  # supports constrained form
 
 """ criterion choice """
-# criterion = designer_1.d_opt_criterion
-criterion = designer_1.a_opt_criterion
+criterion = designer_1.d_opt_criterion
+# criterion = designer_1.a_opt_criterion
 # criterion = designer_1.e_opt_criterion
 
 """ designing experiment """
 designer_1.design_experiment(criterion=criterion, package=package, optimizer=optimizer,
                              write=False)
-
 designer_1.print_optimal_candidates()
 designer_1.plot_optimal_efforts()
-designer_1.plot_controls(non_opt_candidates=True)
+designer_1.plot_controls(non_opt_candidates=False)

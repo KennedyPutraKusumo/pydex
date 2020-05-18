@@ -23,11 +23,3 @@ criterion = designer.a_opt_criterion
 designer.design_experiment(criterion, write=False)
 designer.print_optimal_candidates()
 designer.plot_controls()
-
-# fig = plt.figure()
-# axes = fig.add_subplot(111)
-# axes.bar(tic[:], designer.efforts[:], width=0.01)
-# axes.set_xlabel(r"$x_1$")
-# axes.set_ylabel("Efforts")
-# fig.savefig("nonlinear_sol", dpi=720)
-# plt.show()

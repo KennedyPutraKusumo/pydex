@@ -13,24 +13,31 @@ import numdifftools as nd
 import numpy as np
 from matplotlib import pyplot as plt
 from matplotlib import cm
-from scipy.optimize import minimize
+from scipy.optimize import minimize, least_squares
 from mpl_toolkits.mplot3d import Axes3D
 from pydex.utils.trellis_plotter import TrellisPlotter
-
+from pydex.utils.bnb.tree import Tree
+from pydex.utils.bnb.node import Node
 
 class Designer:
     """
     An experiment designer with capabilities to do parameter estimation, parameter
-    estimability study, and computes continuous experimental designs.
+    estimability study, and computes both continuous and exact experimental designs.
 
-    Interfaces to optimization solvers via Pyomo. Supports virtually any Python
+    Interfaces to optimization solvers via scipy, and cvxpy. Supports virtually any Python
     functions as long as one can specify the model within the required general syntax.
+    Special support for ODE models solved via Pyomo.DAE: allow model, and simulator to
+    be passed to the designer to prevent re-build of model and simulator each time a
+    the model is simulated, optimizing computational time.
+
     Designer comes equipped with convenient built-in visualization capabilities, using
     matplotlib.
     """
     def __init__(self):
         """ core model components """
         # unorganized
+        self._eps = 1e-5
+        self._regularize_fim = None
         self._old_tvc = None
         self._old_spt = None
         self._tvc_changed = None
@@ -87,6 +94,10 @@ class Designer:
 
         # optional user-defined variables
         self.candidate_names = None  # plotting names
+        self.measurable_responses_names = None
+        self.ti_controls_names = None
+        self.tv_controls_names = None
+        self.model_parameters_names = None
         self.measurable_responses = None  # subset of measurable states
 
         # core designer outputs
@@ -215,6 +226,7 @@ class Designer:
         self.response = None  # resets response every time simulation is invoked
         self.feval_simulation = 0
         time_list = []
+        start = time()
         for i, exp in enumerate(
                 zip(self.ti_controls_candidates, self.tv_controls_candidates,
                     self.sampling_times_candidates)):
@@ -247,6 +259,8 @@ class Designer:
         if plot_simulation_times:
             plt.plot(time_list)
             plt.show()
+        if self._verbose >= 3:
+            print(f"Completed simulation of all candidates in {time() - start} CPU seconds.")
         return self.response
 
     def simulate_optimal_candidates(self):
@@ -289,8 +303,9 @@ class Designer:
                 self._current_response = response
                 time_list.append(finish - start)
 
-    def estimate_parameters(self, init_guess, bounds, method='l-bfgs-b',
-                            update_parameters=False, save_result=True, options=None):
+    def estimate_parameters(self, init_guess, bounds, method='trf',
+                            update_parameters=False, write=True, options=None,
+                            max_nfev=None):
         if self.data is None:
             raise SyntaxError("No data is put in, do not forget to add it in.")
 
@@ -304,7 +319,90 @@ class Designer:
             print("Solving parameter estimation...")
         start = time()
 
-        pe_result = minimize(self._residuals_wrapper_f, init_guess, bounds=bounds,
+        bounds = bounds.T
+        pe_result = least_squares(self._residuals_wrapper_f, init_guess,
+                                  bounds=bounds, method=method, verbose=self._verbose,
+                                  max_nfev=max_nfev)
+        finish = time()
+        if not pe_result.success:
+            print('Fail: estimation did not terminate as optimal.')
+            stillsave = input(f"Still want to save results? Y/N")
+            if stillsave == "Y":
+                pass
+            else:
+                print("Exiting.")
+                return None
+
+        if self._verbose >= 1:
+            print(
+                "Complete: OLS estimation using %s took %.2f CPU seconds to complete."
+                % (
+                    method, finish - start))
+        if self._verbose >= 2:
+            print(
+                f"The estimation took a total of {pe_result.nfev} function evaluations"
+                f", and {pe_result.njev} number of Jacobian evaluations were done."
+            )
+
+        if update_parameters:
+            self.model_parameters = pe_result.x
+            if self._verbose >= 2:
+                print('Nominal parameter value in model updated.')
+
+        if write:
+            case_path = getcwd()
+            today = datetime.now()
+            result_dir = case_path + "/" + str(today.date()) + "_at_" + str(
+                today.hour) + "-" + str(
+                today.minute) + "-" + str(today.second) + "_full_model_pe_results/"
+            makedirs(result_dir)
+            with open(result_dir + "result_file.pkl", "wb") as file:
+                dump(pe_result, file)
+            if self._verbose >= 2:
+                print('Parameter estimation result saved to: %s.' % result_dir)
+
+        pe_jac = pe_result.jac
+        pe_info_mat = pe_jac.T @ pe_jac
+        try:
+            pe_param_covar = np.linalg.inv(pe_info_mat)
+            if self._verbose >= 1:
+                print("Estimated Parameter Covariance")
+                print(pe_param_covar)
+        except np.linalg.LinAlgError:
+            print("Estimated information matrix of estimation is singular, suggesting "
+                  "that not all model parameters"
+                  " are estimable using given data. Regularizing the covariance matrix.")
+            singular = True
+            regularization_scalar = 0.1 * np.average(pe_info_mat)
+            while singular:
+                try:
+                    pe_info_mat = regularization_scalar * np.identity(
+                        self.n_mp) + pe_info_mat
+                    pe_param_covar = np.linalg.inv(pe_info_mat)
+                    print(pe_param_covar)
+                    singular = False
+                except np.linalg.LinAlgError:
+                    print(f"Regularization still leads to singular matrix; skipping.")
+                    singular = False
+
+        return pe_result
+
+    def estimate_parameters_old(self, init_guess, bounds, method='l-bfgs-b',
+                            update_parameters=False, write=True, options=None):
+        if self.data is None:
+            raise SyntaxError("No data is put in, do not forget to add it in.")
+
+        if options is None:
+            if self._verbose >= 2:
+                options = {'disp': True}
+            else:
+                options = {'disp': False}
+
+        if self._verbose >= 1:
+            print("Solving parameter estimation...")
+        start = time()
+
+        pe_result = minimize(self._residuals_wrapper_f_old, init_guess, bounds=bounds,
                              method=method, options=options)
         finish = time()
         if not pe_result.success:
@@ -323,24 +421,27 @@ class Designer:
                 "Jacobian using forward finite differences." % (
                     pe_result.nfev, pe_result.nfev - pe_result.nit - 1))
 
+        pe_info_mat = pe_result.jac.transpose().dot(pe_result.jac)
         try:
-            pe_info_mat = pe_result.jac.transpose().dot(pe_result.jac)
             pe_param_covar = np.linalg.inv(pe_info_mat)
             if self._verbose >= 1:
                 print("Estimated Parameter Covariance")
                 print(pe_param_covar)
         except np.linalg.LinAlgError:
-            print(
-                "Estimated information matrix of estimation is singular, suggesting "
+            print("Estimated information matrix of estimation is singular, suggesting "
                 "that not all model parameters"
-                " are estimable using given data. Consider doing an estimability study.")
+                " are estimable using given data. Regularizing the covariance matrix.")
+            regularization_scalar = 0.01 * np.average(pe_info_mat)
+            pe_info_mat = regularization_scalar * np.identity(self.n_mp) + pe_info_mat
+            pe_param_covar = np.linalg.inv(pe_info_mat)
+            print(pe_param_covar)
 
         if update_parameters:
             self.model_parameters = pe_result.x
             if self._verbose >= 2:
                 print('Nominal parameter value in model updated.')
 
-        if save_result:
+        if write:
             case_path = getcwd()
             today = datetime.now()
             result_dir = case_path + "/" + str(today.date()) + "_at_" + str(
@@ -352,16 +453,15 @@ class Designer:
             if self._verbose >= 2:
                 print('Parameter estimation result saved to: %s.' % result_dir)
 
-        # TODO: implement a quasi-newton approximation of Covariance from Jacobian
-
         return pe_result
 
     def design_experiment(self, criterion, optimize_sampling_times=False,
                           package="cvxpy", optimizer=None, opt_options=None, e0=None,
                           write=True, save_sensitivities=False, fd_jac=True,
                           unconstrained_form=False, trim_fim=True, semi_bayes_type=None,
-                          **kwargs):
+                          regularize_fim=True, **kwargs):
         # storing user choices
+        self._regularize_fim = regularize_fim
         self._optimization_package = package
         self._optimizer = optimizer
         self._opt_sampling_times = optimize_sampling_times
@@ -521,6 +621,165 @@ class Designer:
 
         return oed_result
 
+    def design_exact_experiment(self, criterion, number_of_experiments, optimize_sampling_times=False,
+                                package="cvxpy", optimizer=None, opt_options=None, e0=None,
+                                write=True, save_sensitivities=False, fd_jac=True,
+                                unconstrained_form=False, semi_bayes_type=None,
+                                regularize_fim=False, **kwargs):
+        # storing user choices
+        self._regularize_fim = regularize_fim
+        self._optimization_package = package
+        self._optimizer = optimizer
+        self._opt_sampling_times = optimize_sampling_times
+        self._save_sensitivities = save_sensitivities
+        self._current_criterion = criterion.__name__
+        self._fd_jac = fd_jac
+        self._unconstrained_form = unconstrained_form
+        self._trim_fim = False
+
+        if self._verbose >= 2:
+            opt_verbose = True
+        else:
+            opt_verbose = False
+
+        """ setting default semi-bayes behaviour """
+        if self._semi_bayesian:
+            if semi_bayes_type is None:
+                self._semi_bayes_type = 0
+            else:
+                valid_types = [
+                    0, 1,
+                    "avg_inf", "avg_crit",
+                    "average_information", "average_criterion"
+                ]
+                if semi_bayes_type in valid_types:
+                    self._semi_bayes_type = semi_bayes_type
+                else:
+                    raise SyntaxError(
+                        "Unrecognized semi-semi_bayesian criterion type. Valid types: '0' for"
+                        " average information, '1' for average criterion."
+                    )
+
+        """ force fd_jac for large problems """
+        if self._large_memory_requirement and not self._fd_jac:
+            print("Warning: analytic Jacobian is specified on a large problem."
+                  "Overwriting and continuing with finite differences.")
+            self._fd_jac = True
+
+        """ setting default optimizers, and its options """
+        if self._optimization_package is "scipy":
+            if optimizer is None:
+                self._optimizer = "SLSQP"
+            if opt_options is None:
+                opt_options = {"disp": opt_verbose}
+        if self._optimization_package is "cvxpy":
+            if optimizer is None:
+                self._optimizer = "MOSEK"
+
+        """ deal with unconstrained form """
+        if self._optimization_package is "scipy":
+            if self._optimizer not in ["COBYLA", "SLSQP", "trust-constr"]:
+                if self._verbose >= 2:
+                    print(f"Note: {self._optimization_package}'s optimizer "
+                          f"{self._optimizer} requires unconstrained form.")
+                self._unconstrained_form = True
+        if self._optimization_package is "cvxpy":
+            if self._unconstrained_form:
+                self._unconstrained_form = False
+                print("Warning: unconstrained form is not supported by cvxpy; "
+                      "continuing normally with constrained form.")
+
+        self.n_e = self.n_c
+        if self._opt_sampling_times:
+            if not self._dynamic_system:
+                print('Warning: system is non-dynamic; '
+                      'proceeding normally without optimizing sampling times.')
+                self._opt_sampling_times = False
+            else:
+                self.n_e *= self.n_spt
+
+        """ main codes """
+        if self._verbose >= 1:
+            print("Solving OED problem...")
+
+        # set initial guess for optimal experimental efforts, if none given,
+        # equal efforts for all candidates
+        if e0 is None:
+            e0 = np.array([1 / self.n_e for _ in range(self.n_e)])
+            self.efforts = e0
+        else:
+            if not isinstance(e0, (np.ndarray, list)):
+                msg = 'Initial guess for effort must be a 1D ' \
+                      'list or numpy array.'
+                raise SyntaxError(msg)
+            if len(e0) != self.n_e:
+                msg = 'Length of initial guess must be equal to ' \
+                      '(i) sampling times not optimized: number of candidates; or ' \
+                      '(ii) sampling times optimized: number of candidates times ' \
+                      'number of sampling times. '
+                raise SyntaxError(msg)
+            self.efforts = e0
+
+        # declare and solve optimization problem
+        start = time()
+        # solvers
+        if self._optimization_package == "scipy":
+            raise NotImplementedError(
+                "Using scipy for exact design is not yet supported, please use cvxpy."
+            )
+        elif self._optimization_package == "cvxpy":
+            e = cp.Variable(self.n_e, nonneg=True)
+            e.value = self.efforts
+            p_cons = [
+                cp.sum(e) == number_of_experiments,
+            ]
+            obj = cp.Maximize(-criterion(e))
+            prob = cp.Problem(obj, p_cons)
+
+            root_node = Node(e, prob, optimizer=self._optimizer)
+            bnb_tree = Tree(root_node)
+            bnb_tree._verbose = self._verbose
+            optimal_node = bnb_tree.solve()
+
+            self.efforts = optimal_node.int_var_val
+            opt_fun = optimal_node.ub
+        else:
+            raise SyntaxError("Unrecognized package, terminating.")
+
+        self._transform_efforts()
+        finish = time()
+
+        """ report status and performance """
+        self._optimization_time = finish - start - self._sensitivity_analysis_time
+        if self._verbose:
+            print(
+                f"Done: sensitivity analysis took {self._sensitivity_analysis_time:.2f}"
+                f" CPU seconds; the optimizer {self._optimizer:s} interfaced via the"
+                f" {self._optimization_package} package solved the optimization problem"
+                f" in {self._optimization_time:.2f} CPU seconds."
+            )
+
+        """ storing and writing result """
+        self._criterion_value = opt_fun
+        oed_result = {
+            "solution_time": finish - start,
+            "optimization_time": self._optimization_time,
+            "sensitivity_analysis_time": self._sensitivity_analysis_time,
+            "optimality_criterion": criterion.__name__[:-10],
+            "ti_controls_candidates": self.ti_controls_candidates,
+            "tv_controls_candidates": self.tv_controls_candidates,
+            "model_parameters": self.model_parameters,
+            "sampling_times_candidates": self.sampling_times_candidates,
+            "optimal_efforts": self.efforts,
+            "criterion_value": self._criterion_value,
+            "optimizer": self._optimizer
+        }
+        self.oed_result = oed_result
+        if write:
+            self.write_oed_result()
+
+        return oed_result
+
     def estimability_study(self, base_step=None, step_ratio=None, num_steps=None,
                            estimable_tolerance=0.04, write=False,
                            save_sensitivities=False):
@@ -621,7 +880,7 @@ class Designer:
             axes.scatter(
                 self.ti_controls_candidates[:, 0],
                 self.ti_controls_candidates[:, 1],
-                facecolor="red",
+                facecolor="none",
                 edgecolor="red",
                 marker="o",
                 s=self.efforts*500*markersize,
@@ -642,7 +901,6 @@ class Designer:
                     n_ticks
                 )
             )
-            plt.show()
         elif self.n_tic == 3:
             fig = plt.figure()
             axes = fig.add_subplot(111, projection="3d")
@@ -664,18 +922,143 @@ class Designer:
                 s=self.efforts*500*markersize,
             )
             axes.grid(False)
-            plt.show()
         elif self.n_tic == 4:
             trellis_plotter = TrellisPlotter()
             trellis_plotter.data = self.ti_controls_candidates
             trellis_plotter.intervals = np.array([5, 7])
-            trellis_plotter.plot()
+            trellis_plotter.scatter()
+        plt.show()
+        return
 
-    def plot_sensitivities(self, absolute=False, draw_legend=True):
+    def plot_parity(self):
+        if self.response is None:
+            raise RuntimeError(
+                "Cannot generate parity plot when response is empty. "
+                "Run simulate_all_candidates and store responses."
+            )
+        if self.data is None:
+            raise RuntimeError(
+                "Cannot generate parity plot when data is empty. "
+                "Please specify data to the designer."
+            )
+        fig = plt.figure()
+        gridspec = plt.GridSpec(nrows=self.n_m_r, ncols=1)
+        for r in range(self.n_m_r):
+            axes = fig.add_subplot(gridspec[r, 0])
+            axes.scatter(
+                [dat for dat in self.data[:, :, r]],
+                [res for res in self.response[:, :, self.measurable_responses[r]]],
+                marker="1",
+            )
+            axes.scatter(
+                [-1e10, 1e10],
+                [-1e10, 1e10],
+                linestyle="-",
+                marker="None",
+                c="gray",
+                alpha=0.3,
+            )
+            data_lim = [
+                np.nanmin(self.data[:, :, r]),
+                np.nanmax(self.data[:, :, r]),
+            ]
+            res_lim = [
+                np.nanmin(self.response[:, :, self.measurable_responses[r]]),
+                np.nanmax(self.response[:, :, self.measurable_responses[r]]),
+            ]
+            lim = [
+                np.min([data_lim[0], res_lim[0]]),
+                np.max([data_lim[1], res_lim[1]]),
+            ]
+            lim = lim + np.array([
+                -0.1 * (lim[1] - lim[0]),
+                 0.1 * (lim[1] - lim[0]),
+            ])
+            axes.set_xlim(lim)
+            axes.set_ylim(lim)
+            if self.response_names is not None:
+                axes.set_title(f"{self.response_names[r]}")
+            else:
+                axes.set_title(f"Response {r}")
+            axes.set_xlabel(f"Data")
+            axes.set_ylabel(f"Prediction")
+        plt.get_current_fig_manager().window.showMaximized()
+        plt.gcf().tight_layout()
+        plt.show()
+
+    def plot_all_predictions(self, plot_data=False):
+        for res in range(self.n_m_r):
+            fig = plt.figure()
+            n_rows = np.ceil(np.sqrt(self.n_c)).astype(int)
+            n_cols = n_rows
+            gridspec = plt.GridSpec(
+                nrows=n_rows,
+                ncols=n_cols,
+            )
+            data_lim = [
+                np.nanmin(self.data[:, :, res]),
+                np.nanmax(self.data[:, :, res]),
+            ]
+            res_lim = [
+                np.nanmin(self.response[:, :, self.measurable_responses[res]]),
+                np.nanmax(self.response[:, :, self.measurable_responses[res]]),
+            ]
+            lim = [
+                np.min([data_lim[0], res_lim[0]]),
+                np.max([data_lim[1], res_lim[1]])
+            ]
+            lim = lim + np.array([
+                - 0.1 * (lim[1] - lim[0]),
+                + 0.1 * (lim[1] - lim[0]),
+            ])
+            for row in range(n_rows):
+                for col in range(n_cols):
+                    cand = n_cols * row + col
+                    if cand < self.n_c:
+                        axes = fig.add_subplot(gridspec[row, col])
+                        axes.scatter(
+                            self.sampling_times_candidates[cand, :],
+                            self.response[n_cols*row + col, :, self.measurable_responses[res]],
+                            linestyle="none",
+                            marker="1",
+                            label="Prediction"
+                        )
+                        if plot_data:
+                            axes.scatter(
+                                self.sampling_times_candidates[cand, :],
+                                self.data[n_cols * row + col, :, res],
+                                linestyle="none",
+                                marker="v",
+                                fillstyle="none",
+                                label="Data"
+                            )
+                        axes.set_ylim(lim)
+                        if cand + 1 == self.n_c:
+                            axes.legend(prop={"size": 6})
+                        if self.candidate_names is not None:
+                            try:
+                                axes.set_title(f"Exp: {self.candidate_names[cand]}")
+                            except ValueError:
+                                axes.set_title(f"Exp: Unnamed")
+            if self.response_names is not None:
+                fig.suptitle(f"Response: {self.response_names[res]}")
+            plt.get_current_fig_manager().window.showMaximized()
+            fig.subplots_adjust(top=0.92,
+                                bottom=0.0,
+                                left=0.029,
+                                right=0.99,
+                                hspace=0.95,
+                                wspace=0.4,
+            )
+        plt.show()
+        return
+
+    def plot_sensitivities(self, absolute=False, draw_legend=True, figsize=None):
         # n_c, n_s_times, n_res, n_theta = self.sensitivity.shape
-        fig1 = plt.figure(
-            figsize=(1.25 * self.n_mp + 2 / (self.n_mp + 1),
-                     1.25 + 1 * self.n_m_r + 2 / (self.n_m_r + 1)))
+        if figsize is None:
+            figsize = (self.n_mp * 4.0, 1.0 + 2.5 * self.n_m_r)
+        fig1 = plt.figure(figsize=figsize)
+
         if self._sensitivity_is_normalized:
             norm_status = 'Normalized '
         else:
@@ -684,6 +1067,7 @@ class Designer:
             abs_status = 'Absolute '
         else:
             abs_status = 'Directional '
+
         fig1.suptitle('%s%sSensitivity Plots' % (norm_status, abs_status))
         i = 0
         for row in range(self.n_m_r):
@@ -714,135 +1098,6 @@ class Designer:
                     make_legend = 'axes_%d_%d.legend()' % (row, col)
                     exec(make_legend)
         fig1.tight_layout()
-        plt.show()
-
-    def plot_all_predictions(self, figsize=(10, 7.5), markersize=6, fontsize=5,
-                             legend=True, legend_size=4, plot_data=False):
-        assert self._status is 'ready', 'Initialize the designer first.'
-        assert self.response is not None, 'Cannot plot prediction vs data when ' \
-                                          'response is empty, please run and ' \
-                                          'store predictions.'
-        if plot_data:
-            assert self.data is not None, 'Data is empty, cannot plot prediction vs ' \
-                                          'data. Please specify data.'
-
-        for res in range(self.n_m_r):
-            """ creating the necessary figures """
-            create_fig = 'fig%d = plt.figure(figsize=figsize)' % res
-            exec(create_fig)
-
-            n_fig_col = np.floor(np.sqrt(self.n_c)).astype(int)
-            n_fig_row = np.floor(np.sqrt(self.n_c)).astype(int)
-
-            while n_fig_col * n_fig_row < self.n_c:
-                n_fig_col += 1
-
-            """ creating the necessary subplots """
-            for row in range(n_fig_row):
-                for col in range(n_fig_col):
-                    draw_subplots = 'axes%d_fig%d = fig%d.add_subplot(n_fig_row, ' \
-                                    'n_fig_col, ' \
-                                    'row * n_fig_col + (col + 1) )' % (
-                                        row * n_fig_col + (col + 1), res, res)
-                    exec(draw_subplots)
-
-            """ defining a universal subplot axes limits """
-            x_axis_lim = [
-                np.min(self.sampling_times_candidates[
-                           ~np.isnan(self.sampling_times_candidates)]),
-                np.max(self.sampling_times_candidates[
-                           ~np.isnan(self.sampling_times_candidates)])
-            ]
-
-            pred_max = np.max(
-                self.response[:, :, res][~np.isnan(self.response[:, :, res])])
-            pred_min = np.min(
-                self.response[:, :, res][~np.isnan(self.response[:, :, res])])
-            if plot_data:
-                try:
-                    data_max = np.max(
-                        self.data[:, :, res][~np.isnan(self.data[:, :, res])])
-                    data_min = np.min(
-                        self.data[:, :, res][~np.isnan(self.data[:, :, res])])
-                except ValueError:
-                    data_max = 1
-                    data_min = 0
-                y_axis_lim = [
-                    np.min([data_min, pred_min]),
-                    np.max([data_max, pred_max])
-                ]
-            else:
-                y_axis_lim = [pred_min, pred_max]
-
-            for i, sampling_times in enumerate(self.sampling_times_candidates):
-                """ plotting data if specified """
-                if plot_data:
-                    plot_data = 'data_lines = axes%d_fig%d.plot(sampling_times, ' \
-                                'self.data[i, :, res], marker="v", ' \
-                                'markersize=markersize, fillstyle="none", ' \
-                                'linestyle="none", label="data")' \
-                                % (i + 1, res)
-                    exec(plot_data)
-
-                """ plotting predictions """
-                plot_predictions = 'pred_lines = axes%d_fig%d.plot(sampling_times, ' \
-                                   'self.response[i, :, ' \
-                                   'self.measurable_responses[res]], marker="1", ' \
-                                   'markersize=markersize,' \
-                                   'linestyle="none", label="predictions")' % (
-                                       i + 1, res)
-                exec(plot_predictions)
-
-                """ adjusting axes limits, chosen so all subplots include all data and 
-                all subplots have same scale """
-                set_ylim = 'axes%d_fig%d.set_ylim(y_axis_lim[0] - 0.1 * (y_axis_lim[1] ' \
-                           '- y_axis_lim[0]),' \
-                           ' y_axis_lim[1] + 0.1 * (y_axis_lim[1] - y_axis_lim[0]))' % (
-                               i + 1, res)
-                exec(set_ylim)
-                set_xlim = 'axes%d_fig%d.set_xlim(x_axis_lim[0] - 0.1 * (x_axis_lim[1] ' \
-                           '- x_axis_lim[0]),' \
-                           ' x_axis_lim[1] + 0.1 * (x_axis_lim[1] - x_axis_lim[0]))' % (
-                               i + 1, res)
-                exec(set_xlim)
-
-                """ setting a smaller fontsize to accommodate for plots with larger 
-                number of candidates """
-                set_ticks_params = 'axes%d_fig%d.tick_params(axis="both", ' \
-                                   'which="major", labelsize=fontsize)' % (
-                                       i + 1, res)
-                exec(set_ticks_params)
-                set_yaxis_offset_fsize = "axes%d_fig%d.yaxis.get_offset_text(" \
-                                         ").set_fontsize(fontsize)" % (
-                                             i + 1, res)
-                exec(set_yaxis_offset_fsize)
-
-                """ give title to each subplot if names for candidates are given """
-                if self.candidate_names is not None:
-                    set_subplot_title = 'axes%d_fig%d.set_title(self.candidate_names[' \
-                                        'i], fontsize=fontsize)' % (
-                                            i + 1, res)
-                    try:
-                        exec(set_subplot_title)
-                    except ValueError:
-                        print(
-                            'Mild warning when plotting: error in labelling candidate '
-                            'name for candidate %d.' % i)
-
-                if legend:
-                    draw_legend = 'axes%d_fig%d.legend(prop={"size": legend_size})' % (
-                        i + 1, res)
-                    exec(draw_legend)
-                set_yaxis_offset_fsize = "axes%d_fig%d.yaxis.get_offset_text(" \
-                                         ").set_fontsize(fontsize)" % (
-                                             i + 1, res)
-                exec(set_yaxis_offset_fsize)
-
-        """ make all figures use tight_layout for tidiness """
-        for res in range(self.n_m_r):
-            tight_layout = 'fig%d.tight_layout()' % res
-            exec(tight_layout)
-
         plt.show()
 
     def plot_optimal_predictions(self, legend=True, figsize=None, markersize=10,
@@ -1306,6 +1561,18 @@ class Designer:
                            num_steps=None,
                            store_predictions=True, plot_analysis_times=False,
                            save_sensitivities=False, reporting_frequency=10):
+        """
+        Main evaluator for computing numerical sensitivities of the responses with
+        respect to the model parameters. Simply provides an interface to numdifftool's
+        Jacobian method.
+
+        Numdifftool uses adaptive finite difference to approximate the sensitivities,
+        coupled with Richard extrapolation for improved accuracy. Although less accurate,
+        default behaviour is to use forward finite difference. This is to prevent model
+        instability in common situations where during sensitivity evaluation (e.g.
+        with central) model parameter values that are passed to the model changes sign
+        and causes the model to fail to run.
+        """
         # setting default behaviour for step generators
         step_generator = nd.step_generators.MaxStepGenerator(base_step=base_step,
                                                              step_ratio=step_ratio,
@@ -1435,6 +1702,15 @@ class Designer:
         Main evaluator for constructing the fim from obtained sensitivities.
         When scipy is used as optimization package and problem does not require large
         memory, will store atomic fims for analytical Jacobian.
+
+        The function also performs a parameter estimability study based on the FIM by
+        summing the squares over the rows and columns of the FIM. Optionally, will trim
+        out rows and columns that have its sum of squares close to 0. This helps with
+        noninvertible FIMs.
+
+        An alternative for dealing with noninvertible FIMs is to use a simple Tikhonov
+        regularization, where a small scalar times the identity matrix is added to the
+        FIM to obtain an invertible matrix.
         """
         """ update mp, and efforts """
         self.efforts = efforts
@@ -1468,14 +1744,25 @@ class Designer:
             if self._optimization_package is "scipy" and \
                     not self._large_memory_requirement:
                 self.atomic_fims.append(_atom_fim)
+
         finish = time()
+
+        self.evaluate_estimability_index()
+
+        if self._regularize_fim:
+            if self._verbose >= 3:
+                print(
+                    f"Applying Tikhonov regularization to FIM by adding "
+                    f"{self._eps:.2f} * identity to the FIM. "
+                    f"Warning: design is likely to be affected for large scalars!"
+                )
+            self.fim += self._eps * np.identity(self.n_mp)
+
         self._fim_eval_time = finish - start
         if self._verbose >= 3:
-            print("Evaluation of information matrix took {0:.2f} seconds.".format(
-                self._fim_eval_time))
-
-        if self._trim_fim:
-            self.trim_fim()  # get rid of non-estimable parameters
+            print(
+                f"Evaluation of fim took {self._fim_eval_time:.2f} seconds."
+            )
 
         return self.fim
 
@@ -1498,6 +1785,74 @@ class Designer:
                     self.pvars[c, spt, :, :] = f @ fim_inv @ f.T
 
         return self.pvars
+
+    def eval_atom_fims(self, mp, store_predictions=True):
+        self._current_scr_mp = mp
+
+        """ eval_sensitivities, only runs if model parameters changed """
+        self.eval_sensitivities(save_sensitivities=self._save_sensitivities,
+                                store_predictions=store_predictions)
+
+        """ deal with unconstrained form, i.e. transform efforts """
+        self._transform_efforts()  # only transform if required, logic incorporated there
+
+        """ deal with opt_sampling_times """
+        if self._opt_sampling_times:
+            sens = self.sensitivities.reshape(self.n_c * self.n_spt, self.n_m_r,
+                                              self.n_mp)
+        else:
+            sens = np.nansum(self.sensitivities, axis=1)
+
+        """ main """
+        start = time()
+        if self._large_memory_requirement:
+            confirmation = input(
+                f"Memory requirement is large. Slow solution expected, continue?"
+                f"Y/N."
+            )
+            if confirmation != "Y":
+                return
+        self.atomic_fims = []
+        for e, f in zip(self.efforts.flatten(), sens):
+            if not np.any(np.isnan(f)):
+                _atom_fim = f.T @ f
+            else:
+                _atom_fim = np.zeros(shape=(self.n_mp, self.n_mp))
+            self.atomic_fims.append(_atom_fim)
+        finish = time()
+        self._fim_eval_time = finish - start
+
+        return self.atomic_fims
+
+    def eval_scr_fims(self, store_predictions=True):
+
+        # self._check_if_model_parameters_changed()
+        # only redo scr_fim evaluation if model_parameter is changed
+        # if not(self.scr_fims is None or self._model_parameters_changed):
+        #     return self.scr_fims
+
+        if self._verbose >= 2:
+            print(f"{' Semi-semi_bayesian ':#^100}")
+        if self._verbose >= 1:
+            print(f'Evaluating information for each scenario...')
+        self.scr_fims = []
+        if store_predictions:
+            self.scr_responses = []
+        for scr, mp in enumerate(self.model_parameters):
+            self._current_scr = scr
+            if self._verbose >= 2:
+                print(f"{f'[Scenario {scr+1}/{self.n_scr}]':-^100}")
+                print("Model Parameters:")
+                print(mp)
+                print("")
+            self.eval_fim(self.efforts, mp, store_predictions)
+            self.scr_fims.append(self.fim)
+            if store_predictions:
+                self.scr_responses.append(self.response)
+            self.response = None
+        self.scr_responses = np.array(self.scr_responses)
+
+        return self.scr_fims
 
     """ getters (filters) """
 
@@ -1540,7 +1895,7 @@ class Designer:
 
     """ optional operations """
 
-    def trim_fim(self):
+    def evaluate_estimability_index(self):
         self.estimable_model_parameters = np.array([])
         self.estimability = np.array([])
         if self._optimization_package is 'cvxpy':
@@ -1556,11 +1911,13 @@ class Designer:
                                               np.sqrt(np.inner(row, row)))
         self.estimable_model_parameters = self.estimable_model_parameters.astype(int)
 
-        if len(self.estimable_model_parameters) is 0:
-            self.fim = np.array([0])
-        else:
-            self.fim = self.fim[
-                np.ix_(self.estimable_model_parameters, self.estimable_model_parameters)]
+        if self._trim_fim:
+            if len(self.estimable_model_parameters) is 0:
+                self.fim = np.array([0])
+            else:
+                self.fim = self.fim[
+                    np.ix_(self.estimable_model_parameters, self.estimable_model_parameters)
+                ]
 
     def normalize_sensitivities(self, overwrite_unnormalized=False):
         assert not np.allclose(self.model_parameters,
@@ -1813,36 +2170,6 @@ class Designer:
             raise NotImplementedError("Analytic Jacobian for ei_opt unavailable.")
 
     """ semi-semi_bayesian criterion """
-
-    def eval_scr_fims(self, store_predictions=True):
-
-        # self._check_if_model_parameters_changed()
-        # only redo scr_fim evaluation if model_parameter is changed
-        # if not(self.scr_fims is None or self._model_parameters_changed):
-        #     return self.scr_fims
-
-        if self._verbose >= 2:
-            print(f"{' Semi-semi_bayesian ':#^100}")
-        if self._verbose >= 1:
-            print(f'Evaluating information for each scenario...')
-        self.scr_fims = []
-        if store_predictions:
-            self.scr_responses = []
-        for scr, mp in enumerate(self.model_parameters):
-            self._current_scr = scr
-            if self._verbose >= 2:
-                print(f"{f'[Scenario {scr+1}/{self.n_scr}]':-^100}")
-                print("Model Parameters:")
-                print(mp)
-                print("")
-            self.eval_fim(self.efforts, mp, store_predictions)
-            self.scr_fims.append(self.fim)
-            if store_predictions:
-                self.scr_responses.append(self.response)
-            self.response = None
-        self.scr_responses = np.array(self.scr_responses)
-
-        return self.scr_fims
 
     # calibration-oriented
     def _sb_d_opt_criterion(self, efforts):
@@ -2227,12 +2554,21 @@ class Designer:
     def _pad_sensitivities(self):
         """ padding sensitivities to accommodate for missing sampling times """
         for i, row in enumerate(self.sensitivities):
+            if row.ndim < 3:  # check if row has less than 3 dim
+                if self.n_mp == 1:  # potential cause 1: we only have 1 mp
+                    row = np.expand_dims(row, -1)  # add last dimension
+                if self.n_r == 1:  # potential cause 2: we only have 1 response
+                    row = np.expand_dims(row, -2)  # add second to last
+            if row.ndim != 3:  # check again if already 3 dims
+                # only reason: we only have 1 spt, add dim to first position
+                row = np.expand_dims(row, 0)
+            # pad sampling times
             diff = self.n_spt - row.shape[0]
-            self.sensitivities[i] = np.pad(self.sensitivities[i][:, ],
-                                           pad_width=((0, diff), (0, 0), (0, 0)),
+            self.sensitivities[i] = np.pad(row,
+                                           pad_width=[(0, diff), (0, 0), (0, 0)],
                                            mode='constant', constant_values=np.nan)
         self.sensitivities = self.sensitivities.tolist()
-        self.sensitivities = np.array(self.sensitivities)
+        self.sensitivities = np.asarray(self.sensitivities)
         return self.sensitivities
 
     def _store_current_response(self):
@@ -2268,6 +2604,15 @@ class Designer:
         return self.response
 
     def _residuals_wrapper_f(self, model_parameters):
+        if self.responses_scales is None:
+            self.responses_scales = np.nanmean(self.data, axis=(0, 1))
+
+        self.eval_residuals(model_parameters)
+        res = self.residuals / self.responses_scales[None, None, :]
+        res = res.reshape(self.n_c * self.n_spt, self.n_m_r)
+        return np.nansum(res, axis=1)
+
+    def _residuals_wrapper_f_old(self, model_parameters):
         if self.responses_scales is None:
             self.responses_scales = np.nanmean(self.data, axis=(0, 1))
 
