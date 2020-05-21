@@ -566,7 +566,11 @@ class Designer:
                                       options=opt_options, jac=not self._fd_jac)
 
             else:
-                e_bound = [(0, 1) for _ in e0]
+                if self._opt_sampling_times:
+                    e_bound = [[(0, 1) for _ in eff0] for eff0 in e0]
+                    e_bound = np.asarray(e_bound).reshape((self.n_c * self.n_spt, 2))
+                else:
+                    e_bound = [(0, 1) for _ in e0]
                 constraint = {"type": "eq", "fun": lambda e: sum(e) - 1.0}
                 opt_result = minimize(fun=criterion, x0=e0, method=optimizer,
                                       options=opt_options, constraints=constraint,
@@ -1732,8 +1736,91 @@ class Designer:
         """ evaluate fim """
         start = time()
         self.fim = 0
-        if self._optimization_package is "scipy" and not self._large_memory_requirement:
-            self.atomic_fims = []
+        if self._optimization_package is "scipy":
+            if self._opt_sampling_times:
+                self.efforts = self.efforts.reshape((self.n_c, self.n_spt))
+            if not self._large_memory_requirement:
+                self.atomic_fims = []
+        if self._opt_sampling_times:
+            for c, (eff, sen) in enumerate(zip(self.efforts, self.sensitivities)):
+                _mono_candidate_fim = 0
+                for spt, (e, s) in enumerate(zip(eff, sen)):
+                    if not np.any(np.isnan(s)):
+                        _atom_fim = s.T @ s
+                        _mono_candidate_fim += e * _atom_fim
+                    else:
+                        _atom_fim = np.zeros((self.n_mp, self.n_mp))
+                    if self._optimization_package is "scipy" and \
+                            not self._large_memory_requirement:
+                        self.atomic_fims.append(_atom_fim)
+                self.fim += _mono_candidate_fim
+        else:
+            for c, (eff, sen) in enumerate(zip(self.efforts, self.sensitivities)):
+                if not np.any(np.isnan(sen)):
+                    s = np.nansum(sen, axis=1)
+                    _atom_fim = s.T @ s
+                    self.fim += eff * _atom_fim
+                else:
+                    _atom_fim = np.zeros((self.n_mp, self.n_mp))
+                if self._optimization_package is "scipy" and \
+                        not self._large_memory_requirement:
+                    self.atomic_fims.append(_atom_fim)
+
+        finish = time()
+
+        self.evaluate_estimability_index()
+
+        if self._regularize_fim:
+            if self._verbose >= 3:
+                print(
+                    f"Applying Tikhonov regularization to FIM by adding "
+                    f"{self._eps:.2f} * identity to the FIM. "
+                    f"Warning: design is likely to be affected for large scalars!"
+                )
+            self.fim += self._eps * np.identity(self.n_mp)
+
+        self._fim_eval_time = finish - start
+        if self._verbose >= 3:
+            print(
+                f"Evaluation of fim took {self._fim_eval_time:.2f} seconds."
+            )
+
+        return self.fim
+
+    def eval_fim_old(self, efforts, mp, store_predictions=True):
+        """
+        Main evaluator for constructing the fim from obtained sensitivities.
+        When scipy is used as optimization package and problem does not require large
+        memory, will store atomic fims for analytical Jacobian.
+
+        The function also performs a parameter estimability study based on the FIM by
+        summing the squares over the rows and columns of the FIM. Optionally, will trim
+        out rows and columns that have its sum of squares close to 0. This helps with
+        noninvertible FIMs.
+
+        An alternative for dealing with noninvertible FIMs is to use a simple Tikhonov
+        regularization, where a small scalar times the identity matrix is added to the
+        FIM to obtain an invertible matrix.
+        """
+        """ update mp, and efforts """
+        self.efforts = efforts
+        self._current_scr_mp = mp
+
+        """ eval_sensitivities, only runs if model parameters changed """
+        self.eval_sensitivities(save_sensitivities=self._save_sensitivities,
+                                store_predictions=store_predictions)
+
+        """ deal with unconstrained form, i.e. transform efforts """
+        self._transform_efforts()  # only transform if required, logic incorporated there
+
+        """ evaluate fim """
+        start = time()
+        self.fim = 0
+        if self._optimization_package is "scipy":
+            if self._opt_sampling_times:
+                self.efforts = self.efforts.reshape((self.n_c, self.n_spt))
+            if not self._large_memory_requirement:
+                self.atomic_fims = []
         if self._opt_sampling_times:
             for c, (eff, sen) in enumerate(zip(self.efforts, self.sensitivities)):
                 for spt, (e, s) in enumerate(zip(eff, sen)):
