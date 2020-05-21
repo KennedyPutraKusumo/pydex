@@ -548,11 +548,11 @@ class TrellisPlotter:
 
 
 if __name__ == "__main__":
-    def fun(x):
-        return x[0] ** 2 + x[1] ** 2 + x[2] ** 2 + x[3] ** 2
-
     # def fun(x):
-    #     return x[0] + x[1] + x[2] + x[3]
+    #     return x[0] ** 2 + x[1] ** 2 + x[2] ** 2 + x[3] ** 2
+
+    def fun(x):
+        return x[0] + x[1] + x[2] + x[3]
 
     # def fun(x):
     #     return x[0] ** 3 + x[1] ** 3 + x[2] ** 3 + x[3] ** 3
@@ -581,4 +581,4 @@ if __name__ == "__main__":
     plotter1.markersize = 5
     plotter1.n_colorbar_ticks = 4
     plotter1.cmap = plt.get_cmap("inferno")
-    plotter1.contour(levels=10, scatter_data=True)
+    plotter1.contour(levels=5, scatter_data=False)

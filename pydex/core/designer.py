@@ -363,6 +363,7 @@ class Designer:
 
         pe_jac = pe_result.jac
         pe_info_mat = pe_jac.T @ pe_jac
+        # TODO: multiply with pe_result.fun (the SSD divide by N_DOF - N_MP)
         try:
             pe_param_covar = np.linalg.inv(pe_info_mat)
             if self._verbose >= 1:
@@ -422,6 +423,7 @@ class Designer:
                     pe_result.nfev, pe_result.nfev - pe_result.nit - 1))
 
         pe_info_mat = pe_result.jac.transpose().dot(pe_result.jac)
+        # TODO: multiply with pe_result.fun (the SSD divide by N_DOF - N_MP)
         try:
             pe_param_covar = np.linalg.inv(pe_info_mat)
             if self._verbose >= 1:
@@ -523,15 +525,6 @@ class Designer:
                 print("Warning: unconstrained form is not supported by cvxpy; "
                       "continuing normally with constrained form.")
 
-        self.n_e = self.n_c
-        if self._opt_sampling_times:
-            if not self._dynamic_system:
-                print('Warning: system is non-dynamic; '
-                      'proceeding normally without optimizing sampling times.')
-                self._opt_sampling_times = False
-            else:
-                self.n_e *= self.n_spt
-
         """ main codes """
         if self._verbose >= 1:
             print("Solving OED problem...")
@@ -539,19 +532,29 @@ class Designer:
         # set initial guess for optimal experimental efforts, if none given,
         # equal efforts for all candidates
         if e0 is None:
-            e0 = np.array([1 / self.n_e for _ in range(self.n_e)])
+            if self._opt_sampling_times:
+                e0 = np.ones((self.n_c, self.n_spt)) / (self.n_c * self.n_spt)
+            else:
+                e0 = np.ones(self.n_c) / self.n_c
             self.efforts = e0
         else:
-            if not isinstance(e0, (np.ndarray, list)):
-                msg = 'Initial guess for effort must be a 1D ' \
-                      'list or numpy array.'
+            msg = 'Initial guess for effort must be a 2D numpy array.'
+            if not isinstance(e0, (np.ndarray)):
                 raise SyntaxError(msg)
-            if len(e0) != self.n_e:
-                msg = 'Length of initial guess must be equal to ' \
-                      '(i) sampling times not optimized: number of candidates; or ' \
-                      '(ii) sampling times optimized: number of candidates times ' \
-                      'number of sampling times. '
+            elif e0.ndim != 2:
                 raise SyntaxError(msg)
+            elif e0.shape[0] != self.n_c:
+                raise SyntaxError(
+                    f"Error: inconsistent number of candidates provided;"
+                    f"number of candidates in e0: {e0.shape[0]},"
+                    f"number of candidates from initialization: {self.n_c}."
+                )
+            elif e0.shape[1] != self.n_spt:
+                raise SyntaxError(
+                    f"Error: inconsistent number of sampling times provided;"
+                    f"number of sampling times in e0: {e0.shape[1]},"
+                    f"number of candidates from initialization: {self.n_spt}."
+                )
             self.efforts = e0
 
         # declare and solve optimization problem
@@ -573,14 +576,17 @@ class Designer:
             self._efforts_transformed = False
             opt_fun = opt_result.fun
         elif self._optimization_package == "cvxpy":
-            e = cp.Variable(self.n_e, nonneg=True)
-            p_cons = [cp.sum(e) == 1]
-            e.value = self.efforts
-            obj = cp.Minimize(criterion(e))
+            if self._opt_sampling_times:
+                efforts = cp.Variable((self.n_c, self.n_spt), nonneg=True)
+            else:
+                efforts = cp.Variable(self.n_c, nonneg=True)
+            p_cons = [cp.sum(efforts) == 1]
+            efforts.value = self.efforts
+            obj = cp.Minimize(criterion(efforts))
             problem = cp.Problem(obj, p_cons)
             opt_fun = problem.solve(verbose=opt_verbose, solver=self._optimizer,
                                     **kwargs)
-            self.efforts = e.value
+            self.efforts = efforts.value
         else:
             print("Unrecognized package, reverting to default: scipy.")
             opt_fun = None  # optional line to follow PEP8
@@ -1723,27 +1729,33 @@ class Designer:
         """ deal with unconstrained form, i.e. transform efforts """
         self._transform_efforts()  # only transform if required, logic incorporated there
 
-        """ deal with opt_sampling_times """
-        if self._opt_sampling_times:
-            sens = self.sensitivities.reshape(self.n_c * self.n_spt, self.n_m_r,
-                                              self.n_mp)
-        else:
-            sens = np.nansum(self.sensitivities, axis=1)
-
         """ evaluate fim """
         start = time()
         self.fim = 0
         if self._optimization_package is "scipy" and not self._large_memory_requirement:
             self.atomic_fims = []
-        for e, f in zip(self.efforts.flatten(), sens):
-            if not np.any(np.isnan(f)):
-                _atom_fim = f.T @ f
-                self.fim += e * _atom_fim
-            else:
-                _atom_fim = np.zeros(shape=(self.n_mp, self.n_mp))
-            if self._optimization_package is "scipy" and \
-                    not self._large_memory_requirement:
-                self.atomic_fims.append(_atom_fim)
+        if self._opt_sampling_times:
+            for c, (eff, sen) in enumerate(zip(self.efforts, self.sensitivities)):
+                for spt, (e, s) in enumerate(zip(eff, sen)):
+                    if not np.any(np.isnan(s)):
+                        _atom_fim = s.T @ s
+                        self.fim += e * _atom_fim
+                    else:
+                        _atom_fim = np.zeros((self.n_mp, self.n_mp))
+                    if self._optimization_package is "scipy" and \
+                            not self._large_memory_requirement:
+                        self.atomic_fims.append(_atom_fim)
+        else:
+            for c, (eff, sen) in enumerate(zip(self.efforts, self.sensitivities)):
+                if not np.any(np.isnan(sen)):
+                    s = np.nansum(sen, axis=1)
+                    _atom_fim = s.T @ s
+                    self.fim += eff * _atom_fim
+                else:
+                    _atom_fim = np.zeros((self.n_mp, self.n_mp))
+                if self._optimization_package is "scipy" and \
+                        not self._large_memory_requirement:
+                    self.atomic_fims.append(_atom_fim)
 
         finish = time()
 

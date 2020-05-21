@@ -47,9 +47,9 @@ class Node(object):
             self.ub = self.cvxpy_prob.value
             self.check_integrity()
             relaxed_val = self.int_var.value
+            self.int_var_val = self.int_var.value
             if self.integral:
                 self.lb = self.ub
-                self.int_var_val = self.int_var.value
             else:
                 prob = cp.Problem(
                     self.cvxpy_prob.objective,
@@ -61,8 +61,6 @@ class Node(object):
                     self.lb = prob.value
                 elif prob.status is "infeasible":
                     self.lb = -np.inf
-                self.int_var.value = relaxed_val
-                self.int_var_val = self.int_var.value
 
         if self.cvxpy_prob.status is "infeasible":
             self.feasible = False
@@ -88,15 +86,19 @@ class Node(object):
 
     def _greatest_fractional_branch(self):
         # determine the variable to branch over
+        if self.int_var.ndim > 1:
+            self.int_var = self.int_var.flatten()
         fractional, integral = np.modf(self.int_var_val)
         most_fractional_idx = np.abs(fractional - 0.5).argmin()
+        # fractional = np.abs(fractional - 0.5)
+        # most_fractional_idx = np.where(fractional == fractional.min())
         most_fractional_var = self.int_var[most_fractional_idx]
         """ creating left and right child nodes """
         # adding constraints to each child
         right_child_cons = [
-            most_fractional_var >= np.ceil(self.int_var_val[most_fractional_idx])
+            most_fractional_var >= np.ceil(self.int_var_val.flatten()[most_fractional_idx])
         ]
-        left_bound = np.floor(self.int_var_val[most_fractional_idx])
+        left_bound = np.floor(self.int_var_val.flatten()[most_fractional_idx])
         if np.isclose(left_bound, 0):
             left_child_cons = [
                 most_fractional_var == 0
