@@ -5,7 +5,7 @@ from pyomo import environ as po
 from pydex.core.designer import Designer
 
 
-def simulate(model, simulator, ti_controls, sampling_times, model_parameters):
+def simulate(model, simulator, ti_controls, tv_controls, sampling_times, model_parameters):
     """ fixing the control variables """
     # time-invariant
     model.theta_0.fix(model_parameters[0])
@@ -18,8 +18,9 @@ def simulate(model, simulator, ti_controls, sampling_times, model_parameters):
     model.tau.fix(max(sampling_times))
     model.ca[0].fix(ti_controls[0])
     model.cb[0].fix(0)
-    model.temp.fix(ti_controls[1])
-    # no time-varying control for this example
+
+    """ time-varying controls """
+    model.tvc[model.temp] = tv_controls[0]
 
     """ ensuring pyomo returns state values at given sampling times """
     model.t.initialize = np.array(sampling_times) / model.tau.value
@@ -49,7 +50,7 @@ def create_model():
     model.t = pod.ContinuousSet(bounds=(0, 1))
     model.tau = po.Var()
 
-    model.temp = po.Var()
+    model.temp = po.Var(model.t)
 
     model.ca = po.Var(model.t, bounds=(0, 50))
     model.cb = po.Var(model.t, bounds=(0, 50))
@@ -62,15 +63,17 @@ def create_model():
     model.alpha_b = po.Var()
     model.nu = po.Var()
 
+    model.tvc = po.Suffix(direction=po.Suffix.LOCAL)
+
     def _material_balance_a(m, t):
-        k = po.exp(m.theta_0 + m.theta_1 * (m.temp - 273.15) / m.temp)
+        k = po.exp(m.theta_0 + m.theta_1 * (m.temp[t] - 273.15) / m.temp[t])
         return m.dca_dt[t] / m.tau == - k * (m.ca[t] ** model.alpha_a) * (
                 model.cb[t] ** model.alpha_b)
 
     model.material_balance_a = po.Constraint(model.t, rule=_material_balance_a)
 
     def _material_balance_b(m, t):
-        k = po.exp(m.theta_0 + m.theta_1 * (m.temp - 273.15) / m.temp)
+        k = po.exp(m.theta_0 + m.theta_1 * (m.temp[t] - 273.15) / m.temp[t])
         return m.dcb_dt[t] / m.tau == m.nu * k * (m.ca[t] ** model.alpha_a) * (
                 model.cb[t] ** model.alpha_b)
 
@@ -103,6 +106,41 @@ theta_nom = np.array([theta_0, theta_1, 1, 0.5])  # value of theta_0, theta_1, a
 designer_1.model_parameters = theta_nom  # assigning it to the designer's theta
 
 """ creating experimental candidates, here, it is generated as a grid """
+designer_1.tv_controls_candidates = np.array([
+    {
+        0.0: tvc1,
+        0.5: tvc2,
+    }
+    for tvc1, tvc2 in designer_1.create_grid(
+        bounds=[
+            [273.15, 323.15],
+            [273.15, 323.15],
+        ],
+        levels=[
+            5,
+            5,
+        ]
+    )
+])
+
+designer_1.enumerate_candidates(
+    bounds=[
+        [1, 5],
+        [273.15, 323.15],
+        [273.15, 323.15],
+    ],
+    levels=[
+        5,
+        5,
+        5,
+    ],
+    switching_times=[
+        None,
+        [0, 0.5],
+        [0, 0.5],
+    ],
+)
+
 n_s_times = 10  # number of equally-spaced sampling time candidates
 n_c = 5 ** 2  # grid resolution of control candidates generated
 
@@ -162,10 +200,8 @@ criterion = designer_1.d_opt_criterion
 # criterion = designer_1.a_opt_criterion
 # criterion = designer_1.e_opt_criterion
 
-result = designer_1.design_experiment(criterion=criterion, optimize_sampling_times=True,
-                                      write=False, fd_jac=False, package="cvxpy")
+result = designer_1.design_experiment(criterion=criterion, n_spt=2,
+                                      optimize_sampling_times=True,
+                                      write=False, fd_jac=False,
+                                      package="cvxpy")
 designer_1.print_optimal_candidates()
-designer_1.plot_optimal_efforts()
-
-designer_1.plot_optimal_predictions()
-designer_1.plot_optimal_sensitivities()

@@ -162,10 +162,8 @@ criterion = designer_1.d_opt_criterion
 # criterion = designer_1.a_opt_criterion
 # criterion = designer_1.e_opt_criterion
 
-result = designer_1.design_experiment(criterion=criterion, optimize_sampling_times=True,
-                                      write=False, fd_jac=False, package="cvxpy")
+result = designer_1.design_experiment(criterion=criterion, n_spt=2,
+                                      optimize_sampling_times=True,
+                                      write=False, fd_jac=False,
+                                      package="cvxpy")
 designer_1.print_optimal_candidates()
-designer_1.plot_optimal_efforts()
-
-designer_1.plot_optimal_predictions()
-designer_1.plot_optimal_sensitivities()

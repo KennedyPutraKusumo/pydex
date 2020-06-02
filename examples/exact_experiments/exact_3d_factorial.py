@@ -1,6 +1,7 @@
 from pydex.core.designer import Designer
 import numpy as np
 
+
 """ 
 Setting: a non-dynamic experimental system with 3 time-invariant control variables and 
 1 response.

@@ -2,10 +2,10 @@ import numpy as np
 
 from pydex.core.designer import Designer
 
-""" 
-Setting: a non-dynamic experimental system with 2 time-invariant control variables and 
+"""
+Setting: a non-dynamic experimental system with 2 time-invariant control variables and
 1 response.
-Problem: design optimal experiment for a order 2 polynomial, with complete interaction
+Problem: design optimal experiment for a order 4 polynomial, with complete interaction
 Solution: a full 3^2 factorial design (3 level)
 """
 
@@ -21,23 +21,34 @@ def simulate(ti_controls, model_parameters):
         model_parameters[3] * ti_controls[0] * ti_controls[1] +
         # squared terms
         model_parameters[4] * ti_controls[0] ** 2 +
-        model_parameters[5] * ti_controls[1] ** 2
+        model_parameters[5] * ti_controls[1] ** 2 +
+        # cubic terms
+        model_parameters[6] * ti_controls[0] ** 2 * ti_controls[1] +
+        model_parameters[7] * ti_controls[1] ** 2 * ti_controls[0] +
+        model_parameters[8] * ti_controls[0] ** 3 +
+        model_parameters[9] * ti_controls[1] ** 3 +
+        # quartic terms
+        model_parameters[10] * ti_controls[0] ** 3 * ti_controls[1] +
+        model_parameters[11] * ti_controls[1] ** 3 * ti_controls[0] +
+        model_parameters[12] * ti_controls[0] ** 2 * ti_controls[1] ** 2 +
+        model_parameters[13] * ti_controls[0] ** 4 +
+        model_parameters[14] * ti_controls[1] ** 4
     ])
 
 
 designer_1 = Designer()
 designer_1.simulate = simulate
 
-reso = 11
+reso = 51
 tic = designer_1.create_grid([[-1, 1], [-1, 1]], [reso, reso])
 designer_1.ti_controls_candidates = tic
 
-designer_1.model_parameters = np.ones(6)  # values won't affect design, but still needed
+designer_1.model_parameters = np.ones(15)  # values won't affect design, but still needed
 
 designer_1.initialize(verbose=2)  # 0: silent, 1: overview, 2: detailed, 3: very detailed
 
 """ cvxpy solvers """
-# package, optimizer = ("cvxpy", "MOSEK")
+package, optimizer = ("cvxpy", "MOSEK")
 # package, optimizer = ("cvxpy", "SCS")
 # package, optimizer = ("cvxpy", "CVXOPT")
 
@@ -48,7 +59,7 @@ designer_1.initialize(verbose=2)  # 0: silent, 1: overview, 2: detailed, 3: very
 # package, optimizer = ("scipy", "l-bfgs-b")
 # package, optimizer = ("scipy", "bfgs")
 # package, optimizer = ("scipy", "nelder-mead")
-package, optimizer = ("scipy", "SLSQP")  # supports constrained form
+# package, optimizer = ("scipy", "SLSQP")  # supports constrained form
 
 """ criterion choice """
 criterion = designer_1.d_opt_criterion

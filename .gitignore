@@ -204,5 +204,3 @@ dmypy.json
 .pyre/
 
 t_project/
-**/__init__.py
-examples/in_paper/

@@ -25,11 +25,9 @@ def simulate(ti_controls, model_parameters):
 designer_1 = Designer()
 designer_1.simulate = simulate
 
-reso = 11j
-tic_1, tic_2 = np.mgrid[-1:1:reso, -1:1:reso]
-tic_1 = tic_1.flatten()
-tic_2 = tic_2.flatten()
-designer_1.ti_controls_candidates = np.array([tic_1, tic_2]).T
+reso = 11
+tic = designer_1.create_grid([[-1, 1], [-1, 1]], [reso, reso])
+designer_1.ti_controls_candidates = tic
 
 designer_1.model_parameters = np.ones(5)  # values won't affect design, but still needed
 

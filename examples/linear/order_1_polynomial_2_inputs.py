@@ -2,7 +2,7 @@ from pydex.core.designer import Designer
 import numpy as np
 
 
-""" 
+"""
 Setting: a non-dynamic experimental system with 2 time-invariant control variables and 1 response
 Problem: design optimal experiment for a order 1 polynomial, with complete interaction
 Solution: a full 2^2 factorial design (2 level)

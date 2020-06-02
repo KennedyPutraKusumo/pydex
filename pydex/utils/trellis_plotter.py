@@ -6,7 +6,6 @@ class TrellisPlotter:
     def __init__(self):
         self.cmap = None
         self.colorbar_label_rotation = None
-        self.colobar_tick_fontsize = None
         self.grouped_fun = None
         self.fun = None
         self.data = None
@@ -39,6 +38,7 @@ class TrellisPlotter:
         self.oaxis_xlabel = ""
         self.oaxis_ylabel = ""
         self.n_colorbar_ticks = 3
+        self.label_fontsize = None
         # computed
         self.bounds = None
         self.bins = None
@@ -131,10 +131,16 @@ class TrellisPlotter:
 
             for pos, axis in np.ndenumerate(axes):
                 r, c = pos
+                axis.tick_params(
+                    axis="both",
+                    which="major",
+                    labelsize=self.label_fontsize,
+                )
                 if r == 0 and c == self.intervals[1]:
                     fig.delaxes(axis)
                 # horizontal outer axis
                 elif r == 0 and c != self.intervals[1]:
+
                     # handle limits
                     axis.set_xlim([self.bounds[3, 0], self.bounds[3, 1]])
                     axis.set_ylim([0, 1])
@@ -167,13 +173,13 @@ class TrellisPlotter:
                         alpha=1 - self.oaxis_bar_transparency
                     )
                     # add label
-                    if c % 2 == 1:
-                        axis.annotate(
-                            s=self.oaxis_xlabel,
-                            xy=(np.mean(self.bounds[3, :]), 0.5),
-                            ha="center",
-                            va="center",
-                        )
+                    axis.annotate(
+                        s=self.oaxis_xlabel,
+                        xy=(np.mean(self.bounds[3, :]), 0.5),
+                        ha="center",
+                        va="center",
+                        size=self.label_fontsize,
+                    )
                 # vertical outer axis
                 elif r != 0 and c == self.intervals[1]:
                     # draw vertical outer axes
@@ -209,14 +215,14 @@ class TrellisPlotter:
                         alpha=1 - self.oaxis_bar_transparency
                     )
                     # add label
-                    if r % 2 == 0:
-                        axis.annotate(
-                            s=self.oaxis_ylabel,
-                            xy=(0.50, np.mean(self.bounds[2, :])),
-                            verticalalignment="center",
-                            horizontalalignment="center",
-                            rotation=270
-                        )
+                    axis.annotate(
+                        s=self.oaxis_ylabel,
+                        xy=(0.50, np.mean(self.bounds[2, :])),
+                        verticalalignment="center",
+                        horizontalalignment="center",
+                        size=self.label_fontsize,
+                        rotation=270,
+                    )
                 # scatter
                 elif r != 0 and c != self.intervals[1]:
                     axis.scatter(
@@ -224,7 +230,7 @@ class TrellisPlotter:
                         self.grouped_data[r-1, c, :, 1],
                         marker=self.marker,
                         s=self.markersize,
-                        alpha = self.markeralpha,
+                        alpha=self.markeralpha,
                     )
                     axis.set_xlim([
                         self.bounds[0, 0] - 0.10 * (self.bounds[0, 1] - self.bounds[0, 0]),
@@ -234,7 +240,6 @@ class TrellisPlotter:
                         self.bounds[1, 0] - 0.10 * (self.bounds[1, 1] - self.bounds[1, 0]),
                         self.bounds[1, 1] + 0.10 * (self.bounds[1, 1] - self.bounds[1, 0]),
                     ])
-
                     if c % 2 == 0 and r == self.intervals[0]:
                         if self.xticks is None:
                             self.xticks = np.linspace(
@@ -260,10 +265,9 @@ class TrellisPlotter:
                         axis.set_yticks([])
 
                     if c % 2 == 1 and r == self.intervals[0]:
-                        axis.set_xlabel(self.xlabel)
+                        axis.set_xlabel(self.xlabel, fontsize=self.label_fontsize)
                     if r % 2 == 1 and c == 0:
-                        axis.set_ylabel(self.ylabel)
-
+                        axis.set_ylabel(self.ylabel, fontsize=self.label_fontsize)
             figManager = plt.get_current_fig_manager()
             figManager.window.showMaximized()
 
@@ -313,6 +317,11 @@ class TrellisPlotter:
             )
 
             for pos, axis in np.ndenumerate(axes):
+                axis.tick_params(
+                    axis="both",
+                    which="major",
+                    labelsize=self.label_fontsize,
+                )
                 c_axes = []
                 r, c = pos
                 if r == 0 and c == self.intervals[1]:
@@ -351,13 +360,13 @@ class TrellisPlotter:
                         alpha=1 - self.oaxis_bar_transparency
                     )
                     # add label
-                    if c % 2 == 1:
-                        axis.annotate(
-                            s=self.oaxis_xlabel,
-                            xy=(np.mean(self.bounds[3, :]), 0.5),
-                            ha="center",
-                            va="center",
-                        )
+                    axis.annotate(
+                        s=self.oaxis_xlabel,
+                        xy=(np.mean(self.bounds[3, :]), 0.5),
+                        ha="center",
+                        va="center",
+                        fontsize=self.label_fontsize,
+                    )
                 # vertical outer axis
                 elif r != 0 and c == self.intervals[1]:
                     # draw vertical outer axes
@@ -393,14 +402,14 @@ class TrellisPlotter:
                         alpha=1 - self.oaxis_bar_transparency
                     )
                     # add label
-                    if r % 2 == 0:
-                        axis.annotate(
-                            s=self.oaxis_ylabel,
-                            xy=(0.50, np.mean(self.bounds[2, :])),
-                            verticalalignment="center",
-                            horizontalalignment="center",
-                            rotation=270
-                        )
+                    axis.annotate(
+                        s=self.oaxis_ylabel,
+                        xy=(0.50, np.mean(self.bounds[2, :])),
+                        verticalalignment="center",
+                        horizontalalignment="center",
+                        fontsize=self.label_fontsize,
+                        rotation=270,
+                    )
                 # contour
                 elif r != 0 and c != self.intervals[1]:
                     c_axes.append(axis)
@@ -458,9 +467,9 @@ class TrellisPlotter:
                         axis.set_yticks([])
 
                     if c % 2 == 1 and r == self.intervals[0]:
-                        axis.set_xlabel(self.xlabel)
+                        axis.set_xlabel(self.xlabel, fontsize=self.label_fontsize)
                     if r % 2 == 1 and c == 0:
-                        axis.set_ylabel(self.ylabel)
+                        axis.set_ylabel(self.ylabel, fontsize=self.label_fontsize)
                     colorbar_ticks = np.linspace(
                             np.nanmin(self.grouped_fun[r-1, c, :]),
                             np.nanmax(self.grouped_fun[r-1, c, :]),
@@ -476,7 +485,7 @@ class TrellisPlotter:
                         ticks=colorbar_ticks,
                     )
                     colorbar.ax.tick_params(
-                        labelsize=self.colobar_tick_fontsize,
+                        labelsize=self.label_fontsize,
                         labelrotation=self.colorbar_label_rotation,
                     )
 
@@ -577,6 +586,11 @@ if __name__ == "__main__":
 
     plotter1.intervals = np.array([5, 5])
 
+    plotter1.label_fontsize = 6
+    plotter1.xlabel = "x1"
+    plotter1.ylabel = "y1"
+    plotter1.oaxis_xlabel = "x2"
+    plotter1.oaxis_ylabel = "y2"
     plotter1.markeralpha = 0.10
     plotter1.markersize = 5
     plotter1.n_colorbar_ticks = 4
