@@ -277,7 +277,7 @@ class TrellisPlotter:
                 self.data = d_set
                 self.scatter()
 
-        return None
+        return fig
 
     def contour(self, fun=None, levels=None, scatter_data=False):
         if fun is not None:
@@ -498,7 +498,7 @@ class TrellisPlotter:
                 self.data = d_set
                 self.scatter()
 
-        return None
+        return fig
 
     def get_bounds(self):
         self.bounds = np.array(

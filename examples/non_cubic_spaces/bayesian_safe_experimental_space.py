@@ -21,7 +21,7 @@ designer = Designer()
 designer.simulate = simulate
 
 alpha = 0.85
-with open(getcwd() + "/examples/non_cubic_spaces/ns_output.pkl", "rb") as file:
+with open(getcwd() + "/ns_output.pkl", "rb") as file:
     ns_output = load(file)
 experimental_candidates = ns_output["solution"]["probabilistic_phase"]["samples"]
 safe_candidates = np.asarray(experimental_candidates["coordinates"])[np.where(np.asarray(experimental_candidates["phi"]) >= alpha)]
@@ -37,3 +37,4 @@ designer.print_optimal_candidates()
 
 designer.ti_controls_names = [r"$x_1$", r"$x_2$"]
 designer.plot_controls(non_opt_candidates=True)
+designer.show_plots()

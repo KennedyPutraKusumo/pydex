@@ -17,7 +17,7 @@ designer.ti_controls_candidates = np.array([tic]).T
 
 np.random.seed(123)
 n_scr = 100
-designer.model_parameters = np.random.normal(loc=-1, scale=0.10, size=(n_scr, 1))
+designer.model_parameters = np.array([-1])
 
 designer.initialize()
 
@@ -34,3 +34,4 @@ designer.design_experiment(
     semi_bayes_type=sb_type,
     write=False
 )
+designer.print_optimal_candidates()

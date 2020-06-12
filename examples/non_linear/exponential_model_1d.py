@@ -23,3 +23,4 @@ criterion = designer.a_opt_criterion
 designer.design_experiment(criterion, write=False)
 designer.print_optimal_candidates()
 designer.plot_controls()
+designer.show_plots()

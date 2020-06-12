@@ -62,3 +62,4 @@ designer_1.design_experiment(criterion=criterion, package=package, optimizer=opt
 designer_1.print_optimal_candidates()
 designer_1.plot_optimal_efforts()
 designer_1.plot_controls(non_opt_candidates=True)
+designer_1.show_plots()

@@ -32,8 +32,10 @@ designer_1.model_parameters = np.ones(4)  # values won't affect design, but stil
 
 designer_1.initialize(verbose=2)  # 0: silent, 1: overview, 2: detailed, 3: very detailed
 
-designer_1.design_experiment(designer_1.d_opt_criterion, write=False)
+# designer_1.design_experiment(designer_1.d_opt_criterion, write=False)
+designer_1.design_experiment(designer_1.u_opt_criterion, package="scipy", write=False)
 designer_1.print_optimal_candidates()
 designer_1.plot_optimal_efforts()
 
 designer_1.plot_controls(alpha=0.3, non_opt_candidates=True)
+designer_1.show_plots()

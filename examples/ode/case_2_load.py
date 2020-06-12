@@ -1,5 +1,5 @@
 from pydex.core.designer import Designer
-from examples.ode.ode_oed_case_1_pyomo import create_model, simulate, create_simulator
+from examples.ode.case_1_pyomo_model import create_model, simulate, create_simulator
 
 import numpy as np
 
@@ -23,7 +23,7 @@ designer_1.initialize()
 
 """ estimability study without redoing sensitivity analysis """
 designer_1.responses_scales = np.ones(2)  # equal scale of responses
-designer_1.estimability_study_fim()
+# designer_1.estimability_study_fim()
 
 """ design experiment without redoing sensitivity analysis """
 package, optimizer = ("cvxpy", "MOSEK")
@@ -39,4 +39,6 @@ d_opt_result = designer_1.design_experiment(criterion=designer_1.d_opt_criterion
                                             package=package, write=False,
                                             optimize_sampling_times=True,
                                             optimizer=optimizer)
-designer_1.plot_optimal_efforts()
+designer_1.print_optimal_candidates()
+designer_1.plot_optimal_sensitivities()
+designer_1.show_plots()

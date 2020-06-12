@@ -93,15 +93,8 @@ if __name__ == '__main__':
     designer_1.ti_controls_candidates = tic_candidates
     designer_1.sampling_times_candidates = sampling_times_candidates
 
-    """
-    only allow some states to be measurable: 
-    as a list or array with column numbers where the measurable states are returned in the simulate function
-    optional, if un-specified assume all responses (from simulate function) measurable
-    """
-    # designer_1.measurable_responses = [1, 2]
-
     """ initializing designer """
-    designer_1.initialize(verbose=1)  # 0: silent, 1: overview, 2: detail
+    designer_1.initialize(verbose=2)  # 0: silent, 1: overview, 2: detail
 
     """ D-optimal continuous design """
     # package, optimizer = ("cvxpy", "MOSEK")
@@ -126,3 +119,4 @@ if __name__ == '__main__':
     """ simulate candidates to show model predictions for each candidate """
     designer_1.simulate_all_candidates(plot_simulation_times=True)
     designer_1.plot_all_predictions()
+    designer_1.show_plots()

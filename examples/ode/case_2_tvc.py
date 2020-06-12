@@ -13,7 +13,6 @@ def simulate(model, simulator, ti_controls, tv_controls, sampling_times, model_p
     model.alpha_a.fix(model_parameters[2])
     model.alpha_b.fix(0)
     model.nu.fix(model_parameters[3])
-    # model.nu.fix(1)
 
     model.tau.fix(max(sampling_times))
     model.ca[0].fix(ti_controls[0])
@@ -33,7 +32,7 @@ def simulate(model, simulator, ti_controls, tv_controls, sampling_times, model_p
     model.t.construct()  # line that re-initializes the continuous set
 
     """ simulating """
-    simulator.simulate(integrator='idas')
+    simulator.simulate(integrator='idas', varying_inputs=model.tvc)
     simulator.initialize_model()
 
     """" extracting results and returning it in appropriate format """
@@ -106,90 +105,29 @@ theta_nom = np.array([theta_0, theta_1, 1, 0.5])  # value of theta_0, theta_1, a
 designer_1.model_parameters = theta_nom  # assigning it to the designer's theta
 
 """ creating experimental candidates, here, it is generated as a grid """
-designer_1.tv_controls_candidates = np.array([
-    {
-        0.0: tvc1,
-        0.5: tvc2,
-    }
-    for tvc1, tvc2 in designer_1.create_grid(
-        bounds=[
-            [273.15, 323.15],
-            [273.15, 323.15],
-        ],
-        levels=[
-            5,
-            5,
-        ]
-    )
-])
-
-designer_1.enumerate_candidates(
+tic, tvc = designer_1.enumerate_candidates(
     bounds=[
         [1, 5],
         [273.15, 323.15],
-        [273.15, 323.15],
     ],
     levels=[
-        5,
-        5,
-        5,
+        3,
+        3,
     ],
-    switching_times=[
+    switching_times=np.array([
         None,
-        [0, 0.5],
-        [0, 0.5],
-    ],
+        [0, 0.25, 0.50, 0.75],
+    ]),
 )
-
-n_s_times = 10  # number of equally-spaced sampling time candidates
-n_c = 5 ** 2  # grid resolution of control candidates generated
-
-# defining sampling time candidates
-tau_upper = 200
-tau_lower = 0
-spt_candidates = np.array([np.linspace(tau_lower, tau_upper, n_s_times)
-                           for _ in range(n_c)])
-
-# specifying bounds for the grid
-Ca0_lower = 1
-Ca0_upper = 5
-temp_lower = 273.15
-temp_upper = 273.15 + 50
-# creating the grid, just some numpy syntax for grid creation
-Ca0_cand, temp_cand = np.mgrid[Ca0_lower:Ca0_upper:complex(0, np.sqrt(n_c)),
-                      temp_lower:temp_upper:complex(0, np.sqrt(n_c))]
-Ca0_cand = Ca0_cand.flatten()
-temp_cand = temp_cand.flatten()
-tic_candidates = np.array([Ca0_cand, temp_cand]).T
+spt_candidates = np.array([np.linspace(0, 200, 10) for _ in range(tic.shape[0])])
 
 """ passing the experimental candidates to the designer """
-designer_1.ti_controls_candidates = tic_candidates
+designer_1.ti_controls_candidates = tic
+designer_1.tv_controls_candidates = tvc
 designer_1.sampling_times_candidates = spt_candidates
-
-"""
-Specify measurable states:
-A list or array with column numbers where the measurable states are returned in the simulate
-function. Optional, if un-specified assume all responses (from simulate function) measurable
-"""
-designer_1.measurable_responses = [0, 1]
-# designer_1.measurable_responses = [0]
-# designer_1.measurable_responses = [1]
-
-""" optional information for plotting purposes, if unspecified empty axes titles """
-designer_1.candidate_names = np.array(["Candidate {:d}".format(i + 1)
-                                       for i, _ in enumerate(tic_candidates)])
-
-""" optional information for estimability study """
-designer_1.responses_scales = np.array([1, 1])
 
 """ initializing designer """
 designer_1.initialize(verbose=2)  # 0: silent, 1: overview, 2: detail
-
-""" option to save current designer state """
-# designer_1.save_state()
-
-""" do an estimability study """
-# designer_1.estimability_study(save_sensitivities=True)
 
 """ (optional) plotting attributes """
 designer_1.response_names = ["c_A", "c_B"]
@@ -202,6 +140,8 @@ criterion = designer_1.d_opt_criterion
 
 result = designer_1.design_experiment(criterion=criterion, n_spt=2,
                                       optimize_sampling_times=True,
-                                      write=False, fd_jac=False,
-                                      package="cvxpy")
+                                      write=False, package="cvxpy")
 designer_1.print_optimal_candidates()
+designer_1.plot_optimal_predictions()
+designer_1.plot_optimal_sensitivities()
+designer_1.show_plots()

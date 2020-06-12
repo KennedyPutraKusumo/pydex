@@ -101,15 +101,14 @@ def info_matrix(tic, spt, mp):
 def simul_d_opt(x):
     mp = np.array([-4.5, -2.2, 1, 0.5])
     tic1 = x[:2]
-    spt1 = x[2:5]
-    tic2 = x[5:7]
-    spt2 = x[7:10]
-    tic3 = x[10:12]
-    spt3 = x[12:15]
+    spt1 = x[2:7]
+    tic2 = x[7:9]
+    spt2 = x[9:14]
+    tic3 = x[14:16]
+    spt3 = x[16:21]
     fim1 = info_matrix(tic1, spt1, mp)
     fim2 = info_matrix(tic2, spt2, mp)
     fim3 = info_matrix(tic3, spt3, mp)
-    # fim = fim1 + fim2
     fim = fim1 + fim2 + fim3
     sign, log_det = np.linalg.slogdet(fim)
 
@@ -127,18 +126,24 @@ opt_res = minimize(
         1,
         273.15,
         50,
-        100,
-        150,
+        60,
+        70,
+        80,
+        90,
         2,
         283.15,
         50,
-        100,
-        150,
+        60,
+        70,
+        80,
+        90,
         3,
         303.15,
         50,
-        100,
-        150,
+        60,
+        70,
+        80,
+        90,
     ],
     # method="l-bfgs-b",
     method="SLSQP",
@@ -149,13 +154,19 @@ opt_res = minimize(
         (0, 200),
         (0, 200),
         (0, 200),
-        (1, 5),
-        (273.15, 323.15),
-        (0, 200),
         (0, 200),
         (0, 200),
         (1, 5),
         (273.15, 323.15),
+        (0, 200),
+        (0, 200),
+        (0, 200),
+        (0, 200),
+        (0, 200),
+        (1, 5),
+        (273.15, 323.15),
+        (0, 200),
+        (0, 200),
         (0, 200),
         (0, 200),
         (0, 200),

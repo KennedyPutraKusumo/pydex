@@ -1,7 +1,6 @@
 import numpy as np
 from pyomo import dae as pod
 from pyomo import environ as po
-
 from pydex.core.designer import Designer
 
 
@@ -103,8 +102,8 @@ theta_nom = np.array([theta_0, theta_1, 1, 0.5])  # value of theta_0, theta_1, a
 designer_1.model_parameters = theta_nom  # assigning it to the designer's theta
 
 """ creating experimental candidates, here, it is generated as a grid """
-n_s_times = 10  # number of equally-spaced sampling time candidates
-n_c = 5 ** 2  # grid resolution of control candidates generated
+n_s_times = 200  # number of equally-spaced sampling time candidates
+n_c = 10 ** 2  # grid resolution of control candidates generated
 
 # defining sampling time candidates
 tau_upper = 200
@@ -162,8 +161,14 @@ criterion = designer_1.d_opt_criterion
 # criterion = designer_1.a_opt_criterion
 # criterion = designer_1.e_opt_criterion
 
-result = designer_1.design_experiment(criterion=criterion, n_spt=2,
-                                      optimize_sampling_times=True,
-                                      write=False, fd_jac=False,
-                                      package="cvxpy")
+result = designer_1.design_experiment(
+    criterion=criterion,
+    optimize_sampling_times=False,
+    write=False,
+    package="cvxpy"
+)
 designer_1.print_optimal_candidates()
+designer_1.plot_optimal_efforts()
+designer_1.plot_optimal_predictions()
+designer_1.plot_optimal_sensitivities()
+designer_1.show_plots()

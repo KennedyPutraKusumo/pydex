@@ -1,0 +1,135 @@
+C:\ProgramData\Anaconda3\pythonw.exe C:/Users/kenne/Documents/GitHub/pydex/examples/ode/time_varying_ode.py
+Initialization complete: designer ready.
+Solving OED problem...
+Running sensitivity analysis...
+[Candidate 25/243]: time elapsed 9.81 seconds.
+[Candidate 50/243]: time elapsed 19.80 seconds.
+[Candidate 75/243]: time elapsed 29.74 seconds.
+[Candidate 100/243]: time elapsed 39.89 seconds.
+[Candidate 125/243]: time elapsed 50.19 seconds.
+[Candidate 150/243]: time elapsed 60.93 seconds.
+[Candidate 175/243]: time elapsed 70.86 seconds.
+[Candidate 200/243]: time elapsed 80.90 seconds.
+[Candidate 225/243]: time elapsed 91.38 seconds.
+[Candidate 243/243]: time elapsed 98.75 seconds.
+Forward scheme finite difference via numdifftools took 98.75 CPU seconds.
+
+
+Problem
+  Name                   :                 
+  Objective sense        : min             
+  Type                   : CONIC (conic optimization problem)
+  Constraints            : 11086           
+  Cones                  : 4               
+  Scalar variables       : 11007           
+  Matrix variables       : 2               
+  Integer variables      : 0               
+
+Optimizer started.
+Problem
+  Name                   :                 
+  Objective sense        : min             
+  Type                   : CONIC (conic optimization problem)
+  Constraints            : 11086           
+  Cones                  : 4               
+  Scalar variables       : 11007           
+  Matrix variables       : 2               
+  Integer variables      : 0               
+
+Optimizer  - threads                : 12              
+Optimizer  - solved problem         : the primal      
+Optimizer  - Constraints            : 91
+Optimizer  - Cones                  : 5
+Optimizer  - Scalar variables       : 6969              conic                  : 29              
+Optimizer  - Semi-definite variables: 2                 scalarized             : 46              
+Factor     - setup time             : 0.02              dense det. time        : 0.00            
+Factor     - ML order time          : 0.00              GP order time          : 0.00            
+Factor     - nonzeros before factor : 2738              after factor           : 2738            
+Factor     - dense dim.             : 0                 flops                  : 5.30e+06        
+ITE PFEAS    DFEAS    GFEAS    PRSTATUS   POBJ              DOBJ              MU       TIME  
+0   1.3e+00  1.3e+00  7.5e+00  0.00e+00   3.311353596e+00   -3.220408006e+00  1.0e+00  0.19  
+1   3.4e-01  3.4e-01  1.5e+00  3.84e-01   1.444151815e+00   -8.608065412e-01  2.7e-01  0.20  
+2   8.9e-02  8.9e-02  2.9e-01  4.00e-01   -5.744876268e-01  -1.325156822e+00  6.9e-02  0.20  
+3   2.7e-02  2.7e-02  7.9e-02  3.62e-01   -2.039909352e+00  -2.313759007e+00  2.1e-02  0.20  
+4   1.2e-02  1.2e-02  2.2e-02  8.70e-01   -2.909830674e+00  -3.039110424e+00  9.3e-03  0.22  
+5   7.7e-03  7.7e-03  1.2e-02  1.33e+00   -3.164415786e+00  -3.239017340e+00  6.0e-03  0.22  
+6   5.6e-03  5.6e-03  7.2e-03  1.50e+00   -3.121864597e+00  -3.171810650e+00  4.4e-03  0.23  
+7   4.9e-03  4.9e-03  6.7e-03  6.70e-01   -3.679539214e+00  -3.723925356e+00  3.8e-03  0.23  
+8   3.2e-03  3.2e-03  2.4e-03  1.60e+00   -3.406736350e+00  -3.437328937e+00  2.5e-03  0.23  
+9   2.9e-03  2.9e-03  2.2e-03  6.78e-01   -3.669257003e+00  -3.697790088e+00  2.3e-03  0.25  
+10  2.2e-03  2.2e-03  1.5e-03  8.10e-01   -3.926152116e+00  -3.948597129e+00  1.7e-03  0.25  
+11  1.0e-03  1.0e-03  4.4e-04  9.07e-01   -4.182403482e+00  -4.192796067e+00  7.7e-04  0.27  
+12  8.9e-04  8.9e-04  3.7e-04  1.10e+00   -4.143208889e+00  -4.152449620e+00  6.9e-04  0.27  
+13  5.2e-04  5.2e-04  1.6e-04  1.12e+00   -3.964127175e+00  -3.969293599e+00  4.0e-04  0.27  
+14  3.4e-04  3.4e-04  8.3e-05  1.15e+00   -3.849036687e+00  -3.852370705e+00  2.7e-04  0.28  
+15  2.4e-04  2.4e-04  4.8e-05  1.20e+00   -3.726915823e+00  -3.729166598e+00  1.9e-04  0.28  
+16  2.2e-04  2.2e-04  4.3e-05  1.12e+00   -3.744248383e+00  -3.746328090e+00  1.7e-04  0.30  
+17  1.4e-04  1.4e-04  2.1e-05  1.13e+00   -3.695744667e+00  -3.696994695e+00  1.1e-04  0.30  
+18  1.2e-04  1.2e-04  1.7e-05  1.05e+00   -3.715240787e+00  -3.716355695e+00  9.5e-05  0.30  
+19  4.4e-05  4.4e-05  3.7e-06  1.05e+00   -3.717869867e+00  -3.718261166e+00  3.4e-05  0.31  
+20  1.4e-05  1.4e-05  6.7e-07  1.03e+00   -3.713608752e+00  -3.713736852e+00  1.1e-05  0.31  
+21  1.8e-06  1.8e-06  3.1e-08  9.99e-01   -3.714532683e+00  -3.714549053e+00  1.4e-06  0.33  
+22  3.5e-07  3.5e-07  2.6e-09  9.99e-01   -3.714654454e+00  -3.714657622e+00  2.7e-07  0.33  
+23  9.2e-08  9.2e-08  3.5e-10  1.00e+00   -3.714678491e+00  -3.714679330e+00  7.2e-08  0.34  
+24  3.1e-08  3.1e-08  6.7e-11  1.00e+00   -3.714688726e+00  -3.714689010e+00  2.4e-08  0.34  
+25  1.9e-08  1.4e-08  1.9e-11  1.00e+00   -3.714692239e+00  -3.714692365e+00  1.1e-08  0.36  
+26  1.4e-08  6.2e-09  5.9e-12  1.00e+00   -3.714694288e+00  -3.714694345e+00  4.8e-09  0.38  
+27  1.1e-08  5.5e-09  4.9e-12  1.00e+00   -3.714694527e+00  -3.714694578e+00  4.2e-09  0.39  
+28  1.2e-08  5.3e-09  4.7e-12  1.00e+00   -3.714694582e+00  -3.714694631e+00  4.1e-09  0.41  
+29  8.9e-09  4.6e-09  3.2e-12  9.99e-01   -3.714695007e+00  -3.714695045e+00  3.2e-09  0.42  
+Optimizer terminated. Time: 0.44    
+
+
+Interior-point solution summary
+  Problem status  : PRIMAL_AND_DUAL_FEASIBLE
+  Solution status : OPTIMAL
+  Primal.  obj: -3.7146950070e+00   nrm: 6e+01    Viol.  con: 2e-08    var: 0e+00    barvar: 0e+00    cones: 0e+00  
+  Dual.    obj: -3.7146950449e+00   nrm: 3e+01    Viol.  con: 0e+00    var: 2e-10    barvar: 1e-08    cones: 0e+00  
+Done: sensitivity analysis took 98.75 CPU seconds; the optimizer MOSEK interfaced via the cvxpy package solved the optimization problem in 32.32 CPU seconds.
+
+######################################## Optimal Candidates ########################################
+Obtained on                   : 2020-06-11 10:28:03.384600
+Criterion                     : d_opt_criterion
+Semi-bayesian                 : False
+Dynamic                       : True
+Time-varying Controls         : True
+Number of Candidates          : 243
+Number of Sampling Times      : 10
+------------------------------------------[Candidate 163]-------------------------------------------
+                             Recommended Effort: 45.31% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15, 0.25: 273.15, 0.5: 273.15, 0.75: 273.15}]
+Sampling Times:
+[     66.67     88.89]:     23.31% of experiments
+[    177.78    200.00]:     21.99% of experiments
+------------------------------------------[Candidate 241]-------------------------------------------
+                             Recommended Effort: 26.46% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15, 0.25: 323.15, 0.5: 323.15, 0.75: 273.15}]
+Sampling Times:
+[     44.44     66.67]:     26.46% of experiments
+------------------------------------------[Candidate 243]-------------------------------------------
+                             Recommended Effort: 28.04% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15, 0.25: 323.15, 0.5: 323.15, 0.75: 323.15}]
+Sampling Times:
+[    155.56    177.78]:     28.04% of experiments
+####################################################################################################
+Traceback (most recent call last):
+  File "C:/Users/kenne/Documents/GitHub/pydex/examples/ode/time_varying_ode.py", line 145, in <module>
+    designer_1.plot_optimal_predictions()
+  File "C:\Users\kenne\Documents\GitHub\pydex\pydex\core\designer.py", line 1213, in plot_optimal_predictions
+    c=np.array([color]),
+  File "C:\ProgramData\Anaconda3\lib\site-packages\matplotlib\__init__.py", line 1810, in inner
+    return func(ax, *args, **kwargs)
+  File "C:\ProgramData\Anaconda3\lib\site-packages\matplotlib\axes\_axes.py", line 4182, in scatter
+    raise ValueError("x and y must be the same size")
+ValueError: x and y must be the same size
+
+Process finished with exit code 1

@@ -36,6 +36,8 @@ class Designer:
     def __init__(self):
         """ core model components """
         # unorganized
+        self._n_spt_spec = None
+        self.mp_covar = None
         self._specified_n_spt = None
         self._discrete_design = None
         self.spt_binary = None
@@ -131,7 +133,7 @@ class Designer:
         self.n_e = None
         self.n_m_r = None
         self.n_scr = None
-        self.n_spt_combs = None
+        self.n_spt_comb = None
 
         """ parameter estimation """
         self.data = None  # stored data, a 3D numpy array, same shape as response.
@@ -264,8 +266,10 @@ class Designer:
             if store_predictions:
                 self._store_current_response()
         if plot_simulation_times:
-            plt.plot(time_list)
-            plt.show()
+            fig = plt.figure()
+            axes = fig.add_subplot(111)
+            axes.plot(time_list)
+            fig.show()
         if self._verbose >= 3:
             print(f"Completed simulation of all candidates in {time() - start} CPU seconds.")
         return self.response
@@ -332,13 +336,14 @@ class Designer:
                                   max_nfev=max_nfev)
         finish = time()
         if not pe_result.success:
-            print('Fail: estimation did not terminate as optimal.')
-            stillsave = input(f"Still want to save results? Y/N")
-            if stillsave == "Y":
-                pass
-            else:
+            print('Warning: estimation did not terminate as optimal.')
+            stillsave = input(f"Still want to save results? Default is to save results "
+                              f"regardless. To skip save, type \"skip\" to terminate: ")
+            if stillsave == "skip":
                 print("Exiting.")
                 return None
+            else:
+                pass
 
         if self._verbose >= 1:
             print(
@@ -369,29 +374,11 @@ class Designer:
                 print('Parameter estimation result saved to: %s.' % result_dir)
 
         pe_jac = pe_result.jac
-        pe_info_mat = pe_jac.T @ pe_jac
-        # TODO: multiply with pe_result.fun (the SSD divide by N_DOF - N_MP)
-        try:
-            pe_param_covar = np.linalg.inv(pe_info_mat)
-            if self._verbose >= 1:
-                print("Estimated Parameter Covariance")
-                print(pe_param_covar)
-        except np.linalg.LinAlgError:
-            print("Estimated information matrix of estimation is singular, suggesting "
-                  "that not all model parameters"
-                  " are estimable using given data. Regularizing the covariance matrix.")
-            singular = True
-            regularization_scalar = 0.1 * np.average(pe_info_mat)
-            while singular:
-                try:
-                    pe_info_mat = regularization_scalar * np.identity(
-                        self.n_mp) + pe_info_mat
-                    pe_param_covar = np.linalg.inv(pe_info_mat)
-                    print(pe_param_covar)
-                    singular = False
-                except np.linalg.LinAlgError:
-                    print(f"Regularization still leads to singular matrix; skipping.")
-                    singular = False
+        pcov = pe_jac.T @ pe_jac
+
+        data_len = pe_result.fun.size
+        s_sq = (pe_result.fun.sum()/(data_len-self.n_mp))  # reduced chi-square
+        self.mp_covar = pcov * s_sq
 
         return pe_result
 
@@ -488,6 +475,18 @@ class Designer:
 
         """ handling problems with defined n_spt """
         if n_spt is not None:
+            if not self._dynamic_system:
+                raise SyntaxError(
+                    f"n_spt specified for a non-dynamic system."
+                )
+            if not self._opt_sampling_times:
+                print(
+                    f"[Warning]: n_spt specified, but "
+                    f"optimize_sampling_times = False. "
+                    f"Overriding, and setting optimize_sampling_times = True."
+                )
+            self._opt_sampling_times = True
+            self._n_spt_spec = n_spt
             if not isinstance(n_spt, int):
                 raise SyntaxError(
                     f"Supplied n_spt is a {type(n_exp)}, "
@@ -503,7 +502,7 @@ class Designer:
             self.spt_candidates_combs = np.asarray(
                 self.spt_candidates_combs
             )
-            _, self.n_spt_combs, _ = self.spt_candidates_combs.shape
+            _, self.n_spt_comb, _ = self.spt_candidates_combs.shape
         else:
             self._specified_n_spt = False
 
@@ -569,14 +568,19 @@ class Designer:
         if self._verbose >= 1:
             print("Solving OED problem...")
 
-        # set initial guess for optimal experimental efforts, if none given,
-        # equal efforts for all candidates
+        """ 
+        set initial guess for optimal experimental efforts, if none given, equal 
+        efforts for all candidates 
+        """
         if e0 is None:
-            e0 = np.ones((self.n_c, self.n_spt)) / (self.n_c * self.n_spt)
+            if self._specified_n_spt:
+                e0 = np.ones((self.n_c, self.n_spt_comb)) / (self.n_c * self.n_spt_comb)
+            else:
+                e0 = np.ones((self.n_c, self.n_spt)) / (self.n_c * self.n_spt)
             self.efforts = e0
         else:
             msg = 'Initial guess for effort must be a 2D numpy array.'
-            if not isinstance(e0, (np.ndarray)):
+            if not isinstance(e0, np.ndarray):
                 raise SyntaxError(msg)
             elif e0.ndim != 2:
                 raise SyntaxError(msg)
@@ -605,23 +609,24 @@ class Designer:
                                       options=opt_options, jac=not self._fd_jac)
             else:
                 e_bound = [[(0, 1) for _ in eff0] for eff0 in e0]
-                e_bound = np.asarray(e_bound).reshape((self.n_c * self.n_spt, 2))
+                if self._specified_n_spt:
+                    e_bound = np.asarray(e_bound).reshape((self.n_c * self.n_spt_comb, 2))
+                else:
+                    e_bound = np.asarray(e_bound).reshape((self.n_c * self.n_spt, 2))
                 constraint = {"type": "eq", "fun": lambda e: sum(e) - 1.0}
                 opt_result = minimize(fun=criterion, x0=e0, method=optimizer,
                                       options=opt_options, constraints=constraint,
                                       bounds=e_bound, jac=not self._fd_jac, **kwargs)
-
             self.efforts = opt_result.x.reshape((self.n_c, self.n_spt))
             self._efforts_transformed = False
             opt_fun = opt_result.fun
         elif self._optimization_package == "cvxpy":
             # optimization variable and initial value
             if self._specified_n_spt:
-                efforts = cp.Variable((self.n_c, self.n_spt_combs), nonneg=True)
-                efforts.value = np.ones((self.n_c, self.n_spt_combs)) / efforts.size
+                efforts = cp.Variable((self.n_c, self.n_spt_comb), nonneg=True)
             else:
                 efforts = cp.Variable((self.n_c, self.n_spt), nonneg=True)
-                efforts.value = self.efforts
+            efforts.value = self.efforts
             # constraints and objective
             if self._discrete_design:
                 p_cons = [cp.sum(efforts) == n_exp]
@@ -729,9 +734,12 @@ class Designer:
         return self.estimable_model_parameters, self.estimability
 
     """ core utilities """
+
     # create grid
     def create_grid(self, bounds, levels):
         """ returns points from a mesh-centered grid """
+        bounds = np.asarray(bounds)
+        levels = np.asarray(levels)
         grid_args = ''
         for bound, level in zip(bounds, levels):
             grid_args += '%f:%f:%dj,' % (bound[0], bound[1], level)
@@ -741,25 +749,92 @@ class Designer:
         return self.grid
 
     def enumerate_candidates(self, bounds, levels, switching_times=None):
+        # use create_grid if only time-invariant controls
         if switching_times is None:
             return self.create_grid(bounds, levels)
+
         """ check syntax of given bounds, levels, switching times """
+        bounds = np.asarray(bounds)
+        levels = np.asarray(levels)
+        switching_times = np.asarray(switching_times)
         # make sure bounds, levels, switching times are numpy arrays
-        if ~all(isinstance(arg, np.ndarray) for arg in [bounds, levels, switching_times]):
+        if not all(isinstance(arg, np.ndarray) for arg in [bounds, levels, switching_times]):
             raise SyntaxError(
                 f"Supplied bounds, levels, and switching times must be numpy arrays."
             )
         # make sure length of experimental variables are the same
-        bound_len =
+        bound_len, bound_dim = bounds.shape
+        if bound_dim != 2:
+            raise SyntaxError(
+                f"Supplied bounds must be a 2D array with shape (:, 2)."
+            )
+        if levels.ndim != 1:
+            raise SyntaxError(
+                f"Supplied levels must be a 1D array."
+            )
+        levels_len = levels.size
+        switch_len = len(switching_times)
 
         # count number of candidates from given information
-        n_c =
+        if not bound_len == levels_len == switch_len:
+            raise SyntaxError(
+                f"Supplied lengths are incompatible. Bound: {bound_len}, "
+                f"levels: {levels_len}, switch_len: {switch_len}."
+            )
+
+        """ discretize tvc into piecewise constants and use create_grid to enumerate """
+        tic_idx = []
+        tvc_idx = []
+        tic_bounds = []
+        tic_levels = []
+        tvc_bounds = []
+        tvc_levels = []
+        for i, swt_t in enumerate(switching_times):
+            if swt_t is None:
+                tic_idx.append(i)
+                tic_bounds.append(bounds[i])
+                tic_levels.append(levels[i])
+            else:
+                tvc_idx.append(i)
+                for t in swt_t:
+                    tvc_bounds.append(bounds[i])
+                    tvc_levels.append(levels[i])
+        n_tic = len(tic_idx)
+        n_tvc = len(tvc_idx)
+        if n_tic == 0:
+            total_bounds = tvc_bounds
+            total_levels = tvc_levels
+        elif n_tvc == 0:
+            total_bounds = tic_bounds
+            total_levels = tic_levels
+        else:
+            total_bounds = np.vstack((tic_bounds, tvc_bounds))
+            total_levels = np.append(tic_levels, tvc_levels)
+        candidates = self.create_grid(total_bounds, total_levels)
+        tic = candidates[:, :n_tic]
+        tvc_array = candidates[:, n_tic:]
+
+        """ converting 2D tvc_array of floats into a 2D numpy array of dictionaries """
+        tvc = []
+        for candidate, values in enumerate(tvc_array):
+            col_counter = 0
+            temp_tvc_dict_list = []
+            for idx in tvc_idx:
+                temp_tvc_dict = {}
+                for t in switching_times[idx]:
+                    temp_tvc_dict[t] = values[col_counter]
+                    col_counter += 1
+                temp_tvc_dict_list.append(temp_tvc_dict)
+            tvc.append(temp_tvc_dict_list)
+        tvc = np.asarray(tvc)
+
+        return tic, tvc
 
     # visualization and result retrieval
     def plot_optimal_efforts(self, width=None, write=False, dpi=720, quality=95,
                              force_3d=False):
         if (self._opt_sampling_times or force_3d) and self._dynamic_system:
-            self._plot_current_efforts_3d(width=width, write=write, dpi=dpi,
+            fig = self._plot_current_efforts_3d(width=width, write=write, dpi=dpi,
                                           quality=quality)
         else:
             if force_3d:
@@ -767,8 +842,9 @@ class Designer:
                     "Warning: force 3d only works for dynamic systems, plotting "
                     "current design in 2D."
                 )
-            self._plot_current_efforts_2d(width=width, write=write, dpi=dpi,
+            fig = self._plot_current_efforts_2d(width=width, write=write, dpi=dpi,
                                           quality=quality)
+        return fig
 
     def plot_controls(self, alpha=0.2, markersize=1, non_opt_candidates=False,
                       n_ticks=3, visualize_efforts=True):
@@ -781,7 +857,7 @@ class Designer:
                 "Plot controls not implemented for systems with more than 4 ti_controls"
             )
         if self.n_tic == 1:
-            self.plot_optimal_efforts()
+            fig = self.plot_optimal_efforts()
         elif self.n_tic == 2:
             fig, axes = plt.subplots(1, 1)
             if non_opt_candidates:
@@ -822,6 +898,7 @@ class Designer:
                 )
             )
             fig.tight_layout()
+            fig.show()
         elif self.n_tic == 3:
             fig = plt.figure()
             axes = fig.add_subplot(111, projection="3d")
@@ -844,13 +921,14 @@ class Designer:
             )
             axes.grid(False)
             fig.tight_layout()
+            fig.show()
         elif self.n_tic == 4:
             trellis_plotter = TrellisPlotter()
             trellis_plotter.data = self.ti_controls_candidates
             trellis_plotter.intervals = np.array([5, 7])
-            trellis_plotter.scatter()
-        plt.show()
-        return
+            fig = trellis_plotter.scatter()
+
+        return fig
 
     def plot_parity(self):
         if self.response is None:
@@ -864,9 +942,12 @@ class Designer:
                 "Please specify data to the designer."
             )
         fig = plt.figure()
-        gridspec = plt.GridSpec(nrows=self.n_m_r, ncols=1)
+        n_rows = np.ceil(np.sqrt(self.n_m_r)).astype(int)
+        gridspec = plt.GridSpec(nrows=n_rows, ncols=n_rows)
         for r in range(self.n_m_r):
-            axes = fig.add_subplot(gridspec[r, 0])
+            row = r % n_rows
+            col = np.floor_divide(r, n_rows)
+            axes = fig.add_subplot(gridspec[row, col])
             axes.scatter(
                 [dat for dat in self.data[:, :, r]],
                 [res for res in self.response[:, :, self.measurable_responses[r]]],
@@ -906,7 +987,8 @@ class Designer:
             axes.set_ylabel(f"Prediction")
         plt.get_current_fig_manager().window.showMaximized()
         plt.gcf().tight_layout()
-        plt.show()
+        fig.show()
+        return fig
 
     def plot_all_predictions(self, plot_data=False):
         for res in range(self.n_m_r):
@@ -917,14 +999,17 @@ class Designer:
                 nrows=n_rows,
                 ncols=n_cols,
             )
-            data_lim = [
-                np.nanmin(self.data[:, :, res]),
-                np.nanmax(self.data[:, :, res]),
-            ]
             res_lim = [
                 np.nanmin(self.response[:, :, self.measurable_responses[res]]),
                 np.nanmax(self.response[:, :, self.measurable_responses[res]]),
             ]
+            if plot_data:
+                data_lim = [
+                    np.nanmin(self.data[:, :, res]),
+                    np.nanmax(self.data[:, :, res]),
+                ]
+            else:
+                data_lim = res_lim
             lim = [
                 np.min([data_lim[0], res_lim[0]]),
                 np.max([data_lim[1], res_lim[1]])
@@ -972,14 +1057,14 @@ class Designer:
                                 hspace=0.95,
                                 wspace=0.4,
             )
-        plt.show()
-        return
+            fig.show()
+        return fig
 
     def plot_sensitivities(self, absolute=False, draw_legend=True, figsize=None):
         # n_c, n_s_times, n_res, n_theta = self.sensitivity.shape
         if figsize is None:
             figsize = (self.n_mp * 4.0, 1.0 + 2.5 * self.n_m_r)
-        fig1 = plt.figure(figsize=figsize)
+        fig = plt.figure(figsize=figsize)
 
         if self._sensitivity_is_normalized:
             norm_status = 'Normalized '
@@ -990,12 +1075,12 @@ class Designer:
         else:
             abs_status = 'Directional '
 
-        fig1.suptitle('%s%sSensitivity Plots' % (norm_status, abs_status))
+        fig.suptitle('%s%sSensitivity Plots' % (norm_status, abs_status))
         i = 0
         for row in range(self.n_m_r):
             for col in range(self.n_mp):
                 i += 1
-                create_axes = 'axes_%d_%d = fig1.add_subplot(%d, %d, %d)' % (
+                create_axes = 'axes_%d_%d = fig.add_subplot(%d, %d, %d)' % (
                     row, col, self.n_m_r, self.n_mp, i)
                 exec(create_axes)
                 for c, exp_candidate in enumerate(
@@ -1019,8 +1104,9 @@ class Designer:
                 if draw_legend and self.n_c <= 10:
                     make_legend = 'axes_%d_%d.legend()' % (row, col)
                     exec(make_legend)
-        fig1.tight_layout()
-        plt.show()
+        fig.tight_layout()
+        fig.show()
+        return fig
 
     def plot_optimal_predictions(self, legend=True, figsize=None, markersize=10,
                                  fontsize=10, legend_size=8, colour_map="Spectral",
@@ -1058,6 +1144,8 @@ class Designer:
             nrows=self.n_m_r,
             ncols=1,
         )
+        if self.n_m_r == 1:
+            axes = [axes]
         """ defining fig's subplot axes limits """
         x_axis_lim = [
             np.min(self.sampling_times_candidates[
@@ -1124,19 +1212,20 @@ class Designer:
                         facecolor=color,
                         zorder=1
                     )
-                ax.scatter(
-                    opt_cand[3],
-                    plot_response[
-                        opt_cand[0],
-                        opt_cand[5],
-                        self.measurable_responses[res]
-                    ],
-                    marker="o",
-                    s=markersize * 50 * np.array(opt_cand[4]),
-                    # label="Optimal Sampling Times",
-                    zorder=2,
-                    c=np.array([color]),
-                )
+                if not self._specified_n_spt:
+                    ax.scatter(
+                        opt_cand[3],
+                        plot_response[
+                            opt_cand[0],
+                            opt_cand[5],
+                            self.measurable_responses[res]
+                        ],
+                        marker="o",
+                        s=markersize * 50 * np.array(opt_cand[4]),
+                        # label="Optimal Sampling Times",
+                        zorder=2,
+                        c=np.array([color]),
+                    )
                 ax.set_xlim(
                     x_axis_lim[0] - 0.1 * (x_axis_lim[1] - x_axis_lim[0]),
                     x_axis_lim[1] + 0.1 * (x_axis_lim[1] - x_axis_lim[0])
@@ -1155,6 +1244,8 @@ class Designer:
                 if legend and len(self.optimal_candidates) > 1:
                     ax.legend(prop={"size": legend_size})
 
+        fig.tight_layout()
+
         if write:
             self.create_result_dir()
             fn = f"response_plot" \
@@ -1170,7 +1261,8 @@ class Designer:
             fig.savefig(fname=fp, dpi=dpi, quality=quality)
             self.run_no = 1
 
-        plt.show()
+        fig.show()
+        return fig
 
     def plot_optimal_sensitivities(self, absolute=False, legend=True,
                                    markersize=10, colour_map="Spectral",
@@ -1189,6 +1281,8 @@ class Designer:
             ncols=self.n_mp,
             sharex=True,
         )
+        if self.n_m_r == 1 and self.n_mp == 1:
+            axes = np.array([[axes]])
         if self._sensitivity_is_normalized:
             norm_status = 'Normalized '
         else:
@@ -1241,13 +1335,14 @@ class Designer:
                         label=f"Candidate {cand[0] + 1:d}",
                         color=color
                     )
-                    ax.scatter(
-                        cand[3],
-                        sens[cand[5]],
-                        marker="o",
-                        s=markersize * 50 * np.array(cand[4]),
-                        color=color
-                    )
+                    if not self._specified_n_spt:
+                        ax.scatter(
+                            cand[3],
+                            sens[cand[5]],
+                            marker="o",
+                            s=markersize * 50 * np.array(cand[4]),
+                            color=color
+                        )
                     if self._semi_bayesian:
                         ax.fill_between(
                             opt_spt,
@@ -1270,6 +1365,8 @@ class Designer:
                     if legend and len(self.optimal_candidates) > 1:
                         ax.legend()
 
+        fig.tight_layout()
+
         if write:
             self.create_result_dir()
             fn = f"sensitivity_plot" \
@@ -1285,11 +1382,11 @@ class Designer:
             fig.savefig(fname=fp, dpi=dpi, quality=quality)
             self.run_no = 1
 
-        plt.show()
+        fig.show()
+        return fig
 
-    def print_optimal_candidates(self):
-        if self.optimal_candidates is None:
-            self.get_optimal_candidates()
+    def print_optimal_candidates(self, tol=1e-2):
+        self.get_optimal_candidates(tol)
 
         print("")
         print(f"{' Optimal Candidates ':#^100}")
@@ -1308,7 +1405,7 @@ class Designer:
 
         for i, opt_cand in enumerate(self.optimal_candidates):
             print(f"{f'[Candidate {opt_cand[0] + 1:d}]':-^100}")
-            print(f"{f'Recommended Effort: {np.sum(opt_cand[4]):.2%} of budget':^100}")
+            print(f"{f'Recommended Effort: {np.sum(opt_cand[4]):.2%} of experiments':^100}")
             print("Time-invariant Controls:")
             print(opt_cand[1])
             if self._dynamic_controls:
@@ -1316,17 +1413,25 @@ class Designer:
                 print(opt_cand[2])
             if self._dynamic_system:
                 print("Sampling Times:")
-                if self._specified_n_spt:
-                    for comb, spt_comb in enumerate(opt_cand[3]):
-                        print(f"".center(100, "."))
-                        for j, sp_time in enumerate(spt_comb):
+                if self._opt_sampling_times:
+                    if self._specified_n_spt:
+                        for comb, spt_comb in enumerate(opt_cand[3]):
+                            print("[", end='')
+                            for j, sp_time in enumerate(spt_comb):
+                                print(f"{f'{sp_time:.2f}':>10}", end='')
+                            print("]: ", end='')
+                            print(f'{f"{opt_cand[4][comb].sum():.2%}":>10} of experiments')
+                    else:
+                        for j, sp_time in enumerate(opt_cand[3]):
                             print(f"[{f'{sp_time:.2f}':>10}]: "
-                                  f"dedicate {f'{opt_cand[4][comb][j]:.2%}':>6} of budget")
+                                  f"dedicate {f'{opt_cand[4][j]:.2%}':>6} of experiments")
                 else:
-                    for j, sp_time in enumerate(opt_cand[3]):
-                        print(f"[{f'{sp_time:.2f}':>10}]: "
-                              f"dedicate {f'{opt_cand[4][j]:.2%}':>6} of budget")
+                    print(self.sampling_times_candidates[i])
         print(f"{'':#^100}")
+
+    @staticmethod
+    def show_plots():
+        plt.show()
 
     # saving, loading, writing
     def load_oed_result(self, result_path):
@@ -1412,6 +1517,7 @@ class Designer:
         return self.sensitivities
 
     """ criteria """
+
     # calibration-oriented
     def d_opt_criterion(self, efforts):
         """ it is a PSD criterion, with exponential cone """
@@ -1471,6 +1577,11 @@ class Designer:
         else:
             return self._ei_opt_criterion(efforts)
 
+    # experimental
+    def u_opt_criterion(self, efforts):
+        self.eval_fim(efforts, self.model_parameters)
+        return -np.sum(np.multiply(self.fim, self.fim))
+
     """ evaluators """
 
     def eval_residuals(self, model_parameters):
@@ -1484,8 +1595,8 @@ class Designer:
         return self.residuals[
             ~np.isnan(self.residuals)]  # return residuals where entries are not empty
 
-    def eval_sensitivities(self, method='forward', base_step=None, step_ratio=None,
-                           num_steps=None,
+    def eval_sensitivities(self, method='forward', base_step=2, step_ratio=2,
+                           num_steps=15,
                            store_predictions=False, plot_analysis_times=False,
                            save_sensitivities=False, reporting_frequency=10):
         """
@@ -1507,11 +1618,9 @@ class Designer:
 
         self._save_sensitivities = save_sensitivities
 
-        """ check if model parameters have been changed or not """
         self._check_if_scr_changed()
         self._check_if_candidates_changed()
 
-        """ init scr_sens if semi-bayes and scr_sens is empty """
         if self._scr_sens is None and self._semi_bayesian:
             self._scr_sens = []
 
@@ -1613,8 +1722,10 @@ class Designer:
                 dump(self.sensitivities, open(sens_file, 'wb'))
 
             if plot_analysis_times:
-                plt.plot(np.arange(1, self.n_c + 1, step=1), candidate_sens_times)
-                plt.show()
+                fig = plt.figure()
+                axes = fig.add_subplot(111)
+                axes.plot(np.arange(1, self.n_c + 1, step=1), candidate_sens_times)
+                fig.show()
 
         self._sensitivity_analysis_done = True
         self._old_tic = self.ti_controls_candidates
@@ -1623,69 +1734,6 @@ class Designer:
             if self._dynamic_controls:
                 self._old_tvc = self.tv_controls_candidates
         return self.sensitivities
-
-    def eval_fim_cost(self, efforts, mp, store_predictions=True):
-        """
-        Main evaluator for constructing the fim from obtained sensitivities.
-        When scipy is used as optimization package and problem does not require large
-        memory, will store atomic fims for analytical Jacobian.
-
-        The function also performs a parameter estimability study based on the FIM by
-        summing the squares over the rows and columns of the FIM. Optionally, will trim
-        out rows and columns that have its sum of squares close to 0. This helps with
-        noninvertible FIMs.
-
-        An alternative for dealing with noninvertible FIMs is to use a simple Tikhonov
-        regularization, where a small scalar times the identity matrix is added to the
-        FIM to obtain an invertible matrix.
-        """
-        """ update mp, and efforts """
-        self.efforts = efforts
-        self._current_scr_mp = mp
-
-        """ eval_sensitivities, only runs if model parameters changed """
-        self.eval_sensitivities(save_sensitivities=self._save_sensitivities,
-                                store_predictions=store_predictions)
-
-        """ deal with unconstrained form, i.e. transform efforts """
-        self._transform_efforts()  # only transform if required, logic incorporated there
-
-        """ evaluate fim """
-        start = time()
-        self.fim = 0
-        if self._optimization_package is "scipy":
-            if not self._large_memory_requirement:
-                self.atomic_fims = []
-        for c, (eff, sen) in enumerate(zip(self.efforts, self.sensitivities)):
-            for spt, (e, s) in enumerate(zip(eff, sen)):
-                if not np.any(np.isnan(s)):
-                    _atom_fim = s.T @ s
-                    self.fim += e * _atom_fim / self.spt_cost[c, spt]
-                else:
-                    _atom_fim = np.zeros((self.n_mp, self.n_mp))
-                if self._optimization_package is "scipy" and \
-                        not self._large_memory_requirement:
-                    self.atomic_fims.append(_atom_fim)
-        finish = time()
-
-        self.evaluate_estimability_index()
-
-        if self._regularize_fim:
-            if self._verbose >= 3:
-                print(
-                    f"Applying Tikhonov regularization to FIM by adding "
-                    f"{self._eps:.2f} * identity to the FIM. "
-                    f"Warning: design is likely to be affected for large scalars!"
-                )
-            self.fim += self._eps * np.identity(self.n_mp)
-
-        self._fim_eval_time = finish - start
-        if self._verbose >= 3:
-            print(
-                f"Evaluation of fim took {self._fim_eval_time:.2f} seconds."
-            )
-
-        return self.fim
 
     def eval_fim(self, efforts, mp, store_predictions=True):
         """
@@ -1728,7 +1776,7 @@ class Designer:
         self.fim = 0
         if self._optimization_package is "scipy":
             if self._specified_n_spt:
-                self.efforts = self.efforts.reshape((self.n_c, self.n_spt_combs))
+                self.efforts = self.efforts.reshape((self.n_c, self.n_spt_comb))
             else:
                 self.efforts = self.efforts.reshape((self.n_c, self.n_spt))
             if not self._large_memory_requirement:
@@ -1744,7 +1792,7 @@ class Designer:
                     add_candidates(s, e)
         finish = time()
 
-        # self.evaluate_estimability_index()
+        self.evaluate_estimability_index()
 
         if self._regularize_fim:
             if self._verbose >= 3:
@@ -1848,6 +1896,7 @@ class Designer:
         return self.scr_fims
 
     """ getters (filters) """
+
     def get_optimal_candidates(self, tol=1e-4):
         if self.efforts is None:
             raise SyntaxError(
@@ -1858,7 +1907,7 @@ class Designer:
         self.optimal_candidates = []
 
         for i, eff_sp in enumerate(self.efforts):
-            if np.any(eff_sp > tol):
+            if np.sum(eff_sp) > tol:
                 opt_candidate = [
                     i,
                     self.ti_controls_candidates[i],
@@ -1969,7 +2018,7 @@ class Designer:
                     ])
                     return d_opt, jac
             elif self._optimization_package is 'cvxpy':
-                return -cp.log1p(self.fim)
+                return -self.fim
 
         if self._optimization_package is "scipy":
             sign, d_opt = np.linalg.slogdet(self.fim)
@@ -2459,10 +2508,15 @@ class Designer:
             self.run_no = 1
 
         fig.tight_layout()
-        plt.show()
+        fig.show()
+        return fig
 
     def _plot_current_efforts_3d(self, width=None, write=False, dpi=720,
                                  quality=95):
+        if self._specified_n_spt:
+            print(f"Warning, not implemented for specified n_spt.")
+            return
+
         if self._verbose >= 2:
             print("Plotting current continuous design.")
 
@@ -2473,8 +2527,8 @@ class Designer:
 
         sampling_time_scale = np.nanmin(np.diff(self.sampling_times_candidates, axis=1))
 
-        fig1 = plt.figure(figsize=(12, 8))
-        axes1 = fig1.add_subplot(111, projection='3d')
+        fig = plt.figure(figsize=(12, 8))
+        axes = fig.add_subplot(111, projection='3d')
         opt_cand = np.unique(np.where(p > 1e-4)[0], axis=0)
         for c, spt in enumerate(self.sampling_times_candidates[opt_cand]):
             x = np.array([c] * self.n_spt) - width / 2
@@ -2489,7 +2543,7 @@ class Designer:
             z = z[~np.isnan(spt)]
             dz = dz[~np.isnan(spt)]
 
-            axes1.bar3d(
+            axes.bar3d(
                 x=x,
                 y=y,
                 z=z,
@@ -2498,20 +2552,20 @@ class Designer:
                 dz=dz
             )
 
-        axes1.grid(False)
-        axes1.set_xlabel('Candidate')
+        axes.grid(False)
+        axes.set_xlabel('Candidate')
         xticks = opt_cand + 1
-        axes1.set_xticks(
+        axes.set_xticks(
             [c for c, _ in enumerate(self.sampling_times_candidates[opt_cand])])
-        axes1.set_xticklabels(labels=xticks)
+        axes.set_xticklabels(labels=xticks)
 
-        axes1.set_ylabel('Sampling Times')
+        axes.set_ylabel('Sampling Times')
 
-        axes1.set_zlabel('Experimental Effort')
-        axes1.set_zlim([0, 1])
-        axes1.set_zticks(np.linspace(0, 1, 6))
+        axes.set_zlabel('Experimental Effort')
+        axes.set_zlim([0, 1])
+        axes.set_zticks(np.linspace(0, 1, 6))
 
-        fig1.tight_layout()
+        fig.tight_layout()
 
         if write:
             self.create_result_dir()
@@ -2523,9 +2577,10 @@ class Designer:
                 figname = 'fig_%s_design_%d.png' % (
                     self.oed_result["optimality_criterion"], self.run_no)
                 figfile = self.result_dir + figname
-            fig1.savefig(fname=figfile, dpi=dpi, quality=quality)
+            fig.savefig(fname=figfile, dpi=dpi, quality=quality)
             self.run_no = 1
-        plt.show()
+        fig.show()
+        return fig
 
     def _pad_sampling_times(self):
         """ check the required number of sampling times """

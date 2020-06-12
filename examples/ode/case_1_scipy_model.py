@@ -52,7 +52,7 @@ if __name__ == '__main__':
     designer_1.initialize(verbose=2)
 
     """ we can use the designer to get and plot the sensitivities for all experimental candidates """
-    sens = designer_1.eval_sensitivities(save_sensitivities=False)
+    sens = designer_1.eval_sensitivities(save_sensitivities=False, store_predictions=True)
     designer_1.plot_sensitivities()
 
     """ solve OED problem """
@@ -64,3 +64,7 @@ if __name__ == '__main__':
                                                 optimize_sampling_times=True,
                                                 write=False, optimizer=optimizer)
     designer_1.print_optimal_candidates()
+    designer_1.plot_optimal_efforts()
+    designer_1.plot_optimal_predictions()
+    designer_1.plot_optimal_sensitivities()
+    designer_1.show_plots()

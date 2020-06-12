@@ -25,4 +25,5 @@ designer.initialize(verbose=2)
 criterion = designer.a_opt_criterion
 designer.design_experiment(criterion, write=False)
 designer.print_optimal_candidates()
-designer.plot_controls()
+designer.plot_controls(non_opt_candidates=True)
+designer.show_plots()

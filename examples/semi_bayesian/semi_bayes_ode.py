@@ -123,7 +123,7 @@ tic_candidates = np.array([Ca0, temp]).T
 designer_1.ti_controls_candidates = tic_candidates
 
 """ defining sampling time choices for each candidate """
-n_s_times = 10  # number of equally-spaced sampling time candidates
+n_s_times = 11  # number of equally-spaced sampling time candidates
 tau_upper = 200
 tau_lower = 0
 spt_candidates = np.array([
@@ -149,7 +149,6 @@ result = designer_1.design_experiment(criterion=criterion,
                                       write=False,
                                       semi_bayes_type=sb_type)
 designer_1.print_optimal_candidates()
-designer_1.plot_optimal_efforts()
-
 designer_1.plot_optimal_predictions()
 designer_1.plot_optimal_sensitivities()
+designer_1.show_plots()
