@@ -14,13 +14,24 @@ designer.simulate = simulate
 tic = np.mgrid[-1:1:111j]
 designer.ti_controls_candidates = tic[:, None]
 
-mp = np.array([1, 2, -3])
+# mp = np.array([1, 2, -1])
+mp = np.array([1, 2, 4])
 designer.model_parameters = mp
 
 designer.initialize()
 
+criterion = designer.d_opt_criterion
+designer.design_experiment(criterion, write=False)
+designer.print_optimal_candidates()
+designer.plot_optimal_controls()
+
 criterion = designer.a_opt_criterion
 designer.design_experiment(criterion, write=False)
 designer.print_optimal_candidates()
-designer.plot_controls()
+designer.plot_optimal_controls()
+
+criterion = designer.e_opt_criterion
+designer.design_experiment(criterion, write=False)
+designer.print_optimal_candidates()
+designer.plot_optimal_controls()
 designer.show_plots()

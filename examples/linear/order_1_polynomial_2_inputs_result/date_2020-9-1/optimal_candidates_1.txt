@@ -1,0 +1,26 @@
+######################################## Optimal Candidates ########################################
+Obtained on                             : 2020-09-01 11:33:18.188585
+Criterion                               : e_opt_criterion
+Pseudo-bayesian                         : False
+Dynamic                                 : False
+Time-invariant Controls                 : True
+Time-varying Controls                   : False
+Number of Candidates                    : 121
+Number of Optimal Candidates            : 4
+-------------------------------------------[Candidate 1]--------------------------------------------
+                             Recommended Effort: 25.00% of experiments                              
+Time-invariant Controls:
+[-1. -1.]
+-------------------------------------------[Candidate 11]-------------------------------------------
+                             Recommended Effort: 25.00% of experiments                              
+Time-invariant Controls:
+[-1.  1.]
+------------------------------------------[Candidate 111]-------------------------------------------
+                             Recommended Effort: 25.00% of experiments                              
+Time-invariant Controls:
+[ 1. -1.]
+------------------------------------------[Candidate 121]-------------------------------------------
+                             Recommended Effort: 25.00% of experiments                              
+Time-invariant Controls:
+[1. 1.]
+####################################################################################################

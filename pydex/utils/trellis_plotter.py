@@ -68,6 +68,7 @@ class TrellisPlotter:
                     "Dimensions of points in the different data sets are inconsistent"
                 )
         else:
+            self.data = np.asarray(self.data)
             if not isinstance(self.data, np.ndarray):
                 raise SyntaxError("Data must be a numpy array.")
             if self.data.ndim != 2:
@@ -76,6 +77,7 @@ class TrellisPlotter:
         # check if all data sets have the same dimension
 
         # check interval's validity
+        self.intervals = np.asarray(self.intervals)
         if not isinstance(self.intervals, np.ndarray):
             raise SyntaxError("Intervals must be a numpy array.")
         if self.intervals.ndim != 1:
@@ -95,6 +97,7 @@ class TrellisPlotter:
             self.data_sets = self.data
 
         if self.fun is not None:
+            self.fun = np.asarray(self.fun)
             if not isinstance(self.fun, np.ndarray):
                 raise SyntaxError("Function values must be a numpy array.")
             if self.fun.ndim != 1:
@@ -561,7 +564,10 @@ if __name__ == "__main__":
     #     return x[0] ** 2 + x[1] ** 2 + x[2] ** 2 + x[3] ** 2
 
     def fun(x):
-        return x[0] + x[1] + x[2] + x[3]
+        return x[0] + x[1] + x[2]**2 + x[3]**3
+
+    # def fun(x):
+    #     return x[0] + x[1] + x[2] + x[3]
 
     # def fun(x):
     #     return x[0] ** 3 + x[1] ** 3 + x[2] ** 3 + x[3] ** 3
@@ -578,19 +584,19 @@ if __name__ == "__main__":
     x1, x2, x3, x4 = np.mgrid[
                      -1:1:reso*multiplier,
                      -1:1:reso*multiplier,
-                     -1:1:reso,
-                     -1:1:reso
+                     -1:1:5j,
+                     -1:1:7j
                      ]
     plotter1.data = np.array([x1.flatten(), x2.flatten(), x3.flatten(), x4.flatten()]).T
     plotter1.fun = fun(plotter1.data.T)
 
-    plotter1.intervals = np.array([5, 5])
+    plotter1.intervals = np.array([5, 7])
 
     plotter1.label_fontsize = 6
     plotter1.xlabel = "x1"
-    plotter1.ylabel = "y1"
-    plotter1.oaxis_xlabel = "x2"
-    plotter1.oaxis_ylabel = "y2"
+    plotter1.ylabel = "x2"
+    plotter1.oaxis_xlabel = "x4"
+    plotter1.oaxis_ylabel = "x3"
     plotter1.markeralpha = 0.10
     plotter1.markersize = 5
     plotter1.n_colorbar_ticks = 4

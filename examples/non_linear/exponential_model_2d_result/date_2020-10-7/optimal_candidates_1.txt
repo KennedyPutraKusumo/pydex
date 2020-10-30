@@ -1,0 +1,454 @@
+######################################## Optimal Candidates ########################################
+Obtained on                             : 2020-10-07 14:45:40.129545
+Criterion                               : d_opt_criterion
+Pseudo-bayesian                         : False
+Dynamic                                 : False
+Time-invariant Controls                 : True
+Time-varying Controls                   : False
+Number of Candidates                    : 121
+Number of Optimal Candidates            : 9
+-------------------------------------------[Candidate 1]--------------------------------------------
+                             Recommended Effort: 11.11% of experiments                              
+Time-invariant Controls:
+[-1. -1.]
+-------------------------------------------[Candidate 9]--------------------------------------------
+                             Recommended Effort: 11.11% of experiments                              
+Time-invariant Controls:
+[-1.   0.6]
+-------------------------------------------[Candidate 11]-------------------------------------------
+                             Recommended Effort: 11.11% of experiments                              
+Time-invariant Controls:
+[-1.  1.]
+-------------------------------------------[Candidate 89]-------------------------------------------
+                             Recommended Effort: 11.11% of experiments                              
+Time-invariant Controls:
+[ 0.6 -1. ]
+-------------------------------------------[Candidate 97]-------------------------------------------
+                             Recommended Effort: 11.11% of experiments                              
+Time-invariant Controls:
+[0.6 0.6]
+-------------------------------------------[Candidate 99]-------------------------------------------
+                             Recommended Effort: 11.11% of experiments                              
+Time-invariant Controls:
+[0.6 1. ]
+------------------------------------------[Candidate 111]-------------------------------------------
+                             Recommended Effort: 11.11% of experiments                              
+Time-invariant Controls:
+[ 1. -1.]
+------------------------------------------[Candidate 119]-------------------------------------------
+                             Recommended Effort: 11.11% of experiments                              
+Time-invariant Controls:
+[1.  0.6]
+------------------------------------------[Candidate 121]-------------------------------------------
+                             Recommended Effort: 11.11% of experiments                              
+Time-invariant Controls:
+[1. 1.]
+############################################################################################################################################ Optimal Candidates ########################################
+Obtained on                             : 2020-10-07 14:45:41.209788
+Criterion                               : a_opt_criterion
+Pseudo-bayesian                         : False
+Dynamic                                 : False
+Time-invariant Controls                 : True
+Time-varying Controls                   : False
+Number of Candidates                    : 121
+Number of Optimal Candidates            : 7
+-------------------------------------------[Candidate 1]--------------------------------------------
+                             Recommended Effort: 34.79% of experiments                              
+Time-invariant Controls:
+[-1. -1.]
+-------------------------------------------[Candidate 9]--------------------------------------------
+                             Recommended Effort: 13.27% of experiments                              
+Time-invariant Controls:
+[-1.   0.6]
+-------------------------------------------[Candidate 89]-------------------------------------------
+                             Recommended Effort: 14.91% of experiments                              
+Time-invariant Controls:
+[ 0.6 -1. ]
+-------------------------------------------[Candidate 97]-------------------------------------------
+                             Recommended Effort: 18.99% of experiments                              
+Time-invariant Controls:
+[0.6 0.6]
+-------------------------------------------[Candidate 99]-------------------------------------------
+                              Recommended Effort: 5.35% of experiments                              
+Time-invariant Controls:
+[0.6 1. ]
+------------------------------------------[Candidate 119]-------------------------------------------
+                              Recommended Effort: 6.32% of experiments                              
+Time-invariant Controls:
+[1.  0.6]
+------------------------------------------[Candidate 121]-------------------------------------------
+                              Recommended Effort: 6.13% of experiments                              
+Time-invariant Controls:
+[1. 1.]
+############################################################################################################################################ Optimal Candidates ########################################
+Obtained on                             : 2020-10-07 14:45:41.921949
+Criterion                               : e_opt_criterion
+Pseudo-bayesian                         : False
+Dynamic                                 : False
+Time-invariant Controls                 : True
+Time-varying Controls                   : False
+Number of Candidates                    : 121
+Number of Optimal Candidates            : 15
+-------------------------------------------[Candidate 1]--------------------------------------------
+                             Recommended Effort: 37.33% of experiments                              
+Time-invariant Controls:
+[-1. -1.]
+-------------------------------------------[Candidate 2]--------------------------------------------
+                              Recommended Effort: 0.42% of experiments                              
+Time-invariant Controls:
+[-1.  -0.8]
+-------------------------------------------[Candidate 7]--------------------------------------------
+                              Recommended Effort: 0.73% of experiments                              
+Time-invariant Controls:
+[-1.   0.2]
+-------------------------------------------[Candidate 8]--------------------------------------------
+                              Recommended Effort: 9.59% of experiments                              
+Time-invariant Controls:
+[-1.   0.4]
+-------------------------------------------[Candidate 11]-------------------------------------------
+                              Recommended Effort: 1.10% of experiments                              
+Time-invariant Controls:
+[-1.  1.]
+-------------------------------------------[Candidate 89]-------------------------------------------
+                             Recommended Effort: 14.42% of experiments                              
+Time-invariant Controls:
+[ 0.6 -1. ]
+-------------------------------------------[Candidate 90]-------------------------------------------
+                              Recommended Effort: 0.40% of experiments                              
+Time-invariant Controls:
+[ 0.6 -0.8]
+-------------------------------------------[Candidate 95]-------------------------------------------
+                              Recommended Effort: 0.47% of experiments                              
+Time-invariant Controls:
+[0.6 0.2]
+-------------------------------------------[Candidate 96]-------------------------------------------
+                             Recommended Effort: 20.94% of experiments                              
+Time-invariant Controls:
+[0.6 0.4]
+-------------------------------------------[Candidate 99]-------------------------------------------
+                              Recommended Effort: 0.55% of experiments                              
+Time-invariant Controls:
+[0.6 1. ]
+------------------------------------------[Candidate 111]-------------------------------------------
+                              Recommended Effort: 5.32% of experiments                              
+Time-invariant Controls:
+[ 1. -1.]
+------------------------------------------[Candidate 112]-------------------------------------------
+                              Recommended Effort: 0.41% of experiments                              
+Time-invariant Controls:
+[ 1.  -0.8]
+------------------------------------------[Candidate 117]-------------------------------------------
+                              Recommended Effort: 0.40% of experiments                              
+Time-invariant Controls:
+[1.  0.2]
+------------------------------------------[Candidate 118]-------------------------------------------
+                              Recommended Effort: 4.18% of experiments                              
+Time-invariant Controls:
+[1.  0.4]
+------------------------------------------[Candidate 121]-------------------------------------------
+                              Recommended Effort: 0.71% of experiments                              
+Time-invariant Controls:
+[1. 1.]
+############################################################################################################################################ Optimal Candidates ########################################
+Obtained on                             : 2020-10-07 14:46:49.950481
+Criterion                               : d_opt_criterion
+Pseudo-bayesian                         : False
+Dynamic                                 : False
+Time-invariant Controls                 : True
+Time-varying Controls                   : False
+Number of Candidates                    : 121
+Number of Optimal Candidates            : 9
+-------------------------------------------[Candidate 1]--------------------------------------------
+                             Recommended Effort: 11.11% of experiments                              
+Time-invariant Controls:
+[-1. -1.]
+-------------------------------------------[Candidate 9]--------------------------------------------
+                             Recommended Effort: 11.11% of experiments                              
+Time-invariant Controls:
+[-1.   0.6]
+-------------------------------------------[Candidate 11]-------------------------------------------
+                             Recommended Effort: 11.11% of experiments                              
+Time-invariant Controls:
+[-1.  1.]
+-------------------------------------------[Candidate 89]-------------------------------------------
+                             Recommended Effort: 11.11% of experiments                              
+Time-invariant Controls:
+[ 0.6 -1. ]
+-------------------------------------------[Candidate 97]-------------------------------------------
+                             Recommended Effort: 11.11% of experiments                              
+Time-invariant Controls:
+[0.6 0.6]
+-------------------------------------------[Candidate 99]-------------------------------------------
+                             Recommended Effort: 11.11% of experiments                              
+Time-invariant Controls:
+[0.6 1. ]
+------------------------------------------[Candidate 111]-------------------------------------------
+                             Recommended Effort: 11.11% of experiments                              
+Time-invariant Controls:
+[ 1. -1.]
+------------------------------------------[Candidate 119]-------------------------------------------
+                             Recommended Effort: 11.11% of experiments                              
+Time-invariant Controls:
+[1.  0.6]
+------------------------------------------[Candidate 121]-------------------------------------------
+                             Recommended Effort: 11.11% of experiments                              
+Time-invariant Controls:
+[1. 1.]
+############################################################################################################################################ Optimal Candidates ########################################
+Obtained on                             : 2020-10-07 14:46:50.923700
+Criterion                               : a_opt_criterion
+Pseudo-bayesian                         : False
+Dynamic                                 : False
+Time-invariant Controls                 : True
+Time-varying Controls                   : False
+Number of Candidates                    : 121
+Number of Optimal Candidates            : 7
+-------------------------------------------[Candidate 1]--------------------------------------------
+                             Recommended Effort: 34.79% of experiments                              
+Time-invariant Controls:
+[-1. -1.]
+-------------------------------------------[Candidate 9]--------------------------------------------
+                             Recommended Effort: 13.27% of experiments                              
+Time-invariant Controls:
+[-1.   0.6]
+-------------------------------------------[Candidate 89]-------------------------------------------
+                             Recommended Effort: 14.91% of experiments                              
+Time-invariant Controls:
+[ 0.6 -1. ]
+-------------------------------------------[Candidate 97]-------------------------------------------
+                             Recommended Effort: 18.99% of experiments                              
+Time-invariant Controls:
+[0.6 0.6]
+-------------------------------------------[Candidate 99]-------------------------------------------
+                              Recommended Effort: 5.35% of experiments                              
+Time-invariant Controls:
+[0.6 1. ]
+------------------------------------------[Candidate 119]-------------------------------------------
+                              Recommended Effort: 6.32% of experiments                              
+Time-invariant Controls:
+[1.  0.6]
+------------------------------------------[Candidate 121]-------------------------------------------
+                              Recommended Effort: 6.13% of experiments                              
+Time-invariant Controls:
+[1. 1.]
+############################################################################################################################################ Optimal Candidates ########################################
+Obtained on                             : 2020-10-07 14:46:51.918310
+Criterion                               : e_opt_criterion
+Pseudo-bayesian                         : False
+Dynamic                                 : False
+Time-invariant Controls                 : True
+Time-varying Controls                   : False
+Number of Candidates                    : 121
+Number of Optimal Candidates            : 15
+-------------------------------------------[Candidate 1]--------------------------------------------
+                             Recommended Effort: 37.33% of experiments                              
+Time-invariant Controls:
+[-1. -1.]
+-------------------------------------------[Candidate 2]--------------------------------------------
+                              Recommended Effort: 0.42% of experiments                              
+Time-invariant Controls:
+[-1.  -0.8]
+-------------------------------------------[Candidate 7]--------------------------------------------
+                              Recommended Effort: 0.73% of experiments                              
+Time-invariant Controls:
+[-1.   0.2]
+-------------------------------------------[Candidate 8]--------------------------------------------
+                              Recommended Effort: 9.59% of experiments                              
+Time-invariant Controls:
+[-1.   0.4]
+-------------------------------------------[Candidate 11]-------------------------------------------
+                              Recommended Effort: 1.10% of experiments                              
+Time-invariant Controls:
+[-1.  1.]
+-------------------------------------------[Candidate 89]-------------------------------------------
+                             Recommended Effort: 14.42% of experiments                              
+Time-invariant Controls:
+[ 0.6 -1. ]
+-------------------------------------------[Candidate 90]-------------------------------------------
+                              Recommended Effort: 0.40% of experiments                              
+Time-invariant Controls:
+[ 0.6 -0.8]
+-------------------------------------------[Candidate 95]-------------------------------------------
+                              Recommended Effort: 0.47% of experiments                              
+Time-invariant Controls:
+[0.6 0.2]
+-------------------------------------------[Candidate 96]-------------------------------------------
+                             Recommended Effort: 20.94% of experiments                              
+Time-invariant Controls:
+[0.6 0.4]
+-------------------------------------------[Candidate 99]-------------------------------------------
+                              Recommended Effort: 0.55% of experiments                              
+Time-invariant Controls:
+[0.6 1. ]
+------------------------------------------[Candidate 111]-------------------------------------------
+                              Recommended Effort: 5.32% of experiments                              
+Time-invariant Controls:
+[ 1. -1.]
+------------------------------------------[Candidate 112]-------------------------------------------
+                              Recommended Effort: 0.41% of experiments                              
+Time-invariant Controls:
+[ 1.  -0.8]
+------------------------------------------[Candidate 117]-------------------------------------------
+                              Recommended Effort: 0.40% of experiments                              
+Time-invariant Controls:
+[1.  0.2]
+------------------------------------------[Candidate 118]-------------------------------------------
+                              Recommended Effort: 4.18% of experiments                              
+Time-invariant Controls:
+[1.  0.4]
+------------------------------------------[Candidate 121]-------------------------------------------
+                              Recommended Effort: 0.71% of experiments                              
+Time-invariant Controls:
+[1. 1.]
+############################################################################################################################################ Optimal Candidates ########################################
+Obtained on                             : 2020-10-07 16:44:53.110076
+Criterion                               : d_opt_criterion
+Pseudo-bayesian                         : False
+Dynamic                                 : False
+Time-invariant Controls                 : True
+Time-varying Controls                   : False
+Number of Candidates                    : 121
+Number of Optimal Candidates            : 9
+-------------------------------------------[Candidate 1]--------------------------------------------
+                             Recommended Effort: 11.11% of experiments                              
+Time-invariant Controls:
+[-1. -1.]
+-------------------------------------------[Candidate 9]--------------------------------------------
+                             Recommended Effort: 11.11% of experiments                              
+Time-invariant Controls:
+[-1.   0.6]
+-------------------------------------------[Candidate 11]-------------------------------------------
+                             Recommended Effort: 11.11% of experiments                              
+Time-invariant Controls:
+[-1.  1.]
+-------------------------------------------[Candidate 89]-------------------------------------------
+                             Recommended Effort: 11.11% of experiments                              
+Time-invariant Controls:
+[ 0.6 -1. ]
+-------------------------------------------[Candidate 97]-------------------------------------------
+                             Recommended Effort: 11.11% of experiments                              
+Time-invariant Controls:
+[0.6 0.6]
+-------------------------------------------[Candidate 99]-------------------------------------------
+                             Recommended Effort: 11.11% of experiments                              
+Time-invariant Controls:
+[0.6 1. ]
+------------------------------------------[Candidate 111]-------------------------------------------
+                             Recommended Effort: 11.11% of experiments                              
+Time-invariant Controls:
+[ 1. -1.]
+------------------------------------------[Candidate 119]-------------------------------------------
+                             Recommended Effort: 11.11% of experiments                              
+Time-invariant Controls:
+[1.  0.6]
+------------------------------------------[Candidate 121]-------------------------------------------
+                             Recommended Effort: 11.11% of experiments                              
+Time-invariant Controls:
+[1. 1.]
+############################################################################################################################################ Optimal Candidates ########################################
+Obtained on                             : 2020-10-07 16:44:54.040238
+Criterion                               : a_opt_criterion
+Pseudo-bayesian                         : False
+Dynamic                                 : False
+Time-invariant Controls                 : True
+Time-varying Controls                   : False
+Number of Candidates                    : 121
+Number of Optimal Candidates            : 7
+-------------------------------------------[Candidate 1]--------------------------------------------
+                             Recommended Effort: 34.79% of experiments                              
+Time-invariant Controls:
+[-1. -1.]
+-------------------------------------------[Candidate 9]--------------------------------------------
+                             Recommended Effort: 13.27% of experiments                              
+Time-invariant Controls:
+[-1.   0.6]
+-------------------------------------------[Candidate 89]-------------------------------------------
+                             Recommended Effort: 14.91% of experiments                              
+Time-invariant Controls:
+[ 0.6 -1. ]
+-------------------------------------------[Candidate 97]-------------------------------------------
+                             Recommended Effort: 18.99% of experiments                              
+Time-invariant Controls:
+[0.6 0.6]
+-------------------------------------------[Candidate 99]-------------------------------------------
+                              Recommended Effort: 5.35% of experiments                              
+Time-invariant Controls:
+[0.6 1. ]
+------------------------------------------[Candidate 119]-------------------------------------------
+                              Recommended Effort: 6.32% of experiments                              
+Time-invariant Controls:
+[1.  0.6]
+------------------------------------------[Candidate 121]-------------------------------------------
+                              Recommended Effort: 6.13% of experiments                              
+Time-invariant Controls:
+[1. 1.]
+############################################################################################################################################ Optimal Candidates ########################################
+Obtained on                             : 2020-10-07 16:44:54.998240
+Criterion                               : e_opt_criterion
+Pseudo-bayesian                         : False
+Dynamic                                 : False
+Time-invariant Controls                 : True
+Time-varying Controls                   : False
+Number of Candidates                    : 121
+Number of Optimal Candidates            : 15
+-------------------------------------------[Candidate 1]--------------------------------------------
+                             Recommended Effort: 37.33% of experiments                              
+Time-invariant Controls:
+[-1. -1.]
+-------------------------------------------[Candidate 2]--------------------------------------------
+                              Recommended Effort: 0.42% of experiments                              
+Time-invariant Controls:
+[-1.  -0.8]
+-------------------------------------------[Candidate 7]--------------------------------------------
+                              Recommended Effort: 0.73% of experiments                              
+Time-invariant Controls:
+[-1.   0.2]
+-------------------------------------------[Candidate 8]--------------------------------------------
+                              Recommended Effort: 9.59% of experiments                              
+Time-invariant Controls:
+[-1.   0.4]
+-------------------------------------------[Candidate 11]-------------------------------------------
+                              Recommended Effort: 1.10% of experiments                              
+Time-invariant Controls:
+[-1.  1.]
+-------------------------------------------[Candidate 89]-------------------------------------------
+                             Recommended Effort: 14.42% of experiments                              
+Time-invariant Controls:
+[ 0.6 -1. ]
+-------------------------------------------[Candidate 90]-------------------------------------------
+                              Recommended Effort: 0.40% of experiments                              
+Time-invariant Controls:
+[ 0.6 -0.8]
+-------------------------------------------[Candidate 95]-------------------------------------------
+                              Recommended Effort: 0.47% of experiments                              
+Time-invariant Controls:
+[0.6 0.2]
+-------------------------------------------[Candidate 96]-------------------------------------------
+                             Recommended Effort: 20.94% of experiments                              
+Time-invariant Controls:
+[0.6 0.4]
+-------------------------------------------[Candidate 99]-------------------------------------------
+                              Recommended Effort: 0.55% of experiments                              
+Time-invariant Controls:
+[0.6 1. ]
+------------------------------------------[Candidate 111]-------------------------------------------
+                              Recommended Effort: 5.32% of experiments                              
+Time-invariant Controls:
+[ 1. -1.]
+------------------------------------------[Candidate 112]-------------------------------------------
+                              Recommended Effort: 0.41% of experiments                              
+Time-invariant Controls:
+[ 1.  -0.8]
+------------------------------------------[Candidate 117]-------------------------------------------
+                              Recommended Effort: 0.40% of experiments                              
+Time-invariant Controls:
+[1.  0.2]
+------------------------------------------[Candidate 118]-------------------------------------------
+                              Recommended Effort: 4.18% of experiments                              
+Time-invariant Controls:
+[1.  0.4]
+------------------------------------------[Candidate 121]-------------------------------------------
+                              Recommended Effort: 0.71% of experiments                              
+Time-invariant Controls:
+[1. 1.]
+####################################################################################################

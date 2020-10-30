@@ -45,5 +45,5 @@ designer_1.design_exact_experiment(designer_1.d_opt_criterion, number_of_experim
                                    write=False, optimizer="MOSEK")
 
 designer_1.print_optimal_candidates()
-designer_1.plot_controls()
+designer_1.plot_optimal_controls()
 designer_1.show_plots()

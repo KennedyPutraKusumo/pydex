@@ -5,10 +5,10 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="pydex",
-    version="0.0.2",
+    version="0.0.3",
     author="Kennedy Putra Kusumo",
     author_email="kennedy.putra.kusumo@gmail.com",
-    description="An open-source package for optimal continuous experiment design using the candidate enumeration method.",
+    description="A Python package for optimal experiment design.",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/KennedyPutraKusumo/pydex",

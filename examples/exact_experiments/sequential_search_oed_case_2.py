@@ -36,7 +36,7 @@ def simulate(model, simulator, ti_controls, sampling_times, model_parameters):
     model.t.construct()  # line that re-initializes the continuous set
 
     """ simulating """
-    simulator.simulate(integrator='idas')
+    simulator.simulate_pyomo(integrator='idas')
     simulator.initialize_model()
 
     """" extracting results and returning it in appropriate format """
@@ -68,7 +68,7 @@ def create_model():
 
     def _material_balance_a(m, t):
         k = po.exp(m.theta_0 + m.theta_1 * (m.temp - 273.15) / m.temp)
-        return m.dca_dt[t] / m.tau == - k * (m.ca[t] ** model.alpha_a) * (
+        return m.scipy_model[t] / m.tau == - k * (m.ca[t] ** model.alpha_a) * (
                 model.cb[t] ** model.alpha_b)
 
     model.material_balance_a = po.Constraint(model.t, rule=_material_balance_a)

@@ -1,12 +1,12 @@
+from pydex.core.designer import Designer
 import numpy as np
 
-from pydex.core.designer import Designer
 
-"""
-Setting: a non-dynamic experimental system with 2 time-invariant control variables and
-1 response.
-Problem: design optimal experiment for a order 2 polynomial, with complete interaction
-Solution: a full 3^2 factorial design (3 level)
+""" 
+Setting     : a non-dynamic experimental system with 2 time-invariant control variables 
+              and 1 response.
+Problem     : design optimal experiment for a order 3 polynomial.
+Solution    : non-standard design with 16 candidates, varies with criterion.
 """
 
 
@@ -32,13 +32,17 @@ def simulate(ti_controls, model_parameters):
 
 designer_1 = Designer()
 designer_1.simulate = simulate
-
-reso = 30
-tic = designer_1.create_grid([[-1, 1], [-1, 1]], [reso, reso])
-designer_1.ti_controls_candidates = tic
-
 designer_1.model_parameters = np.ones(10)  # values won't affect design, but still needed
-
+designer_1.ti_controls_candidates = designer_1.enumerate_candidates(
+    bounds=[
+        [-1, 1],
+        [-1, 1],
+    ],
+    levels=[
+        21,
+        21,
+    ],
+)
 designer_1.initialize(verbose=2)  # 0: silent, 1: overview, 2: detailed, 3: very detailed
 
 """ cvxpy solvers """
@@ -55,16 +59,30 @@ package, optimizer = ("cvxpy", "MOSEK")
 # package, optimizer = ("scipy", "nelder-mead")
 # package, optimizer = ("scipy", "SLSQP")  # supports constrained form
 
-""" criterion choice """
-criterion = designer_1.d_opt_criterion
-# criterion = designer_1.a_opt_criterion
-# criterion = designer_1.e_opt_criterion
-
 """ designing experiment """
+criterion = designer_1.d_opt_criterion
 designer_1.design_experiment(criterion=criterion, package=package, optimizer=optimizer,
                              write=False)
 
 designer_1.print_optimal_candidates()
 designer_1.plot_optimal_efforts()
-designer_1.plot_controls(non_opt_candidates=True)
+designer_1.plot_optimal_controls(non_opt_candidates=True)
+designer_1.show_plots()
+
+criterion = designer_1.a_opt_criterion
+designer_1.design_experiment(criterion=criterion, package=package, optimizer=optimizer,
+                             write=False)
+
+designer_1.print_optimal_candidates()
+designer_1.plot_optimal_efforts()
+designer_1.plot_optimal_controls(non_opt_candidates=True)
+designer_1.show_plots()
+
+criterion = designer_1.e_opt_criterion
+designer_1.design_experiment(criterion=criterion, package=package, optimizer=optimizer,
+                             write=False)
+
+designer_1.print_optimal_candidates()
+designer_1.plot_optimal_efforts()
+designer_1.plot_optimal_controls(non_opt_candidates=True)
 designer_1.show_plots()

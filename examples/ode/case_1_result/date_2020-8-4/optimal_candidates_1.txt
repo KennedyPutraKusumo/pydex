@@ -1,0 +1,181 @@
+######################################## Optimal Candidates ########################################
+Obtained on                             : 2020-08-04 15:37:21.597681
+Criterion                               : d_opt_criterion
+Pseudo-bayesian                         : False
+Dynamic                                 : True
+Time-invariant Controls                 : True
+Time-varying Controls                   : False
+Number of Candidates                    : 10
+Number of Optimal Candidates            : 1
+Number of Sampling Time Choices         : 101
+Sampling Times Optimized                : True
+Number of Samples Per Experiment        : None
+-------------------------------------------[Candidate 10]-------------------------------------------
+                             Recommended Effort: 100.00% of experiments                             
+Time-invariant Controls:
+[5.]
+Sampling Times:
+[      2.00]: dedicate 100.00% of experiments
+############################################################################################################################################ Optimal Candidates ########################################
+Obtained on                             : 2020-08-04 15:37:34.404991
+Criterion                               : d_opt_criterion
+Pseudo-bayesian                         : False
+Dynamic                                 : True
+Time-invariant Controls                 : True
+Time-varying Controls                   : False
+Number of Candidates                    : 10
+Number of Optimal Candidates            : 1
+Number of Sampling Time Choices         : 101
+Sampling Times Optimized                : True
+Number of Samples Per Experiment        : None
+-------------------------------------------[Candidate 10]-------------------------------------------
+                             Recommended Effort: 100.00% of experiments                             
+Time-invariant Controls:
+[5.]
+Sampling Times:
+[      2.00]: dedicate 100.00% of experiments
+############################################################################################################################################ Optimal Candidates ########################################
+Obtained on                             : 2020-08-04 17:32:57.656149
+Criterion                               : d_opt_criterion
+Pseudo-bayesian                         : False
+Dynamic                                 : True
+Time-invariant Controls                 : True
+Time-varying Controls                   : False
+Number of Candidates                    : 10
+Number of Optimal Candidates            : 10
+Number of Sampling Time Choices         : 101
+Sampling Times Optimized                : True
+Number of Samples Per Experiment        : None
+-------------------------------------------[Candidate 1]--------------------------------------------
+                             Recommended Effort: 10.00% of experiments                              
+Time-invariant Controls:
+[0.1]
+Sampling Times:
+[     50.00]: dedicate 10.00% of experiments
+-------------------------------------------[Candidate 2]--------------------------------------------
+                             Recommended Effort: 10.00% of experiments                              
+Time-invariant Controls:
+[0.64444444]
+Sampling Times:
+[     50.00]: dedicate 10.00% of experiments
+-------------------------------------------[Candidate 3]--------------------------------------------
+                             Recommended Effort: 10.00% of experiments                              
+Time-invariant Controls:
+[1.18888889]
+Sampling Times:
+[     50.00]: dedicate 10.00% of experiments
+-------------------------------------------[Candidate 4]--------------------------------------------
+                             Recommended Effort: 10.00% of experiments                              
+Time-invariant Controls:
+[1.73333333]
+Sampling Times:
+[     50.00]: dedicate 10.00% of experiments
+-------------------------------------------[Candidate 5]--------------------------------------------
+                             Recommended Effort: 10.00% of experiments                              
+Time-invariant Controls:
+[2.27777778]
+Sampling Times:
+[     50.00]: dedicate 10.00% of experiments
+-------------------------------------------[Candidate 6]--------------------------------------------
+                             Recommended Effort: 10.00% of experiments                              
+Time-invariant Controls:
+[2.82222222]
+Sampling Times:
+[     50.00]: dedicate 10.00% of experiments
+-------------------------------------------[Candidate 7]--------------------------------------------
+                             Recommended Effort: 10.00% of experiments                              
+Time-invariant Controls:
+[3.36666667]
+Sampling Times:
+[     50.00]: dedicate 10.00% of experiments
+-------------------------------------------[Candidate 8]--------------------------------------------
+                             Recommended Effort: 10.00% of experiments                              
+Time-invariant Controls:
+[3.91111111]
+Sampling Times:
+[     50.00]: dedicate 10.00% of experiments
+-------------------------------------------[Candidate 9]--------------------------------------------
+                             Recommended Effort: 10.00% of experiments                              
+Time-invariant Controls:
+[4.45555556]
+Sampling Times:
+[     50.00]: dedicate 10.00% of experiments
+-------------------------------------------[Candidate 10]-------------------------------------------
+                             Recommended Effort: 10.00% of experiments                              
+Time-invariant Controls:
+[5.]
+Sampling Times:
+[     50.00]: dedicate 10.00% of experiments
+############################################################################################################################################ Optimal Candidates ########################################
+Obtained on                             : 2020-08-04 17:34:15.993108
+Criterion                               : d_opt_criterion
+Pseudo-bayesian                         : False
+Dynamic                                 : True
+Time-invariant Controls                 : True
+Time-varying Controls                   : False
+Number of Candidates                    : 10
+Number of Optimal Candidates            : 1
+Number of Sampling Time Choices         : 101
+Sampling Times Optimized                : True
+Number of Samples Per Experiment        : None
+-------------------------------------------[Candidate 10]-------------------------------------------
+                             Recommended Effort: 100.00% of experiments                             
+Time-invariant Controls:
+[5.]
+Sampling Times:
+[      2.00]: dedicate 100.00% of experiments
+############################################################################################################################################ Optimal Candidates ########################################
+Obtained on                             : 2020-08-04 17:34:21.136563
+Criterion                               : d_opt_criterion
+Pseudo-bayesian                         : False
+Dynamic                                 : True
+Time-invariant Controls                 : True
+Time-varying Controls                   : False
+Number of Candidates                    : 10
+Number of Optimal Candidates            : 1
+Number of Sampling Time Choices         : 101
+Sampling Times Optimized                : True
+Number of Samples Per Experiment        : None
+-------------------------------------------[Candidate 10]-------------------------------------------
+                             Recommended Effort: 100.00% of experiments                             
+Time-invariant Controls:
+[5.]
+Sampling Times:
+[      2.00]: dedicate 100.00% of experiments
+############################################################################################################################################ Optimal Candidates ########################################
+Obtained on                             : 2020-08-04 17:34:48.166963
+Criterion                               : d_opt_criterion
+Pseudo-bayesian                         : False
+Dynamic                                 : True
+Time-invariant Controls                 : True
+Time-varying Controls                   : False
+Number of Candidates                    : 10
+Number of Optimal Candidates            : 1
+Number of Sampling Time Choices         : 101
+Sampling Times Optimized                : True
+Number of Samples Per Experiment        : None
+-------------------------------------------[Candidate 10]-------------------------------------------
+                             Recommended Effort: 100.00% of experiments                             
+Time-invariant Controls:
+[5.]
+Sampling Times:
+[      2.00]: dedicate 100.00% of experiments
+############################################################################################################################################ Optimal Candidates ########################################
+Obtained on                             : 2020-08-04 17:34:52.456511
+Criterion                               : d_opt_criterion
+Pseudo-bayesian                         : False
+Dynamic                                 : True
+Time-invariant Controls                 : True
+Time-varying Controls                   : False
+Number of Candidates                    : 10
+Number of Optimal Candidates            : 1
+Number of Sampling Time Choices         : 101
+Sampling Times Optimized                : True
+Number of Samples Per Experiment        : None
+-------------------------------------------[Candidate 10]-------------------------------------------
+                             Recommended Effort: 100.00% of experiments                             
+Time-invariant Controls:
+[5.]
+Sampling Times:
+[      2.00]: dedicate 100.00% of experiments
+####################################################################################################

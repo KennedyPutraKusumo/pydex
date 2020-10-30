@@ -5,7 +5,12 @@ from pyomo import environ as po
 from pydex.core.designer import Designer
 
 
-def simulate(model, simulator, ti_controls, sampling_times, model_parameters):
+def simulate(ti_controls, sampling_times, model_parameters):
+    """ ensuring pyomo returns state values at given sampling times """
+    normalized_sampling_times = sampling_times / max(sampling_times)
+    model, simulator = create_model(normalized_sampling_times)
+    model.tau.fix(max(sampling_times))
+
     """ fixing the control variables """
     # time-invariant
     model.theta_0.fix(model_parameters[0])
@@ -15,21 +20,10 @@ def simulate(model, simulator, ti_controls, sampling_times, model_parameters):
     model.nu.fix(model_parameters[3])
     # model.nu.fix(1)
 
-    model.tau.fix(max(sampling_times))
     model.ca[0].fix(ti_controls[0])
     model.cb[0].fix(0)
     model.temp.fix(ti_controls[1])
     # no time-varying control for this example
-
-    """ ensuring pyomo returns state values at given sampling times """
-    model.t.initialize = np.array(sampling_times) / model.tau.value
-    model.t.order_dict = {}  # to suppress pyomo warnings for duplicate elements
-    model.t._constructed = False  # needed so we can re-initialize the continuous set
-    model.t._data = {}
-    model.t._fe = []
-    model.t.value = []
-    model.t.value_list = []
-    model.t.construct()  # line that re-initializes the continuous set
 
     """ simulating """
     simulator.simulate(integrator='idas')
@@ -43,10 +37,10 @@ def simulate(model, simulator, ti_controls, sampling_times, model_parameters):
     return np.array([ca, cb]).T
 
 
-def create_model():
+def create_model(spt):
     """ defining the model """
     model = po.ConcreteModel()
-    model.t = pod.ContinuousSet(bounds=(0, 1))
+    model.t = pod.ContinuousSet(bounds=(0, 1), initialize=spt)
     model.tau = po.Var()
 
     model.temp = po.Var()
@@ -76,21 +70,12 @@ def create_model():
 
     model.material_balance_b = po.Constraint(model.t, rule=_material_balance_b)
 
-    return model
+    simulator = pod.Simulator(model, package="casadi")
+
+    return model, simulator
 
 
-""" create a pyomo model """
-model_1 = create_model()
-simulator_1 = pod.Simulator(model_1, package='casadi')
-
-""" create a designer """
 designer_1 = Designer()
-
-""" pass pyomo model and simulator to designer """
-designer_1.model = model_1
-designer_1.simulator = simulator_1
-
-""" overwrite the designer's simulate function """
 designer_1.simulate = simulate
 
 """ drawing model parameter scenarios from prior """
@@ -98,57 +83,50 @@ pre_exp_constant = 0.1
 activ_energy = 4000
 theta_0 = np.log(pre_exp_constant) - activ_energy / (8.314159 * 273.15)
 theta_1 = activ_energy / (8.314159 * 273.15)
-
 np.random.seed(123)  # set a seed for reproducibility
 theta_nom = np.array([theta_0, theta_1, 2, 1])  # value of theta_0, theta_1, alpha_a, nu
-theta_cov = np.diag(0.40**2 * np.abs(theta_nom))
+theta_cov = np.diag(0.20**2 * np.abs(theta_nom))
 n_scr = 100
 theta = np.random.multivariate_normal(mean=theta_nom, cov=theta_cov, size=n_scr)
 theta[:, 2] = np.round(theta[:, 2])
 designer_1.model_parameters = theta  # assigning it to the designer's theta
 
 """ defining control candidates """
-n_c = 3 ** 2  # grid resolution of control candidates generated
-Ca0_lower = 1
-Ca0_upper = 5
-temp_lower = 273.15
-temp_upper = 273.15 + 50
-Ca0, temp = np.mgrid[
-                Ca0_lower:Ca0_upper:complex(0, np.sqrt(n_c)),
-                temp_lower:temp_upper:complex(0, np.sqrt(n_c))
-            ]
-Ca0 = Ca0.flatten()
-temp = temp.flatten()
-tic_candidates = np.array([Ca0, temp]).T
-designer_1.ti_controls_candidates = tic_candidates
-
-""" defining sampling time choices for each candidate """
-n_s_times = 11  # number of equally-spaced sampling time candidates
-tau_upper = 200
-tau_lower = 0
+tic = designer_1.enumerate_candidates(
+    bounds=[
+        [1, 5],             # initial C_A concentration
+        [273.15, 323.15]    # reaction temperature
+    ],
+    levels=[
+        5,                 # initial C_A concentration
+        5,                 # reaction temperature
+    ],
+)
+designer_1.ti_controls_candidates = tic
 spt_candidates = np.array([
-    np.linspace(tau_lower, tau_upper, n_s_times)
-    for _ in range(n_c)
+    np.linspace(0, 200, 11)
+    for _ in tic
 ])
 designer_1.sampling_times_candidates = spt_candidates
-
-""" initializing designer """
 designer_1.initialize(verbose=2)  # 0: silent, 1: overview, 2: detail
 
-""" D-optimal design """
-criterion = designer_1.d_opt_criterion
+""" (optional) plotting attributes """
+designer_1.response_names = ["c_A", "c_B"]
+designer_1.model_parameter_names = ["\\theta_0", "\\theta_1", "\\alpha", "\\nu"]
 
-""" Semi-Bayes Type """
+""" Pseudo-bayesian Information Type """
 # default behaviour: cheap
-# sb_type = 0  # aliases: "average_information", or "avg_inf"
+pb_type = 0  # aliases: "average_information", or "avg_inf"
 # better interpretation, more expensive
-sb_type = 1  # aliases: "average_criterion", or "avg_crit"
-
-result = designer_1.design_experiment(criterion=criterion,
-                                      optimize_sampling_times=True,
-                                      write=False,
-                                      semi_bayes_type=sb_type)
+# pb_type = 1  # aliases: "average_criterion", or "avg_crit"
+criterion = designer_1.a_opt_criterion
+result = designer_1.design_experiment(
+    criterion=criterion,
+    optimize_sampling_times=True,
+    write=False,
+    pseudo_bayesian_type=pb_type,
+)
 designer_1.print_optimal_candidates()
-designer_1.plot_optimal_predictions()
-designer_1.plot_optimal_sensitivities()
+designer_1.plot_optimal_predictions(colour_map="plasma")
+designer_1.plot_optimal_sensitivities(colour_map="plasma")
 designer_1.show_plots()

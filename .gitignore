@@ -204,3 +204,5 @@ dmypy.json
 .pyre/
 
 t_project/
+suzuki/
+/discrimination_espie/

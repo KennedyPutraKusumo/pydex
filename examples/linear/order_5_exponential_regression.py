@@ -1,6 +1,6 @@
+from pydex.core.designer import Designer
 import numpy as np
 
-from pydex.core.designer import Designer
 
 """ 
 Setting: a non-dynamic experimental system with 2 time-invariant control variables and 1 response.
@@ -37,5 +37,5 @@ designer_1.design_experiment(designer_1.d_opt_criterion, write=False)
 
 designer_1.print_optimal_candidates()
 designer_1.plot_optimal_efforts()
-designer_1.plot_controls()
+designer_1.plot_optimal_controls()
 designer_1.show_plots()

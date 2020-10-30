@@ -36,5 +36,5 @@ designer.design_experiment(criterion, write=False)
 designer.print_optimal_candidates()
 
 designer.ti_controls_names = [r"$x_1$", r"$x_2$"]
-designer.plot_controls(non_opt_candidates=True)
+designer.plot_optimal_controls(non_opt_candidates=True)
 designer.show_plots()

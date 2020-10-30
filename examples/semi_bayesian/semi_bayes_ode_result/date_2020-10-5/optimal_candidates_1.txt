@@ -1,0 +1,190 @@
+######################################## Optimal Candidates ########################################
+Obtained on                             : 2020-10-05 12:13:32.797500
+Criterion                               : d_opt_criterion
+Pseudo-bayesian                         : True
+Pseudo-bayesian Criterion Type          : 1
+Dynamic                                 : True
+Time-invariant Controls                 : True
+Time-varying Controls                   : False
+Number of Candidates                    : 9
+Number of Optimal Candidates            : 2
+Number of Sampling Time Choices         : 11
+Sampling Times Optimized                : True
+Number of Samples Per Experiment        : None
+Number of Scenarios                     : 10
+-------------------------------------------[Candidate 7]--------------------------------------------
+                             Recommended Effort: 62.23% of experiments                              
+Time-invariant Controls:
+[  5.   273.15]
+Sampling Times:
+[     20.00]: dedicate 29.43% of experiments
+[    140.00]: dedicate 32.80% of experiments
+-------------------------------------------[Candidate 9]--------------------------------------------
+                             Recommended Effort: 37.65% of experiments                              
+Time-invariant Controls:
+[  5.   323.15]
+Sampling Times:
+[     20.00]: dedicate 30.12% of experiments
+[    100.00]: dedicate  7.53% of experiments
+############################################################################################################################################ Optimal Candidates ########################################
+Obtained on                             : 2020-10-05 12:33:13.292672
+Criterion                               : a_opt_criterion
+Pseudo-bayesian                         : True
+Pseudo-bayesian Criterion Type          : 0
+Dynamic                                 : True
+Time-invariant Controls                 : True
+Time-varying Controls                   : False
+Number of Candidates                    : 9
+Number of Optimal Candidates            : 3
+Number of Sampling Time Choices         : 11
+Sampling Times Optimized                : True
+Number of Samples Per Experiment        : None
+Number of Scenarios                     : 10
+-------------------------------------------[Candidate 4]--------------------------------------------
+                             Recommended Effort: 14.95% of experiments                              
+Time-invariant Controls:
+[  3.   273.15]
+Sampling Times:
+[     40.00]: dedicate 14.95% of experiments
+-------------------------------------------[Candidate 7]--------------------------------------------
+                             Recommended Effort: 37.70% of experiments                              
+Time-invariant Controls:
+[  5.   273.15]
+Sampling Times:
+[     20.00]: dedicate 37.70% of experiments
+-------------------------------------------[Candidate 9]--------------------------------------------
+                             Recommended Effort: 47.35% of experiments                              
+Time-invariant Controls:
+[  5.   323.15]
+Sampling Times:
+[     20.00]: dedicate 47.35% of experiments
+############################################################################################################################################ Optimal Candidates ########################################
+Obtained on                             : 2020-10-05 12:35:42.089184
+Criterion                               : e_opt_criterion
+Pseudo-bayesian                         : True
+Pseudo-bayesian Criterion Type          : 0
+Dynamic                                 : True
+Time-invariant Controls                 : True
+Time-varying Controls                   : False
+Number of Candidates                    : 9
+Number of Optimal Candidates            : 3
+Number of Sampling Time Choices         : 11
+Sampling Times Optimized                : True
+Number of Samples Per Experiment        : None
+Number of Scenarios                     : 10
+-------------------------------------------[Candidate 4]--------------------------------------------
+                             Recommended Effort: 13.13% of experiments                              
+Time-invariant Controls:
+[  3.   273.15]
+Sampling Times:
+[     20.00]: dedicate 13.13% of experiments
+-------------------------------------------[Candidate 7]--------------------------------------------
+                             Recommended Effort: 37.11% of experiments                              
+Time-invariant Controls:
+[  5.   273.15]
+Sampling Times:
+[     20.00]: dedicate 37.11% of experiments
+-------------------------------------------[Candidate 9]--------------------------------------------
+                             Recommended Effort: 49.76% of experiments                              
+Time-invariant Controls:
+[  5.   323.15]
+Sampling Times:
+[     20.00]: dedicate 49.76% of experiments
+############################################################################################################################################ Optimal Candidates ########################################
+Obtained on                             : 2020-10-05 12:35:59.235041
+Criterion                               : e_opt_criterion
+Pseudo-bayesian                         : True
+Pseudo-bayesian Criterion Type          : 1
+Dynamic                                 : True
+Time-invariant Controls                 : True
+Time-varying Controls                   : False
+Number of Candidates                    : 9
+Number of Optimal Candidates            : 3
+Number of Sampling Time Choices         : 11
+Sampling Times Optimized                : True
+Number of Samples Per Experiment        : None
+Number of Scenarios                     : 10
+-------------------------------------------[Candidate 4]--------------------------------------------
+                             Recommended Effort: 20.87% of experiments                              
+Time-invariant Controls:
+[  3.   273.15]
+Sampling Times:
+[     40.00]: dedicate 20.87% of experiments
+-------------------------------------------[Candidate 7]--------------------------------------------
+                             Recommended Effort: 32.81% of experiments                              
+Time-invariant Controls:
+[  5.   273.15]
+Sampling Times:
+[     20.00]: dedicate 30.75% of experiments
+[     40.00]: dedicate  2.06% of experiments
+-------------------------------------------[Candidate 9]--------------------------------------------
+                             Recommended Effort: 46.32% of experiments                              
+Time-invariant Controls:
+[  5.   323.15]
+Sampling Times:
+[     20.00]: dedicate 46.32% of experiments
+############################################################################################################################################ Optimal Candidates ########################################
+Obtained on                             : 2020-10-05 13:58:22.623291
+Criterion                               : a_opt_criterion
+Pseudo-bayesian                         : True
+Pseudo-bayesian Criterion Type          : 0
+Dynamic                                 : True
+Time-invariant Controls                 : True
+Time-varying Controls                   : False
+Number of Candidates                    : 9
+Number of Optimal Candidates            : 3
+Number of Sampling Time Choices         : 11
+Sampling Times Optimized                : True
+Number of Samples Per Experiment        : None
+Number of Scenarios                     : 10
+-------------------------------------------[Candidate 4]--------------------------------------------
+                             Recommended Effort: 14.95% of experiments                              
+Time-invariant Controls:
+[  3.   273.15]
+Sampling Times:
+[     40.00]: dedicate 14.95% of experiments
+-------------------------------------------[Candidate 7]--------------------------------------------
+                             Recommended Effort: 37.70% of experiments                              
+Time-invariant Controls:
+[  5.   273.15]
+Sampling Times:
+[     20.00]: dedicate 37.70% of experiments
+-------------------------------------------[Candidate 9]--------------------------------------------
+                             Recommended Effort: 47.35% of experiments                              
+Time-invariant Controls:
+[  5.   323.15]
+Sampling Times:
+[     20.00]: dedicate 47.35% of experiments
+############################################################################################################################################ Optimal Candidates ########################################
+Obtained on                             : 2020-10-05 14:01:17.693192
+Criterion                               : a_opt_criterion
+Pseudo-bayesian                         : True
+Pseudo-bayesian Criterion Type          : 0
+Dynamic                                 : True
+Time-invariant Controls                 : True
+Time-varying Controls                   : False
+Number of Candidates                    : 25
+Number of Optimal Candidates            : 3
+Number of Sampling Time Choices         : 11
+Sampling Times Optimized                : True
+Number of Samples Per Experiment        : None
+Number of Scenarios                     : 100
+-------------------------------------------[Candidate 6]--------------------------------------------
+                             Recommended Effort: 18.64% of experiments                              
+Time-invariant Controls:
+[  2.   273.15]
+Sampling Times:
+[     40.00]: dedicate 18.64% of experiments
+-------------------------------------------[Candidate 21]-------------------------------------------
+                             Recommended Effort: 35.60% of experiments                              
+Time-invariant Controls:
+[  5.   273.15]
+Sampling Times:
+[     20.00]: dedicate 35.60% of experiments
+-------------------------------------------[Candidate 25]-------------------------------------------
+                             Recommended Effort: 45.76% of experiments                              
+Time-invariant Controls:
+[  5.   323.15]
+Sampling Times:
+[     20.00]: dedicate 45.76% of experiments
+####################################################################################################
