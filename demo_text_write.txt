@@ -1,2 +1,0 @@
-My first line of text. 
- Test if a new line is created.
