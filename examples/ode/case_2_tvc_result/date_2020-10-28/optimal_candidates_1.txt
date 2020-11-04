@@ -1,0 +1,192 @@
+######################################## Optimal Candidates ########################################
+Obtained on                             : 2020-10-28 12:30:27.092899
+Criterion                               : d_opt_criterion
+Pseudo-bayesian                         : False
+Dynamic                                 : True
+Time-invariant Controls                 : True
+Time-varying Controls                   : True
+Number of Candidates                    : 729
+Number of Optimal Candidates            : 4
+Number of Sampling Time Choices         : 5
+Sampling Times Optimized                : False
+-------------------------------------------[Candidate 2]--------------------------------------------
+                              Recommended Effort: 6.45% of experiments                              
+Time-invariant Controls:
+[1.]
+Time-varying Controls:
+[{0.0: 273.15, 0.25: 273.15, 0.5: 273.15, 0.75: 273.15, 1.0: 298.15}]
+Sampling Times:
+[  0.  50. 100. 150. 200.]
+------------------------------------------[Candidate 245]-------------------------------------------
+                             Recommended Effort: 13.29% of experiments                              
+Time-invariant Controls:
+[3.]
+Time-varying Controls:
+[{0.0: 273.15, 0.25: 273.15, 0.5: 273.15, 0.75: 273.15, 1.0: 298.15}]
+Sampling Times:
+[  0.  50. 100. 150. 200.]
+------------------------------------------[Candidate 488]-------------------------------------------
+                             Recommended Effort: 29.34% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0.0: 273.15, 0.25: 273.15, 0.5: 273.15, 0.75: 273.15, 1.0: 298.15}]
+Sampling Times:
+[  0.  50. 100. 150. 200.]
+------------------------------------------[Candidate 727]-------------------------------------------
+                             Recommended Effort: 50.92% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0.0: 323.15, 0.25: 323.15, 0.5: 323.15, 0.75: 323.15, 1.0: 273.15}]
+Sampling Times:
+[  0.  50. 100. 150. 200.]
+############################################################################################################################################ Optimal Candidates ########################################
+Obtained on                             : 2020-10-28 12:39:22.462937
+Criterion                               : d_opt_criterion
+Pseudo-bayesian                         : False
+Dynamic                                 : True
+Time-invariant Controls                 : True
+Time-varying Controls                   : True
+Number of Candidates                    : 243
+Number of Optimal Candidates            : 4
+Number of Sampling Time Choices         : 5
+Sampling Times Optimized                : False
+-------------------------------------------[Candidate 1]--------------------------------------------
+                              Recommended Effort: 6.45% of experiments                              
+Time-invariant Controls:
+[1.]
+Time-varying Controls:
+[{0: 273.15, 0.25: 273.15, 0.5: 273.15, 0.75: 273.15}]
+Sampling Times:
+[  0.  50. 100. 150. 200.]
+-------------------------------------------[Candidate 82]-------------------------------------------
+                             Recommended Effort: 13.29% of experiments                              
+Time-invariant Controls:
+[3.]
+Time-varying Controls:
+[{0: 273.15, 0.25: 273.15, 0.5: 273.15, 0.75: 273.15}]
+Sampling Times:
+[  0.  50. 100. 150. 200.]
+------------------------------------------[Candidate 163]-------------------------------------------
+                             Recommended Effort: 29.34% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15, 0.25: 273.15, 0.5: 273.15, 0.75: 273.15}]
+Sampling Times:
+[  0.  50. 100. 150. 200.]
+------------------------------------------[Candidate 243]-------------------------------------------
+                             Recommended Effort: 50.92% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15, 0.25: 323.15, 0.5: 323.15, 0.75: 323.15}]
+Sampling Times:
+[  0.  50. 100. 150. 200.]
+############################################################################################################################################ Optimal Candidates ########################################
+Obtained on                             : 2020-10-28 12:54:39.459755
+Criterion                               : d_opt_criterion
+Pseudo-bayesian                         : False
+Dynamic                                 : True
+Time-invariant Controls                 : True
+Time-varying Controls                   : True
+Number of Candidates                    : 3125
+Number of Optimal Candidates            : 3
+Number of Sampling Time Choices         : 5
+Sampling Times Optimized                : False
+------------------------------------------[Candidate 626]-------------------------------------------
+                             Recommended Effort: 20.02% of experiments                              
+Time-invariant Controls:
+[2.]
+Time-varying Controls:
+[{0: 273.15, 0.25: 273.15, 0.5: 273.15, 0.75: 273.15}]
+Sampling Times:
+[  0.  50. 100. 150. 200.]
+------------------------------------------[Candidate 2501]------------------------------------------
+                             Recommended Effort: 30.67% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15, 0.25: 273.15, 0.5: 273.15, 0.75: 273.15}]
+Sampling Times:
+[  0.  50. 100. 150. 200.]
+------------------------------------------[Candidate 3125]------------------------------------------
+                             Recommended Effort: 49.31% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15, 0.25: 323.15, 0.5: 323.15, 0.75: 323.15}]
+Sampling Times:
+[  0.  50. 100. 150. 200.]
+############################################################################################################################################ Optimal Candidates ########################################
+Obtained on                             : 2020-10-28 13:24:24.280659
+Criterion                               : d_opt_criterion
+Pseudo-bayesian                         : False
+Dynamic                                 : True
+Time-invariant Controls                 : True
+Time-varying Controls                   : True
+Number of Candidates                    : 3125
+Number of Optimal Candidates            : 3
+Number of Sampling Time Choices         : 5
+Sampling Times Optimized                : False
+------------------------------------------[Candidate 626]-------------------------------------------
+                             Recommended Effort: 20.02% of experiments                              
+Time-invariant Controls:
+[2.]
+Time-varying Controls:
+[{0: 273.15, 0.25: 273.15, 0.5: 273.15, 0.75: 273.15}]
+Sampling Times:
+[  0.  50. 100. 150. 200.]
+------------------------------------------[Candidate 2501]------------------------------------------
+                             Recommended Effort: 30.67% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15, 0.25: 273.15, 0.5: 273.15, 0.75: 273.15}]
+Sampling Times:
+[  0.  50. 100. 150. 200.]
+------------------------------------------[Candidate 3125]------------------------------------------
+                             Recommended Effort: 49.31% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15, 0.25: 323.15, 0.5: 323.15, 0.75: 323.15}]
+Sampling Times:
+[  0.  50. 100. 150. 200.]
+############################################################################################################################################ Optimal Candidates ########################################
+Obtained on                             : 2020-10-28 13:37:24.251662
+Criterion                               : a_opt_criterion
+Pseudo-bayesian                         : False
+Dynamic                                 : True
+Time-invariant Controls                 : True
+Time-varying Controls                   : True
+Number of Candidates                    : 3125
+Number of Optimal Candidates            : 3
+Number of Sampling Time Choices         : 5
+Sampling Times Optimized                : False
+------------------------------------------[Candidate 626]-------------------------------------------
+                             Recommended Effort: 25.65% of experiments                              
+Time-invariant Controls:
+[2.]
+Time-varying Controls:
+[{0: 273.15, 0.25: 273.15, 0.5: 273.15, 0.75: 273.15}]
+Sampling Times:
+[  0.  50. 100. 150. 200.]
+------------------------------------------[Candidate 2501]------------------------------------------
+                             Recommended Effort: 25.62% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15, 0.25: 273.15, 0.5: 273.15, 0.75: 273.15}]
+Sampling Times:
+[  0.  50. 100. 150. 200.]
+------------------------------------------[Candidate 3125]------------------------------------------
+                             Recommended Effort: 48.69% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15, 0.25: 323.15, 0.5: 323.15, 0.75: 323.15}]
+Sampling Times:
+[  0.  50. 100. 150. 200.]
+####################################################################################################

@@ -1,6 +1,6 @@
+from pydex.core.designer import Designer
 import numpy as np
 
-from pydex.core.designer import Designer
 
 """ 
 Setting: a non-dynamic experimental system with 2 time-invariant control variables and 1 response.
@@ -29,11 +29,9 @@ def simulate(ti_controls, model_parameters):
 designer_1 = Designer()
 designer_1.simulate = simulate
 
-reso = 11j
-tic_1, tic_2 = np.mgrid[-1:1:reso, -1:1:reso]
-tic_1 = tic_1.flatten()
-tic_2 = tic_2.flatten()
-designer_1.ti_controls_candidates = np.array([tic_1, tic_2]).T
+reso = 11
+tic = designer_1.create_grid([[-1, 1], [-1, 1]], [reso, reso])
+designer_1.ti_controls_candidates = tic
 
 designer_1.model_parameters = np.ones(9)  # values won't affect design, but still needed
 
@@ -43,4 +41,5 @@ designer_1.design_experiment(designer_1.d_opt_criterion, write=False)
 
 designer_1.print_optimal_candidates()
 designer_1.plot_optimal_efforts()
-designer_1.plot_controls()
+designer_1.plot_optimal_controls()
+designer_1.show_plots()
