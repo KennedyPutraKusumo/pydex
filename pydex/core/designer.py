@@ -776,8 +776,11 @@ class Designer:
                 self.efforts = opt_node.int_var_val
                 opt_fun = opt_node.ub
             else:
-                opt_fun = problem.solve(verbose=opt_verbose, solver=self._optimizer,
-                                        **kwargs)
+                opt_fun = problem.solve(
+                    verbose=opt_verbose,
+                    solver=self._optimizer,
+                    **kwargs
+                )
                 self.efforts = efforts.value
         else:
             raise SyntaxError("Unrecognized package; try \"scipy\" or \"cvxpy\".")
@@ -1098,133 +1101,6 @@ class Designer:
                 axes.set_xlabel(f"{self.ti_controls_names[0]}")
                 axes.set_ylabel(f"{self.ti_controls_names[1]}")
                 axes.set_zlabel(f"{self.ti_controls_names[2]}")
-            axes.grid(False)
-            fig.tight_layout()
-        elif self.n_tic == 4:
-            trellis_plotter = TrellisPlotter()
-            trellis_plotter.data = self.ti_controls_candidates
-            trellis_plotter.markersize = self.efforts * 500
-            if intervals is None:
-                intervals = np.array([5, 5])
-            trellis_plotter.intervals = intervals
-            fig = trellis_plotter.scatter()
-
-        if write:
-            self.create_result_dir()
-            fn = f"optimal_controls" \
-                 f"_{self.oed_result['optimality_criterion']}" \
-                 f"_{self.run_no}.png"
-            fp = self.result_dir + fn
-            while path.isfile(fp):
-                self.run_no += 1
-                fn = f"optimal_controls" \
-                     f"_{self.oed_result['optimality_criterion']}" \
-                     f"_{self.run_no}.png"
-                fp = self.result_dir + fn
-            fig.savefig(fname=fp, dpi=dpi, quality=quality)
-            self.run_no = 1
-
-        return fig
-
-    def plot_optimal_controls_2(self, alpha=0.3, markersize=3, non_opt_candidates=False,
-                              n_ticks=3, visualize_efforts=True, tol=1e-2,
-                              intervals=None, title=False, write=False, dpi=720,
-                              quality=95):
-
-        if self.opt_tic is None:
-            self.get_optimal_candidates_2()
-        if self.n_opt_c is 0:
-            print(
-                f"[Warning]: empty optimal candidates, skipping plotting of optimal "
-                f"controls."
-            )
-            return
-        if self._dynamic_controls:
-            raise NotImplementedError(
-                "Plot controls not implemented for dynamic controls"
-            )
-        if self.n_tic > 4:
-            raise NotImplementedError(
-                "Plot controls not implemented for systems with more than 4 ti_controls"
-            )
-        if self.n_tic == 1:
-            fig, axes = plt.subplots(1, 1)
-            if title:
-                axes.set_title(self._current_criterion)
-            if visualize_efforts:
-                opt_idx = np.where(self.efforts >= tol)
-                axes.bar(
-                    self.ti_controls_candidates[:, 0],
-                    self.efforts[:, 0],
-                    width=0.01,
-                )
-                axes.set_ylim([0, 1])
-                axes.set_xlabel("Control 1")
-                axes.set_ylabel("Efforts")
-            # fig = self.plot_optimal_efforts(write=write)
-        elif self.n_tic == 2:
-            fig, axes = plt.subplots(1, 1)
-            if title:
-                axes.set_title(self._current_criterion)
-            if non_opt_candidates:
-                axes.scatter(
-                    self.ti_controls_candidates[:, 0],
-                    self.ti_controls_candidates[:, 1],
-                    alpha=alpha,
-                    marker="o",
-                    s=18*markersize,
-                )
-            if visualize_efforts:
-                axes.scatter(
-                    self.opt_tic[:, 0],
-                    self.opt_tic[:, 1],
-                    facecolor="none",
-                    edgecolor="red",
-                    marker="o",
-                    s=self.opt_eff*500*markersize,
-                )
-            if self.ti_controls_names is None:
-                axes.set_xlabel("Time-invariant Control 1")
-                axes.set_ylabel("Time-invariant Control 2")
-            else:
-                axes.set_xlabel(self.ti_controls_names[0])
-                axes.set_ylabel(self.ti_controls_names[1])
-            axes.set_xticks(
-                np.linspace(
-                    self.ti_controls_candidates[:, 0].min(),
-                    self.ti_controls_candidates[:, 0].max(),
-                    n_ticks,
-                )
-            )
-            axes.set_yticks(
-                np.linspace(
-                    self.ti_controls_candidates[:, 1].min(),
-                    self.ti_controls_candidates[:, 1].max(),
-                    n_ticks,
-                )
-            )
-            fig.tight_layout()
-        elif self.n_tic == 3:
-            fig = plt.figure()
-            axes = fig.add_subplot(111, projection="3d")
-            if non_opt_candidates:
-                axes.scatter(
-                    self.ti_controls_candidates[:, 0],
-                    self.ti_controls_candidates[:, 1],
-                    self.ti_controls_candidates[:, 2],
-                    alpha=alpha,
-                    marker="o",
-                    s=18*markersize,
-                )
-            opt_idx = np.where(self.efforts >= tol)
-            axes.scatter(
-                self.ti_controls_candidates[opt_idx[0], 0],
-                self.ti_controls_candidates[opt_idx[0], 1],
-                self.ti_controls_candidates[opt_idx[0], 2],
-                facecolor="r",
-                edgecolor="r",
-                s=self.efforts[opt_idx]*500*markersize,
-            )
             axes.grid(False)
             fig.tight_layout()
         elif self.n_tic == 4:
@@ -1804,69 +1680,8 @@ class Designer:
                         writer.write(str(self.sampling_times_candidates[i]))
                         writer.write("\n")
             writer.write(f"{'':#^100}")
+            writer.write("\n")
             writer.close()
-
-    def print_optimal_candidates_2(self, tol=1e-2):
-        if self.optimal_candidates is None:
-            self.get_optimal_candidates_2(tol)
-        if self.n_opt_c is 0:
-            print(
-                f"[Warning]: empty optimal candidates, skipping printing of optimal "
-                f"candidates."
-            )
-            return
-        print("")
-        print(f"{' Optimal Candidates ':#^100}")
-        print(f"{'Obtained on':<40}: {datetime.now()}")
-        print(f"{'Criterion':<40}: {self._current_criterion}")
-        print(f"{'Pseudo-bayesian':<40}: {self._pseudo_bayesian}")
-        if self._pseudo_bayesian:
-            print(f"{'Pseudo-bayesian Criterion Type':<40}: {self._pseudo_bayesian_type}")
-        print(f"{'Dynamic':<40}: {self._dynamic_system}")
-        print(f"{'Time-invariant Controls':<40}: {self._invariant_controls}")
-        print(f"{'Time-varying Controls':<40}: {self._dynamic_controls}")
-        print(f"{'Number of Candidates':<40}: {self.n_c}")
-        print(f"{'Number of Optimal Candidates':<40}: {self.n_opt_c}")
-        if self._dynamic_system:
-            print(f"{'Number of Sampling Time Choices':<40}: {self.n_spt}")
-            print(f"{'Sampling Times Optimized':<40}: {self._opt_sampling_times}")
-            if self._opt_sampling_times:
-                print(f"{'Number of Samples Per Experiment':<40}: {self._n_spt_spec}")
-        if self._pseudo_bayesian:
-            print(f"{'Number of Scenarios':<40}: {self.n_scr}")
-
-        for i, (opt_tic, opt_tvc, opt_spt, opt_eff) in enumerate(zip(self.opt_tic, self.opt_tvc, self.opt_spt, self.opt_eff)):
-            print(f"{f'[Candidate {i + 1:d}]':-^100}")
-            print(
-                f"{f'Recommended Effort: {opt_eff.sum():.2%} of experiments':^100}")
-            if self._invariant_controls:
-                print("Time-invariant Controls:")
-                print(opt_tic)
-            if self._dynamic_controls:
-                print("Time-varying Controls:")
-                print(opt_tvc)
-            if self._dynamic_system:
-                if self._opt_sampling_times:
-                    if self._specified_n_spt:
-                        print("Sampling Time Variants:")
-                        for comb, spt_comb in enumerate(self.opt_spt_combs[i]):
-                            print(f"  Variant {comb + 1} ~ [", end='')
-                            for j, sp_time in enumerate(spt_comb):
-                                print(f"{f'{sp_time:.2f}':>10}", end='')
-                            print("]: ", end='')
-                            print(
-                                f'{f"{opt_eff[comb] * 100:.2%}":>10} of experiments')
-                    else:
-                        print("Sampling Times:")
-                        for j, sp_time in enumerate(opt_spt):
-                            if opt_eff[j] >= tol:
-                                print(f"[{f'{sp_time:.2f}':>10}]: "
-                                      f"dedicate {f'{opt_eff[j]:.2%}':>6} of experiments")
-                else:
-                    print("Sampling Times:")
-                    print(opt_spt)
-
-        print(f"{'':#^100}")
 
     @staticmethod
     def show_plots():
@@ -2407,54 +2222,6 @@ class Designer:
                 f"optimizers."
             )
         return self.optimal_candidates
-
-    def get_optimal_candidates_2(self, tol=1e-2):
-        if self.efforts is None:
-            raise SyntaxError(
-                'Please solve an experiment design before attempting to get optimal '
-                'candidates.'
-            )
-
-        self.opt_tic = []
-        self.opt_tvc = []
-        self.opt_spt = []
-        self.opt_eff = []
-        if self._specified_n_spt:
-            self.opt_spt_combs = []
-
-        for i, eff_sp in enumerate(self.efforts):
-            # find optimal candidates
-            if np.sum(eff_sp) > tol:
-                self.opt_tic.append(self.ti_controls_candidates[i])
-                self.opt_tvc.append(self.tv_controls_candidates[i])
-                self.opt_eff.append(self.efforts[i])
-                # if self._opt_sampling_times:
-                self.opt_spt.append(self.sampling_times_candidates[i])
-                if self._specified_n_spt:
-                    spt_variant = []
-                    for comb, eff in enumerate(eff_sp):
-                        if eff > tol:
-                            spt_variant.append(
-                                self.sampling_times_candidates[i, self.spt_candidates_combs[i, comb]]
-                            )
-                    self.opt_spt_combs.append(spt_variant)
-
-        self.n_opt_c = len(self.opt_tic)
-        if self.n_opt_c is 0:
-            print(
-                f"[Warning]: empty optimal candidates. Likely failed optimization; if "
-                f"prediction-orriented design is used, try avoiding dg, ag, or eg "
-                f"criteria as they are notoriously hard to optimize with gradient-based "
-                f"optimizers."
-            )
-
-        self.opt_tic = np.asarray(self.opt_tic)
-        self.opt_tvc = np.asarray(self.opt_tvc)
-        self.opt_spt = np.asarray(self.opt_spt)
-        self.opt_eff = np.asarray(self.opt_eff)
-        self.opt_spt_combs = np.asarray(self.opt_spt_combs)
-
-        return
 
     """ optional operations """
 

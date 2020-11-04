@@ -1,5 +1,4 @@
 from pydex.core.designer import Designer
-from scipy.integrate import odeint
 import numpy as np
 
 
@@ -20,7 +19,7 @@ designer.response_names = ["c_A", "c_B"]
 designer.model_parameter_names = ["\\theta"]
 
 criterion = designer.d_opt_criterion
-for n_spt in [9]:
+for n_spt in [1, 2]:
     designer.design_experiment(
         criterion,
         write=False,

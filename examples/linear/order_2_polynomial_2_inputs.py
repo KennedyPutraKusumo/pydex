@@ -32,8 +32,8 @@ designer.simulate = simulate
 designer.model_parameters = np.ones(6)  # values won't affect design, but still needed
 designer.ti_controls_candidates = designer.enumerate_candidates(
     bounds=[
-        [-2, 2],
-        [-2, 2],
+        [-1, 1],
+        [-1, 1],
     ],
     levels=[
         11,
@@ -82,7 +82,6 @@ designer.plot_optimal_controls(non_opt_candidates=True, title=True, write=False)
 # designer.plot_optimal_efforts()
 # designer.plot_optimal_controls(non_opt_candidates=True, title=True, write=False)
 
-package, optimizer = ("scipy", "l-bfgs-b")
 criterion = designer.a_opt_criterion
 designer.design_experiment(
     criterion=criterion,
