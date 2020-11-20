@@ -146,6 +146,7 @@ class Designer:
         self.time_unit_name = None
         self.model_parameter_names = None
         self.response_names = None
+        self.use_finite_difference = True
 
         """ Core designer outputs """
         self.response = None
@@ -2898,12 +2899,13 @@ class Designer:
         with central) model parameter values that are passed to the model changes sign
         and causes the model to fail to run.
         """
-        # setting default behaviour for step generators
-        step_generator = nd.step_generators.MaxStepGenerator(
-            base_step=base_step,
-            step_ratio=step_ratio,
-            num_steps=self._num_steps,
-        )
+        if self.use_finite_difference:
+            # setting default behaviour for step generators
+            step_generator = nd.step_generators.MaxStepGenerator(
+                base_step=base_step,
+                step_ratio=step_ratio,
+                num_steps=self._num_steps,
+            )
 
         if isinstance(reporting_frequency, int) and reporting_frequency > 0:
             self.sens_report_freq = reporting_frequency
@@ -2923,8 +2925,9 @@ class Designer:
         self.sensitivities = np.empty((self.n_c, self.n_spt, self.n_m_r, self.n_mp))
 
         candidate_sens_times = []
-        jacob_fun = nd.Jacobian(fun=self._sensitivity_sim_wrapper,
-                                step=step_generator, method=method)
+        if self.use_finite_difference:
+            jacob_fun = nd.Jacobian(fun=self._sensitivity_sim_wrapper,
+                                    step=step_generator, method=method)
         """ main loop over experimental candidates """
         main_loop_start = time()
         for i, exp_candidate in enumerate(
@@ -2938,7 +2941,11 @@ class Designer:
             self.feval_sensitivity = 0
             single_start = time()
             try:
-                temp_sens = jacob_fun(self._current_scr_mp, store_predictions)
+                if self.use_finite_difference:
+                    temp_sens = jacob_fun(self._current_scr_mp, store_predictions)
+                else:
+                    temp_resp, temp_sens = self.simulatesens(self._current_tic, self._current_spt,
+                                                             self._current_scr_mp)
             except RuntimeError:
                 print(
                     "The simulate function you provided encountered a Runtime Error "
@@ -2979,24 +2986,25 @@ class Designer:
             case_8: n_sp, n_res, n_theta = 1        1       1
             -------------------------------------------------------------------------
             """
-            n_dim = len(temp_sens.shape)
-            if n_dim == 3:  # covers case 1
-                temp_sens = np.moveaxis(temp_sens, 1, 2)  # switch n_theta and n_res
-            elif self.n_spt == 1:
-                if self.n_mp == 1:  # covers case 5: add a new axis in the last dim
-                    temp_sens = temp_sens[:, :, np.newaxis]
-                else:  # covers case 2, 6, and 8: add a new axis in
-                    # the first dim
-                    temp_sens = temp_sens[np.newaxis]
-            elif self.n_mp == 1:  # covers case 3 and 7
-                temp_sens = np.moveaxis(temp_sens, 0,
-                                        1)  # move n_sp to the first dim as needed
-                temp_sens = temp_sens[:, :,
-                            np.newaxis]  # create a new axis as the last dim for
-                # n_theta
-            elif self.n_r == 1:  # covers case 4
-                temp_sens = temp_sens[:, np.newaxis,
-                            :]  # create axis in the middle for n_res
+            if self.use_finite_difference:
+                n_dim = len(temp_sens.shape)
+                if n_dim == 3:  # covers case 1
+                    temp_sens = np.moveaxis(temp_sens, 1, 2)  # switch n_theta and n_res
+                elif self.n_spt == 1:
+                    if self.n_mp == 1:  # covers case 5: add a new axis in the last dim
+                        temp_sens = temp_sens[:, :, np.newaxis]
+                    else:  # covers case 2, 6, and 8: add a new axis in
+                        # the first dim
+                        temp_sens = temp_sens[np.newaxis]
+                elif self.n_mp == 1:  # covers case 3 and 7
+                    temp_sens = np.moveaxis(temp_sens, 0,
+                                            1)  # move n_sp to the first dim as needed
+                    temp_sens = temp_sens[:, :,
+                                np.newaxis]  # create a new axis as the last dim for
+                    # n_theta
+                elif self.n_r == 1:  # covers case 4
+                    temp_sens = temp_sens[:, np.newaxis,
+                                :]  # create axis in the middle for n_res
 
             self.sensitivities[i, :] = temp_sens
         finish = time()
