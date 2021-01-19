@@ -9,7 +9,7 @@ import autograd.numpy as np
 from autograd.builtins import tuple
 
 """ define ODE model, and simulation using pyomo """
-def create_pyomo_model():
+def create_pyomo_model(sampling_times):
     """
     Creates a pyomo model.
 
@@ -18,7 +18,8 @@ def create_pyomo_model():
         simulator   : Pyomo.DAE's simulator object attached to the model.
     """
     model = po.ConcreteModel()
-    model.t = pod.ContinuousSet(bounds=(0, 1))
+    norm_spt = sampling_times / max(sampling_times)
+    model.t = pod.ContinuousSet(bounds=(0, 1), initialize=norm_spt)
     model.tau = po.Var()
 
     model.ca = po.Var(model.t, bounds=(0, 50))  # set of concentrations in reaction mixture
@@ -30,11 +31,9 @@ def create_pyomo_model():
         return m.dca_dt[t] / m.tau == -m.beta * m.ca[t]
     model.material_balance = po.Constraint(model.t, rule=_material_balance)
 
-    simulator = pod.Simulator(model, "casadi")
+    return model
 
-    return model, simulator
-
-def pyomo_simulate(model, simulator, ti_controls, sampling_times, model_parameters):
+def pyomo_simulate(ti_controls, sampling_times, model_parameters):
     """
     The simulation function to be passed on to the pydex.designer. The function takes in
     the pyomo model and simulator, nominal model parameter values, and experimental
@@ -52,24 +51,17 @@ def pyomo_simulate(model, simulator, ti_controls, sampling_times, model_paramete
                               responses at all N_spt number of sampling times.
     """
     """ fixing the control variables """
+    model = create_pyomo_model(sampling_times)
+
     # time-invariant
     model.beta.fix(model_parameters[0])
     model.tau.fix(max(sampling_times))
     model.ca[0].fix(ti_controls[0])
     # no time-varying control for this example
 
-    """ ensuring pyomo returns state values at given sampling times """
-    model.t.initialize = np.array(sampling_times) / model.tau.value
-    model.t.order_dict = {}  # to suppress pyomo warnings for duplicate elements
-    model.t._constructed = False  # needed so we can re-initialize the continuous set
-    model.t._data = {}
-    model.t._fe = []
-    model.t.value = []
-    model.t.value_list = []
-    model.t.construct()  # line that re-initializes the continuous set
-
     """ simulating """
-    simulator.simulate_pyomo(numpoints=100, integrator='idas')
+    simulator = pod.Simulator(model, "casadi")
+    simulator.simulate(numpoints=100, integrator='idas')
     simulator.initialize_model()
 
     """" extracting results and returning it in appropriate format """
@@ -101,13 +93,6 @@ def scipy_simulate(ti_controls, sampling_times, model_parameters):
         dca_dt = - theta[0] * ca
         return dca_dt
 
-    # sol = odeint(
-    #     scipy_model,
-    #     ti_controls[0],
-    #     sampling_times,
-    #     tuple((model_parameters,))
-    # )
-
     sol = odeint(
         scipy_model,
         args=tuple((model_parameters,)),
@@ -119,11 +104,14 @@ def scipy_simulate(ti_controls, sampling_times, model_parameters):
 
 if __name__ == '__main__':
     spt = np.linspace(0, 10, 11)
-    y = scipy_simulate(
+
+    pyomo_model = create_pyomo_model(spt)
+    y = pyomo_simulate(
         [1],
         spt,
         [0.25],
     )
+
     fig = plt.figure()
     axes = fig.add_subplot(121)
     axes.plot(

@@ -1,5 +1,6 @@
 from pydex.core.designer import Designer
 import numpy as np
+import sobol_seq
 
 
 """
@@ -32,14 +33,13 @@ designer.ti_controls_candidates = designer.enumerate_candidates(
     ])
 )
 
+designer.start_logging()
 designer.initialize(verbose=2)  # 0: silent, 1: overview, 2: detailed, 3: very detailed
 designer.design_experiment(
-    designer.e_opt_criterion,
-    write=False,
+    designer.d_opt_criterion,
 )
-# designer.print_optimal_candidates_2()
-# designer.plot_optimal_controls_2(non_opt_candidates=True)
 designer.print_optimal_candidates()
+designer.stop_logging()
 designer.plot_optimal_efforts()
 designer.plot_optimal_controls(non_opt_candidates=True, write=False, markersize=3)
 designer.show_plots()

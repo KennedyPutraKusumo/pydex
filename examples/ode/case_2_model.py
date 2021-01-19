@@ -15,7 +15,7 @@ def simulate(ti_controls, sampling_times, model_parameters):
     model.alpha_b.fix(0)
     model.nu.fix(model_parameters[3])
 
-    model.tau.fix(200)
+    model.tau.fix(max(sampling_times))
     model.ca[0].fix(ti_controls[0])
     model.cb[0].fix(0)
     model.temp.fix(ti_controls[1])
@@ -26,16 +26,19 @@ def simulate(ti_controls, sampling_times, model_parameters):
     simulator.initialize_model()
 
     """" extracting results and returning it in appropriate format """
-    ca = np.array([model.ca[t].value for t in model.t])
-    cb = np.array([model.cb[t].value for t in model.t])
+    norm_spt = sampling_times / model.tau.value
+    ca = np.array([model.ca[t].value for t in norm_spt])
+    cb = np.array([model.cb[t].value for t in norm_spt])
 
     return np.array([ca, cb]).T
 
 
 def create_model(spt):
     """ defining the model """
+    norm_spt = spt / max(spt)
+
     model = po.ConcreteModel()
-    model.t = pod.ContinuousSet(bounds=(0, 1), initialize=spt)
+    model.t = pod.ContinuousSet(bounds=(0, 1), initialize=norm_spt)
     model.tau = po.Var()
 
     model.temp = po.Var()
@@ -90,16 +93,6 @@ def simulate_tvc(ti_controls, tv_controls, sampling_times, model_parameters):
     """ time-varying controls """
     model.tvc[model.temp] = tv_controls[0]
 
-    """ ensuring pyomo returns state values at given sampling times """
-    # model.t.initialize = np.array(sampling_times) / model.tau.value
-    # model.t.order_dict = {}  # to suppress pyomo warnings for duplicate elements
-    # model.t._constructed = False  # needed so we can re-initialize the continuous set
-    # model.t._data = {}
-    # model.t._fe = []
-    # model.t.value_list = []
-    # model.t.value = []
-    # model.t.construct()  # line that re-initializes the continuous set
-
     """ simulating """
     simulator = pod.Simulator(model, package="casadi")
     simulator.simulate(integrator='idas', varying_inputs=model.tvc)
@@ -116,6 +109,7 @@ def simulate_tvc(ti_controls, tv_controls, sampling_times, model_parameters):
 
 def create_model_tvc(spt):
     """ defining the model """
+
     model = po.ConcreteModel()
     model.t = pod.ContinuousSet(bounds=(0, 1), initialize=spt)
     model.tau = po.Var()

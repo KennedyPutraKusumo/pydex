@@ -21,17 +21,22 @@ tic = designer_1.enumerate_candidates(
         [273.15, 323.15]    # reaction temperature
     ],
     levels=[
-        5,                 # initial C_A concentration
-        5,                 # reaction temperature
+        11,                 # initial C_A concentration
+        11,                 # reaction temperature
     ],
 )
 designer_1.ti_controls_candidates = tic
 
 # defining sampling time candidates
 spt_candidates = np.array([
-    np.linspace(0, 1, 5)
+    np.linspace(10, 200, 11)
     for _ in tic
 ])
+# time_list = np.linspace(0.1, 1, tic.shape[0])
+# spt_candidates = np.array([
+#     [time_list[i]]
+#     for i, _ in enumerate(tic)
+# ])
 designer_1.sampling_times_candidates = spt_candidates
 
 if True:
@@ -55,17 +60,18 @@ if True:
         f"Candidate {i+1}"
         for i, _ in enumerate(tic)
     ])
-    designer_1.response_names = ["c_A", "c_B"]
+    designer_1.response_names = ["$c_A$", "$c_B$"]
     designer_1.model_parameter_names = [
-        r"\theta_0",
-        r"\theta_1",
-        r"\alpha",
-        r"\nu",
+        r"$\theta_0$",
+        r"$\theta_1$",
+        r"$\alpha$",
+        r"$\nu$",
     ]
 
     # designer_1.save_state()
 
 designer_1.initialize(verbose=2)  # 0: silent, 1: overview, 2: detail
+designer_1._num_steps = 10
 
 """ Compute an optimal experiment design """
 criterion = designer_1.d_opt_criterion
@@ -83,41 +89,44 @@ designer_1.print_optimal_candidates(write=False)
 designer_1.plot_optimal_predictions()
 designer_1.plot_optimal_sensitivities(interactive=False)
 designer_1.plot_optimal_sensitivities(interactive=True)
+#
+# designer_1._num_steps = 5
+# """ Redesigning by optimizing sampling times """
+# redesign_result_1 = designer_1.design_experiment(
+#     criterion=criterion,
+#     optimize_sampling_times=False,   # sampling times as experimental variables
+#     # n_spt=2,                        # one sampling time
+#     write=False,
+#     package=package,
+#     optimizer=optimizer,
+# )
+# designer_1.plot_optimal_efforts(write=False)
+# designer_1.print_optimal_candidates(write=False)
+# designer_1.plot_optimal_predictions()
+# designer_1.plot_optimal_sensitivities(interactive=False)
+# #
+# # redesign_result_2 = designer_1.design_experiment(
+# #     criterion=criterion,
+# #     optimize_sampling_times=True,   # sampling times as experimental variables
+# #     n_spt=2,                        # two sampling times
+# #     write=False,
+# #     package=package,
+# #     optimizer=optimizer,
+# # )
+# # designer_1.print_optimal_candidates(write=False)
+# # designer_1.plot_optimal_predictions()
+# # designer_1.plot_optimal_sensitivities()
+# #
+# # redesign_result_5 = designer_1.design_experiment(
+# #     criterion=criterion,
+# #     optimize_sampling_times=True,   # sampling times as experimental variables
+# #     n_spt=5,                        # five sampling times
+# #     write=False,
+# #     package=package,
+# #     optimizer=optimizer,
+# # )
+# # designer_1.print_optimal_candidates(write=False)
+# # designer_1.plot_optimal_predictions()
+# # designer_1.plot_optimal_sensitivities()
 
-""" Redesigning by optimizing sampling times """
-redesign_result_1 = designer_1.design_experiment(
-    criterion=criterion,
-    optimize_sampling_times=True,   # sampling times as experimental variables
-    n_spt=1,                        # one sampling time
-    write=False,
-    package=package,
-    optimizer=optimizer,
-)
-designer_1.print_optimal_candidates(write=False)
-designer_1.plot_optimal_predictions()
-designer_1.plot_optimal_sensitivities()
-
-redesign_result_2 = designer_1.design_experiment(
-    criterion=criterion,
-    optimize_sampling_times=True,   # sampling times as experimental variables
-    n_spt=2,                        # two sampling times
-    write=False,
-    package=package,
-    optimizer=optimizer,
-)
-designer_1.print_optimal_candidates(write=False)
-designer_1.plot_optimal_predictions()
-designer_1.plot_optimal_sensitivities()
-
-redesign_result_5 = designer_1.design_experiment(
-    criterion=criterion,
-    optimize_sampling_times=True,   # sampling times as experimental variables
-    n_spt=5,                        # five sampling times
-    write=False,
-    package=package,
-    optimizer=optimizer,
-)
-designer_1.print_optimal_candidates(write=False)
-designer_1.plot_optimal_predictions()
-designer_1.plot_optimal_sensitivities()
 designer_1.show_plots()

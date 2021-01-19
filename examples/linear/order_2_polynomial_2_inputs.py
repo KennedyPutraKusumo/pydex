@@ -1,5 +1,6 @@
 from pydex.core.designer import Designer
 import numpy as np
+import sobol_seq
 
 
 """ 
@@ -40,6 +41,8 @@ designer.ti_controls_candidates = designer.enumerate_candidates(
         11,
     ],
 )
+
+designer.start_logging()
 designer.initialize(verbose=2)  # 0: silent, 1: overview, 2: detailed, 3: very detailed
 designer.ti_controls_names = [r"$x_1$", r"$x_2$"]
 
@@ -68,19 +71,8 @@ designer.design_experiment(
     write=False,
 )
 designer.print_optimal_candidates()
-# designer.plot_optimal_efforts()
+designer.plot_optimal_efforts()
 designer.plot_optimal_controls(non_opt_candidates=True, title=True, write=False)
-
-# criterion = designer.a_opt_criterion
-# designer.design_experiment(
-#     criterion=criterion,
-#     package=package,
-#     optimizer=optimizer,
-#     write=False,
-# )
-# designer.print_optimal_candidates()
-# designer.plot_optimal_efforts()
-# designer.plot_optimal_controls(non_opt_candidates=True, title=True, write=False)
 
 criterion = designer.a_opt_criterion
 designer.design_experiment(
@@ -93,4 +85,16 @@ designer.print_optimal_candidates()
 designer.plot_optimal_efforts()
 designer.plot_optimal_controls(non_opt_candidates=True, title=True, write=False)
 
+criterion = designer.e_opt_criterion
+designer.design_experiment(
+    criterion=criterion,
+    package=package,
+    optimizer=optimizer,
+    write=False,
+)
+designer.print_optimal_candidates()
+designer.plot_optimal_efforts()
+designer.plot_optimal_controls(non_opt_candidates=True, title=True, write=False)
+
+designer.stop_logging()
 designer.show_plots()
