@@ -147,6 +147,7 @@ class Designer:
         self.model_parameter_names = None
         self.response_names = None
         self.use_finite_difference = True
+        self.do_sensitivity_analysis = False
 
         """ Core designer outputs """
         self.response = None
@@ -2944,8 +2945,8 @@ class Designer:
                 if self.use_finite_difference:
                     temp_sens = jacob_fun(self._current_scr_mp, store_predictions)
                 else:
-                    temp_resp, temp_sens = self.simulatesens(self._current_tic, self._current_spt,
-                                                             self._current_scr_mp)
+                    temp_resp, temp_sens = self._sensitivity_sim_wrapper(self._current_scr_mp,
+                                                                         store_predictions)
             except RuntimeError:
                 print(
                     "The simulate function you provided encountered a Runtime Error "
@@ -4137,15 +4138,24 @@ class Designer:
         return fig
 
     def _sensitivity_sim_wrapper(self, theta_try, store_responses=True):
-        response = self._simulate_internal(self._current_tic, self._current_tvc,
-                                           theta_try, self._current_spt)
+        if self.use_finite_difference:
+            response = self._simulate_internal(self._current_tic, self._current_tvc,
+                                               theta_try, self._current_spt)
+        else:
+            self.do_sensitivity_analysis = True
+            response, sens = self._simulate_internal(self._current_tic, self._current_tvc,
+                                                     theta_try, self._current_spt)
+            self.do_sensitivity_analysis = False
         self.feval_sensitivity += 1
         """ store responses whenever required, and model parameters are the same as 
         current model's """
         if store_responses and np.allclose(theta_try, self._current_scr_mp):
             self._current_res = response
             self._store_current_response()
-        return response
+        if self.use_finite_difference:
+            return response
+        else:
+            return response, sens
 
     def _plot_current_efforts_2d(self, tol=1e-4, width=None, write=False, dpi=720,
                                  figsize=None):
