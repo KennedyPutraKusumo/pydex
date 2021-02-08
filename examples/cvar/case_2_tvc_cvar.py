@@ -7,7 +7,8 @@ designer_1 = Designer()
 designer_1.simulate = simulate
 
 """ specifying nominal model parameter values """
-n_scr = 10
+np.random.seed(123)
+n_scr = 100
 pre_exp_constant = np.random.uniform(0.1, 1.0, n_scr)
 activ_energy = np.random.uniform(1e3, 1e4, n_scr)
 theta_0 = np.log(pre_exp_constant) - activ_energy / (8.314159 * 273.15)
@@ -27,7 +28,7 @@ tic, tvc = designer_1.enumerate_candidates(
     levels=[
         1,
         5,
-        3,
+        5,
         1,
         1,
     ],
@@ -52,16 +53,33 @@ designer_1.initialize(verbose=2)  # 0: silent, 1: overview, 2: detail
 designer_1.response_names = ["c_A", "c_B"]
 designer_1.model_parameter_names = ["\\theta_0", "\\theta_1", "\\alpha", "\\nu"]
 
-""" D-optimal design """
-criterion = designer_1.cvar_d_opt_criterion
-result = designer_1.solve_cvar_problem(
-    criterion=criterion,
-    beta=0.8,
-    write=False,
-    package="cvxpy",
-)
-designer_1.print_optimal_candidates()
-designer_1.plot_pareto_frontier()
+pkg = "cvxpy"
+opt = "MOSEK"
+""" pb-D-optimal design """
+if False:
+    criterion = designer_1.cvar_d_opt_criterion
+    result = designer_1.design_experiment(
+        criterion=criterion,
+        write=True,
+        package=pkg,
+        optimizer=opt,
+    )
+    designer_1.print_optimal_candidates(write=True)
+    designer_1.plot_optimal_sensitivities(write=True)
+    designer_1.plot_optimal_efforts(write=True)
+""" CVaR Problem """
+if True:
+    criterion = designer_1.cvar_d_opt_criterion
+    result = designer_1.solve_cvar_problem(
+        criterion=criterion,
+        beta=0.8,
+        write=False,
+        package=pkg,
+        optimizer=opt,
+        plot=True,
+    )
+    designer_1.print_optimal_candidates()
+    designer_1.plot_pareto_frontier()
 designer_1.stop_logging()
 
 designer_1.show_plots()

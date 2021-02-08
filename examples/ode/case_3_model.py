@@ -100,11 +100,3 @@ if __name__ == '__main__':
     axes.set_ylabel("Concentration (mol/L)")
     axes.legend()
     plt.show()
-
-    # fig = plt.figure()
-    # axes = fig.add_subplot(111)
-    # axes.plot(
-    #     np.arange(0, 1000, 1),
-    #     times,
-    # )
-    # plt.show()

@@ -24,10 +24,10 @@ designer.sampling_times_candidates = spt
 designer._num_steps = 7
 
 # nominal at 1, 1
-if True:
+if False:
     mp = [1, 3, -1, 5]
 # uncertain uniform
-if False:
+if True:
     mp = np.random.uniform(
         low=[0, 2, -2, 4],
         high=[2, 4, 0, 6],
@@ -36,13 +36,13 @@ if False:
 designer.model_parameters = mp
 
 designer.initialize(verbose=2)
-designer.reporting_frequency = 2
+designer.sens_report_freq = 2
 designer._num_steps = 10
 
 """ Pseudo-Bayesian Type 1 D-opt Design """
 pkg = "cvxpy"
 opt = "MOSEK"
-if True:
+if False:
     designer.design_experiment(
         designer.d_opt_criterion,
         optimize_sampling_times=True,
@@ -55,7 +55,7 @@ if True:
     designer.plot_optimal_sensitivities()
 
 """ CVaR - Mean Pareto Efficient Designs """
-if False:
+if True:
     designer.solve_cvar_problem(
         designer.cvar_d_opt_criterion,
         beta=0.90,

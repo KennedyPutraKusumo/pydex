@@ -54,44 +54,40 @@ designer_1.ti_controls_candidates = designer_1.create_grid(
 )
 designer_1.initialize(verbose=2)  # 0: silent, 1: overview, 2: detailed, 3: very detailed
 
-""" cvxpy solvers """
-# package, optimizer = ("cvxpy", "MOSEK")
-package, optimizer = ("cvxpy", "SCS")
-# package, optimizer = ("cvxpy", "CVXOPT")
-
-""" scipy solvers, all supported, but many require unconstrained form """
-# package, optimizer = ("scipy", "powell")
-# package, optimizer = ("scipy", "cg")
-# package, optimizer = ("scipy", "tnc")
-# package, optimizer = ("scipy", "l-bfgs-b")
-# package, optimizer = ("scipy", "bfgs")
-# package, optimizer = ("scipy", "nelder-mead")
-# package, optimizer = ("scipy", "SLSQP")  # supports constrained form
+package, optimizer = ("cvxpy", "MOSEK")
 
 """ designing experiment """
 criterion = designer_1.d_opt_criterion
-designer_1.design_experiment(criterion=criterion, package=package, optimizer=optimizer,
-                             write=False)
+designer_1.design_experiment(
+    criterion=criterion,
+    package=package,
+    optimizer=optimizer,
+)
 
 designer_1.print_optimal_candidates()
 designer_1.plot_optimal_efforts()
 designer_1.plot_optimal_controls(non_opt_candidates=True)
-designer_1.show_plots()
 
 criterion = designer_1.a_opt_criterion
-designer_1.design_experiment(criterion=criterion, package=package, optimizer=optimizer,
-                             write=False)
+designer_1.design_experiment(
+    criterion=criterion,
+    package=package,
+    optimizer=optimizer,
+)
 
 designer_1.print_optimal_candidates()
 designer_1.plot_optimal_efforts()
 designer_1.plot_optimal_controls(non_opt_candidates=True)
-designer_1.show_plots()
 
 criterion = designer_1.e_opt_criterion
-designer_1.design_experiment(criterion=criterion, package=package, optimizer=optimizer,
-                             write=False)
+designer_1.design_experiment(
+    criterion=criterion,
+    package=package,
+    optimizer=optimizer,
+)
 
 designer_1.print_optimal_candidates()
 designer_1.plot_optimal_efforts()
 designer_1.plot_optimal_controls(non_opt_candidates=True)
+
 designer_1.show_plots()

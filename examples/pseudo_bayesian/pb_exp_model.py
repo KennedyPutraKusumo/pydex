@@ -40,7 +40,27 @@ designer.design_experiment(
     optimizer="MOSEK",
     pseudo_bayesian_type=1,
 )
-designer.print_optimal_candidates()
+designer.print_optimal_candidates(write=False)
+designer.plot_optimal_controls()
+
+designer.design_experiment(
+    designer.a_opt_criterion,
+    write=False,
+    package="cvxpy",
+    optimizer="MOSEK",
+    pseudo_bayesian_type=1,
+)
+designer.print_optimal_candidates(write=False)
+designer.plot_optimal_controls()
+
+designer.design_experiment(
+    designer.e_opt_criterion,
+    write=False,
+    package="cvxpy",
+    optimizer="MOSEK",
+    pseudo_bayesian_type=1,
+)
+designer.print_optimal_candidates(write=False)
 designer.plot_optimal_controls()
 
 designer.show_plots()

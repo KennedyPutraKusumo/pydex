@@ -26,12 +26,12 @@ semi-bayesian type do not really matter in this case because only a single model
 parameter is involved i.e, information is a scalar, all criterion becomes equivalent to 
 the information matrix itself.
 """
-# sb_type = 0
-sb_type = 1
+# pb_type = 0
+pb_type = 1
 
 designer.design_experiment(
     designer.a_opt_criterion,
-    semi_bayes_type=sb_type,
+    pseudo_bayesian_type=pb_type,
     write=False
 )
 designer.print_optimal_candidates()

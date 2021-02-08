@@ -43,7 +43,6 @@ designer.design_experiment(
     package=package,
     optimizer=optimizer,
     write=False,
-    opt_options={"gtol": 1e-8},
 )
 
 designer.print_optimal_candidates()
@@ -56,7 +55,6 @@ designer.design_experiment(
     package=package,
     optimizer=optimizer,
     write=False,
-    opt_options={"gtol": 1e-8},
 )
 
 designer.print_optimal_candidates()
@@ -69,7 +67,6 @@ designer.design_experiment(
     package=package,
     optimizer=optimizer,
     write=False,
-    opt_options={"gtol": 1e-8},
 )
 
 designer.print_optimal_candidates()

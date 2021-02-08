@@ -79,6 +79,8 @@ designer_1 = Designer()
 designer_1.simulate = simulate
 
 """ drawing model parameter scenarios from prior """
+np.random.seed(123)
+n_scr = 10
 pre_exp_constant = 0.1
 activ_energy = 4000
 theta_0 = np.log(pre_exp_constant) - activ_energy / (8.314159 * 273.15)
@@ -86,7 +88,6 @@ theta_1 = activ_energy / (8.314159 * 273.15)
 np.random.seed(123)  # set a seed for reproducibility
 theta_nom = np.array([theta_0, theta_1, 2, 1])  # value of theta_0, theta_1, alpha_a, nu
 theta_cov = np.diag(0.20**2 * np.abs(theta_nom))
-n_scr = 100
 theta = np.random.multivariate_normal(mean=theta_nom, cov=theta_cov, size=n_scr)
 theta[:, 2] = np.round(theta[:, 2])
 designer_1.model_parameters = theta  # assigning it to the designer's theta

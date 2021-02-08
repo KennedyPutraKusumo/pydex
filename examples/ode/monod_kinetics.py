@@ -32,7 +32,7 @@ def dydt(y, t, k, u):
 
 if False:
     t = np.arange(0, 72, 0.75)
-    y = simulate([], [{0: 0.2}, {0: 35}], t, [0.31, 0.18, 0.55, 0.03])  # monod
+    y = simulate([{0: 0.2}, {0: 35}], t, [0.31, 0.18, 0.55, 0.03])  # monod
 
     fig = plt.figure()
     axes = fig.add_subplot(111)
@@ -48,7 +48,7 @@ designer.simulate = simulate
 designer.model_parameters = np.array([0.31, 0.18, 0.55, 0.03])
 tic, tvc = designer.enumerate_candidates(
     bounds=np.array([
-        [0, 1],
+        [0, 0.5],
         [5, 35],
     ]),
     levels=np.array([
@@ -71,6 +71,7 @@ criterion = designer.d_opt_criterion
 designer.design_experiment(
     criterion,
     write=False,
+    optimize_sampling_times=True,
 )
 designer.print_optimal_candidates()
 designer.plot_optimal_predictions()

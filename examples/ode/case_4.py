@@ -30,7 +30,7 @@ if False:
 designer.model_parameters = mp
 
 designer.initialize(verbose=2)
-designer.reporting_frequency = 2
+designer.sens_report_freq = 2
 
 """ Pseudo-Bayesian Type 1 D-opt Design """
 pkg = "cvxpy"

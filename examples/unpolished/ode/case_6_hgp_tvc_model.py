@@ -29,7 +29,7 @@ def create_model_hgp(spt):
     m.dadt = pod.DerivativeVar(m.a, wrt=m.t)            # rate of change of accumulated production (equivalent to m.q)
 
     def _bal(m, t):
-        return m.dpdt[t] * m.v / m.tau == - m.q[t] * 8.314 * m.T
+        return m.dpdt[t] * m.v / m.tau == - m.q[t] * 8.314 * m.qin
     m.bal = po.Constraint(m.t, rule=_bal)
 
     def _hagen_poisueille(m, t):

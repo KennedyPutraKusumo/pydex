@@ -31,10 +31,10 @@ designer.ti_controls_candidates = designer.enumerate_candidates(
         [-1, 1],
     ],
     levels=[
-        5,
-        5,
-        5,
-        5,
+        11,
+        11,
+        11,
+        11,
     ],
 )
 designer.initialize(verbose=2)

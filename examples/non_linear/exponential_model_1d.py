@@ -14,8 +14,7 @@ designer.simulate = simulate
 tic = np.mgrid[-1:1:111j]
 designer.ti_controls_candidates = tic[:, None]
 
-# mp = np.array([1, 2, -1])
-mp = np.array([1, 2, 4])
+mp = np.array([1, 2, -1])
 designer.model_parameters = mp
 
 designer.initialize()

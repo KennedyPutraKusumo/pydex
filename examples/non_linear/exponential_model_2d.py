@@ -32,16 +32,16 @@ designer.initialize(verbose=2)
 
 criterion = designer.d_opt_criterion
 designer.design_experiment(criterion, write=False)
-designer.print_optimal_candidates()
+designer.print_optimal_candidates(write=False)
 designer.plot_optimal_controls(write=False, title=True, non_opt_candidates=True, tol=1e-3)
 
 criterion = designer.a_opt_criterion
 designer.design_experiment(criterion, write=False)
-designer.print_optimal_candidates()
+designer.print_optimal_candidates(write=False)
 designer.plot_optimal_controls(write=False, title=True, non_opt_candidates=True, tol=1e-3)
 
 criterion = designer.e_opt_criterion
 designer.design_experiment(criterion, write=False, optimizer="MOSEK")
-designer.print_optimal_candidates(tol=3e-3)
+designer.print_optimal_candidates(tol=3e-3, write=False)
 designer.plot_optimal_controls(write=False, title=True, non_opt_candidates=True, tol=1e-3)
 designer.show_plots()

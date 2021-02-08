@@ -86,7 +86,7 @@ theta_1 = activ_energy / (8.314159 * 273.15)
 np.random.seed(123)  # set a seed for reproducibility
 theta_nom = np.array([theta_0, theta_1, 2, 1])  # value of theta_0, theta_1, alpha_a, nu
 theta_cov = np.diag(0.20**2 * np.abs(theta_nom))
-n_scr = 100
+n_scr = 20
 theta = np.random.multivariate_normal(mean=theta_nom, cov=theta_cov, size=n_scr)
 theta[:, 2] = np.round(theta[:, 2])
 designer_1.model_parameters = theta  # assigning it to the designer's theta
@@ -114,11 +114,13 @@ designer_1.initialize(verbose=2)  # 0: silent, 1: overview, 2: detail
 designer_1.response_names = ["c_A", "c_B"]
 designer_1.model_parameter_names = ["\\theta_0", "\\theta_1", "\\alpha", "\\nu"]
 
+designer_1._num_steps = 5
+
 """ Pseudo-bayesian Information Type """
 # default behaviour: cheap
-pb_type = 0  # aliases: "average_information", or "avg_inf"
+# pb_type = 0  # aliases: "average_information", or "avg_inf"
 # better interpretation, more expensive
-# pb_type = 1  # aliases: "average_criterion", or "avg_crit"
+pb_type = 1  # aliases: "average_criterion", or "avg_crit"
 criterion = designer_1.a_opt_criterion
 result = designer_1.design_experiment(
     criterion=criterion,
@@ -126,7 +128,30 @@ result = designer_1.design_experiment(
     write=False,
     pseudo_bayesian_type=pb_type,
 )
-designer_1.print_optimal_candidates()
+designer_1.print_optimal_candidates(write=False)
 designer_1.plot_optimal_predictions(colour_map="plasma")
 designer_1.plot_optimal_sensitivities(colour_map="plasma")
+
+criterion = designer_1.d_opt_criterion
+result = designer_1.design_experiment(
+    criterion=criterion,
+    optimize_sampling_times=True,
+    write=False,
+    pseudo_bayesian_type=pb_type,
+)
+designer_1.print_optimal_candidates(write=False)
+designer_1.plot_optimal_predictions(colour_map="plasma")
+designer_1.plot_optimal_sensitivities(colour_map="plasma")
+
+criterion = designer_1.e_opt_criterion
+result = designer_1.design_experiment(
+    criterion=criterion,
+    optimize_sampling_times=True,
+    write=False,
+    pseudo_bayesian_type=pb_type,
+)
+designer_1.print_optimal_candidates(write=False)
+designer_1.plot_optimal_predictions(colour_map="plasma")
+designer_1.plot_optimal_sensitivities(colour_map="plasma")
+
 designer_1.show_plots()

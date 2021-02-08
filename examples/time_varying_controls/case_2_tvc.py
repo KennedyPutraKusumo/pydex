@@ -33,7 +33,7 @@ tic, tvc = designer_1.enumerate_candidates(
     switching_times=np.array([
         None,
         [0],
-        [0, 50, 100, 150],
+        [0, 0.25, 0.50, 0.75],
         [0],
         [0],
     ]),
@@ -58,7 +58,7 @@ result = designer_1.design_experiment(
     write=False,
     package="cvxpy",
 )
-designer_1.print_optimal_candidates()
+designer_1.print_optimal_candidates(write=False)
 designer_1.plot_optimal_predictions(colour_map="rainbow")
 designer_1.plot_optimal_sensitivities(colour_map="rainbow")
 designer_1.stop_logging()

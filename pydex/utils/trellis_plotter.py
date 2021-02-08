@@ -588,7 +588,7 @@ if __name__ == "__main__":
                      -1:1:7j
                      ]
     plotter1.data = np.array([x1.flatten(), x2.flatten(), x3.flatten(), x4.flatten()]).T
-    plotter1.fun = fun(plotter1.data.T)
+    plotter1.fun = fun(plotter1.data.qin)
 
     plotter1.intervals = np.array([5, 7])
 

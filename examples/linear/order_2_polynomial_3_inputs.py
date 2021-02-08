@@ -1,6 +1,5 @@
 from pydex.core.designer import Designer
 import numpy as np
-import sobol_seq
 
 
 """ 

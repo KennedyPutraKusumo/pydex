@@ -25,7 +25,7 @@ def create_model_hgp(spt):
     m.rho = po.Var(bounds=(0, None))                                # density of gas in kg per m3
 
     def _bal(m, t):
-        return m.dpdt[t] * m.v / m.tau == - m.q[t] * 8.314 * m.T
+        return m.dpdt[t] * m.v / m.tau == - m.q[t] * 8.314 * m.qin
     m.bal = po.Constraint(m.t, rule=_bal)
 
     def _hagen_poisueille(m, t):
