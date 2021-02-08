@@ -47,7 +47,7 @@ designer.design_experiment(
 
 designer.print_optimal_candidates()
 designer.plot_optimal_efforts()
-designer.plot_optimal_controls(non_opt_candidates=True, write=True, title=False)
+designer.plot_optimal_controls(non_opt_candidates=True)
 
 criterion = designer.ag_opt_criterion
 designer.design_experiment(

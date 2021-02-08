@@ -34,7 +34,7 @@ designer.initialize(verbose=2)
 designer.solve_cvar_problem(
     designer.cvar_d_opt_criterion,
     beta=0.75,
-    reso=5,
+    reso=20,
     plot=True,
 )
 designer.plot_pareto_frontier()

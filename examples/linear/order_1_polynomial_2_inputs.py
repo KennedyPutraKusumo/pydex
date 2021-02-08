@@ -33,11 +33,12 @@ designer.ti_controls_candidates = designer.enumerate_candidates(
 )
 
 designer.start_logging()
-designer.initialize(verbose=2)  # 0: silent, 1: overview, 2: detailed, 3: very detailed
+designer.initialize(verbose=3)  # 0: silent, 1: overview, 2: detailed, 3: very detailed
 designer.design_experiment(
     designer.d_opt_criterion,
 )
 designer.print_optimal_candidates()
+designer.apportion(n_exp=12)
 designer.stop_logging()
 designer.plot_optimal_efforts()
 designer.plot_optimal_controls(non_opt_candidates=True, write=False, markersize=3)

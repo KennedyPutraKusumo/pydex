@@ -144,6 +144,7 @@ class Designer:
         self.sensitivities = None
         self.optimal_candidates = None
         self.atomic_fims = None
+        self.apportionments = None
 
         # exclusive to prediction-oriented criteria
         self.pvars = None
@@ -215,7 +216,7 @@ class Designer:
         self._regularize_fim = None
         self._num_steps = None
         self._eps = 1e-5
-        self._trim_fim = True
+        self._trim_fim = False
         self._fd_jac = True
 
         # store chosen package to interface with the optimizer, and the chosen optimizer
@@ -595,7 +596,7 @@ class Designer:
                            optimize_sampling_times=False, package="cvxpy",
                            optimizer=None, opt_options=None, e0=None, write=True,
                            save_sensitivities=False, fd_jac=True,
-                           unconstrained_form=False, trim_fim=True,
+                           unconstrained_form=False, trim_fim=False,
                            pseudo_bayesian_type=None, regularize_fim=False,
                            reso=5, plot=False, n_bins=20, tol=1e-4, **kwargs):
         self._current_criterion = criterion.__name__
@@ -734,6 +735,7 @@ class Designer:
             beta=beta,
         )
         self.get_optimal_candidates()
+        iter_2_efforts = np.copy(self.efforts)
         if self._verbose >= 1:
             self.print_optimal_candidates(tol=tol, write=False)
         if plot:
@@ -745,7 +747,26 @@ class Designer:
             print("")
             print("Computing Mean of Iteration 2's Solution")
 
-        mean_lb = self.phi.value.mean()
+        self.design_experiment(
+            criterion,
+            n_spt=n_spt,
+            n_exp=n_exp,
+            optimize_sampling_times=optimize_sampling_times,
+            package=package,
+            optimizer=optimizer,
+            opt_options=opt_options,
+            e0=e0,
+            write=False,
+            save_sensitivities=False,
+            fd_jac=fd_jac,
+            unconstrained_form=unconstrained_form,
+            trim_fim=trim_fim,
+            pseudo_bayesian_type=pseudo_bayesian_type,
+            regularize_fim=regularize_fim,
+            beta=0.00,
+            fix_effort=iter_2_efforts,
+        )
+        mean_lb = self._criterion_value
         if self._verbose >= 2:
             print(
                     f"Time elapsed: {self._sensitivity_analysis_time:.2f} seconds."
@@ -1278,6 +1299,125 @@ class Designer:
         return self.estimable_model_parameters, self.estimability
 
     """ core utilities """
+
+    def apportion(self, n_exp, method="adams"):
+        self.get_optimal_candidates()
+
+        n_min_sups = 0
+        max_n_opt_spt = 0
+        for i, opt_cand in enumerate(self.optimal_candidates):
+            if self._dynamic_system and self._opt_sampling_times:
+                n_min_sups += len(opt_cand[4])
+            else:
+                n_min_sups += 1
+            max_n_opt_spt = max(max_n_opt_spt, len(opt_cand[4]))
+        if n_exp < n_min_sups:
+            print(
+                f"[WARNING]: Given n_exp is lower than the minimum needed "
+                f"({n_min_sups}); overwriting user input to this minimum."
+            )
+            n_exp = n_min_sups
+
+        self.opt_eff = np.zeros((len(self.optimal_candidates), max_n_opt_spt))
+        for i, opt_cand in enumerate(self.optimal_candidates):
+            if self._opt_sampling_times:
+                for j, spt in enumerate(opt_cand[4]):
+                    if self._specified_n_spt:
+                        self.opt_eff[i, j] = np.sum(spt)
+                    else:
+                        self.opt_eff[i, j] = spt
+            else:
+                self.opt_eff[i, :] = np.sum(opt_cand[4])
+        if method == "adams":
+            self.apportionments = self._adams_apportionment(self.opt_eff, n_exp)
+        else:
+            raise NotImplementedError(
+                "At the moment, the only method implemented is 'adams', please use it. "
+                "More apportionment methods will be implemented, but there is proof "
+                "that Adam's method is the most efficient amongst other popular "
+                "methods used in electoral college apportionments."
+            )
+        if self._verbose >= 1:
+            print(f" Optimal Experiment for {n_exp:d} Runs ".center(100, "#"))
+            print(f"{'Obtained on':<40}: {datetime.now()}")
+            print(f"{'Criterion':<40}: {self._current_criterion}")
+            print(f"{'Criterion Value':<40}: {self._criterion_value}")
+            print(f"{'Pseudo-bayesian':<40}: {self._pseudo_bayesian}")
+            if self._pseudo_bayesian:
+                print(f"{'Pseudo-bayesian Criterion Type':<40}: {self._pseudo_bayesian_type}")
+            print(f"{'CVaR Problem':<40}: {self._cvar_problem}")
+            if self._cvar_problem:
+                print(f"{'Beta':<40}: {self.beta}")
+                print(f"{'Constrained Problem':<40}: {self._constrained_cvar}")
+                if self._constrained_cvar:
+                    print(f"{'Min. Mean Value':<40}: {cp.sum(self.phi).value / self.n_scr:.6f}")
+            print(f"{'Dynamic':<40}: {self._dynamic_system}")
+            print(f"{'Time-invariant Controls':<40}: {self._invariant_controls}")
+            print(f"{'Time-varying Controls':<40}: {self._dynamic_controls}")
+            print(f"{'Number of Candidates':<40}: {self.n_c}")
+            print(f"{'Number of Optimal Candidates':<40}: {self.n_opt_c}")
+            if self._dynamic_system:
+                print(f"{'Number of Sampling Time Choices':<40}: {self.n_spt}")
+                print(f"{'Sampling Times Optimized':<40}: {self._opt_sampling_times}")
+                if self._opt_sampling_times:
+                    print(f"{'Number of Samples Per Experiment':<40}: {self._n_spt_spec}")
+            if self._pseudo_bayesian:
+                print(f"{'Number of Scenarios':<40}: {self.n_scr}")
+
+            for i, (app_eff, opt_cand) in enumerate(zip(self.apportionments, self.optimal_candidates)):
+                print(f"{f'[Candidate {opt_cand[0] + 1:d}]':-^100}")
+                print(
+                    f"{f'Recommended Apportionment: Run {np.sum(app_eff):d}/{n_exp:d} Experiments':^100}")
+                if self._invariant_controls:
+                    print("Time-invariant Controls:")
+                    print(opt_cand[1])
+                if self._dynamic_controls:
+                    print("Time-varying Controls:")
+                    print(opt_cand[2])
+                if self._dynamic_system:
+                    if self._opt_sampling_times:
+                        if self._specified_n_spt:
+                            print("Sampling Time Variants:")
+                            for comb, spt_comb in enumerate(opt_cand[3]):
+                                print(f"  Variant {comb + 1} ~ [", end='')
+                                for j, sp_time in enumerate(spt_comb):
+                                    print(f"{f'{sp_time:.2f}':>10}", end='')
+                                print("]: ", end='')
+                                print(
+                                    f'Run {f"{app_eff[comb]:d}/{np.sum(app_eff):d}":>6} experiments, collecting {self._n_spt_spec} samples at given times')
+                        else:
+                            print("Sampling Times:")
+                            for j, sp_time in enumerate(opt_cand[3]):
+                                print(f"[{f'{sp_time:.2f}':>10}]: "
+                                      f"Run {f'{app_eff[j]:d}/{np.sum(app_eff):d}':>6} experiments, sampling at given time")
+                    else:
+                        print("Sampling Times:")
+                        print(self.sampling_times_candidates[i])
+            print(f"{'':#^100}")
+
+        return self.apportionments
+
+    def _adams_apportionment(self, efforts, n_exp):
+        mu = n_exp
+
+        def update(effort, mu):
+            return np.ceil(effort * mu)
+
+        self.apportionments = update(efforts, mu)
+
+        iterations = 0
+        while True:
+            iterations += 1
+            if self.apportionments.sum() == n_exp:
+                if self._verbose >= 3:
+                    print(f"Apportionment completed in {iterations} iterations, with final multiplier {mu}.")
+                return self.apportionments.astype(int)
+            elif self.apportionments.sum() > n_exp:
+                mu *= 0.9
+                self.apportionments = update(efforts, mu)
+            else:
+                mu *= 1.05
+                self.apportionments = update(efforts, mu)
 
     # create grid
     def create_grid(self, bounds, levels):
@@ -2565,14 +2705,13 @@ class Designer:
         # if atomic is given
         else:
             self.fim = 0
-            self.atomic_fims.reshape((self.n_c, self.n_spt, self.n_mp, self.n_mp))
+            self.atomic_fims = self.atomic_fims.reshape((self.n_c, self.n_spt, self.n_mp, self.n_mp))
             if self._specified_n_spt:
                 for c, (eff, atom, spt_combs) in enumerate(zip(self.efforts, self.atomic_fims, self.spt_candidates_combs)):
                     for comb, (e, spt) in enumerate(zip(eff, spt_combs)):
                         a = np.sum(atom[spt], axis=0)
                         self.fim += e * a
             else:
-                self.atomic_fims = self.atomic_fims.reshape((self.n_c, self.n_spt, self.n_mp, self.n_mp))
                 if self._optimization_package == "scipy":
                     self.efforts.reshape(self.n_c, self.n_spt)
                     if self.n_spt == 1:
@@ -2847,7 +2986,7 @@ class Designer:
 
         if self.fim.size == 1:
             if self._optimization_package is "scipy":
-                d_opt = -np.log1p(self.fim)
+                d_opt = -self.fim
                 if self._fd_jac:
                     return d_opt
                 else:

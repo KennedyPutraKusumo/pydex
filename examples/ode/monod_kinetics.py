@@ -71,7 +71,7 @@ criterion = designer.d_opt_criterion
 designer.design_experiment(
     criterion,
     write=False,
-    optimize_sampling_times=True,
+    optimize_sampling_times=False,
 )
 designer.print_optimal_candidates()
 designer.plot_optimal_predictions()

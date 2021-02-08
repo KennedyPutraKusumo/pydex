@@ -82,6 +82,7 @@ result = designer_1.design_experiment(
     optimizer=optimizer,
 )
 designer_1.print_optimal_candidates(write=False)
+designer_1.apportion(12)
 designer_1.plot_optimal_predictions()
 designer_1.plot_optimal_sensitivities(interactive=False)
 
@@ -93,30 +94,20 @@ redesign_result_2 = designer_1.design_experiment(
     optimizer=optimizer,
 )
 designer_1.print_optimal_candidates(write=False)
+designer_1.apportion(12)
 designer_1.plot_optimal_predictions()
 designer_1.plot_optimal_sensitivities()
 
 redesign_result_2 = designer_1.design_experiment(
     criterion=criterion,
     optimize_sampling_times=True,   # sampling times as experimental variables
-    n_spt=2,                        # two sampling times
+    n_spt=1,                        # two sampling times
     write=False,
     package=package,
     optimizer=optimizer,
 )
 designer_1.print_optimal_candidates(write=False)
-designer_1.plot_optimal_predictions()
-designer_1.plot_optimal_sensitivities()
-
-redesign_result_5 = designer_1.design_experiment(
-    criterion=criterion,
-    optimize_sampling_times=True,   # sampling times as experimental variables
-    n_spt=5,                        # five sampling times
-    write=False,
-    package=package,
-    optimizer=optimizer,
-)
-designer_1.print_optimal_candidates(write=False)
+designer_1.apportion(12)
 designer_1.plot_optimal_predictions()
 designer_1.plot_optimal_sensitivities()
 
