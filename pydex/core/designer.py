@@ -668,7 +668,7 @@ class Designer:
             self.print_optimal_candidates(tol=tol, write=False)
         iter_1_efforts = np.copy(self.efforts)
         mean_ub = self._criterion_value
-
+        iter_1_phi = np.copy(self.phi.value)
         if self._verbose >= 1:
             print("")
             print("Computing CVaR of Iteration 1's Solution")
@@ -691,7 +691,6 @@ class Designer:
             pseudo_bayesian_type=pseudo_bayesian_type,
             regularize_fim=regularize_fim,
             beta=beta,
-            min_expected_value=0.999*mean_ub,
             fix_effort=iter_1_efforts,
         )
         cvar_lb = self._criterion_value
@@ -709,6 +708,7 @@ class Designer:
             print(f"[Iteration 1/{reso} Completed]".center(100, "="))
             print(f"")
         if plot:
+            self.phi.value = iter_1_phi
             add_fig(self.plot_criterion_cdf(), self.plot_criterion_pdf())
 
         """ Iteration 2: Maximal CVaR_beta Design """
