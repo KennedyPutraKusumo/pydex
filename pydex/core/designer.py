@@ -690,6 +690,7 @@ class Designer:
             trim_fim=trim_fim,
             pseudo_bayesian_type=pseudo_bayesian_type,
             regularize_fim=regularize_fim,
+            min_expected_value=0.999*mean_ub,
             beta=beta,
             fix_effort=iter_1_efforts,
         )
@@ -738,8 +739,6 @@ class Designer:
         iter_2_efforts = np.copy(self.efforts)
         if self._verbose >= 1:
             self.print_optimal_candidates(tol=tol, write=False)
-        if plot:
-            add_fig(self.plot_criterion_cdf(), self.plot_criterion_pdf())
 
         cvar_ub = self._criterion_value
 
@@ -767,6 +766,8 @@ class Designer:
             fix_effort=iter_2_efforts,
         )
         mean_lb = self._criterion_value
+        if plot:
+            add_fig(self.plot_criterion_cdf(), self.plot_criterion_pdf())
         if self._verbose >= 2:
             print(
                     f"Time elapsed: {self._sensitivity_analysis_time:.2f} seconds."
