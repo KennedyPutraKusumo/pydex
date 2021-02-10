@@ -691,6 +691,7 @@ class Designer:
             pseudo_bayesian_type=pseudo_bayesian_type,
             regularize_fim=regularize_fim,
             beta=beta,
+            min_expected_value=0.999*mean_ub,
             fix_effort=iter_1_efforts,
         )
         cvar_lb = self._criterion_value
@@ -738,9 +739,7 @@ class Designer:
         iter_2_efforts = np.copy(self.efforts)
         if self._verbose >= 1:
             self.print_optimal_candidates(tol=tol, write=False)
-        if plot:
-            add_fig(self.plot_criterion_cdf(), self.plot_criterion_pdf())
-
+        iter2_var = self.v.value
         cvar_ub = self._criterion_value
 
         if self._verbose >= 1:
@@ -780,6 +779,10 @@ class Designer:
             print(f"MEAN LB: {mean_lb}")
             print(f"[Iteration 2/{reso} Completed]".center(100, "="))
             print(f"")
+        if plot:
+            self.v.value = iter2_var
+            self._criterion_value = cvar_ub
+            add_fig(self.plot_criterion_cdf(), self.plot_criterion_pdf())
 
         """ Iterations 3+: Intermediate Points """
         mean_values = np.linspace(mean_lb, mean_ub, reso)
