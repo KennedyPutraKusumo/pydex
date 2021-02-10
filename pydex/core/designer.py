@@ -2509,6 +2509,8 @@ class Designer:
         """
         if num_steps is not None:
             self._num_steps = num_steps
+        else:
+            self._num_steps = 5
         # setting default behaviour for step generators
         step_generator = nd.step_generators.MaxStepGenerator(
             base_step=base_step,
@@ -2696,7 +2698,7 @@ class Designer:
             if self._specified_n_spt:
                 for c, (eff, sen, spt_combs) in enumerate(zip(self.efforts, self.sensitivities, self.spt_candidates_combs)):
                     for comb, (e, spt) in enumerate(zip(eff, spt_combs)):
-                        s = np.sum(sen[spt], axis=0)
+                        s = np.mean(sen[spt], axis=0)
                         add_candidates(s, e)
             else:
                 for c, (eff, sen) in enumerate(zip(self.efforts, self.sensitivities)):
@@ -2709,7 +2711,7 @@ class Designer:
             if self._specified_n_spt:
                 for c, (eff, atom, spt_combs) in enumerate(zip(self.efforts, self.atomic_fims, self.spt_candidates_combs)):
                     for comb, (e, spt) in enumerate(zip(eff, spt_combs)):
-                        a = np.sum(atom[spt], axis=0)
+                        a = np.mean(atom[spt], axis=0)
                         self.fim += e * a
             else:
                 if self._optimization_package == "scipy":
