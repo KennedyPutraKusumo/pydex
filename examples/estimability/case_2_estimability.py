@@ -65,53 +65,9 @@ if True:
 
     # designer_1.save_state()
 
-designer_1.error_cov = np.array([
-    [1, 3],
-    [3, 10],
-])
 designer_1.initialize(verbose=2)  # 0: silent, 1: overview, 2: detail
-
-""" Compute an optimal experiment design """
-criterion = designer_1.d_opt_criterion
-# criterion = designer_1.a_opt_criterion
-package, optimizer = ("cvxpy", "MOSEK")
-# package, optimizer = ("scipy", "SLSQP")
 designer_1._num_steps = 5
-result = designer_1.design_experiment(
-    criterion=criterion,
-    optimize_sampling_times=False,  # ignoring sampling times
-    write=False,
-    package=package,
-    optimizer=optimizer,
-)
-designer_1.print_optimal_candidates()
-designer_1.apportion(12)
-designer_1.plot_optimal_predictions()
-designer_1.plot_optimal_sensitivities(interactive=False)
 
-redesign_result_2 = designer_1.design_experiment(
-    criterion=criterion,
-    optimize_sampling_times=True,   # sampling times as experimental variables
-    write=False,
-    package=package,
-    optimizer=optimizer,
-)
-designer_1.print_optimal_candidates()
-designer_1.apportion(12)
-designer_1.plot_optimal_predictions()
-designer_1.plot_optimal_sensitivities()
-
-redesign_result_2 = designer_1.design_experiment(
-    criterion=criterion,
-    optimize_sampling_times=True,   # sampling times as experimental variables
-    n_spt=1,                        # two sampling times
-    write=False,
-    package=package,
-    optimizer=optimizer,
-)
-designer_1.print_optimal_candidates()
-designer_1.apportion(12)
-designer_1.plot_optimal_predictions()
-designer_1.plot_optimal_sensitivities()
-
-designer_1.show_plots()
+designer_1.responses_scales = np.array([2, 1])
+designer_1.estimability_study_fim()
+designer_1.estimability_study()

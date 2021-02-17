@@ -11,11 +11,19 @@ Solution    : a 2^2 factorial design, criterion does not affect design.
 
 def simulate(ti_controls, model_parameters):
     return np.array([
-        # constant term
+        # Response 1 constant term
         model_parameters[0] +
-        # linear term
+        # Response 1 linear term
         model_parameters[1] * ti_controls[0] +
         model_parameters[2] * ti_controls[1]
+        ,
+        # Response 2 constant term
+        (
+            model_parameters[0] +
+            # Response 2 linear term
+            model_parameters[1] * np.exp(ti_controls[0]) +
+            model_parameters[2] * np.exp(ti_controls[1])
+        )
     ])
 
 designer = Designer()

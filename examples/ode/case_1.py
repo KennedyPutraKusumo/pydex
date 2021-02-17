@@ -37,12 +37,11 @@ if False:
 """ solve OED problem """
 package, optimizer = ('cvxpy', 'MOSEK')
 criterion = designer_1.d_opt_criterion
-scipy_result = designer_1.design_experiment(
+result = designer_1.design_experiment(
     criterion=criterion,
     package=package,
     optimizer=optimizer,
     optimize_sampling_times=True,
-    write=False,
 )
 designer_1.print_optimal_candidates()
 designer_1.plot_optimal_efforts()

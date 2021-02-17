@@ -51,6 +51,11 @@ class Designer:
         matplotlib's plotting features.
         """
 
+        """ Experimental """
+        self._alt_cvar = None
+        self.error_cov = None
+        self.error_fim = None
+
         """ CVaR-exclusive """
         self.n_cvar_scr = None
         self.cvar_optimal_candidates = None
@@ -116,6 +121,7 @@ class Designer:
         self._candidates_changed = None
         self._model_parameters_changed = None
         self._compute_atomics = False
+        self._compute_sensitivities = False
 
         """ Core user-defined Variables """
         self._tvcc = None
@@ -228,6 +234,7 @@ class Designer:
 
         """ user saving options """
         self._save_sensitivities = False
+        self._save_atomics = False
 
     @property
     def model_parameters(self):
@@ -287,6 +294,16 @@ class Designer:
         self._initialize_names()
 
         self._check_memory_req(memory_threshold)
+
+        if self.error_cov is None:
+            self.error_cov = np.eye(self.n_mp)
+        try:
+            self.error_fim = np.linalg.inv(self.error_cov)
+        except np.linalg.LinAlgError:
+            raise SyntaxError(
+                "The provided error covariance is singular, please make sure you "
+                "have passed in the correct error covariance."
+            )
 
         self._status = 'ready'
         self._verbose = verbose
@@ -594,11 +611,12 @@ class Designer:
 
     def solve_cvar_problem(self, criterion, beta, n_spt=None, n_exp=None,
                            optimize_sampling_times=False, package="cvxpy",
-                           optimizer=None, opt_options=None, e0=None, write=True,
+                           optimizer=None, opt_options=None, e0=None, write=False,
                            save_sensitivities=False, fd_jac=True,
                            unconstrained_form=False, trim_fim=False,
                            pseudo_bayesian_type=None, regularize_fim=False,
-                           reso=5, plot=False, n_bins=20, tol=1e-4, **kwargs):
+                           reso=5, plot=False, n_bins=20, tol=1e-4, dpi=360,
+                           **kwargs):
         self._current_criterion = criterion.__name__
 
         if "cvar" not in self._current_criterion:
@@ -607,7 +625,8 @@ class Designer:
             )
 
         # computing number of parameter scenarios that will be considered in CVaR
-        self.n_cvar_scr = (1 - beta) * self.n_scr
+        self.beta = beta
+        self.n_cvar_scr = (1 - self.beta) * self.n_scr
         if self.n_cvar_scr < 1:
             print(
                 "[WARNING]: "
@@ -655,7 +674,7 @@ class Designer:
             opt_options=opt_options,
             e0=e0,
             write=False,
-            save_sensitivities=False,
+            save_sensitivities=save_sensitivities,
             fd_jac=fd_jac,
             unconstrained_form=unconstrained_form,
             trim_fim=trim_fim,
@@ -663,9 +682,10 @@ class Designer:
             regularize_fim=regularize_fim,
             beta=0.00,
         )
+        self.beta = beta
         self.get_optimal_candidates()
         if self._verbose >= 1:
-            self.print_optimal_candidates(tol=tol, write=False)
+            self.print_optimal_candidates(tol=tol)
         iter_1_efforts = np.copy(self.efforts)
         mean_ub = self._criterion_value
         iter_1_phi = np.copy(self.phi.value)
@@ -690,10 +710,273 @@ class Designer:
             trim_fim=trim_fim,
             pseudo_bayesian_type=pseudo_bayesian_type,
             regularize_fim=regularize_fim,
-            beta=beta,
+            beta=self.beta,
             fix_effort=iter_1_efforts,
         )
         cvar_lb = self._criterion_value
+        if self._verbose >= 2:
+            print(
+                    f"Time elapsed: {self._sensitivity_analysis_time:.2f} seconds."
+                )
+
+        self.cvar_optimal_candidates.append(self.optimal_candidates)
+        self.cvar_solution_times.append([self._sensitivity_analysis_time, self._optimization_time])
+        self._biobjective_values[0, :] = np.array([mean_ub, cvar_lb])
+        if self._verbose >= 1:
+            print(f"CVaR LB: {cvar_lb}")
+            print(f"Mean UB: {mean_ub}")
+            print(f"[Iteration 1/{reso} Completed]".center(100, "="))
+            print(f"")
+        if plot:
+            self.phi.value = iter_1_phi
+            add_fig(
+                self.plot_criterion_cdf(write=False, iteration=1),
+                self.plot_criterion_pdf(write=False, iteration=1),
+            )
+
+        """ Iteration 2: Maximal CVaR_beta Design """
+        if self._verbose >= 1:
+            print(f"[Iteration 2/{reso}]".center(100, "="))
+            print(f"Computing the maximal CVaR design, obtaining the CVaR UB, and mean "
+                  f"LB in the Pareto Frontier.")
+            print(f"")
+        self.design_experiment(
+            criterion,
+            n_spt=n_spt,
+            n_exp=n_exp,
+            optimize_sampling_times=optimize_sampling_times,
+            package=package,
+            optimizer=optimizer,
+            opt_options=opt_options,
+            e0=e0,
+            write=False,
+            save_sensitivities=False,
+            fd_jac=fd_jac,
+            unconstrained_form=unconstrained_form,
+            trim_fim=trim_fim,
+            pseudo_bayesian_type=pseudo_bayesian_type,
+            regularize_fim=regularize_fim,
+            beta=self.beta,
+        )
+        iter2_s = np.copy(self.s.value)
+        self.get_optimal_candidates()
+        iter_2_efforts = np.copy(self.efforts)
+        if self._verbose >= 1:
+            self.print_optimal_candidates(tol=tol)
+        iter2_var = self.v.value
+        cvar_ub = self._criterion_value
+
+        if self._verbose >= 1:
+            print("")
+            print("Computing Mean of Iteration 2's Solution")
+
+        self.design_experiment(
+            criterion,
+            n_spt=n_spt,
+            n_exp=n_exp,
+            optimize_sampling_times=optimize_sampling_times,
+            package=package,
+            optimizer=optimizer,
+            opt_options=opt_options,
+            e0=e0,
+            write=False,
+            save_sensitivities=False,
+            fd_jac=fd_jac,
+            unconstrained_form=unconstrained_form,
+            trim_fim=trim_fim,
+            pseudo_bayesian_type=pseudo_bayesian_type,
+            regularize_fim=regularize_fim,
+            beta=0.00,
+            fix_effort=iter_2_efforts,
+        )
+        self.beta = beta
+        mean_lb = self._criterion_value
+        if self._verbose >= 2:
+            print(
+                    f"Time elapsed: {self._sensitivity_analysis_time:.2f} seconds."
+                )
+
+        self.cvar_optimal_candidates.append(self.optimal_candidates)
+        self.cvar_solution_times.append([self._sensitivity_analysis_time, self._optimization_time])
+        self._biobjective_values[1, :] = np.array([mean_lb, cvar_ub])
+        if self._verbose >= 1:
+            print(f"CVaR UB: {cvar_ub}")
+            print(f"MEAN LB: {mean_lb}")
+            print(f"[Iteration 2/{reso} Completed]".center(100, "="))
+            print(f"")
+        if plot:
+            self.v.value = iter2_var
+            self.s.value = iter2_s
+            add_fig(
+                self.plot_criterion_cdf(write=False, iteration=2),
+                self.plot_criterion_pdf(write=False, iteration=2),
+            )
+
+        """ Iterations 3+: Intermediate Points """
+        mean_values = np.linspace(mean_lb, mean_ub, reso)
+        mean_values = mean_values[:-1]
+        mean_values = mean_values[1:]
+
+        for i, mean in enumerate(mean_values):
+            print(f"[Iteration {i + 3}/{reso}]".center(100, "="))
+            self.design_experiment(
+                criterion,
+                n_spt=n_spt,
+                n_exp=n_exp,
+                optimize_sampling_times=optimize_sampling_times,
+                package=package,
+                optimizer=optimizer,
+                opt_options=opt_options,
+                e0=e0,
+                write=False,
+                save_sensitivities=False,
+                fd_jac=fd_jac,
+                unconstrained_form=unconstrained_form,
+                trim_fim=trim_fim,
+                pseudo_bayesian_type=pseudo_bayesian_type,
+                regularize_fim=regularize_fim,
+                beta=self.beta,
+                min_expected_value=mean,
+            )
+            self.get_optimal_candidates()
+            self.cvar_optimal_candidates.append(self.optimal_candidates)
+            self.cvar_solution_times.append([self._sensitivity_analysis_time, self._optimization_time])
+            self._biobjective_values[i + 2, :] = np.array([mean, self._criterion_value])
+
+            if plot:
+                add_fig(
+                    self.plot_criterion_cdf(write=False, iteration=i+3),
+                    self.plot_criterion_pdf(write=False, iteration=i+3),
+                )
+            if self._verbose >= 1:
+                self.print_optimal_candidates(tol=tol)
+                print(f"CVaR: {self._criterion_value}")
+                print(f"MEAN: {cp.sum(self.phi).value / self.n_scr}")
+                print(f"[Iteration {i + 3}/{reso} Completed]".center(100, "="))
+                print(f"")
+
+        # use the same axes.xlim for all plotted cdfs and pdfs
+        if plot:
+            xlims = []
+            for i, fig in enumerate(figs):
+                cdf, pdf = fig[0], fig[1]
+                xlims.append(cdf.axes[0].get_xlim())
+            xlims = np.asarray(xlims)
+            for i, fig in enumerate(figs):
+                cdf, pdf = fig[0], fig[1]
+                cdf.axes[0].set_xlim(xlims[:, 0].min(), xlims[:, 1].max())
+                pdf.axes[0].set_xlim(xlims[:, 0].min(), xlims[:, 1].max())
+                cdf.tight_layout()
+                pdf.tight_layout()
+                if write:
+                    fn_cdf = f"iter_{i + 1}_cdf_{self.beta}_beta_{self.n_scr}_scr"
+                    fp_cdf = self._generate_result_path(fn_cdf, "png")
+                    fn_pdf = f"iter_{i + 1}_pdf_{self.beta}_beta_{self.n_scr}_scr"
+                    fp_pdf = self._generate_result_path(fn_pdf, "png")
+                    cdf.savefig(fp_cdf, dpi=dpi)
+                    pdf.savefig(fp_pdf, dpi=dpi)
+
+    def _formulate_cvar_problem(self, criterion, beta, p_cons, min_expected_value=None):
+        self.v = cp.Variable()
+        self.s = cp.Variable((self.n_scr,), nonneg=True)
+        self.phi = cp.Variable((self.n_scr,))
+        self.phi_mean = cp.Variable()
+
+        self.eval_fim(self.efforts)
+
+        for scr, (s_q, phi_q, mp, fim) in enumerate(zip(self.s, self.phi, self.model_parameters, self.scr_fims)):
+            p_cons += [phi_q <= -criterion(fim)]
+            p_cons += [s_q >= self.v - phi_q]
+        if min_expected_value is not None:
+            self._constrained_cvar = True
+            p_cons += [cp.sum(self.phi) / self.n_scr >= min_expected_value]
+        else:
+            self._constrained_cvar = False
+        obj = cp.Maximize(self.v - 1 / (self.n_scr * (1 - beta)) * cp.sum(self.s))
+        return obj
+
+    def solve_cvar_problem_alt(self, criterion, beta, n_spt=None, n_exp=None,
+                           optimize_sampling_times=False, package="cvxpy",
+                           optimizer=None, opt_options=None, e0=None, write=True,
+                           save_sensitivities=False, fd_jac=True,
+                           unconstrained_form=False, trim_fim=False,
+                           pseudo_bayesian_type=None, regularize_fim=False,
+                           reso=5, plot=False, n_bins=20, tol=1e-4, **kwargs):
+        self._current_criterion = criterion.__name__
+
+        if "cvar" not in self._current_criterion:
+            raise SyntaxError(
+                "Please pass in a valid cvar criterion e.g., cvar_d_opt_criterion."
+            )
+
+        # computing number of parameter scenarios that will be considered in CVaR
+        self.n_cvar_scr = (1 - beta) * self.n_scr
+        if self.n_cvar_scr < 1:
+            print(
+                "[WARNING]: "
+                "given n_scr * beta given is smaller than 1, this yields a maximin "
+                "design. Please provide a larger number of n_scr if a CVaR design "
+                "was desired."
+            )
+            self.n_cvar_scr = np.ceil(self.n_cvar_scr).astype(int)
+        else:
+            self.n_cvar_scr = np.floor(self.n_cvar_scr).astype(int)
+
+        # check if given reso is less than 3
+        if reso < 3:
+            print(
+                f"The input reso is given as {reso}; the minimum value of reso is 3. "
+                "Continuing with reso = 3."
+            )
+            reso = 3
+
+        # initializing result lists
+        self.cvar_optimal_candidates = []
+        self.cvar_solution_times = []
+        self._biobjective_values = np.empty((reso, 2))
+        if plot:
+            figs = []
+
+            def add_fig(cdf, pdf):
+                figs.append([cdf, pdf])
+
+        self._alt_cvar = True
+        """ Iteration 1: Maximal (Type 1) Mean Design """
+        if self._verbose >= 1:
+            print(f" CVaR Problem ".center(100, "*"))
+            print(f"")
+            print(f"[Iteration 1/{reso}]".center(100, "="))
+            print(f"Computing the maximal mean design, obtaining the mean UB and CVaR LB"
+                  f" in the Pareto Frontier.")
+            print(f"")
+        self.design_experiment(
+            criterion,
+            n_spt=n_spt,
+            n_exp=n_exp,
+            optimize_sampling_times=optimize_sampling_times,
+            package=package,
+            optimizer=optimizer,
+            opt_options=opt_options,
+            e0=e0,
+            write=False,
+            save_sensitivities=False,
+            fd_jac=fd_jac,
+            unconstrained_form=unconstrained_form,
+            trim_fim=trim_fim,
+            pseudo_bayesian_type=pseudo_bayesian_type,
+            regularize_fim=regularize_fim,
+            min_expected_value=-1000,
+        )
+        self.get_optimal_candidates()
+        if self._verbose >= 1:
+            self.print_optimal_candidates(tol=tol, write=False)
+        iter_1_efforts = np.copy(self.efforts)
+        mean_ub = self._criterion_value
+        iter_1_phi = np.copy(self.phi.value)
+        if self._verbose >= 1:
+            print("")
+            print("Computing CVaR of Iteration 1's Solution")
+        cvar_lb = (self.v - 1 / (self.n_scr * (1 - beta)) * cp.sum(self.s)).value
         if self._verbose >= 2:
             print(
                     f"Time elapsed: {self._sensitivity_analysis_time:.2f} seconds."
@@ -733,7 +1016,7 @@ class Designer:
             trim_fim=trim_fim,
             pseudo_bayesian_type=pseudo_bayesian_type,
             regularize_fim=regularize_fim,
-            beta=beta,
+            beta=self.beta,
         )
         self.get_optimal_candidates()
         iter_2_efforts = np.copy(self.efforts)
@@ -836,7 +1119,7 @@ class Designer:
                 cdf.axes[0].set_xlim(xlims[:, 0].min(), xlims[:, 1].max())
                 pdf.axes[0].set_xlim(xlims[:, 0].min(), xlims[:, 1].max())
 
-    def _formulate_cvar_problem(self, criterion, beta, p_cons, min_expected_value=None):
+    def _formulate_cvar_problem_alt(self, criterion, beta, p_cons, min_cvar_value=None):
         self.v = cp.Variable()
         self.s = cp.Variable((self.n_scr,), nonneg=True)
         self.phi = cp.Variable((self.n_scr,))
@@ -845,15 +1128,14 @@ class Designer:
         self.eval_fim(self.efforts)
 
         for scr, (s_q, phi_q, mp, fim) in enumerate(zip(self.s, self.phi, self.model_parameters, self.scr_fims)):
-            start = time()
             p_cons += [phi_q <= -criterion(fim)]
             p_cons += [s_q >= self.v - phi_q]
-        if min_expected_value is not None:
+        if min_cvar_value is not None:
             self._constrained_cvar = True
-            p_cons += [cp.sum(self.phi) / self.n_scr >= min_expected_value]
+            p_cons += [self.v - 1 / (self.n_scr * (1 - beta)) * cp.sum(self.s) >= min_cvar_value]
         else:
             self._constrained_cvar = False
-        obj = cp.Maximize(self.v - 1 / (self.n_scr * (1 - beta)) * cp.sum(self.s))
+        obj = cp.Maximize(cp.sum(self.phi) / self.n_scr)
         return obj
 
     def design_experiment(self, criterion, n_spt=None, n_exp=None,
@@ -862,7 +1144,8 @@ class Designer:
                           save_sensitivities=False, fd_jac=True,
                           unconstrained_form=False, trim_fim=False,
                           pseudo_bayesian_type=None, regularize_fim=False, beta=0.90,
-                          min_expected_value=None, fix_effort=None, **kwargs):
+                          min_expected_value=None, fix_effort=None, save_atomics=False,
+                          **kwargs):
         # storing user choices
         self._regularize_fim = regularize_fim
         self._optimization_package = package
@@ -873,6 +1156,7 @@ class Designer:
         self._fd_jac = fd_jac
         self._unconstrained_form = unconstrained_form
         self._trim_fim = trim_fim
+        self._save_atomics = save_atomics
 
         """ checking if CVaR problem """
         if "cvar" in self._current_criterion:
@@ -1100,11 +1384,14 @@ class Designer:
                     p_cons += [eff == eff[0] for c, eff in enumerate(self.efforts)]
             # cvxpy problem
             if self._cvar_problem:
-                obj = self._formulate_cvar_problem(criterion, beta, p_cons, min_expected_value=min_expected_value)
+                if self._alt_cvar:
+                    obj = self._formulate_cvar_problem_alt(criterion, beta, p_cons, min_cvar_value=min_expected_value)
+                else:
+                    obj = self._formulate_cvar_problem(criterion, beta, p_cons, min_expected_value=min_expected_value)
             else:
                 obj = cp.Maximize(-criterion(self.efforts))
             if fix_effort is not None:
-                p_cons += [self.efforts == fix_effort]
+                p_cons += [self.efforts == fix_effort / fix_effort.sum()]
             problem = cp.Problem(obj, p_cons)
             # solution
             if self._discrete_design:
@@ -1164,7 +1451,7 @@ class Designer:
 
         return oed_result
 
-    def plot_criterion_cdf(self):
+    def plot_criterion_cdf(self, write=False, iteration=None, dpi=360):
         if not self._pseudo_bayesian or not self._cvar_problem:
             raise SyntaxError(
                 "Plotting cumulative distribution function only valid for pseudo-"
@@ -1188,7 +1475,7 @@ class Designer:
                 label=f"VaR {self.beta}",
             )
             axes.axvline(
-                x=self._criterion_value,
+                x=(self.v - 1 / (self.n_scr * (1 - self.beta)) * cp.sum(self.s)).value,
                 ymin=0,
                 ymax=1,
                 c="tab:green",
@@ -1213,9 +1500,14 @@ class Designer:
                 "bayesian problems."
             )
 
+        if write:
+            fn = f"cdf_{self.beta*100}_beta_{self.n_scr}_scr"
+            fp = self._generate_result_path(fn, "png", iteration=iteration)
+            fig.savefig(fname=fp, dpi=dpi)
+
         return fig
 
-    def plot_criterion_pdf(self, n_bins=20):
+    def plot_criterion_pdf(self, n_bins=20, write=False, iteration=None, dpi=360):
         if not self._pseudo_bayesian or not self._cvar_problem:
             raise SyntaxError(
                 "Plotting probability density function only valid for pseudo-"
@@ -1252,6 +1544,11 @@ class Designer:
                 "bayesian problems."
             )
 
+        if write:
+            fn = f"pdf_{self.beta*100}_beta_{self.n_scr}_scr"
+            fp = self._generate_result_path(fn, "png", iteration=iteration)
+            fig.savefig(fname=fp, dpi=dpi)
+
         return fig
 
     def estimability_study(self, base_step=None, step_ratio=None, num_steps=None,
@@ -1268,6 +1565,7 @@ class Designer:
         z_col_mag = np.nansum(np.power(z, 2), axis=0)
         next_estim_param = np.argmax(z_col_mag)
         self.estimable_columns = np.array([next_estim_param])
+        self.estimability = [z_col_mag[next_estim_param]]
         finished = False
         while not finished:
             x_l = z[:, self.estimable_columns]
@@ -1278,27 +1576,25 @@ class Designer:
             next_estim_param = np.argmax(r_col_mag)
             if r_col_mag[next_estim_param] <= estimable_tolerance:
                 if write:
-                    self.create_result_dir()
-                    self.run_no = 1
-                    result_file_template = Template(
-                        "${result_dir}/estimability_study_${run_no}.pkl")
-                    result_file = result_file_template.substitute(
-                        result_dir=self.result_dir, run_no=self.run_no)
-                    while path.isfile(result_file):
-                        self.run_no += 1
-                        result_file = result_file_template.substitute(
-                            result_dir=self.result_dir, run_no=self.run_no)
-                    dump(self.estimable_columns, open(result_file, 'wb'))
+                    fn = f"estimability_{self.n_c}_cand"
+                    fp = self._generate_result_path(fn, "pkl")
+                    dump(self.estimable_columns, open(fp, 'wb'))
                 print(f'Identified estimable parameters are: {self.estimable_columns}')
+                with np.printoptions(precision=1):
+                    print(
+                        f"Degree of Estimability: {np.asarray(self.estimability)}"
+                    )
                 return self.estimable_columns
+            self.estimability.append(r_col_mag[next_estim_param])
             self.estimable_columns = np.append(self.estimable_columns, next_estim_param)
 
     def estimability_study_fim(self, save_sensitivities=False):
         self._save_sensitivities = save_sensitivities
         self.efforts = np.ones((self.n_c, self.n_spt))
-        self.eval_fim(self.efforts, self.model_parameters)
+        self.eval_fim(self.efforts)
         print(f"Estimable parameters: {self.estimable_model_parameters}")
-        print(f"Degree of Estimability: {self.estimability}")
+        with np.printoptions(precision=1):
+            print(f"Degree of Estimability: {self.estimability}")
         return self.estimable_model_parameters, self.estimability
 
     """ core utilities """
@@ -1518,7 +1814,7 @@ class Designer:
         return tic, tvc
 
     # visualization and result retrieval
-    def plot_optimal_efforts(self, width=None, write=False, dpi=720, quality=95,
+    def plot_optimal_efforts(self, width=None, write=False, dpi=720,
                              force_3d=False):
         if self.optimal_candidates is None:
             self.get_optimal_candidates()
@@ -1526,22 +1822,19 @@ class Designer:
             print("Empty candidates, skipping plotting of optimal efforts.")
             return
         if (self._opt_sampling_times or force_3d) and self._dynamic_system:
-            fig = self._plot_current_efforts_3d(width=width, write=write, dpi=dpi,
-                                          quality=quality)
+            fig = self._plot_current_efforts_3d(width=width, write=write, dpi=dpi)
         else:
             if force_3d:
                 print(
                     "Warning: force 3d only works for dynamic systems, plotting "
                     "current design in 2D."
                 )
-            fig = self._plot_current_efforts_2d(width=width, write=write, dpi=dpi,
-                                          quality=quality)
+            fig = self._plot_current_efforts_2d(width=width, write=write, dpi=dpi)
         return fig
 
     def plot_optimal_controls(self, alpha=0.3, markersize=3, non_opt_candidates=False,
                               n_ticks=3, visualize_efforts=True, tol=1e-4,
-                              intervals=None, title=False, write=False, dpi=720,
-                              quality=95):
+                              intervals=None, title=False, write=False, dpi=720):
         if self._dynamic_system:
             print(
                 "[Warning]: Plot optimal controls is not implemented for dynamic "
@@ -1661,19 +1954,9 @@ class Designer:
             fig = trellis_plotter.scatter()
 
         if write:
-            self.create_result_dir()
-            fn = f"optimal_controls" \
-                 f"_{self.oed_result['optimality_criterion']}" \
-                 f"_{self.run_no}.png"
-            fp = self.result_dir + fn
-            while path.isfile(fp):
-                self.run_no += 1
-                fn = f"optimal_controls" \
-                     f"_{self.oed_result['optimality_criterion']}" \
-                     f"_{self.run_no}.png"
-                fp = self.result_dir + fn
-            fig.savefig(fname=fp, dpi=dpi, quality=quality)
-            self.run_no = 1
+            fn = f"optimal_controls_{self.oed_result['optimality_criterion']}"
+            fp = self._generate_result_path(fn, "png")
+            fig.savefig(fname=fp, dpi=dpi)
 
         return fig
 
@@ -1878,7 +2161,7 @@ class Designer:
 
     def plot_optimal_predictions(self, legend=None, figsize=None, markersize=10,
                                  fontsize=10, legend_size=8, colour_map="jet",
-                                 write=False, dpi=720, quality=95):
+                                 write=False, dpi=720):
         if not self._dynamic_system:
             raise SyntaxError("Prediction plots are only for dynamic systems.")
 
@@ -2049,24 +2332,14 @@ class Designer:
         fig.tight_layout()
 
         if write:
-            self.create_result_dir()
-            fn = f"response_plot" \
-                 f"_{self.oed_result['optimality_criterion']}" \
-                 f"_{self.run_no}.png"
-            fp = self.result_dir + fn
-            while path.isfile(fp):
-                self.run_no += 1
-                fn = f"response_plot" \
-                     f"_{self.oed_result['optimality_criterion']}" \
-                     f"_{self.run_no}.png"
-                fp = self.result_dir + fn
-            fig.savefig(fname=fp, dpi=dpi, quality=quality)
-            self.run_no = 1
+            fn = f"response_plot_{self.oed_result['optimality_criterion']}"
+            fp = self._generate_result_path(fn, "png")
+            fig.savefig(fname=fp, dpi=dpi)
 
         return fig
 
     def plot_optimal_sensitivities(self, figsize=None, markersize=10, colour_map="jet",
-                                   write=False, dpi=720, quality=95, interactive=False):
+                                   write=False, dpi=720, interactive=False):
         if interactive:
             self._plot_optimal_sensitivities_interactive(
                 figsize=figsize,
@@ -2080,10 +2353,9 @@ class Designer:
                 colour_map=colour_map,
                 write=write,
                 dpi=dpi,
-                quality=quality,
             )
 
-    def plot_pareto_frontier(self, write=False, dpi=720, quality=95):
+    def plot_pareto_frontier(self, write=False, dpi=720):
         if not self._cvar_problem:
             raise SyntaxError(
                 "Pareto Frontier can only be plotted after solution of a CVaR problem."
@@ -2101,21 +2373,11 @@ class Designer:
         fig.tight_layout()
 
         if write:
-            self.create_result_dir()
-            fn = f"optimal_controls" \
-                 f"_{self.oed_result['optimality_criterion']}" \
-                 f"_{self.run_no}.png"
-            fp = self.result_dir + fn
-            while path.isfile(fp):
-                self.run_no += 1
-                fn = f"optimal_controls" \
-                     f"_{self.oed_result['optimality_criterion']}" \
-                     f"_{self.run_no}.png"
-                fp = self.result_dir + fn
-            fig.savefig(fname=fp, dpi=dpi, quality=quality)
-            self.run_no = 1
+            fn = f"optimal_controls_{self.oed_result['optimality_criterion']}"
+            fp = self._generate_result_path(fn, "png")
+            fig.savefig(fname=fp, dpi=dpi)
 
-    def print_optimal_candidates(self, tol=1e-4, write=False):
+    def print_optimal_candidates(self, tol=1e-4):
         if self.optimal_candidates is None:
             self.get_optimal_candidates(tol)
         if self.n_opt_c is 0:
@@ -2181,21 +2443,10 @@ class Designer:
                     print(self.sampling_times_candidates[i])
         print(f"{'':#^100}")
 
-        if write:
-            self.write_optimal_candidates()
-
     def start_logging(self):
-        self.create_result_dir()
-        fn = f"run_log" \
-             f"_{self.run_no}.txt"
-        fp = self.result_dir + fn
-        while path.isfile(fp):
-            self.run_no += 1
-            fn = f"run_log" \
-                 f"_{self.run_no}.txt"
-            fp = self.result_dir + fn
+        fn = f"log"
+        fp = self._generate_result_path(fn, "txt")
         sys.stdout = Logger(file_path=fp)
-        self.run_no = 1
 
     def stop_logging(self):
         sys.stdout = sys.__stdout__
@@ -2222,10 +2473,8 @@ class Designer:
         if self.result_dir is None:
             now = datetime.now()
             self.result_dir = getcwd() + "/"
-            self.result_dir = self.result_dir + \
-                              path.splitext(path.basename(main.__file__))[0] + "_result/"
-            self.result_dir = self.result_dir + 'date_%d-%d-%d/' % (
-                now.year, now.month, now.day)
+            self.result_dir += path.splitext(path.basename(main.__file__))[0] + "_result/"
+            self.result_dir += f'date_{now.year:d}-{now.month:d}-{now.day:d}/'
             self.create_result_dir()
         else:
             if path.exists(self.result_dir):
@@ -2234,116 +2483,11 @@ class Designer:
                 makedirs(self.result_dir)
 
     def write_oed_result(self):
-        self.create_result_dir()
-
-        result_file = self.result_dir + \
-                      f"/{self.oed_result['optimality_criterion']:s}_oed_result_{self.run_no:d}.pkl"
-        if path.isfile(result_file):
-            self.run_no += 1
-            self.write_oed_result()
-        else:
-            self.run_no = 1  # revert run numbers
-            dump(self.oed_result, open(result_file, "wb"))
-
-    def write_optimal_candidates(self):
-        self.create_result_dir()
-
-        optimal_candidate_file = self.result_dir + f"/optimal_candidates_{self.run_no}.txt"
-        if path.isfile(optimal_candidate_file):
-            self.run_no += 1
-            self.write_optimal_candidates()
-        else:
-            self.run_no = 1  # revert run numbers
-
-            writer = open(
-                optimal_candidate_file, "a"
-            )
-            writer.write(f"{' Optimal Candidates ':#^100}")
-            writer.write("\n")
-            writer.write(f"{'Obtained on':<40}: {datetime.now()}")
-            writer.write("\n")
-            writer.write(f"{'Criterion':<40}: {self._current_criterion}")
-            writer.write("\n")
-            writer.write(f"{'Pseudo-bayesian':<40}: {self._pseudo_bayesian}")
-            writer.write("\n")
-            if self._pseudo_bayesian:
-                writer.write(
-                    f"{'Pseudo-bayesian Criterion Type':<40}: {self._pseudo_bayesian_type}")
-                writer.write("\n")
-            writer.write(f"{'Time-invariant Controls':<40}: {self._invariant_controls}")
-            writer.write("\n")
-            writer.write(f"{'Time-varying Controls':<40}: {self._dynamic_controls}")
-            writer.write("\n")
-            writer.write(f"{'Number of Candidates':<40}: {self.n_c}")
-            writer.write("\n")
-            writer.write(f"{'Number of Optimal Candidates':<40}: {self.n_opt_c}")
-            writer.write("\n")
-            writer.write(f"{'Dynamic':<40}: {self._dynamic_system}")
-            writer.write("\n")
-            if self._dynamic_system:
-                writer.write(f"{'Number of Sampling Time Choices':<40}: {self.n_spt}")
-                writer.write("\n")
-                writer.write(f"{'Sampling Times Optimized':<40}: {self._opt_sampling_times}")
-                writer.write("\n")
-                if self._opt_sampling_times:
-                    writer.write(
-                        f"{'Number of Samples Per Experiment':<40}: {self._n_spt_spec}")
-                    writer.write("\n")
-            if self._pseudo_bayesian:
-                writer.write(f"{'Number of Scenarios':<40}: {self.n_scr}")
-                writer.write("\n")
-
-            for i, opt_cand in enumerate(self.optimal_candidates):
-                writer.write(f"{f'[Candidate {opt_cand[0] + 1:d}]':-^100}")
-                writer.write("\n")
-                writer.write(
-                    f"{f'Recommended Effort: {np.sum(opt_cand[4]):.2%} of experiments':^100}")
-                writer.write("\n")
-                if self._invariant_controls:
-                    writer.write("Time-invariant Controls:")
-                    writer.write("\n")
-                    writer.write(str(opt_cand[1]))
-                    writer.write("\n")
-                if self._dynamic_controls:
-                    writer.write("Time-varying Controls:")
-                    writer.write("\n")
-                    writer.write(str(opt_cand[2]))
-                    writer.write("\n")
-                if self._dynamic_system:
-                    if self._opt_sampling_times:
-                        if self._specified_n_spt:
-                            writer.write("Sampling Time Variants:")
-                            writer.write("\n")
-                            for comb, spt_comb in enumerate(opt_cand[3]):
-                                writer.write(f"  Variant {comb + 1} ~ [",)
-                                writer.write("\n")
-                                for j, sp_time in enumerate(spt_comb):
-                                    writer.write(f"{f'{sp_time:.2f}':>10}",)
-                                    writer.write("\n")
-                                writer.write("]: ",)
-                                writer.write("\n")
-                                writer.write(
-                                    f'{f"{opt_cand[4][comb].sum():.2%}":>10} of experiments')
-                                writer.write("\n")
-                        else:
-                            writer.write("Sampling Times:")
-                            writer.write("\n")
-                            for j, sp_time in enumerate(opt_cand[3]):
-                                writer.write(f"[{f'{sp_time:.2f}':>10}]: "
-                                      f"dedicate {f'{opt_cand[4][j]:.2%}':>6} of experiments")
-                                writer.write("\n")
-                    else:
-                        writer.write("Sampling Times:")
-                        writer.write("\n")
-                        writer.write(str(self.sampling_times_candidates[i]))
-                        writer.write("\n")
-            writer.write(f"{'':#^100}")
-            writer.write("\n")
-            writer.close()
+        fn = f"{self.oed_result['optimality_criterion']:s}_oed_result"
+        fp = self._generate_result_path(fn, "pkl")
+        dump(self.oed_result, open(fp, "wb"))
 
     def save_state(self):
-        self.create_result_dir()
-
         # pre-process the designer before saving
         state = [
             self.n_c,
@@ -2358,13 +2502,9 @@ class Designer:
             self.model_parameters,
         ]
 
-        designer_file = self.result_dir + "/" + 'state' + "_%d.pkl" % self.run_no
-        if path.isfile(designer_file):
-            self.run_no += 1
-            self.save_state()
-        else:
-            self.run_no = 1  # revert run numbers
-            dill.dump(state, open(designer_file, "wb"))
+        designer_file = f"state"
+        fp = self._generate_result_path(designer_file, ".pkl")
+        dill.dump(state, open(designer_file, "wb"))
 
     def load_state(self, designer_path):
         state = dill.load(open(getcwd() + designer_path, 'rb'))
@@ -2384,8 +2524,19 @@ class Designer:
         pass
 
     def load_sensitivity(self, sens_path):
-        self.sensitivities = load(open(getcwd() + sens_path, 'rb'))
+        self.sensitivities = load(open(getcwd() + "/" + sens_path, "rb"))
+        self._model_parameters_changed = False
+        self._candidates_changed = False
         return self.sensitivities
+
+    def load_atomics(self, atomic_path):
+        if self._pseudo_bayesian:
+            self.pb_atomic_fims = load(open(getcwd() + atomic_path, "rb"))
+        else:
+            self.atomic_fims = load(open(getcwd() + atomic_path, "rb"))
+        self._model_parameters_changed = False
+        self._candidates_changed = False
+        return self.atomic_fims
 
     """ criteria """
 
@@ -2496,7 +2647,7 @@ class Designer:
 
     def eval_sensitivities(self, method='forward', base_step=2, step_ratio=2,
                            num_steps=None, store_predictions=True,
-                           plot_analysis_times=False, save_sensitivities=False,
+                           plot_analysis_times=False, save_sensitivities=None,
                            reporting_frequency=None):
         """
         Main evaluator for computing numerical sensitivities of the responses with
@@ -2523,7 +2674,8 @@ class Designer:
 
         if isinstance(reporting_frequency, int) and reporting_frequency > 0:
             self.sens_report_freq = reporting_frequency
-        self._save_sensitivities = save_sensitivities
+        if save_sensitivities is not None:
+            self._save_sensitivities = save_sensitivities
 
         if self._pseudo_bayesian and not self._large_memory_requirement:
             self._scr_sens = np.empty((self.n_scr, self.n_c, self.n_spt, self.n_m_r, self.n_mp))
@@ -2607,14 +2759,14 @@ class Designer:
         if self._pseudo_bayesian and not self._large_memory_requirement:
             self._scr_sens[self._current_scr] = self.sensitivities
 
-        if self._save_sensitivities:
-            self.create_result_dir()
-            self.run_no = 1
-            sens_file = self.result_dir + '/sensitivity_%d.pkl' % self.run_no
-            while path.isfile(sens_file):
-                self.run_no += 1
-                sens_file = self.result_dir + '/sensitivity_%d.pkl' % self.run_no
-            dump(self.sensitivities, open(sens_file, 'wb'))
+        if self._save_sensitivities and not self._pseudo_bayesian:
+            sens_file = f'sensitivity_{self.n_c}_cand'
+            if self._dynamic_system:
+                sens_file += f"_{self.n_spt}_spt"
+            if self._pseudo_bayesian:
+                sens_file += f"_{self.n_scr}_scr"
+            fp = self._generate_result_path(sens_file, "pkl")
+            dump(self.sensitivities, open(fp, 'wb'))
 
         if plot_analysis_times:
             fig = plt.figure()
@@ -2622,6 +2774,9 @@ class Designer:
             axes.plot(np.arange(1, self.n_c + 1, step=1), candidate_sens_times)
 
         self._sensitivity_analysis_done = True
+
+        self.sensitivities[:, :, :, 0] *= self.model_parameters[0]
+        self.sensitivities[:, :, :, 1] *= self.model_parameters[1]
 
         return self.sensitivities
 
@@ -2658,10 +2813,13 @@ class Designer:
                 store_predictions=store_predictions,
             )
 
-    def _eval_fim(self, efforts, store_predictions=True):
-        def add_candidates(s_in, e_in):
+    def _eval_fim(self, efforts, store_predictions=True, save_atomics=None):
+        if save_atomics is not None:
+            self._save_atomics = save_atomics
+
+        def add_candidates(s_in, e_in, error_info_mat):
             if not np.any(np.isnan(s_in)):
-                _atom_fim = s_in.T @ s_in
+                _atom_fim = s_in.T @ error_info_mat @ s_in
                 self.fim += e_in * _atom_fim
             else:
                 _atom_fim = np.zeros((self.n_mp, self.n_mp))
@@ -2675,8 +2833,15 @@ class Designer:
         self.efforts = efforts
 
         """ eval_sensitivities, only runs if model parameters changed """
-        self._compute_atomics = self._large_memory_requirement or self._model_parameters_changed or self._candidates_changed or self.atomic_fims is None
-        if self._compute_atomics:
+        self._compute_sensitivities = self._model_parameters_changed
+        self._compute_sensitivities = self._compute_sensitivities or self._candidates_changed
+        self._compute_sensitivities = self._compute_sensitivities or self.sensitivities is None
+
+        self._compute_atomics = self._model_parameters_changed
+        self._compute_atomics = self._compute_atomics or self._candidates_changed
+        self._compute_atomics = self._compute_atomics or self.atomic_fims is None
+
+        if self._compute_sensitivities:
             self.eval_sensitivities(
                 save_sensitivities=self._save_sensitivities,
                 store_predictions=store_predictions,
@@ -2702,11 +2867,11 @@ class Designer:
                 for c, (eff, sen, spt_combs) in enumerate(zip(self.efforts, self.sensitivities, self.spt_candidates_combs)):
                     for comb, (e, spt) in enumerate(zip(eff, spt_combs)):
                         s = np.mean(sen[spt], axis=0)
-                        add_candidates(s, e)
+                        add_candidates(s, e, self.error_fim)
             else:
                 for c, (eff, sen) in enumerate(zip(self.efforts, self.sensitivities)):
                     for spt, (e, s) in enumerate(zip(eff, sen)):
-                        add_candidates(s, e)
+                        add_candidates(s, e, self.error_fim)
         # if atomic is given
         else:
             self.fim = 0
@@ -2754,12 +2919,22 @@ class Designer:
         self._model_parameters_changed = False
         self._candidates_changed = False
 
+        if self._save_atomics and not self._pseudo_bayesian:
+            sens_file = f"atomics_{self.n_c}_cand"
+            if self._dynamic_system:
+                sens_file += f"_{self.n_spt}_spt"
+            if self._pseudo_bayesian:
+                sens_file += f"_{self.n_scr}_scr"
+            fp = self._generate_result_path(sens_file, "pkl")
+            dump(self.atomic_fims, open(fp, 'wb'))
+
         return self.fim
 
     def _eval_pb_fims(self, efforts, store_predictions=True):
         """ only recompute pb_atomics if the full parameter scenarios are changed """
-        self._compute_pb_atomics = self._model_parameters_changed or self._candidates_changed or self._large_memory_requirement
-        # _model_parameters_changed updated automatically see self.model_parameter's setter
+        self._compute_pb_atomics = self._model_parameters_changed
+        self._compute_pb_atomics = self._compute_pb_atomics or self._candidates_changed
+        self._compute_pb_atomics = self._compute_pb_atomics or self.pb_atomic_fims is None
 
         self.scr_fims = []
         if self._compute_pb_atomics:
@@ -2798,6 +2973,11 @@ class Designer:
                 self.atomic_fims = atomic_fims
                 self._eval_fim(self.efforts, store_predictions)
                 self.scr_fims.append(self.fim)
+
+        if self._save_atomics:
+            fn = f"atomics_{self.n_c}_can_{self.n_scr}_scr"
+            fp = self._generate_result_path(fn, "pkl")
+            dump(self.pb_atomic_fims, open(fp, "wb"))
 
         return self.scr_fims
 
@@ -3333,9 +3513,33 @@ class Designer:
 
     """ private methods """
 
+    def _generate_result_path(self, name, extension, iteration=None):
+        self.create_result_dir()
+
+        while True:
+            fp = self.result_dir + f"run_{self.run_no}/"
+            if path.exists(fp):
+                fn = f"run_{self.run_no}_{name}.{extension}"
+                if iteration is not None:
+                    fn = f"iter_{iteration:d}_" + fn
+                fp += fn
+                if path.isfile(fp):
+                    self.run_no += 1
+                else:
+                    self.run_no = 1
+                    return fp
+            else:
+                makedirs(fp)
+                fn = f"run_{self.run_no}_{name}.{extension}"
+                if iteration is not None:
+                    fn = f"iter_{iteration:d}_" + fn
+                fp += fn
+                self.run_no = 1
+                return fp
+
     def _plot_optimal_sensitivities(self, absolute=False, legend=None,
                                    markersize=10, colour_map="jet",
-                                   write=False, dpi=720, quality=95, figsize=None):
+                                   write=False, dpi=720, figsize=None):
         if not self._dynamic_system:
             raise SyntaxError("Sensitivity plots are only for dynamic systems.")
 
@@ -3359,12 +3563,12 @@ class Designer:
             ncols=self.n_mp,
             sharex=True,
         )
-        if self.n_m_r == 1:
+        if self.n_m_r == 1 and self.n_mp == 1:
+            axes = np.array([[axes]])
+        elif self.n_m_r == 1:
             axes = np.array([axes])
         elif self.n_mp == 1:
             axes = np.array([axes]).T
-        elif self.n_m_r == 1 and self.n_mp == 1:
-            axes = np.array([[axes]])
 
         if self._pseudo_bayesian:
             mean_sens = np.nanmean(self._scr_sens, axis=0)
@@ -3473,18 +3677,9 @@ class Designer:
         fig.tight_layout()
 
         if write:
-            self.create_result_dir()
-            fn = f"sensitivity_plot" \
-                 f"_{self.oed_result['optimality_criterion']}" \
-                 f"_{self.run_no}.png"
-            fp = self.result_dir + fn
-            while path.isfile(fp):
-                self.run_no += 1
-                fn = f"sensitivity_plot" \
-                     f"_{self.oed_result['optimality_criterion']}" \
-                     f"_{self.run_no}.png"
-                fp = self.result_dir + fn
-            fig.savefig(fname=fp, dpi=dpi, quality=quality)
+            fn = f"sensitivity_plot_{self.oed_result['optimality_criterion']}"
+            fp = self._generate_result_path(fn, "png")
+            fig.savefig(fname=fp, dpi=dpi)
             self.run_no = 1
 
         return fig
@@ -3677,8 +3872,7 @@ class Designer:
             self._store_current_response()
         return response
 
-    def _plot_current_efforts_2d(self, min_effort=1e-6, width=None, write=False, dpi=720,
-                                 quality=95):
+    def _plot_current_efforts_2d(self, min_effort=1e-6, width=None, write=False, dpi=720):
         if self._verbose >= 2:
             print("Plotting current continuous design.")
 
@@ -3711,23 +3905,14 @@ class Designer:
             )
 
         if write:
-            self.create_result_dir()
-            figname = 'fig_%s_design_%d.png' % (
-                self.oed_result["optimality_criterion"], self.run_no)
-            figfile = self.result_dir + figname
-            while path.isfile(figfile):
-                self.run_no += 1
-                figname = 'fig_%s_design_%d.png' % (
-                    self.oed_result["optimality_criterion"], self.run_no)
-                figfile = self.result_dir + figname
-            fig.savefig(fname=figfile, dpi=dpi, quality=quality)
-            self.run_no = 1
+            fn = f"efforts_{self.oed_result['optimality_criterion']}"
+            fp = self._generate_result_path(fn, "png")
+            fig.savefig(fname=fp, dpi=dpi)
 
         fig.tight_layout()
         return fig
 
-    def _plot_current_efforts_3d(self, width=None, write=False, dpi=720,
-                                 quality=95, tol=1e-4):
+    def _plot_current_efforts_3d(self, width=None, write=False, dpi=720, tol=1e-4):
         if self._specified_n_spt:
             print(f"Warning, plot_optimal_efforts not implemented for specified n_spt.")
             return
@@ -3786,17 +3971,9 @@ class Designer:
         fig.tight_layout()
 
         if write:
-            self.create_result_dir()
-            figname = 'fig_%s_design_%d.png' % (
-                self.oed_result["optimality_criterion"], self.run_no)
-            figfile = self.result_dir + figname
-            while path.isfile(figfile):
-                self.run_no += 1
-                figname = 'fig_%s_design_%d.png' % (
-                    self.oed_result["optimality_criterion"], self.run_no)
-                figfile = self.result_dir + figname
-            fig.savefig(fname=figfile, dpi=dpi, quality=quality)
-            self.run_no = 1
+            fn = f'efforts_{self.oed_result["optimality_criterion"]}'
+            fp = self._generate_result_path(fn, "png")
+            fig.savefig(fname=fp, dpi=dpi)
         return fig
 
     def _pad_sampling_times(self):
