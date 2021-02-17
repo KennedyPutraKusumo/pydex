@@ -2775,9 +2775,6 @@ class Designer:
 
         self._sensitivity_analysis_done = True
 
-        self.sensitivities[:, :, :, 0] *= self.model_parameters[0]
-        self.sensitivities[:, :, :, 1] *= self.model_parameters[1]
-
         return self.sensitivities
 
     def eval_fim(self, efforts, store_predictions=True):
