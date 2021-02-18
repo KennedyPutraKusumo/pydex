@@ -489,7 +489,6 @@ class Designer:
             try:
                 self.eval_fim(
                     efforts=np.ones((self.n_c, self.n_spt)),
-                    mp=pe_result.x,
                 )
             except RuntimeWarning:
                 print(
