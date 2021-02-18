@@ -128,7 +128,7 @@ result = designer_1.design_experiment(
     write=False,
     pseudo_bayesian_type=pb_type,
 )
-designer_1.print_optimal_candidates(write=False)
+designer_1.print_optimal_candidates()
 designer_1.plot_optimal_predictions(colour_map="plasma")
 designer_1.plot_optimal_sensitivities(colour_map="plasma")
 
@@ -139,7 +139,7 @@ result = designer_1.design_experiment(
     write=False,
     pseudo_bayesian_type=pb_type,
 )
-designer_1.print_optimal_candidates(write=False)
+designer_1.print_optimal_candidates()
 designer_1.plot_optimal_predictions(colour_map="plasma")
 designer_1.plot_optimal_sensitivities(colour_map="plasma")
 
@@ -150,7 +150,7 @@ result = designer_1.design_experiment(
     write=False,
     pseudo_bayesian_type=pb_type,
 )
-designer_1.print_optimal_candidates(write=False)
+designer_1.print_optimal_candidates()
 designer_1.plot_optimal_predictions(colour_map="plasma")
 designer_1.plot_optimal_sensitivities(colour_map="plasma")
 
