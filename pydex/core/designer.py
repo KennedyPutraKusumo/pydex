@@ -3286,7 +3286,7 @@ class Designer:
         if self._optimization_package is "cvxpy":
             raise NotImplementedError("CVXPY unavailable for dg_opt.")
 
-        self.eval_pim(efforts, self._current_scr_mp)
+        self.eval_pim(efforts)
         # dg_opt: max det of the pvar matrix over candidates and sampling times
         dg_opts = np.empty((self.n_c, self.n_spt))
         for c, PVAR in enumerate(self.pvars):
@@ -3306,7 +3306,7 @@ class Designer:
         if self._optimization_package is "cvxpy":
             raise NotImplementedError("CVXPY unavailable for di_opt.")
 
-        self.eval_pim(efforts, self._current_scr_mp)
+        self.eval_pim(efforts)
         # di_opt: average det of the pvar matrix over candidates and sampling times
         dg_opts = np.empty((self.n_c, self.n_spt))
         for c, PVAR in enumerate(self.pvars):
@@ -3326,7 +3326,7 @@ class Designer:
         if self._optimization_package is "cvxpy":
             raise NotImplementedError("CVXPY unavailable for ag_opt.")
 
-        self.eval_pim(efforts, self._current_scr_mp)
+        self.eval_pim(efforts)
         # ag_opt: max trace of the pvar matrix over candidates and sampling times
         ag_opts = np.empty((self.n_c, self.n_spt))
         for c, PVAR in enumerate(self.pvars):
@@ -3344,7 +3344,7 @@ class Designer:
         if self._optimization_package is "cvxpy":
             raise NotImplementedError("CVXPY unavailable for ai_opt.")
 
-        self.eval_pim(efforts, self._current_scr_mp)
+        self.eval_pim(efforts)
         # ai_opt: average trace of the pvar matrix over candidates and sampling times
         ai_opts = np.empty((self.n_c, self.n_spt))
         for c, PVAR in enumerate(self.pvars):
@@ -3362,7 +3362,7 @@ class Designer:
         if self._optimization_package is "cvxpy":
             raise NotImplementedError("CVXPY unavailable for eg_opt.")
 
-        self.eval_pim(efforts, self._current_scr_mp)
+        self.eval_pim(efforts)
         # eg_opt: max of the max_eigenval of the pvar matrix over candidates and sampling times
         eg_opts = np.empty((self.n_c, self.n_spt))
         for c, PVAR in enumerate(self.pvars):
@@ -3380,7 +3380,7 @@ class Designer:
         if self._optimization_package is "cvxpy":
             raise NotImplementedError("CVXPY unavailable for ei_opt.")
 
-        self.eval_pim(efforts, self._current_scr_mp)
+        self.eval_pim(efforts)
         # ei_opts: average of the max_eigenval of the pvar matrix over candidates and sampling times
         ei_opts = np.empty((self.n_c, self.n_spt))
         for c, PVAR in enumerate(self.pvars):
