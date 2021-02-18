@@ -36,7 +36,7 @@ designer.design_experiment(
     package="cvxpy",
     optimizer="MOSEK",
 )
-designer.print_optimal_candidates(write=False)
+designer.print_optimal_candidates()
 designer.plot_optimal_controls()
 
 designer.design_experiment(
@@ -46,7 +46,7 @@ designer.design_experiment(
     package="cvxpy",
     optimizer="MOSEK",
 )
-designer.print_optimal_candidates(write=False)
+designer.print_optimal_candidates()
 designer.plot_optimal_controls()
 
 designer.design_experiment(
@@ -56,7 +56,7 @@ designer.design_experiment(
     package="cvxpy",
     optimizer="MOSEK",
 )
-designer.print_optimal_candidates(write=False)
+designer.print_optimal_candidates()
 designer.plot_optimal_controls()
 
 designer.show_plots()
