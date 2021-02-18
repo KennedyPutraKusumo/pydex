@@ -2826,11 +2826,13 @@ class Designer:
                 efforts=efforts,
                 store_predictions=store_predictions,
             )
+            return self.scr_fims
         else:
             self._eval_fim(
                 efforts=efforts,
                 store_predictions=store_predictions,
             )
+            return self.fim
 
     def _eval_fim(self, efforts, store_predictions=True, save_atomics=None):
         if save_atomics is not None:
