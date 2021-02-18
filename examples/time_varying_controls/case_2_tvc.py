@@ -55,10 +55,9 @@ designer_1.model_parameter_names = ["\\theta_0", "\\theta_1", "\\alpha", "\\nu"]
 criterion = designer_1.d_opt_criterion
 result = designer_1.design_experiment(
     criterion=criterion,
-    write=False,
     package="cvxpy",
 )
-designer_1.print_optimal_candidates(write=False)
+designer_1.print_optimal_candidates()
 designer_1.plot_optimal_predictions(colour_map="rainbow")
 designer_1.plot_optimal_sensitivities(colour_map="rainbow")
 designer_1.stop_logging()
