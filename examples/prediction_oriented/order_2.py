@@ -41,41 +41,41 @@ designer.initialize(verbose=2)  # 0: silent, 1: overview, 2: detailed, 3: very d
 
 """ designing experiment """
 package, optimizer = ("scipy", "l-bfgs-b")
-# criterion = designer.di_opt_criterion
-# designer.design_experiment(
-#     criterion=criterion,
-#     package=package,
-#     optimizer=optimizer,
-#     write=False,
-# )
-#
-# designer.print_optimal_candidates()
-# designer.plot_optimal_efforts()
-# designer.plot_optimal_controls(non_opt_candidates=True)
-#
-# criterion = designer.ai_opt_criterion
-# designer.design_experiment(
-#     criterion=criterion,
-#     package=package,
-#     optimizer=optimizer,
-#     write=False,
-# )
-#
-# designer.print_optimal_candidates()
-# designer.plot_optimal_efforts()
-# designer.plot_optimal_controls(non_opt_candidates=True)
-#
-# criterion = designer.ei_opt_criterion
-# designer.design_experiment(
-#     criterion=criterion,
-#     package=package,
-#     optimizer=optimizer,
-#     write=False,
-# )
-#
-# designer.print_optimal_candidates()
-# designer.plot_optimal_efforts()
-# designer.plot_optimal_controls(non_opt_candidates=True)
+criterion = designer.di_opt_criterion
+designer.design_experiment(
+    criterion=criterion,
+    package=package,
+    optimizer=optimizer,
+    write=False,
+)
+
+designer.print_optimal_candidates()
+designer.plot_optimal_efforts()
+designer.plot_optimal_controls(non_opt_candidates=True)
+
+criterion = designer.ai_opt_criterion
+designer.design_experiment(
+    criterion=criterion,
+    package=package,
+    optimizer=optimizer,
+    write=False,
+)
+
+designer.print_optimal_candidates()
+designer.plot_optimal_efforts()
+designer.plot_optimal_controls(non_opt_candidates=True)
+
+criterion = designer.ei_opt_criterion
+designer.design_experiment(
+    criterion=criterion,
+    package=package,
+    optimizer=optimizer,
+    write=False,
+)
+
+designer.print_optimal_candidates()
+designer.plot_optimal_efforts()
+designer.plot_optimal_controls(non_opt_candidates=True)
 
 criterion = designer.dg_opt_criterion
 designer.design_experiment(
