@@ -1,11 +1,13 @@
 import numpy as np
+import logging
 from time import time
 from pyomo import dae as pod
 from pyomo import environ as po
 from scipy.optimize import minimize
-
 from pydex.core.designer import Designer
 
+
+logging.getLogger("pyomo.core").setLevel(logging.ERROR)
 
 def simulate(ti_controls, sampling_times, model_parameters):
     norm_spt = sampling_times / np.max(sampling_times)
