@@ -2880,7 +2880,7 @@ class Designer:
         start = time()
 
         # if atomic is not given
-        if self.atomic_fims is None:
+        if self._compute_atomics:
             self.fim = 0
             if self._optimization_package is "scipy":
                 if self._specified_n_spt:
