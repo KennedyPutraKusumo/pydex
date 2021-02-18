@@ -32,7 +32,6 @@ designer.solve_cvar_problem(
     beta=0.80,
     reso=5,
     plot=True,
-    write=False,
 )
 designer.plot_pareto_frontier()
 designer.stop_logging()

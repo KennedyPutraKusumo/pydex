@@ -12,9 +12,7 @@ designer.model_parameters = np.random.uniform(
     size=[100, 2]
 )
 
-designer.initialize(verbose=1)
-designer.sens_report_freq = 10
-designer._num_steps = 5
+designer.initialize(verbose=2)
 
 designer.solve_cvar_problem(
     designer.cvar_d_opt_criterion,

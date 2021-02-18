@@ -39,10 +39,12 @@ designer.initialize(verbose=2)
 designer.sens_report_freq = 2
 designer._num_steps = 10
 
+designer._save_atomics = True
+
 """ Pseudo-Bayesian Type 1 D-opt Design """
 pkg = "cvxpy"
 opt = "MOSEK"
-if False:
+if True:
     designer.design_experiment(
         designer.d_opt_criterion,
         optimize_sampling_times=True,
@@ -55,7 +57,7 @@ if False:
     designer.plot_optimal_sensitivities()
 
 """ CVaR - Mean Pareto Efficient Designs """
-if True:
+if False:
     designer.solve_cvar_problem(
         designer.cvar_d_opt_criterion,
         beta=0.90,

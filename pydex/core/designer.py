@@ -296,7 +296,7 @@ class Designer:
         self._check_memory_req(memory_threshold)
 
         if self.error_cov is None:
-            self.error_cov = np.eye(self.n_mp)
+            self.error_cov = np.eye(self.n_m_r)
         try:
             self.error_fim = np.linalg.inv(self.error_cov)
         except np.linalg.LinAlgError:
@@ -686,7 +686,7 @@ class Designer:
         self.get_optimal_candidates()
         if self._verbose >= 1:
             self.print_optimal_candidates(tol=tol)
-        iter_1_efforts = np.copy(self.efforts)
+        iter_1_efforts = np.copy(self.efforts) / np.sum(self.efforts)
         mean_ub = self._criterion_value
         iter_1_phi = np.copy(self.phi.value)
         if self._verbose >= 1:
@@ -760,7 +760,7 @@ class Designer:
         )
         iter2_s = np.copy(self.s.value)
         self.get_optimal_candidates()
-        iter_2_efforts = np.copy(self.efforts)
+        iter_2_efforts = np.copy(self.efforts) / np.sum(self.efforts)
         if self._verbose >= 1:
             self.print_optimal_candidates(tol=tol)
         iter2_var = self.v.value
@@ -992,7 +992,10 @@ class Designer:
             print(f"")
         if plot:
             self.phi.value = iter_1_phi
-            add_fig(self.plot_criterion_cdf(), self.plot_criterion_pdf())
+            add_fig(
+                self.plot_criterion_cdf(write=False, iteration=1),
+                self.plot_criterion_pdf(write=False, iteration=1),
+            )
 
         """ Iteration 2: Maximal CVaR_beta Design """
         if self._verbose >= 1:
@@ -1065,7 +1068,10 @@ class Designer:
         if plot:
             self.v.value = iter2_var
             self._criterion_value = cvar_ub
-            add_fig(self.plot_criterion_cdf(), self.plot_criterion_pdf())
+            add_fig(
+                self.plot_criterion_cdf(write=False, iteration=2),
+                self.plot_criterion_pdf(write=False, iteration=2),
+            )
 
         """ Iterations 3+: Intermediate Points """
         mean_values = np.linspace(mean_lb, mean_ub, reso)
@@ -1099,7 +1105,10 @@ class Designer:
             self._biobjective_values[i + 2, :] = np.array([mean, self._criterion_value])
 
             if plot:
-                add_fig(self.plot_criterion_cdf(), self.plot_criterion_pdf())
+                add_fig(
+                    self.plot_criterion_cdf(write=False, iteration=i+3),
+                    self.plot_criterion_pdf(write=False, iteration=i+3),
+                )
             if self._verbose >= 1:
                 self.print_optimal_candidates(tol=tol, write=False)
                 print(f"CVaR: {self._criterion_value}")
@@ -1493,7 +1502,6 @@ class Designer:
             axes.set_ylabel("Cumulative Probability")
             axes.legend()
             fig.tight_layout()
-            fig.savefig("cdf.png", dpi=360)
         else:
             raise NotImplementedError(
                 "Plotting cumulative distribution function not implemented for pseudo-"
@@ -1537,7 +1545,6 @@ class Designer:
             axes.set_ylabel("Frequency")
             axes.legend()
             fig.tight_layout()
-            fig.savefig("pdf.png", dpi=360)
         else:
             raise NotImplementedError(
                 "Plotting probability density function not implemented for pseudo-"
@@ -1553,11 +1560,22 @@ class Designer:
 
     def estimability_study(self, base_step=None, step_ratio=None, num_steps=None,
                            estimable_tolerance=0.04, write=False,
-                           save_sensitivities=False):
+                           save_sensitivities=False, normalize=False):
         self._save_sensitivities = save_sensitivities
-        self.eval_sensitivities(base_step=base_step, step_ratio=step_ratio,
-                                num_steps=num_steps)
-        self.normalize_sensitivities()
+        self._compute_sensitivities = self._model_parameters_changed
+        self._compute_sensitivities = self._compute_sensitivities or self._candidates_changed
+        self._compute_sensitivities = self._compute_sensitivities or self.sensitivities is None
+
+        if self._compute_sensitivities:
+            self.eval_sensitivities(
+                base_step=base_step,
+                step_ratio=step_ratio,
+                num_steps=num_steps
+            )
+        if normalize:
+            self.normalize_sensitivities()
+        else:
+            self.normalized_sensitivity = self.sensitivities / self.responses_scales[None, None, :, None]
 
         z = self.normalized_sensitivity[:, :, self.measurable_responses, :].reshape(
             self.n_spt * self.n_m_r * self.n_c, self.n_mp)
@@ -1579,10 +1597,14 @@ class Designer:
                     fn = f"estimability_{self.n_c}_cand"
                     fp = self._generate_result_path(fn, "pkl")
                     dump(self.estimable_columns, open(fp, 'wb'))
-                print(f'Identified estimable parameters are: {self.estimable_columns}')
+                print(
+                    f'Identified estimable parameters are: '
+                    f'{np.array2string(self.estimable_columns,separator=", ")}'
+                )
                 with np.printoptions(precision=1):
                     print(
-                        f"Degree of Estimability: {np.asarray(self.estimability)}"
+                        f"Degree of Estimability: "
+                        f"{np.array2string(np.asarray(self.estimability),separator=', ')}"
                     )
                 return self.estimable_columns
             self.estimability.append(r_col_mag[next_estim_param])
@@ -2837,6 +2859,9 @@ class Designer:
         self._compute_atomics = self._model_parameters_changed
         self._compute_atomics = self._compute_atomics or self._candidates_changed
         self._compute_atomics = self._compute_atomics or self.atomic_fims is None
+
+        if self._pseudo_bayesian:
+            self._compute_sensitivities = self._compute_atomics or self.scr_fims is None
 
         if self._compute_sensitivities:
             self.eval_sensitivities(

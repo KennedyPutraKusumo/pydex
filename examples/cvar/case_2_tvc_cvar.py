@@ -28,7 +28,7 @@ tic, tvc = designer_1.enumerate_candidates(
     levels=[
         1,
         5,
-        5,
+        3,
         1,
         1,
     ],
@@ -64,16 +64,15 @@ if False:
         package=pkg,
         optimizer=opt,
     )
-    designer_1.print_optimal_candidates(write=True)
-    designer_1.plot_optimal_sensitivities(write=True)
-    designer_1.plot_optimal_efforts(write=True)
+    designer_1.print_optimal_candidates()
+    designer_1.plot_optimal_sensitivities()
+    designer_1.plot_optimal_efforts()
 """ CVaR Problem """
 if True:
     criterion = designer_1.cvar_d_opt_criterion
     result = designer_1.solve_cvar_problem(
         criterion=criterion,
         beta=0.8,
-        write=False,
         package=pkg,
         optimizer=opt,
         plot=True,

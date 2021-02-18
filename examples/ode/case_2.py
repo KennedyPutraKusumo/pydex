@@ -21,8 +21,8 @@ tic = designer_1.enumerate_candidates(
         [273.15, 323.15]    # reaction temperature
     ],
     levels=[
-        11,                 # initial C_A concentration
-        11,                 # reaction temperature
+        5,                 # initial C_A concentration
+        5,                 # reaction temperature
     ],
 )
 designer_1.ti_controls_candidates = tic
