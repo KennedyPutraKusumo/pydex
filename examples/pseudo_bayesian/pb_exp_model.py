@@ -39,7 +39,6 @@ designer.design_experiment(
     package="cvxpy",
     optimizer="MOSEK",
     pseudo_bayesian_type=1,
-    save_atomics=True,
 )
 designer.print_optimal_candidates()
 designer.plot_optimal_controls()
