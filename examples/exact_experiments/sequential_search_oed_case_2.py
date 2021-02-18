@@ -7,7 +7,10 @@ from scipy.optimize import minimize
 from pydex.core.designer import Designer
 
 
-def simulate(model, simulator, ti_controls, sampling_times, model_parameters):
+def simulate(ti_controls, sampling_times, model_parameters):
+    norm_spt = sampling_times / np.max(sampling_times)
+    model = create_model(norm_spt)
+
     """ fixing the control variables """
     # time-invariant
     model.theta_0.fix(model_parameters[0])
@@ -22,35 +25,21 @@ def simulate(model, simulator, ti_controls, sampling_times, model_parameters):
     model.temp.fix(ti_controls[1])
     # no time-varying control for this example
 
-    """ ensuring pyomo returns state values at given sampling times """
-    for t in model.t:
-        model.t.remove(t)
-    model.t.initialize = np.array(sampling_times) / model.tau.value
-    model.t.order_dict = {}  # to suppress pyomo warnings for duplicate elements
-    model.t._constructed = False  # needed so we can re-initialize the continuous set
-    model.t._data = {}
-    model.t._fe = []
-    model.t.value_list = []
-    model.t.value = []
-    model.t._changed = True
-    model.t.construct()  # line that re-initializes the continuous set
-
     """ simulating """
-    simulator.simulate_pyomo(integrator='idas')
+    simulator = pod.Simulator(model, package="casadi")
+    simulator.simulate(integrator='idas')
     simulator.initialize_model()
 
     """" extracting results and returning it in appropriate format """
-    normalized_sampling_times = sampling_times / model.tau.value
-    ca = np.array([model.ca[t].value for t in normalized_sampling_times])
-    cb = np.array([model.cb[t].value for t in normalized_sampling_times])
+    ca = np.array([model.ca[t].value for t in norm_spt])
+    cb = np.array([model.cb[t].value for t in norm_spt])
 
     return np.array([ca, cb]).T
 
-
-def create_model():
+def create_model(spt):
     """ defining the model """
     model = po.ConcreteModel()
-    model.t = pod.ContinuousSet(bounds=(0, 1))
+    model.t = pod.ContinuousSet(bounds=(0, 1), initialize=spt)
     model.tau = po.Var()
 
     model.temp = po.Var()
@@ -68,7 +57,7 @@ def create_model():
 
     def _material_balance_a(m, t):
         k = po.exp(m.theta_0 + m.theta_1 * (m.temp - 273.15) / m.temp)
-        return m.scipy_model[t] / m.tau == - k * (m.ca[t] ** model.alpha_a) * (
+        return m.dca_dt[t] / m.tau == - k * (m.ca[t] ** model.alpha_a) * (
                 model.cb[t] ** model.alpha_b)
 
     model.material_balance_a = po.Constraint(model.t, rule=_material_balance_a)
@@ -82,21 +71,16 @@ def create_model():
 
     return model
 
-model1 = create_model()
-simulator1 = pod.Simulator(model1, package="casadi")
-designer1 = Designer()
-designer1.model = model1
-designer1.simulator = simulator1
-designer1.simulate = simulate
-
 def info_matrix(tic, spt, mp):
+    designer1 = Designer()
+    designer1.simulate = simulate
     designer1.ti_controls_candidates = np.array([tic])
     designer1.sampling_times_candidates = np.array([spt])
     designer1.model_parameters = mp
-    designer1.initialize()
+    designer1.initialize(verbose=0)
     designer1._trim_fim = False
     efforts = np.array([[1] * spt.size])
-    return designer1.eval_fim(efforts, mp)
+    return designer1.eval_fim(efforts)
 
 def simul_d_opt(x):
     mp = np.array([-4.5, -2.2, 1, 0.5])
@@ -131,22 +115,22 @@ opt_res = minimize(
         80,
         90,
         2,
-        283.15,
+        303.15,
         50,
-        60,
-        70,
+        100,
+        200,
         80,
         90,
-        3,
-        303.15,
+        5,
+        323.15,
         50,
         60,
         70,
         80,
         90,
     ],
-    # method="l-bfgs-b",
-    method="SLSQP",
+    method="l-bfgs-b",
+    # method="SLSQP",
     # method="TNC",
     bounds=[
         (1, 5),
