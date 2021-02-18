@@ -27,6 +27,6 @@ for n_spt in [1, 2]:
         n_spt=n_spt,
     )
     designer.print_optimal_candidates()
-    designer.plot_optimal_predictions(write=False)
-    designer.plot_optimal_sensitivities(write=False)
+    designer.plot_optimal_predictions()
+    designer.plot_optimal_sensitivities()
 designer.show_plots()
