@@ -65,10 +65,6 @@ if True:
 
     # designer_1.save_state()
 
-designer_1.error_cov = np.array([
-    [1, 3],
-    [3, 10],
-])
 designer_1.initialize(verbose=2)  # 0: silent, 1: overview, 2: detail
 
 """ Compute an optimal experiment design """

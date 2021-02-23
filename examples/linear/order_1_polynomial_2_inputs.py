@@ -38,7 +38,7 @@ designer.design_experiment(
     designer.d_opt_criterion,
 )
 designer.print_optimal_candidates()
-designer.apportion(n_exp=12)
+designer.apportion(n_exp=10)
 designer.stop_logging()
 designer.plot_optimal_efforts()
 designer.plot_optimal_controls(non_opt_candidates=True, write=False, markersize=3)

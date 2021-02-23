@@ -71,6 +71,7 @@ designer.design_experiment(
     write=False,
 )
 designer.print_optimal_candidates()
+designer.apportion(9)
 designer.plot_optimal_efforts()
 designer.plot_optimal_controls(non_opt_candidates=True, title=True, write=False)
 
@@ -82,6 +83,7 @@ designer.design_experiment(
     write=False,
 )
 designer.print_optimal_candidates()
+designer.apportion(9)
 designer.plot_optimal_efforts()
 designer.plot_optimal_controls(non_opt_candidates=True, title=True, write=False)
 
@@ -93,6 +95,7 @@ designer.design_experiment(
     write=False,
 )
 designer.print_optimal_candidates()
+designer.apportion(11)
 designer.plot_optimal_efforts()
 designer.plot_optimal_controls(non_opt_candidates=True, title=True, write=False)
 

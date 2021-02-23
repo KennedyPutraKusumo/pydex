@@ -151,6 +151,7 @@ class Designer:
         self.optimal_candidates = None
         self.atomic_fims = None
         self.apportionments = None
+        self.epsilon = None
 
         # exclusive to prediction-oriented criteria
         self.pvars = None
@@ -1715,29 +1716,49 @@ class Designer:
                         print(self.sampling_times_candidates[i])
             print(f"{'':#^100}")
 
+        self.epsilon = self._eval_efficiency_bound(
+            self.apportionments / n_exp,
+            self.opt_eff
+        )
+
+        if self._verbose >= 1:
+            print(
+                f"The rounded design for {n_exp} runs is guaranteed to be at least "
+                f"{self.epsilon*100:.2f}% as good as the continuous design."
+            )
+
         return self.apportionments
 
     def _adams_apportionment(self, efforts, n_exp):
-        mu = n_exp
 
         def update(effort, mu):
             return np.ceil(effort * mu)
 
+        # pukelsheim's Heuristic
+        mu = n_exp - efforts.size / 2
         self.apportionments = update(efforts, mu)
-
         iterations = 0
         while True:
             iterations += 1
             if self.apportionments.sum() == n_exp:
                 if self._verbose >= 3:
-                    print(f"Apportionment completed in {iterations} iterations, with final multiplier {mu}.")
+                    print(
+                        f"Apportionment completed in {iterations} iterations, with final multiplier {mu}.")
                 return self.apportionments.astype(int)
             elif self.apportionments.sum() > n_exp:
-                mu *= 0.9
-                self.apportionments = update(efforts, mu)
+                ratios = (self.apportionments - 1) / efforts
+                candidate_to_reduce = np.argmax(ratios)
+                self.apportionments[candidate_to_reduce] -= 1
             else:
-                mu *= 1.05
-                self.apportionments = update(efforts, mu)
+                ratios = self.apportionments / efforts
+                candidate_to_increase = np.argmin(ratios)
+                self.apportionments[candidate_to_increase] += 1
+
+
+    def _eval_efficiency_bound(self, effort1, effort2):
+        eff_ratio = effort1 / effort2
+        min_lkhd_ratio = np.min(eff_ratio)
+        return min_lkhd_ratio
 
     # create grid
     def create_grid(self, bounds, levels):
