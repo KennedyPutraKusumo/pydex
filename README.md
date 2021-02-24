@@ -8,10 +8,12 @@ An open-source Python package for optimal experiment design, essential to a mode
         $ pip install pydex
 
 ## Quick Start
-  * [IPython demo](
+  * [Demo](
   https://github.com/KennedyPutraKusumo/pydex/blob/master/examples/pydex_quickstart.ipynb
   ) of basic features.
-  
+  * [Example](
+  https://github.com/KennedyPutraKusumo/pydex/blob/master/examples/pydex_ode_model.ipynb
+  ) of experimental design for differential equation models.
 
 ## Features:
 1. Strive to be as simple as possible to use, but not simpler.
