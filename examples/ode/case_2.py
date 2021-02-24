@@ -72,7 +72,6 @@ criterion = designer_1.d_opt_criterion
 # criterion = designer_1.a_opt_criterion
 package, optimizer = ("cvxpy", "MOSEK")
 # package, optimizer = ("scipy", "SLSQP")
-designer_1._num_steps = 5
 result = designer_1.design_experiment(
     criterion=criterion,
     optimize_sampling_times=False,  # ignoring sampling times
@@ -81,6 +80,7 @@ result = designer_1.design_experiment(
     optimizer=optimizer,
 )
 designer_1.print_optimal_candidates()
+designer_1.plot_optimal_efforts()
 designer_1.apportion(12)
 designer_1.plot_optimal_predictions()
 designer_1.plot_optimal_sensitivities(interactive=False)
@@ -93,6 +93,7 @@ redesign_result_2 = designer_1.design_experiment(
     optimizer=optimizer,
 )
 designer_1.print_optimal_candidates()
+designer_1.plot_optimal_efforts()
 designer_1.apportion(12)
 designer_1.plot_optimal_predictions()
 designer_1.plot_optimal_sensitivities()
@@ -100,7 +101,7 @@ designer_1.plot_optimal_sensitivities()
 redesign_result_2 = designer_1.design_experiment(
     criterion=criterion,
     optimize_sampling_times=True,   # sampling times as experimental variables
-    n_spt=1,                        # two sampling times
+    n_spt=2,                        # two sampling times
     write=False,
     package=package,
     optimizer=optimizer,
