@@ -1754,7 +1754,6 @@ class Designer:
                 candidate_to_increase = np.argmin(ratios)
                 self.apportionments[candidate_to_increase] += 1
 
-
     def _eval_efficiency_bound(self, effort1, effort2):
         eff_ratio = effort1 / effort2
         min_lkhd_ratio = np.min(eff_ratio)
@@ -3917,7 +3916,9 @@ class Designer:
             self._store_current_response()
         return response
 
-    def _plot_current_efforts_2d(self, min_effort=1e-6, width=None, write=False, dpi=720):
+    def _plot_current_efforts_2d(self, tol=1e-6, width=None, write=False, dpi=720):
+        self.get_optimal_candidates(tol=tol)
+
         if self._verbose >= 2:
             print("Plotting current continuous design.")
 
@@ -3925,12 +3926,11 @@ class Designer:
             width = 0.7
 
         if self.efforts.ndim == 2:
-            efforts = np.sum(self.efforts, axis=1)
+            p_plot = np.array([np.sum(opt_cand[4]) for opt_cand in self.optimal_candidates])
         else:
-            efforts = self.efforts
-        p_plot = efforts[np.where(efforts > min_effort)]
+            p_plot = np.array([opt_cand[4][0] for opt_cand in self.optimal_candidates])
 
-        x = np.arange(1, self.n_c + 1, 1)[np.where(efforts > min_effort)].astype(str)
+        x = np.array([opt_cand[0] for opt_cand in self.optimal_candidates]).astype(str)
         fig = plt.figure(figsize=(15, 7))
         axes = fig.add_subplot(111)
 
@@ -3958,6 +3958,8 @@ class Designer:
         return fig
 
     def _plot_current_efforts_3d(self, width=None, write=False, dpi=720, tol=1e-4):
+        self.get_optimal_candidates(tol=tol)
+
         if self._specified_n_spt:
             print(f"Warning, plot_optimal_efforts not implemented for specified n_spt.")
             return
