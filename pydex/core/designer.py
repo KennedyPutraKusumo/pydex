@@ -1639,16 +1639,17 @@ class Designer:
             )
             n_exp = n_min_sups
 
-        self.opt_eff = np.zeros((len(self.optimal_candidates), max_n_opt_spt))
+        self.opt_eff = np.empty((len(self.optimal_candidates), max_n_opt_spt))
+        self.opt_eff[:] = np.nan
         for i, opt_cand in enumerate(self.optimal_candidates):
             if self._opt_sampling_times:
                 for j, spt in enumerate(opt_cand[4]):
                     if self._specified_n_spt:
-                        self.opt_eff[i, j] = np.sum(spt)
+                        self.opt_eff[i, j] = np.nansum(spt)
                     else:
                         self.opt_eff[i, j] = spt
             else:
-                self.opt_eff[i, :] = np.sum(opt_cand[4])
+                self.opt_eff[i, :] = np.nansum(opt_cand[4])
         if method == "adams":
             self.apportionments = self._adams_apportionment(self.opt_eff, n_exp)
         else:
@@ -1688,7 +1689,7 @@ class Designer:
             for i, (app_eff, opt_cand) in enumerate(zip(self.apportionments, self.optimal_candidates)):
                 print(f"{f'[Candidate {opt_cand[0] + 1:d}]':-^100}")
                 print(
-                    f"{f'Recommended Apportionment: Run {np.sum(app_eff):d}/{n_exp:d} Experiments':^100}")
+                    f"{f'Recommended Apportionment: Run {np.nansum(app_eff):.0f}/{n_exp:d} Experiments':^100}")
                 if self._invariant_controls:
                     print("Time-invariant Controls:")
                     print(opt_cand[1])
@@ -1705,12 +1706,12 @@ class Designer:
                                     print(f"{f'{sp_time:.2f}':>10}", end='')
                                 print("]: ", end='')
                                 print(
-                                    f'Run {f"{app_eff[comb]:d}/{np.sum(app_eff):d}":>6} experiments, collecting {self._n_spt_spec} samples at given times')
+                                    f'Run {f"{app_eff[comb]:.0f}/{np.sum(app_eff):.0f}":>6} experiments, collecting {self._n_spt_spec} samples at given times')
                         else:
                             print("Sampling Times:")
                             for j, sp_time in enumerate(opt_cand[3]):
                                 print(f"[{f'{sp_time:.2f}':>10}]: "
-                                      f"Run {f'{app_eff[j]:d}/{np.sum(app_eff):d}':>6} experiments, sampling at given time")
+                                      f"Run {f'{app_eff[j]:.0f}/{np.sum(app_eff):.0f}':>6} experiments, sampling at given time")
                     else:
                         print("Sampling Times:")
                         print(self.sampling_times_candidates[i])
@@ -1740,23 +1741,23 @@ class Designer:
         iterations = 0
         while True:
             iterations += 1
-            if self.apportionments.sum() == n_exp:
+            if np.nansum(self.apportionments) == n_exp:
                 if self._verbose >= 3:
                     print(
                         f"Apportionment completed in {iterations} iterations, with final multiplier {mu}.")
-                return self.apportionments.astype(int)
-            elif self.apportionments.sum() > n_exp:
+                return self.apportionments
+            elif np.nansum(self.apportionments) > n_exp:
                 ratios = (self.apportionments - 1) / efforts
-                candidate_to_reduce = np.argmax(ratios)
+                candidate_to_reduce = np.where(ratios == np.nanmax(ratios))
                 self.apportionments[candidate_to_reduce] -= 1
             else:
                 ratios = self.apportionments / efforts
-                candidate_to_increase = np.argmin(ratios)
+                candidate_to_increase = np.where(ratios == np.nanmin(ratios))
                 self.apportionments[candidate_to_increase] += 1
 
     def _eval_efficiency_bound(self, effort1, effort2):
         eff_ratio = effort1 / effort2
-        min_lkhd_ratio = np.min(eff_ratio)
+        min_lkhd_ratio = np.nanmin(eff_ratio)
         return min_lkhd_ratio
 
     # create grid
