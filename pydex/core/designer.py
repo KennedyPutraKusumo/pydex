@@ -1711,7 +1711,7 @@ class Designer:
                             print("Sampling Times:")
                             for j, sp_time in enumerate(opt_cand[3]):
                                 print(f"[{f'{sp_time:.2f}':>10}]: "
-                                      f"Run {f'{app_eff[j]:.0f}/{np.sum(app_eff):.0f}':>6} experiments, sampling at given time")
+                                      f"Run {f'{app_eff[j]:.0f}/{np.nansum(app_eff):.0f}':>6} experiments, sampling at given time")
                     else:
                         print("Sampling Times:")
                         print(self.sampling_times_candidates[i])
