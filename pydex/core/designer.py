@@ -1857,21 +1857,21 @@ class Designer:
 
     # visualization and result retrieval
     def plot_optimal_efforts(self, width=None, write=False, dpi=720,
-                             force_3d=False):
+                             force_3d=False, tol=1e-4):
         if self.optimal_candidates is None:
             self.get_optimal_candidates()
         if self.n_opt_c is 0:
             print("Empty candidates, skipping plotting of optimal efforts.")
             return
         if (self._opt_sampling_times or force_3d) and self._dynamic_system:
-            fig = self._plot_current_efforts_3d(width=width, write=write, dpi=dpi)
+            fig = self._plot_current_efforts_3d(tol=tol, width=width, write=write, dpi=dpi)
         else:
             if force_3d:
                 print(
                     "Warning: force 3d only works for dynamic systems, plotting "
                     "current design in 2D."
                 )
-            fig = self._plot_current_efforts_2d(width=width, write=write, dpi=dpi)
+            fig = self._plot_current_efforts_2d(width=width, write=write, dpi=dpi,tol=tol)
         return fig
 
     def plot_optimal_controls(self, alpha=0.3, markersize=3, non_opt_candidates=False,
@@ -3917,7 +3917,7 @@ class Designer:
             self._store_current_response()
         return response
 
-    def _plot_current_efforts_2d(self, tol=1e-6, width=None, write=False, dpi=720):
+    def _plot_current_efforts_2d(self, tol=1e-4, width=None, write=False, dpi=720):
         self.get_optimal_candidates(tol=tol)
 
         if self._verbose >= 2:
