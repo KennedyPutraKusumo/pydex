@@ -221,7 +221,7 @@ class Designer:
         self._var_n_sampling_time = None
         # numerical options
         self._regularize_fim = None
-        self._num_steps = None
+        self._num_steps = 5
         self._eps = 1e-5
         self._trim_fim = False
         self._fd_jac = True
@@ -2688,7 +2688,7 @@ class Designer:
             ~np.isnan(self.residuals)]  # return residuals where entries are not empty
 
     def eval_sensitivities(self, method='forward', base_step=2, step_ratio=2,
-                           num_steps=None, store_predictions=True,
+                           store_predictions=True,
                            plot_analysis_times=False, save_sensitivities=None,
                            reporting_frequency=None):
         """
@@ -2703,10 +2703,6 @@ class Designer:
         with central) model parameter values that are passed to the model changes sign
         and causes the model to fail to run.
         """
-        if num_steps is not None:
-            self._num_steps = num_steps
-        else:
-            self._num_steps = 5
         # setting default behaviour for step generators
         step_generator = nd.step_generators.MaxStepGenerator(
             base_step=base_step,
@@ -2816,6 +2812,10 @@ class Designer:
             axes.plot(np.arange(1, self.n_c + 1, step=1), candidate_sens_times)
 
         self._sensitivity_analysis_done = True
+
+        norm_sens_by_params = True
+        if norm_sens_by_params:
+            self.sensitivities = self.sensitivities * self._current_scr_mp[None, None, None, :]
 
         return self.sensitivities
 
@@ -3931,7 +3931,7 @@ class Designer:
         else:
             p_plot = np.array([opt_cand[4][0] for opt_cand in self.optimal_candidates])
 
-        x = np.array([opt_cand[0] for opt_cand in self.optimal_candidates]).astype(str)
+        x = np.array([opt_cand[0]+1 for opt_cand in self.optimal_candidates]).astype(str)
         fig = plt.figure(figsize=(15, 7))
         axes = fig.add_subplot(111)
 
