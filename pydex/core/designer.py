@@ -231,6 +231,8 @@ class Designer:
         self._eps = 1e-5
         self._trim_fim = False
         self._fd_jac = True
+        self._store_responses_rtol = 1e-5
+        self._store_responses_atol = 1e-8
 
         # store chosen package to interface with the optimizer, and the chosen optimizer
         self._optimization_package = None
@@ -241,6 +243,9 @@ class Designer:
 
         """ user saving options """
         self._save_sensitivities = False
+        self._save_txt = False
+        self._save_txt_nc = 0
+        self._save_txt_fmt = '% 7.3e'
         self._save_atomics = False
 
     @property
@@ -3010,6 +3015,9 @@ class Designer:
                                 :]  # create axis in the middle for n_res
 
             self.sensitivities[i, :] = temp_sens
+            if self._save_txt and i == self._save_txt_nc-1:
+                self._save_sensitivities_to_txt()
+
         finish = time()
         if self._verbose >= 2 and self.sens_report_freq != 0:
             print("".center(100, "-"))
@@ -3039,6 +3047,42 @@ class Designer:
             self.sensitivities = self.sensitivities * self._current_scr_mp[None, None, None, :]
 
         return self.sensitivities
+
+    def _save_sensitivities_to_txt(self):
+        fmt = self._save_txt_fmt
+        resp_file = f'response_{self._save_txt_nc}'
+        fp = self._generate_result_path(resp_file, "txt")
+        with open(fp, 'w') as txt:
+            txt.write('[Responses]'.center(121, " ") + '\n')
+            for ic in range(self._save_txt_nc):
+                if self._dynamic_system and ic == 0:
+                    txt.write("Sampling Times:")
+                    np.savetxt(txt, self.sampling_times_candidates[ic], fmt=fmt, newline='')
+                    txt.write('\n')
+                txt.write(f'[Candidate {f"{ic + 1:d}":>10}] \n')
+                if self._invariant_controls:
+                    txt.write("Time-invariant Controls:")
+                    np.savetxt(txt, self.ti_controls_candidates[ic], fmt=fmt, newline='')
+                    txt.write('\n')
+                # if self._dynamic_controls:
+                #     txt.write("Time-varying Controls:")
+                #     np.savetxt(txt, self.tv_controls_candidates[ic], fmt=fmt, newline='')
+                #     txt.write('\n')
+
+                for isa in range(self.n_spt):
+                    np.savetxt(txt, self.response[ic, isa], fmt=fmt, newline='')
+                    txt.write('\n')
+                txt.write("".center(121, "=") + '\n')
+        sens_file = f'sensitivity_{self._save_txt_nc}'
+        fp = self._generate_result_path(sens_file, "txt")
+        with open(fp, 'w') as txt:
+            txt.write('[Sensitivity Analysis]'.center(121, " ") + '\n')
+            for ic in range(self._save_txt_nc):
+                txt.write(f'[Candidate {f"{ic + 1:d}":>10}] \n')
+                for isa in range(self.n_spt):
+                    txt.write("".center(121, "-") + '\n')
+                    np.savetxt(txt, self.sensitivities[ic, isa, :], fmt=fmt)
+                txt.write("".center(121, "=") + '\n')
 
     def eval_fim(self, efforts, store_predictions=True):
         """
@@ -4151,7 +4195,9 @@ class Designer:
         self.feval_sensitivity += 1
         """ store responses whenever required, and model parameters are the same as 
         current model's """
-        if store_responses and np.allclose(theta_try, self._current_scr_mp):
+        if store_responses and np.allclose(theta_try, self._current_scr_mp,
+                                           rtol=self._store_responses_rtol,
+                                           atol=self._store_responses_atol):
             self._current_res = response
             self._store_current_response()
         if self.use_finite_difference:
