@@ -681,6 +681,7 @@ class Designer:
             pseudo_bayesian_type=pseudo_bayesian_type,
             regularize_fim=regularize_fim,
             beta=0.00,
+            **kwargs,
         )
         self.beta = beta
         self.get_optimal_candidates()
@@ -712,6 +713,7 @@ class Designer:
             regularize_fim=regularize_fim,
             beta=self.beta,
             fix_effort=iter_1_efforts,
+            **kwargs,
         )
         cvar_lb = self._criterion_value
         if self._verbose >= 2:
@@ -757,6 +759,7 @@ class Designer:
             pseudo_bayesian_type=pseudo_bayesian_type,
             regularize_fim=regularize_fim,
             beta=self.beta,
+            **kwargs,
         )
         iter2_s = np.copy(self.s.value)
         self.get_optimal_candidates()
@@ -788,6 +791,7 @@ class Designer:
             regularize_fim=regularize_fim,
             beta=0.00,
             fix_effort=iter_2_efforts,
+            **kwargs,
         )
         self.beta = beta
         mean_lb = self._criterion_value
@@ -818,7 +822,8 @@ class Designer:
         mean_values = mean_values[1:]
 
         for i, mean in enumerate(mean_values):
-            print(f"[Iteration {i + 3}/{reso}]".center(100, "="))
+            if self._verbose >= 1:
+                print(f"[Iteration {i + 3}/{reso}]".center(100, "="))
             self.design_experiment(
                 criterion,
                 n_spt=n_spt,
@@ -837,6 +842,7 @@ class Designer:
                 regularize_fim=regularize_fim,
                 beta=self.beta,
                 min_expected_value=mean,
+                **kwargs,
             )
             self.get_optimal_candidates()
             self.cvar_optimal_candidates.append(self.optimal_candidates)
@@ -2740,7 +2746,23 @@ class Designer:
 
             self.feval_sensitivity = 0
             single_start = time()
-            temp_sens = jacob_fun(self._current_scr_mp, store_predictions)
+            try:
+                temp_sens = jacob_fun(self._current_scr_mp, store_predictions)
+            except RuntimeError:
+                print(
+                    "The simulate function you provided encountered a Runtime Error "
+                    "during sensitivity analysis. The inputs to the simulate function "
+                    "were as follows."
+                )
+                print("Model Parameters:")
+                print(self._current_scr_mp)
+                print("Time-invariant Controls:")
+                print(self._current_tic)
+                print("Time-varying Controls:")
+                print(self._current_tvc)
+                print("Sampling Time Candidates:")
+                print(self._current_spt)
+                raise RuntimeError
             finish = time()
             if self._verbose >= 2 and self.sens_report_freq != 0:
                 if (i + 1) % np.ceil(self.n_c / self.sens_report_freq) == 0 or (
@@ -2801,8 +2823,6 @@ class Designer:
             sens_file = f'sensitivity_{self.n_c}_cand'
             if self._dynamic_system:
                 sens_file += f"_{self.n_spt}_spt"
-            if self._pseudo_bayesian:
-                sens_file += f"_{self.n_scr}_scr"
             fp = self._generate_result_path(sens_file, "pkl")
             dump(self.sensitivities, open(fp, 'wb'))
 
