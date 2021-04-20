@@ -1754,11 +1754,11 @@ class Designer:
                 return self.apportionments
             elif np.nansum(self.apportionments) > n_exp:
                 ratios = (self.apportionments - 1) / efforts
-                candidate_to_reduce = np.where(ratios == np.nanmax(ratios))
+                candidate_to_reduce = np.nanargmax(ratios)
                 self.apportionments[candidate_to_reduce] -= 1
             else:
                 ratios = self.apportionments / efforts
-                candidate_to_increase = np.where(ratios == np.nanmin(ratios))
+                candidate_to_increase = np.nanargmin(ratios)
                 self.apportionments[candidate_to_increase] += 1
 
     def _eval_efficiency_bound(self, effort1, effort2):
@@ -3109,6 +3109,7 @@ class Designer:
                 'candidates.'
             )
 
+        self._remove_zero_effort_candidates(tol=tol)
         self.optimal_candidates = []
 
         for i, eff_sp in enumerate(self.efforts):
@@ -4444,3 +4445,8 @@ class Designer:
                 f"Time-varying Control {_}"
                 for _ in range(self.n_tvc)
             ])
+
+    def _remove_zero_effort_candidates(self, tol):
+        self.efforts[self.efforts < tol] = 0
+        self.efforts = self.efforts / self.efforts.sum()
+        return self.efforts
