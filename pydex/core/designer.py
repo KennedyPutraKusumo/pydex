@@ -1379,7 +1379,10 @@ class Designer:
                     jac=not self._fd_jac,
                     **kwargs,
                 )
-            self.efforts = opt_result.x.reshape((self.n_c, self.n_spt))
+            if self._specified_n_spt:
+                self.efforts = opt_result.x.reshape((self.n_c, self.n_spt_comb))
+            else:
+                self.efforts = opt_result.x.reshape((self.n_c, self.n_spt))
             self._efforts_transformed = False
             self._transform_efforts()
             opt_fun = opt_result.fun
@@ -1712,7 +1715,7 @@ class Designer:
                                     print(f"{f'{sp_time:.2f}':>10}", end='')
                                 print("]: ", end='')
                                 print(
-                                    f'Run {f"{app_eff[comb]:.0f}/{np.sum(app_eff):.0f}":>6} experiments, collecting {self._n_spt_spec} samples at given times')
+                                    f'Run {f"{app_eff[comb]:.0f}/{np.nansum(app_eff):.0f}":>6} experiments, collecting {self._n_spt_spec} samples at given times')
                         else:
                             print("Sampling Times:")
                             for j, sp_time in enumerate(opt_cand[3]):
@@ -1754,11 +1757,11 @@ class Designer:
                 return self.apportionments
             elif np.nansum(self.apportionments) > n_exp:
                 ratios = (self.apportionments - 1) / efforts
-                candidate_to_reduce = np.nanargmax(ratios)
+                candidate_to_reduce = np.unravel_index(np.nanargmax(ratios), ratios.shape)
                 self.apportionments[candidate_to_reduce] -= 1
             else:
                 ratios = self.apportionments / efforts
-                candidate_to_increase = np.nanargmin(ratios)
+                candidate_to_increase = np.unravel_index(np.nanargmin(ratios), ratios.shape)
                 self.apportionments[candidate_to_increase] += 1
 
     def _eval_efficiency_bound(self, effort1, effort2):
@@ -2919,15 +2922,17 @@ class Designer:
         """ evaluate fim """
         start = time()
 
+        if self._optimization_package is "scipy":
+            if self._specified_n_spt:
+                self.efforts = self.efforts.reshape((self.n_c, self.n_spt_comb))
+            else:
+                self.efforts = self.efforts.reshape((self.n_c, self.n_spt))
+                if self.n_spt == 1:
+                    self.efforts = self.efforts[:, None]
         # if atomic is not given
         if self._compute_atomics:
             self.atomic_fims = []
             self.fim = 0
-            if self._optimization_package is "scipy":
-                if self._specified_n_spt:
-                    self.efforts = self.efforts.reshape((self.n_c, self.n_spt_comb))
-                else:
-                    self.efforts = self.efforts.reshape((self.n_c, self.n_spt))
             if self._specified_n_spt:
                 for c, (eff, sen, spt_combs) in enumerate(zip(self.efforts, self.sensitivities, self.spt_candidates_combs)):
                     for comb, (e, spt) in enumerate(zip(eff, spt_combs)):
@@ -2947,10 +2952,6 @@ class Designer:
                         a = np.mean(atom[spt], axis=0)
                         self.fim += e * a
             else:
-                if self._optimization_package == "scipy":
-                    self.efforts.reshape(self.n_c, self.n_spt)
-                    if self.n_spt == 1:
-                        self.efforts = self.efforts[:, None]
                 for c, (eff, atom) in enumerate(zip(self.efforts, self.atomic_fims)):
                     for spt, (e, a) in enumerate(zip(eff, atom)):
                         self.fim += e * a
@@ -3239,7 +3240,7 @@ class Designer:
             if self._optimization_package is "scipy":
                 d_opt = -self.fim
                 if self._fd_jac:
-                    return d_opt
+                    return np.squeeze(d_opt)
                 else:
                     jac = -np.array([
                         1 / self.fim * m
@@ -4342,17 +4343,29 @@ class Designer:
             self._pad_sampling_times()
 
     def _get_component_sizes(self):
-        # number of candidates from tic, number of tic
-        if self._invariant_controls:
-            self.n_c_tic, self.n_tic = self.ti_controls_candidates.shape
-            if not self._dynamic_controls:
-                self.tv_controls_candidates = np.empty((self.n_c_tic, 1))
 
-        # number of tvc
-        if self._dynamic_controls:
+        if self._simulate_signature == 1:
+            self.n_c_tic, self.n_tic = self.ti_controls_candidates.shape
+            self.tv_controls_candidates = np.empty((self.n_c_tic, 1))
+            self.sampling_times_candidates = np.empty_like(self.ti_controls_candidates)
+        elif self._simulate_signature == 2:
+            self.n_c_tic, self.n_tic = self.ti_controls_candidates.shape
+            self.tv_controls_candidates = np.empty((self.n_c_tic, 1))
+            self.n_c_spt, self.n_spt = self.sampling_times_candidates.shape
+        elif self._simulate_signature == 3:
             self.n_c_tvc, self.n_tvc = self.tv_controls_candidates.shape
-            if not self._invariant_controls:
-                self.ti_controls_candidates = np.empty((self.n_c_tvc, 1))
+            self.ti_controls_candidates = np.empty((self.n_c_tvc, 1))
+            self.n_c_spt, self.n_spt = self.sampling_times_candidates.shape
+        elif self._simulate_signature == 4:
+            self.n_c_tic, self.n_tic = self.ti_controls_candidates.shape
+            self.n_c_tvc, self.n_tvc = self.tv_controls_candidates.shape
+            self.n_c_spt, self.n_spt = self.sampling_times_candidates.shape
+        elif self._simulate_signature == 5:
+            self.n_c_spt, self.n_spt = self.sampling_times_candidates.shape
+            self.ti_controls_candidates = np.empty((self.n_c_spt, 1))
+            self.tv_controls_candidates = np.empty((self.n_c_spt, 1))
+        else:
+            raise SyntaxError("Unrecognized simulate signature, unable to proceed.")
 
         # number of model parameters, and scenarios (if pseudo_bayesian)
         if self._pseudo_bayesian:
@@ -4361,15 +4374,6 @@ class Designer:
         else:
             self.n_mp = self.model_parameters.shape[0]
             self._current_scr_mp = self.model_parameters
-
-        # number of sampling times (if dynamic)
-        if self._dynamic_system:
-            self.n_c_spt, self.n_spt = self.sampling_times_candidates.shape
-        else:
-            self.n_c_spt = self.n_c_tic
-            self.n_spt = 1
-            self.sampling_times_candidates = np.empty_like(self.ti_controls_candidates)
-            self.tv_controls_candidates = np.empty_like(self.ti_controls_candidates)
 
         # number of responses
         if self.n_r is None:
