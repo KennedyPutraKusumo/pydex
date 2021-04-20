@@ -4314,24 +4314,22 @@ class Designer:
             )
 
     def _check_candidate_lengths(self):
-        # assign 1 candidate and terminate if no controls
-        if not self._dynamic_controls and not self._invariant_controls:
-            self.n_c = 1
-            return
+        if self._invariant_controls:
+            self.n_c = self.n_c_tic
+        if self._dynamic_controls:
+            if not self.n_c:
+                self.n_c = self.n_c_tvc
+            else:
+                assert self.n_c == self.n_c_tvc, f"Inconsistent candidate lengths. " \
+                                                 f"tvc_candidates has {self.n_c_tvc}, " \
+                                                 f"but {self.n_c} is expected."
         if self._dynamic_system:
-            if self._invariant_controls:
-                if self.n_c_spt != self.n_c_tic:
-                    raise SyntaxError(
-                        "Number of candidates given in ti_controls_candidates, and "
-                        "sampling_times_candidates are inconsistent."
-                    )
-            if self._dynamic_controls:
-                if self.n_c_spt != self.n_c_tvc:
-                    raise SyntaxError(
-                        "Number of candidates in supplied tv_controls_candidates, and "
-                        "sampling_times_candidates are inconsistent."
-                    )
-        self.n_c = self.n_c_spt
+            if not self.n_c:
+                self.n_c = self.n_c_spt
+            else:
+                assert self.n_c == self.n_c_spt, f"Inconsistent candidate lengths. " \
+                                                 f"spt_candidates has {self.n_c_spt}, " \
+                                                 f"but {self.n_c} is expected."
 
     def _check_var_spt(self):
         if np.all([len(spt) == len(self.sampling_times_candidates[0]) for spt in
@@ -4347,14 +4345,18 @@ class Designer:
         if self._simulate_signature == 1:
             self.n_c_tic, self.n_tic = self.ti_controls_candidates.shape
             self.tv_controls_candidates = np.empty((self.n_c_tic, 1))
+            self.n_c_tvc, self.n_tvc = self.n_c_tic, 1
             self.sampling_times_candidates = np.empty_like(self.ti_controls_candidates)
+            self.n_c_spt, self.n_spt = self.n_c_tic, 1
         elif self._simulate_signature == 2:
             self.n_c_tic, self.n_tic = self.ti_controls_candidates.shape
             self.tv_controls_candidates = np.empty((self.n_c_tic, 1))
+            self.n_c_tvc, self.n_tvc = self.n_c_tic, 1
             self.n_c_spt, self.n_spt = self.sampling_times_candidates.shape
         elif self._simulate_signature == 3:
             self.n_c_tvc, self.n_tvc = self.tv_controls_candidates.shape
             self.ti_controls_candidates = np.empty((self.n_c_tvc, 1))
+            self.n_c_tic, self.n_tic = self.n_c_tvc, 1
             self.n_c_spt, self.n_spt = self.sampling_times_candidates.shape
         elif self._simulate_signature == 4:
             self.n_c_tic, self.n_tic = self.ti_controls_candidates.shape
@@ -4363,7 +4365,9 @@ class Designer:
         elif self._simulate_signature == 5:
             self.n_c_spt, self.n_spt = self.sampling_times_candidates.shape
             self.ti_controls_candidates = np.empty((self.n_c_spt, 1))
+            self.n_c_tic, self.n_tic = self.n_c_spt, 1
             self.tv_controls_candidates = np.empty((self.n_c_spt, 1))
+            self.n_c_tvc, self.n_tvc = self.n_c_spt, 1
         else:
             raise SyntaxError("Unrecognized simulate signature, unable to proceed.")
 
