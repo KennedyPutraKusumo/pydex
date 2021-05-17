@@ -2919,7 +2919,9 @@ class Designer:
         self._sensitivity_analysis_done = False
         if self._verbose >= 2:
             print('[Sensitivity Analysis]'.center(100, "-"))
-            print(f"{'Richardson Extrapolation Steps':<40}: {self._num_steps}")
+            print(f"{'Use Finite Difference':<40}: {self.use_finite_difference}")
+            if self.use_finite_difference:
+                print(f"{'Richardson Extrapolation Steps':<40}: {self._num_steps}")
             print(f"".center(100, "-"))
         start = time()
 
