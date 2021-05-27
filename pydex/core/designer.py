@@ -18,6 +18,7 @@ from pydex.utils.trellis_plotter import TrellisPlotter
 from pydex.core.bnb.tree import Tree
 from pydex.core.bnb.node import Node
 from pydex.core.logger import Logger
+import matplotlib
 import cvxpy as cp
 import numdifftools as nd
 import numpy as np
@@ -170,6 +171,8 @@ class Designer:
         self.n_scr = None
         self.n_spt_comb = None
         self._n_spt_spec = None
+        self.max_n_opt_spt = None
+        self.n_min_sups = None
 
         """ parameter estimation """
         self.data = None  # stored data, a 3D numpy array, same shape as response.
@@ -1630,25 +1633,24 @@ class Designer:
 
     """ core utilities """
 
-    def apportion(self, n_exp, method="adams"):
+    def apportion(self, n_exp, method="adams", trimmed=True, compute_actual_efficiency=True):
+        if self._dynamic_system and self._specified_n_spt:
+            print(NotImplemented)
+            return
+
         self.get_optimal_candidates()
 
-        n_min_sups = 0
-        max_n_opt_spt = 0
-        for i, opt_cand in enumerate(self.optimal_candidates):
-            if self._dynamic_system and self._opt_sampling_times:
-                n_min_sups += len(opt_cand[4])
-            else:
-                n_min_sups += 1
-            max_n_opt_spt = max(max_n_opt_spt, len(opt_cand[4]))
-        if n_exp < n_min_sups:
+        if n_exp < self.n_min_sups:
             print(
                 f"[WARNING]: Given n_exp is lower than the minimum needed "
-                f"({n_min_sups}); overwriting user input to this minimum."
+                f"({self.n_min_sups}); overwriting user input to this minimum."
             )
-            n_exp = n_min_sups
+            n_exp = self.n_min_sups
 
-        self.opt_eff = np.empty((len(self.optimal_candidates), max_n_opt_spt))
+        if self._opt_sampling_times:
+            self.opt_eff = np.empty((len(self.optimal_candidates), self.max_n_opt_spt))
+        else:
+            self.opt_eff = np.empty((len(self.optimal_candidates)))
         self.opt_eff[:] = np.nan
         for i, opt_cand in enumerate(self.optimal_candidates):
             if self._opt_sampling_times:
@@ -1658,7 +1660,7 @@ class Designer:
                     else:
                         self.opt_eff[i, j] = spt
             else:
-                self.opt_eff[i, :] = np.nansum(opt_cand[4])
+                self.opt_eff[i] = np.nansum(opt_cand[4])
         if method == "adams":
             self.apportionments = self._adams_apportionment(self.opt_eff, n_exp)
         else:
@@ -1724,18 +1726,44 @@ class Designer:
                     else:
                         print("Sampling Times:")
                         print(self.sampling_times_candidates[i])
-            print(f"{'':#^100}")
+            """ Computing and Reporting Rounding Efficiency """
+            self.epsilon = self._eval_efficiency_bound(
+                self.apportionments / n_exp,
+                self.opt_eff
+            )
 
-        self.epsilon = self._eval_efficiency_bound(
-            self.apportionments / n_exp,
-            self.opt_eff
-        )
+            non_trimmed_apportionments = np.zeros_like(self.efforts)
+            for opt_c, app_c in zip(self.optimal_candidates, self.apportionments):
+                if isinstance(app_c, float):
+                    non_trimmed_apportionments[opt_c[0], opt_c[5]] = app_c / n_exp
+                else:
+                    non_trimmed_apportionments[opt_c[0], opt_c[5]] = app_c[
+                        [~np.isnan(app_c)]]
+            norm_nt_app = non_trimmed_apportionments / np.sum(non_trimmed_apportionments)
+            if compute_actual_efficiency:
+                rounded_criterion_value = getattr(self, self._current_criterion)(
+                    norm_nt_app).value
+                if self._current_criterion == "d_opt_criterion":
+                    efficiency = np.exp(1 / self.n_mp * (-rounded_criterion_value - self._criterion_value))
+                elif self._current_criterion == "a_opt_criterion":
+                    efficiency = -self._criterion_value / rounded_criterion_value
+                elif self._current_criterion == "e_opt_criterion":
+                    efficiency = -rounded_criterion_value / self._criterion_value
 
-        if self._verbose >= 1:
+            if not trimmed:
+                self.apportionments = non_trimmed_apportionments
+
+            print(f"".center(100, "-"))
             print(
                 f"The rounded design for {n_exp} runs is guaranteed to be at least "
-                f"{self.epsilon*100:.2f}% as good as the continuous design."
+                f"{self.epsilon * 100:.2f}% as good as the continuous design."
             )
+            if compute_actual_efficiency:
+                print(
+                    f"The actual criterion value of the rounded design is "
+                    f"{efficiency * 100:.2f}% as informative as the continuous design."
+                )
+            print(f"{'':#^100}")
 
         return self.apportionments
 
@@ -1866,21 +1894,174 @@ class Designer:
 
     # visualization and result retrieval
     def plot_optimal_efforts(self, width=None, write=False, dpi=720,
-                             force_3d=False, tol=1e-4):
+                             force_3d=False, tol=1e-4, heatmap=False, figsize=None):
         if self.optimal_candidates is None:
             self.get_optimal_candidates()
         if self.n_opt_c is 0:
             print("Empty candidates, skipping plotting of optimal efforts.")
             return
+        if heatmap:
+            if not self._dynamic_system:
+                print(
+                    f"Warning: heatmaps are not suitable for non-dynamic experimental "
+                    f"results. Reverting to bar charts."
+                )
+                fig = self._plot_current_efforts_2d(width=width, write=write, dpi=dpi,
+                                                    tol=tol, figsize=figsize)
+                return fig
+            return self._efforts_heatmap(figsize=figsize, write=write)
         if (self._opt_sampling_times or force_3d) and self._dynamic_system:
-            fig = self._plot_current_efforts_3d(tol=tol, width=width, write=write, dpi=dpi)
+            fig = self._plot_current_efforts_3d(tol=tol, width=width, write=write,
+                                                dpi=dpi, figsize=figsize)
+            return fig
         else:
             if force_3d:
                 print(
                     "Warning: force 3d only works for dynamic systems, plotting "
                     "current design in 2D."
                 )
-            fig = self._plot_current_efforts_2d(width=width, write=write, dpi=dpi,tol=tol)
+            fig = self._plot_current_efforts_2d(width=width, write=write, dpi=dpi,
+                                                tol=tol, figsize=figsize)
+        return fig
+
+    def _heatmap(self, data, row_labels, col_labels, ax=None,
+                 cbar_kw={}, cbarlabel="", **kwargs):
+        """
+        Create a heatmap from a numpy array and two lists of labels.
+
+        Parameters
+        ----------
+        data
+            A 2D numpy array of shape (N, M).
+        row_labels
+            A list or array of length N with the labels for the rows.
+        col_labels
+            A list or array of length M with the labels for the columns.
+        ax
+            A `matplotlib.axes.Axes` instance to which the heatmap is plotted.  If
+            not provided, use current axes or create a new one.  Optional.
+        cbar_kw
+            A dictionary with arguments to `matplotlib.Figure.colorbar`.  Optional.
+        cbarlabel
+            The label for the colorbar.  Optional.
+        **kwargs
+            All other arguments are forwarded to `imshow`.
+        """
+
+        if not ax:
+            ax = plt.gca()
+
+        # Plot the heatmap
+        im = ax.imshow(data, **kwargs)
+
+        # Create colorbar
+        cbar = ax.figure.colorbar(im, ax=ax, **cbar_kw)
+        cbar.ax.set_ylabel(cbarlabel, rotation=-90, va="bottom")
+
+        ax.set_xticks(np.arange(data.shape[1]))
+        ax.set_yticks(np.arange(data.shape[0]))
+        ax.set_xticklabels(col_labels)
+        ax.set_yticklabels(row_labels)
+
+        ax.tick_params(top=False, bottom=True,
+                       labeltop=False, labelbottom=True)
+
+        # Rotate the tick labels and set their alignment
+        plt.setp(ax.get_xticklabels(), rotation=45, ha="right", rotation_mode="anchor")
+
+        ax.set_title(f"{self._current_criterion} Efforts")
+        ax.set_xlabel(f"Sampling Times (min)")
+
+        ax.set_xticks(np.arange(data.shape[1] + 1) - .5, minor=True)
+        ax.set_yticks(np.arange(data.shape[0] + 1) - .5, minor=True)
+        ax.grid(which="minor", color="w", linestyle='-', linewidth=3)
+        ax.tick_params(which="minor", bottom=False, left=False)
+
+        return im, cbar
+
+    def _annotate_heatmap(self, im, data=None, valfmt="{x:.2f}",
+                          textcolors=("black", "white"),
+                          threshold=None, **textkw):
+        """
+        A function to annotate a heatmap.
+
+        Parameters
+        ----------
+        im
+            The AxesImage to be labeled.
+        data
+            Data used to annotate.  If None, the image's data is used.  Optional.
+        valfmt
+            The format of the annotations inside the heatmap.  This should either
+            use the string format method, e.g. "$ {x:.2f}", or be a
+            `matplotlib.ticker.Formatter`.  Optional.
+        textcolors
+            A pair of colors.  The first is used for values below a threshold,
+            the second for those above.  Optional.
+        threshold
+            Value in data units according to which the colors from textcolors are
+            applied.  If None (the default) uses the middle of the colormap as
+            separation.  Optional.
+        **kwargs
+            All other arguments are forwarded to each call to `text` used to create
+            the text labels.
+        """
+
+        if not isinstance(data, (list, np.ndarray)):
+            data = im.get_array()
+
+        # Normalize the threshold to the images color range.
+        if threshold is not None:
+            threshold = im.norm(threshold)
+        else:
+            threshold = im.norm(data.max()) / 2.
+
+        # Set default alignment to center, but allow it to be
+        # overwritten by textkw.
+        kw = dict(horizontalalignment="center",
+                  verticalalignment="center")
+        kw.update(textkw)
+
+        if isinstance(valfmt, str):
+            valfmt = matplotlib.ticker.StrMethodFormatter(valfmt)
+
+        # Loop over the data and create a `Text` for each "pixel".
+        # Change the text's color depending on the data.
+        texts = []
+        for i in range(data.shape[0]):
+            for j in range(data.shape[1]):
+                kw.update(color=textcolors[int(im.norm(data[i, j]) > threshold)])
+                text = im.axes.text(j, i, valfmt(data[i, j], None), **kw)
+                texts.append(text)
+
+        return texts
+
+    def _efforts_heatmap(self, figsize=None, write=False, dpi=360):
+        if figsize is None:
+            fig = plt.figure(figsize=(3 + 1.0 * self.max_n_opt_spt, 2 + 0.40 * self.n_opt_c))
+        else:
+            fig = plt.figure(figsize=figsize)
+        ax = fig.add_subplot(111)
+
+        c_id = [f"Candidate {opt_c[0]+1}" for opt_c in self.optimal_candidates]
+        spt_id = [opt_c[3] for opt_c in self.optimal_candidates]
+        spt_id = np.unique(np.array(list(itertools.zip_longest(*spt_id, fillvalue=spt_id[0][0]))).T)
+
+        eff = np.zeros((len(c_id), spt_id.shape[0]))
+        for c, opt_c in enumerate(self.optimal_candidates):
+            for opt_spt, opt_eff in zip(opt_c[3], opt_c[4]):
+                spt_index = np.where(spt_id == opt_spt)[0][0]
+                eff[c, spt_index] = opt_eff
+
+        im, cbar = self._heatmap(eff * 100, c_id, spt_id, ax=ax, cmap="YlGn")
+        texts = self._annotate_heatmap(im, valfmt="{x:.2f}%")
+
+        fig.tight_layout()
+        if write:
+            fn = f'efforts_heatmap_{self._current_criterion}'
+            fp = self._generate_result_path(fn, "png")
+            fig.savefig(fname=fp, dpi=dpi)
+
         return fig
 
     def plot_optimal_controls(self, alpha=0.3, markersize=3, non_opt_candidates=False,
@@ -2464,7 +2645,10 @@ class Designer:
                 print(f"{'Number of Samples Per Experiment':<40}: {self._n_spt_spec}")
         if self._pseudo_bayesian:
             print(f"{'Number of Scenarios':<40}: {self.n_scr}")
-
+        print(f"{'Information Matrix Regularized':<40}: {self._regularize_fim}")
+        if self._regularize_fim:
+            print(f"{'Regularization Epsilon':<40}: {self._eps}")
+        print(f"{'Minimum Effort Threshold':<40}: {tol}")
         for i, opt_cand in enumerate(self.optimal_candidates):
             print(f"{f'[Candidate {opt_cand[0] + 1:d}]':-^100}")
             print(f"{f'Recommended Effort: {np.sum(opt_cand[4]):.2%} of experiments':^100}")
@@ -2730,6 +2914,8 @@ class Designer:
         self._sensitivity_analysis_done = False
         if self._verbose >= 2:
             print('[Sensitivity Analysis]'.center(100, "-"))
+            print(f"{'Richardson Extrapolation Steps':<40}: {self._num_steps}")
+            print(f"".center(100, "-"))
         start = time()
 
         self.sensitivities = np.empty((self.n_c, self.n_spt, self.n_m_r, self.n_mp))
@@ -3141,8 +3327,8 @@ class Designer:
                                 opt_candidate[4].append(eff)
                                 opt_candidate[5].append(j)
                 else:
-                    opt_candidate[3].append(self.sampling_times_candidates[i])
-                    opt_candidate[4].append(eff_sp)
+                    opt_candidate[3] = self.sampling_times_candidates[i]
+                    opt_candidate[4] = eff_sp
                     opt_candidate[5].append([t for t in range(self.n_spt)])
                 self.optimal_candidates.append(opt_candidate)
 
@@ -3154,6 +3340,16 @@ class Designer:
                 f"criteria as they are notoriously hard to optimize with gradient-based "
                 f"optimizers."
             )
+
+        self.n_min_sups = 0
+        self.max_n_opt_spt = 0
+        for i, opt_cand in enumerate(self.optimal_candidates):
+            if self._dynamic_system and self._opt_sampling_times:
+                self.n_min_sups += len(opt_cand[4])
+            else:
+                self.n_min_sups += 1
+            self.max_n_opt_spt = max(self.max_n_opt_spt, len(opt_cand[4]))
+
         return self.optimal_candidates
 
     """ optional operations """
@@ -3309,7 +3505,10 @@ class Designer:
                 return a_opt, jac
 
         elif self._optimization_package is 'cvxpy':
-            return cp.matrix_frac(np.identity(self.fim.shape[0]), self.fim)
+            try:
+                return cp.matrix_frac(np.identity(self.fim.shape[0]), self.fim)
+            except ValueError:
+                return cp.matrix_frac(np.identity(self.fim.shape[0]).tolist(), self.fim.tolist())
 
     def _e_opt_criterion(self, efforts):
         """ it is a PSD criterion """
@@ -3939,7 +4138,8 @@ class Designer:
             self._store_current_response()
         return response
 
-    def _plot_current_efforts_2d(self, tol=1e-4, width=None, write=False, dpi=720):
+    def _plot_current_efforts_2d(self, tol=1e-4, width=None, write=False, dpi=720,
+                                 figsize=None):
         self.get_optimal_candidates(tol=tol)
 
         if self._verbose >= 2:
@@ -3954,7 +4154,10 @@ class Designer:
             p_plot = np.array([opt_cand[4][0] for opt_cand in self.optimal_candidates])
 
         x = np.array([opt_cand[0]+1 for opt_cand in self.optimal_candidates]).astype(str)
-        fig = plt.figure(figsize=(15, 7))
+        if figsize is None:
+            fig = plt.figure(figsize=(15, 7))
+        else:
+            fig = plt.figure(figsize=figsize)
         axes = fig.add_subplot(111)
 
         axes.bar(x, p_plot, width=width)
@@ -3973,14 +4176,15 @@ class Designer:
             )
 
         if write:
-            fn = f"efforts_{self.oed_result['optimality_criterion']}"
+            fn = f"efforts_{self._current_criterion}"
             fp = self._generate_result_path(fn, "png")
             fig.savefig(fname=fp, dpi=dpi)
 
         fig.tight_layout()
         return fig
 
-    def _plot_current_efforts_3d(self, width=None, write=False, dpi=720, tol=1e-4):
+    def _plot_current_efforts_3d(self, width=None, write=False, dpi=720, tol=1e-4,
+                                 figsize=None):
         self.get_optimal_candidates(tol=tol)
 
         if self._specified_n_spt:
@@ -3997,7 +4201,10 @@ class Designer:
 
         sampling_time_scale = np.nanmin(np.diff(self.sampling_times_candidates, axis=1))
 
-        fig = plt.figure(figsize=(12, 8))
+        if figsize is None:
+            fig = plt.figure(figsize=(12, 8))
+        else:
+            fig = plt.figure(figsize=figsize)
         axes = fig.add_subplot(111, projection='3d')
         opt_cand = np.unique(np.where(p > tol)[0], axis=0)
         for c, spt in enumerate(self.sampling_times_candidates[opt_cand]):
