@@ -104,6 +104,7 @@ class Designer:
         self.cost = None
         self.cand_cost = None
         self.spt_cost = None
+        self._norm_sens_by_params = False
 
         """" Type of Problem """
         self._invariant_controls = None
@@ -3023,8 +3024,7 @@ class Designer:
 
         self._sensitivity_analysis_done = True
 
-        norm_sens_by_params = True
-        if norm_sens_by_params:
+        if self._norm_sens_by_params:
             self.sensitivities = self.sensitivities * self._current_scr_mp[None, None, None, :]
 
         return self.sensitivities
