@@ -1792,7 +1792,8 @@ class Designer:
                 candidate_to_increase = np.unravel_index(np.nanargmin(ratios), ratios.shape)
                 self.apportionments[candidate_to_increase] += 1
 
-    def _eval_efficiency_bound(self, effort1, effort2):
+    @staticmethod
+    def _eval_efficiency_bound(effort1, effort2):
         eff_ratio = effort1 / effort2
         min_lkhd_ratio = np.nanmin(eff_ratio)
         return min_lkhd_ratio
