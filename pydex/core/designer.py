@@ -104,6 +104,7 @@ class Designer:
         self.cost = None
         self.cand_cost = None
         self.spt_cost = None
+        self._norm_sens_by_params = False
 
         """" Type of Problem """
         self._invariant_controls = None
@@ -145,6 +146,8 @@ class Designer:
         self.time_unit_name = None
         self.model_parameter_names = None
         self.response_names = None
+        self.use_finite_difference = True
+        self.do_sensitivity_analysis = False
 
         """ Core designer outputs """
         self.response = None
@@ -228,6 +231,8 @@ class Designer:
         self._eps = 1e-5
         self._trim_fim = False
         self._fd_jac = True
+        self._store_responses_rtol = 1e-5
+        self._store_responses_atol = 1e-8
 
         # store chosen package to interface with the optimizer, and the chosen optimizer
         self._optimization_package = None
@@ -238,6 +243,9 @@ class Designer:
 
         """ user saving options """
         self._save_sensitivities = False
+        self._save_txt = False
+        self._save_txt_nc = 0
+        self._save_txt_fmt = '% 7.3e'
         self._save_atomics = False
 
     @property
@@ -2897,12 +2905,13 @@ class Designer:
         with central) model parameter values that are passed to the model changes sign
         and causes the model to fail to run.
         """
-        # setting default behaviour for step generators
-        step_generator = nd.step_generators.MaxStepGenerator(
-            base_step=base_step,
-            step_ratio=step_ratio,
-            num_steps=self._num_steps,
-        )
+        if self.use_finite_difference:
+            # setting default behaviour for step generators
+            step_generator = nd.step_generators.MaxStepGenerator(
+                base_step=base_step,
+                step_ratio=step_ratio,
+                num_steps=self._num_steps,
+            )
 
         if isinstance(reporting_frequency, int) and reporting_frequency > 0:
             self.sens_report_freq = reporting_frequency
@@ -2915,15 +2924,18 @@ class Designer:
         self._sensitivity_analysis_done = False
         if self._verbose >= 2:
             print('[Sensitivity Analysis]'.center(100, "-"))
-            print(f"{'Richardson Extrapolation Steps':<40}: {self._num_steps}")
+            print(f"{'Use Finite Difference':<40}: {self.use_finite_difference}")
+            if self.use_finite_difference:
+                print(f"{'Richardson Extrapolation Steps':<40}: {self._num_steps}")
             print(f"".center(100, "-"))
         start = time()
 
         self.sensitivities = np.empty((self.n_c, self.n_spt, self.n_m_r, self.n_mp))
 
         candidate_sens_times = []
-        jacob_fun = nd.Jacobian(fun=self._sensitivity_sim_wrapper,
-                                step=step_generator, method=method)
+        if self.use_finite_difference:
+            jacob_fun = nd.Jacobian(fun=self._sensitivity_sim_wrapper,
+                                    step=step_generator, method=method)
         """ main loop over experimental candidates """
         main_loop_start = time()
         for i, exp_candidate in enumerate(
@@ -2937,7 +2949,11 @@ class Designer:
             self.feval_sensitivity = 0
             single_start = time()
             try:
-                temp_sens = jacob_fun(self._current_scr_mp, store_predictions)
+                if self.use_finite_difference:
+                    temp_sens = jacob_fun(self._current_scr_mp, store_predictions)
+                else:
+                    temp_resp, temp_sens = self._sensitivity_sim_wrapper(self._current_scr_mp,
+                                                                         store_predictions)
             except RuntimeError:
                 print(
                     "The simulate function you provided encountered a Runtime Error "
@@ -2978,26 +2994,30 @@ class Designer:
             case_8: n_sp, n_res, n_theta = 1        1       1
             -------------------------------------------------------------------------
             """
-            n_dim = len(temp_sens.shape)
-            if n_dim == 3:  # covers case 1
-                temp_sens = np.moveaxis(temp_sens, 1, 2)  # switch n_theta and n_res
-            elif self.n_spt == 1:
-                if self.n_mp == 1:  # covers case 5: add a new axis in the last dim
-                    temp_sens = temp_sens[:, :, np.newaxis]
-                else:  # covers case 2, 6, and 8: add a new axis in
-                    # the first dim
-                    temp_sens = temp_sens[np.newaxis]
-            elif self.n_mp == 1:  # covers case 3 and 7
-                temp_sens = np.moveaxis(temp_sens, 0,
-                                        1)  # move n_sp to the first dim as needed
-                temp_sens = temp_sens[:, :,
-                            np.newaxis]  # create a new axis as the last dim for
-                # n_theta
-            elif self.n_r == 1:  # covers case 4
-                temp_sens = temp_sens[:, np.newaxis,
-                            :]  # create axis in the middle for n_res
+            if self.use_finite_difference:
+                n_dim = len(temp_sens.shape)
+                if n_dim == 3:  # covers case 1
+                    temp_sens = np.moveaxis(temp_sens, 1, 2)  # switch n_theta and n_res
+                elif self.n_spt == 1:
+                    if self.n_mp == 1:  # covers case 5: add a new axis in the last dim
+                        temp_sens = temp_sens[:, :, np.newaxis]
+                    else:  # covers case 2, 6, and 8: add a new axis in
+                        # the first dim
+                        temp_sens = temp_sens[np.newaxis]
+                elif self.n_mp == 1:  # covers case 3 and 7
+                    temp_sens = np.moveaxis(temp_sens, 0,
+                                            1)  # move n_sp to the first dim as needed
+                    temp_sens = temp_sens[:, :,
+                                np.newaxis]  # create a new axis as the last dim for
+                    # n_theta
+                elif self.n_r == 1:  # covers case 4
+                    temp_sens = temp_sens[:, np.newaxis,
+                                :]  # create axis in the middle for n_res
 
             self.sensitivities[i, :] = temp_sens
+            if self._save_txt and i == self._save_txt_nc-1:
+                self._save_sensitivities_to_txt()
+
         finish = time()
         if self._verbose >= 2 and self.sens_report_freq != 0:
             print("".center(100, "-"))
@@ -3023,11 +3043,46 @@ class Designer:
 
         self._sensitivity_analysis_done = True
 
-        norm_sens_by_params = True
-        if norm_sens_by_params:
+        if self._norm_sens_by_params:
             self.sensitivities = self.sensitivities * self._current_scr_mp[None, None, None, :]
 
         return self.sensitivities
+
+    def _save_sensitivities_to_txt(self):
+        fmt = self._save_txt_fmt
+        resp_file = f'response_{self._save_txt_nc}'
+        fp = self._generate_result_path(resp_file, "txt")
+        with open(fp, 'w') as txt:
+            txt.write('[Responses]'.center(121, " ") + '\n')
+            for ic in range(self._save_txt_nc):
+                if self._dynamic_system and ic == 0:
+                    txt.write("Sampling Times:")
+                    np.savetxt(txt, self.sampling_times_candidates[ic], fmt=fmt, newline='')
+                    txt.write('\n')
+                txt.write(f'[Candidate {f"{ic + 1:d}":>10}] \n')
+                if self._invariant_controls:
+                    txt.write("Time-invariant Controls:")
+                    np.savetxt(txt, self.ti_controls_candidates[ic], fmt=fmt, newline='')
+                    txt.write('\n')
+                # if self._dynamic_controls:
+                #     txt.write("Time-varying Controls:")
+                #     np.savetxt(txt, self.tv_controls_candidates[ic], fmt=fmt, newline='')
+                #     txt.write('\n')
+
+                for isa in range(self.n_spt):
+                    np.savetxt(txt, self.response[ic, isa], fmt=fmt, newline='')
+                    txt.write('\n')
+                txt.write("".center(121, "=") + '\n')
+        sens_file = f'sensitivity_{self._save_txt_nc}'
+        fp = self._generate_result_path(sens_file, "txt")
+        with open(fp, 'w') as txt:
+            txt.write('[Sensitivity Analysis]'.center(121, " ") + '\n')
+            for ic in range(self._save_txt_nc):
+                txt.write(f'[Candidate {f"{ic + 1:d}":>10}] \n')
+                for isa in range(self.n_spt):
+                    txt.write("".center(121, "-") + '\n')
+                    np.savetxt(txt, self.sensitivities[ic, isa, :], fmt=fmt)
+                txt.write("".center(121, "=") + '\n')
 
     def eval_fim(self, efforts, store_predictions=True):
         """
@@ -4129,15 +4184,26 @@ class Designer:
         return fig
 
     def _sensitivity_sim_wrapper(self, theta_try, store_responses=True):
-        response = self._simulate_internal(self._current_tic, self._current_tvc,
-                                           theta_try, self._current_spt)
+        if self.use_finite_difference:
+            response = self._simulate_internal(self._current_tic, self._current_tvc,
+                                               theta_try, self._current_spt)
+        else:
+            self.do_sensitivity_analysis = True
+            response, sens = self._simulate_internal(self._current_tic, self._current_tvc,
+                                                     theta_try, self._current_spt)
+            self.do_sensitivity_analysis = False
         self.feval_sensitivity += 1
         """ store responses whenever required, and model parameters are the same as 
         current model's """
-        if store_responses and np.allclose(theta_try, self._current_scr_mp):
+        if store_responses and np.allclose(theta_try, self._current_scr_mp,
+                                           rtol=self._store_responses_rtol,
+                                           atol=self._store_responses_atol):
             self._current_res = response
             self._store_current_response()
-        return response
+        if self.use_finite_difference:
+            return response
+        else:
+            return response, sens
 
     def _plot_current_efforts_2d(self, tol=1e-4, width=None, write=False, dpi=720,
                                  figsize=None):
