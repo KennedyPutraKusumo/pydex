@@ -3013,7 +3013,7 @@ class Designer:
             candidate_sens_times.append(finish - single_start)
             """
             bunch of lines to make sure the Jacobian method returns the 
-            sensitivity with dims: n_sp, n_res, n_theta
+            sensitivity (temp_sens) with dims: n_sp, n_res, n_theta
             -------------------------------------------------------------------------
             8 possible cases
             -------------------------------------------------------------------------
