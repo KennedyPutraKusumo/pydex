@@ -1654,7 +1654,10 @@ class Designer:
 
     def apportion(self, n_exp, method="adams", trimmed=True, compute_actual_efficiency=True):
         if self._dynamic_system and self._specified_n_spt:
-            print(NotImplemented)
+            print(
+                "[WARNING]: The apportion method does not support experimental design "
+                "problems with specified n_spt yet. Skipping the apportionment."
+            )
             return
 
         self.get_optimal_candidates()
@@ -1666,11 +1669,14 @@ class Designer:
             )
             n_exp = self.n_min_sups
 
+        """ Initialize opt_eff shape """
         if self._opt_sampling_times:
             self.opt_eff = np.empty((len(self.optimal_candidates), self.max_n_opt_spt))
         else:
             self.opt_eff = np.empty((len(self.optimal_candidates)))
         self.opt_eff[:] = np.nan
+
+        """ Get the optimal efforts from optimal_candidates """
         for i, opt_cand in enumerate(self.optimal_candidates):
             if self._opt_sampling_times:
                 for j, spt in enumerate(opt_cand[4]):
@@ -1680,6 +1686,8 @@ class Designer:
                         self.opt_eff[i, j] = spt
             else:
                 self.opt_eff[i] = np.nansum(opt_cand[4])
+
+        """ do the apportionment """
         if method == "adams":
             self.apportionments = self._adams_apportionment(self.opt_eff, n_exp)
         else:
@@ -1689,6 +1697,8 @@ class Designer:
                 "that Adam's method is the most efficient amongst other popular "
                 "methods used in electoral college apportionments."
             )
+
+        """ Report the obtained apportionment """
         if self._verbose >= 1:
             print(f" Optimal Experiment for {n_exp:d} Runs ".center(100, "#"))
             print(f"{'Obtained on':<40}: {datetime.now()}")
@@ -1745,29 +1755,41 @@ class Designer:
                     else:
                         print("Sampling Times:")
                         print(self.sampling_times_candidates[i])
+
             """ Computing and Reporting Rounding Efficiency """
             self.epsilon = self._eval_efficiency_bound(
                 self.apportionments / n_exp,
-                self.opt_eff
+                self.opt_eff,
             )
 
+            """ 
+            =============================================================================
+            Computing actual efficiency 
+            =============================================================================
+            the rounding efficiency above is computed using efforts that excludes
+            experimental candidates with non-zero efforts i.e., only supports
+            to compute actual efficiency, non_trimmed_apportionment is required
+            i.e., need candidates with zero efforts too.
+            """
+            # initialize the non_trimmed_apportionments
             non_trimmed_apportionments = np.zeros_like(self.efforts)
             for opt_c, app_c in zip(self.optimal_candidates, self.apportionments):
                 if isinstance(app_c, float):
-                    non_trimmed_apportionments[opt_c[0], opt_c[5]] = app_c / n_exp
+                    non_trimmed_apportionments[opt_c[0], opt_c[5]] = app_c
                 else:
-                    non_trimmed_apportionments[opt_c[0], opt_c[5]] = app_c[
-                        [~np.isnan(app_c)]]
-            norm_nt_app = non_trimmed_apportionments / np.sum(non_trimmed_apportionments)
+                    non_trimmed_apportionments[opt_c[0], opt_c[5]] = app_c[[~np.isnan(app_c)]]
+            # normalized to non_trimmed_rounded_efforts
+            non_trimmed_rounded_efforts = non_trimmed_apportionments / np.sum(non_trimmed_apportionments)
             if compute_actual_efficiency:
-                rounded_criterion_value = getattr(self, self._current_criterion)(
-                    norm_nt_app).value
+                _original_efforts = np.copy(self.efforts)
+                rounded_criterion_value = getattr(self, self._current_criterion)(non_trimmed_rounded_efforts).value
                 if self._current_criterion == "d_opt_criterion":
                     efficiency = np.exp(1 / self.n_mp * (-rounded_criterion_value - self._criterion_value))
                 elif self._current_criterion == "a_opt_criterion":
                     efficiency = -self._criterion_value / rounded_criterion_value
                 elif self._current_criterion == "e_opt_criterion":
                     efficiency = -rounded_criterion_value / self._criterion_value
+                self.efforts = _original_efforts
 
             if not trimmed:
                 self.apportionments = non_trimmed_apportionments
