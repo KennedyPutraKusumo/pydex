@@ -284,6 +284,17 @@ class Designer:
         self._candidates_changed = True
         self._sptc = sptc
 
+    @staticmethod
+    def detect_sensitivity_analysis_function():
+        frame = sys._getframe(1)
+        while frame:
+            if "numdifftools" in frame.f_code.co_filename:
+                return False
+            elif frame.f_code.co_name is "eval_sensitivities":
+                return True
+            frame = frame.f_back
+        return False
+
     """ user-defined methods: must be overwritten by user to work """
     def simulate(self, unspecified):
         raise SyntaxError("Don't forget to specify the simulate function.")
