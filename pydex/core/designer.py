@@ -175,7 +175,7 @@ class Designer:
         self.n_spt_comb = None
         self._n_spt_spec = None
         self.max_n_opt_spt = None
-        self.n_min_sups = None
+        self.n_factor_sups = None
 
         """ parameter estimation """
         self.data = None  # stored data, a 3D numpy array, same shape as response.
@@ -1662,13 +1662,6 @@ class Designer:
 
         self.get_optimal_candidates()
 
-        if n_exp < self.n_min_sups:
-            print(
-                f"[WARNING]: Given n_exp is lower than the minimum needed "
-                f"({self.n_min_sups}); overwriting user input to this minimum."
-            )
-            n_exp = self.n_min_sups
-
         """ Initialize opt_eff shape """
         if self._opt_sampling_times:
             self.opt_eff = np.empty((len(self.optimal_candidates), self.max_n_opt_spt))
@@ -1689,7 +1682,10 @@ class Designer:
 
         """ do the apportionment """
         if method == "adams":
-            self.apportionments = self._adams_apportionment(self.opt_eff, n_exp)
+            if n_exp < self.n_factor_sups:
+                self.apportionments = self._greatest_effort_apportionment(self.opt_eff, n_exp)
+            else:
+                self.apportionments = self._adams_apportionment(self.opt_eff, n_exp)
         else:
             raise NotImplementedError(
                 "At the moment, the only method implemented is 'adams', please use it. "
@@ -1774,10 +1770,13 @@ class Designer:
             # initialize the non_trimmed_apportionments
             non_trimmed_apportionments = np.zeros_like(self.efforts)
             for opt_c, app_c in zip(self.optimal_candidates, self.apportionments):
+                opt_idx = opt_c[0]
+                opt_spt = opt_c[5]
                 if isinstance(app_c, float):
-                    non_trimmed_apportionments[opt_c[0], opt_c[5]] = app_c
+                    non_trimmed_apportionments[opt_idx, opt_spt] = app_c
                 else:
-                    non_trimmed_apportionments[opt_c[0], opt_c[5]] = app_c[[~np.isnan(app_c)]]
+                    for spt, app in zip(opt_spt, app_c):
+                        non_trimmed_apportionments[opt_idx, spt] = app
             # normalized to non_trimmed_rounded_efforts
             non_trimmed_rounded_efforts = non_trimmed_apportionments / np.sum(non_trimmed_apportionments)
             if compute_actual_efficiency:
@@ -1832,6 +1831,17 @@ class Designer:
                 ratios = self.apportionments / efforts
                 candidate_to_increase = np.unravel_index(np.nanargmin(ratios), ratios.shape)
                 self.apportionments[candidate_to_increase] += 1
+
+    def _greatest_effort_apportionment(self, efforts, n_exp):
+        self.apportionments = np.zeros_like(efforts)
+        chosen_supports = []
+        for _ in range(n_exp):
+            chosen_support = np.where(efforts == np.nanmax(efforts))
+            efforts[chosen_support] = 0
+            chosen_supports.append(chosen_support)
+        for support in chosen_supports:
+            self.apportionments[support] = 1
+        return self.apportionments
 
     @staticmethod
     def _eval_efficiency_bound(effort1, effort2):
@@ -3430,13 +3440,14 @@ class Designer:
                 f"optimizers."
             )
 
-        self.n_min_sups = 0
+        self.n_factor_sups = 0
+        self.n_spt_sups = 0
         self.max_n_opt_spt = 0
         for i, opt_cand in enumerate(self.optimal_candidates):
             if self._dynamic_system and self._opt_sampling_times:
-                self.n_min_sups += len(opt_cand[4])
+                self.n_factor_sups += len(opt_cand[4])
             else:
-                self.n_min_sups += 1
+                self.n_factor_sups += 1
             self.max_n_opt_spt = max(self.max_n_opt_spt, len(opt_cand[4]))
 
         return self.optimal_candidates
