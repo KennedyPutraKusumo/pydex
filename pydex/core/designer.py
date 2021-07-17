@@ -1483,6 +1483,7 @@ class Designer:
             "sampling_times_candidates": self.sampling_times_candidates,
             "optimal_efforts": self.efforts,
             "criterion_value": self._criterion_value,
+            "optimization_package": self._optimization_package,
             "optimizer": self._optimizer,
             "pseudo_bayesian": self._pseudo_bayesian,
             "pseudo_bayesian_type": self._pseudo_bayesian_type,
@@ -2754,14 +2755,18 @@ class Designer:
         self._optimization_time = oed_result["optimization_time"]
         self._sensitivity_analysis_time = oed_result["sensitivity_analysis_time"]
         self._current_criterion = oed_result["optimality_criterion"]
+        self._criterion_value = oed_result["criterion_value"]
         self.ti_controls_candidates = oed_result["ti_controls_candidates"]
         self.tv_controls_candidates = oed_result["tv_controls_candidates"]
         self.model_parameters = oed_result["model_parameters"]
         self.sampling_times_candidates = oed_result["sampling_times_candidates"]
         self.efforts = oed_result["optimal_efforts"]
+        self._optimization_package = oed_result["optimization_package"]
         self._optimizer = oed_result["optimizer"]
         self._pseudo_bayesian = oed_result["pseudo_bayesian"]
         self._pseudo_bayesian_type = oed_result["pseudo_bayesian_type"]
+        self._candidates_changed = False
+        self._model_parameters_changed = False
 
     def create_result_dir(self):
         if self.result_dir is None:
