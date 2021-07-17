@@ -1659,7 +1659,8 @@ class Designer:
                 "problems with specified n_spt yet. Skipping the apportionment."
             )
             return
-
+        _original_save_atomics = np.copy(self._save_atomics)
+        self._save_atomics = False
         self.get_optimal_candidates()
 
         """ Initialize opt_eff shape """
@@ -1804,6 +1805,7 @@ class Designer:
                     f"{efficiency * 100:.2f}% as informative as the continuous design."
                 )
             print(f"{'':#^100}")
+        self._save_atomics = _original_save_atomics
 
         return self.apportionments
 
