@@ -3324,7 +3324,7 @@ class Designer:
         else:
             for scr, atomic_fims in enumerate(self.pb_atomic_fims):
                 self.atomic_fims = atomic_fims
-                self._eval_fim(self.efforts, store_predictions)
+                self._eval_fim(efforts, store_predictions)
                 self.scr_fims.append(self.fim)
 
         if self._save_atomics:
