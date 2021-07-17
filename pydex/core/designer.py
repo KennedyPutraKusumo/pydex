@@ -1476,14 +1476,16 @@ class Designer:
             "solution_time": finish - start,
             "optimization_time": self._optimization_time,
             "sensitivity_analysis_time": self._sensitivity_analysis_time,
-            "optimality_criterion": criterion.__name__[:-10],
+            "optimality_criterion": criterion.__name__,
             "ti_controls_candidates": self.ti_controls_candidates,
             "tv_controls_candidates": self.tv_controls_candidates,
             "model_parameters": self.model_parameters,
             "sampling_times_candidates": self.sampling_times_candidates,
             "optimal_efforts": self.efforts,
             "criterion_value": self._criterion_value,
-            "optimizer": self._optimizer
+            "optimizer": self._optimizer,
+            "pseudo_bayesian": self._pseudo_bayesian,
+            "pseudo_bayesian_type": self._pseudo_bayesian_type,
         }
         self.oed_result = oed_result
         if write:
@@ -2746,7 +2748,8 @@ class Designer:
 
     # saving, loading, writing
     def load_oed_result(self, result_path):
-        oed_result = dill.load(open(getcwd() + result_path, "rb"))
+        with open(getcwd() + result_path, "rb") as file:
+            oed_result = dill.load(file)
 
         self._optimization_time = oed_result["optimization_time"]
         self._sensitivity_analysis_time = oed_result["sensitivity_analysis_time"]
@@ -2757,6 +2760,8 @@ class Designer:
         self.sampling_times_candidates = oed_result["sampling_times_candidates"]
         self.efforts = oed_result["optimal_efforts"]
         self._optimizer = oed_result["optimizer"]
+        self._pseudo_bayesian = oed_result["pseudo_bayesian"]
+        self._pseudo_bayesian_type = oed_result["pseudo_bayesian_type"]
 
     def create_result_dir(self):
         if self.result_dir is None:
@@ -2819,10 +2824,11 @@ class Designer:
         return self.sensitivities
 
     def load_atomics(self, atomic_path):
-        if self._pseudo_bayesian:
-            self.pb_atomic_fims = load(open(getcwd() + atomic_path, "rb"))
-        else:
-            self.atomic_fims = load(open(getcwd() + atomic_path, "rb"))
+        with open(getcwd() + atomic_path, "rb") as file:
+            if self._pseudo_bayesian:
+                self.pb_atomic_fims = load(file)
+            else:
+                self.atomic_fims = load(file)
         self._model_parameters_changed = False
         self._candidates_changed = False
         return self.atomic_fims
