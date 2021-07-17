@@ -2378,8 +2378,8 @@ class Designer:
                             axes.legend(prop={"size": 6})
                         if label_candidates:
                             axes.set_title(f"{self.candidate_names[cand]}")
-            # if self.response_names is not None:
-            #     fig.suptitle(f"Response: {self.response_names[res]}")
+            if self.response_names is not None:
+                fig.suptitle(f"Response: {self.response_names[res]}")
             fig.tight_layout()
             figs.append(fig)
         return figs
