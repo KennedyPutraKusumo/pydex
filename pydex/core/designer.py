@@ -1953,7 +1953,7 @@ class Designer:
                              force_3d=False, tol=1e-4, heatmap=False, figsize=None):
         if self.optimal_candidates is None:
             self.get_optimal_candidates()
-        if self.n_opt_c is 0:
+        if self.n_opt_c == 0:
             print("Empty candidates, skipping plotting of optimal efforts.")
             return
         if heatmap:
@@ -2132,7 +2132,7 @@ class Designer:
             return
         if self.optimal_candidates is None:
             self.get_optimal_candidates()
-        if self.n_opt_c is 0:
+        if self.n_opt_c == 0:
             print(
                 f"[Warning]: empty optimal candidates, skipping plotting of optimal "
                 f"controls."
@@ -2668,7 +2668,7 @@ class Designer:
     def print_optimal_candidates(self, tol=1e-4):
         if self.optimal_candidates is None:
             self.get_optimal_candidates(tol)
-        if self.n_opt_c is 0:
+        if self.n_opt_c == 0:
             print(
                 f"[Warning]: empty optimal candidates, skipping printing of optimal "
                 f"candidates."
@@ -3215,7 +3215,7 @@ class Designer:
         """ evaluate fim """
         start = time()
 
-        if self._optimization_package is "scipy":
+        if self._optimization_package == "scipy":
             if self._specified_n_spt:
                 self.efforts = self.efforts.reshape((self.n_c, self.n_spt_comb))
             else:
@@ -3251,7 +3251,7 @@ class Designer:
 
         finish = time()
 
-        if self.fim is 0:
+        if self.fim == 0:
             return np.array([0])
         else:
             self.evaluate_estimability_index()
@@ -3341,7 +3341,7 @@ class Designer:
         return self.scr_fims
 
     def eval_pim(self, efforts, vector=False):
-        if self._optimization_package is "cvxpy":
+        if self._optimization_package == "cvxpy":
             raise NotImplementedError
 
         """ update mp, and efforts """
@@ -3440,7 +3440,7 @@ class Designer:
                 self.optimal_candidates.append(opt_candidate)
 
         self.n_opt_c = len(self.optimal_candidates)
-        if self.n_opt_c is 0:
+        if self.n_opt_c == 0:
             print(
                 f"[Warning]: empty optimal candidates. Likely failed optimization; if "
                 f"prediction-orriented design is used, try avoiding dg, ag, or eg "
@@ -3465,14 +3465,14 @@ class Designer:
     def evaluate_estimability_index(self):
         self.estimable_model_parameters = np.array([])
         self.estimability = np.array([])
-        if self._optimization_package is 'cvxpy':
+        if self._optimization_package == 'cvxpy':
             try:
                 fim_value = self.fim.value
             except AttributeError:
                 fim_value = self.fim
         else:
             fim_value = self.fim
-        if fim_value is 0:
+        if fim_value == 0:
             return
 
         for i, row in enumerate(fim_value):
@@ -3541,7 +3541,7 @@ class Designer:
         self.eval_fim(efforts)
 
         if self.fim.size == 1:
-            if self._optimization_package is "scipy":
+            if self._optimization_package == "scipy":
                 d_opt = -self.fim
                 if self._fd_jac:
                     return np.squeeze(d_opt)
@@ -3551,10 +3551,10 @@ class Designer:
                         for m in self.atomic_fims
                     ])
                     return d_opt, jac
-            elif self._optimization_package is 'cvxpy':
+            elif self._optimization_package == 'cvxpy':
                 return -self.fim
 
-        if self._optimization_package is "scipy":
+        if self._optimization_package == "scipy":
             sign, d_opt = np.linalg.slogdet(self.fim)
             if self._fd_jac:
                 if sign == 1:
@@ -3572,7 +3572,7 @@ class Designer:
                 else:
                     return np.inf, jac
 
-        elif self._optimization_package is 'cvxpy':
+        elif self._optimization_package == 'cvxpy':
             return -cp.log_det(self.fim)
 
     def _a_opt_criterion(self, efforts):
@@ -3580,7 +3580,7 @@ class Designer:
         self.eval_fim(efforts)
 
         if self.fim.size == 1:
-            if self._optimization_package is "scipy":
+            if self._optimization_package == "scipy":
                 if self._fd_jac:
                     return -self.fim
                 else:
@@ -3588,10 +3588,10 @@ class Designer:
                         m for m in self.atomic_fims
                     ])
                     return -self.fim, jac
-            elif self._optimization_package is "cvxpy":
+            elif self._optimization_package == "cvxpy":
                 return -self.fim
 
-        if self._optimization_package is "scipy":
+        if self._optimization_package == "scipy":
             if self._fd_jac:
                 eigvals = np.linalg.eigvalsh(self.fim)
                 if np.all(eigvals > 0):
@@ -3612,7 +3612,7 @@ class Designer:
                     a_opt = 0
                 return a_opt, jac
 
-        elif self._optimization_package is 'cvxpy':
+        elif self._optimization_package == 'cvxpy':
             try:
                 return cp.matrix_frac(np.identity(self.fim.shape[0]), self.fim)
             except ValueError:
@@ -3625,17 +3625,17 @@ class Designer:
         if self.fim.size == 1:
             return -self.fim
 
-        if self._optimization_package is "scipy":
+        if self._optimization_package == "scipy":
             if self._fd_jac:
                 return -np.linalg.eigvalsh(self.fim).min()
             else:
                 raise NotImplementedError  # TODO: implement analytic jac for e-opt
-        elif self._optimization_package is 'cvxpy':
+        elif self._optimization_package == 'cvxpy':
             return -cp.lambda_min(self.fim)
 
     # prediction-oriented
     def _dg_opt_criterion(self, efforts):
-        if self._optimization_package is "cvxpy":
+        if self._optimization_package == "cvxpy":
             raise NotImplementedError("CVXPY unavailable for dg_opt.")
 
         self.eval_pim(efforts)
@@ -3655,7 +3655,7 @@ class Designer:
             raise NotImplementedError("Analytic Jacobian for dg_opt unavailable.")
 
     def _di_opt_criterion(self, efforts):
-        if self._optimization_package is "cvxpy":
+        if self._optimization_package == "cvxpy":
             raise NotImplementedError("CVXPY unavailable for di_opt.")
 
         self.eval_pim(efforts)
@@ -3675,7 +3675,7 @@ class Designer:
             raise NotImplementedError("Analytic Jacobian for di_opt unavailable.")
 
     def _ag_opt_criterion(self, efforts):
-        if self._optimization_package is "cvxpy":
+        if self._optimization_package == "cvxpy":
             raise NotImplementedError("CVXPY unavailable for ag_opt.")
 
         self.eval_pim(efforts)
@@ -3693,7 +3693,7 @@ class Designer:
             raise NotImplementedError("Analytic Jacobian for ag_opt unavailable.")
 
     def _ai_opt_criterion(self, efforts):
-        if self._optimization_package is "cvxpy":
+        if self._optimization_package == "cvxpy":
             raise NotImplementedError("CVXPY unavailable for ai_opt.")
 
         self.eval_pim(efforts)
@@ -3711,7 +3711,7 @@ class Designer:
             raise NotImplementedError("Analytic Jacobian for ai_opt unavailable.")
 
     def _eg_opt_criterion(self, efforts):
-        if self._optimization_package is "cvxpy":
+        if self._optimization_package == "cvxpy":
             raise NotImplementedError("CVXPY unavailable for eg_opt.")
 
         self.eval_pim(efforts)
@@ -3729,7 +3729,7 @@ class Designer:
             raise NotImplementedError("Analytic Jacobian for eg_opt unavailable.")
 
     def _ei_opt_criterion(self, efforts):
-        if self._optimization_package is "cvxpy":
+        if self._optimization_package == "cvxpy":
             raise NotImplementedError("CVXPY unavailable for ei_opt.")
 
         self.eval_pim(efforts)
@@ -3753,7 +3753,7 @@ class Designer:
         """ it is a PSD criterion, with exponential cone """
         self.eval_fim(efforts)
 
-        if self._optimization_package is "scipy":
+        if self._optimization_package == "scipy":
             if self._fd_jac:
                 if self._pseudo_bayesian_type in [0, "avg_inf", "average_information"]:
                     avg_fim = np.mean([fim for fim in self.scr_fims], axis=0)
@@ -3775,7 +3775,7 @@ class Designer:
                     "Analytical Jacobian unimplemented for Pseudo-bayesian D-optimal."
                 )
 
-        elif self._optimization_package is 'cvxpy':
+        elif self._optimization_package == 'cvxpy':
             if np.any([fim.shape == (1, 1) for fim in self.scr_fims]):
                 return cp.sum([-fim for fim in self.scr_fims]) / self.n_scr
             else:
@@ -3793,7 +3793,7 @@ class Designer:
         """ it is a PSD criterion """
         self.eval_fim(efforts)
 
-        if self._optimization_package is "scipy":
+        if self._optimization_package == "scipy":
             if self._fd_jac:
                 if self._pseudo_bayesian_type in [0, "avg_inf", "average_information"]:
                     a_opt = np.linalg.inv(
@@ -3809,7 +3809,7 @@ class Designer:
                     "Analytical Jacobian unimplemented for Pseudo-bayesian D-optimal."
                 )
 
-        elif self._optimization_package is 'cvxpy':
+        elif self._optimization_package == 'cvxpy':
             if np.any([fim.shape == (1, 1) for fim in self.scr_fims]):
                 return cp.sum([-fim for fim in self.scr_fims]) / self.n_scr
             else:
@@ -3826,7 +3826,7 @@ class Designer:
         """ it is a PSD criterion """
         self.eval_fim(efforts)
 
-        if self._optimization_package is "scipy":
+        if self._optimization_package == "scipy":
             if self._fd_jac:
                 if self._pseudo_bayesian_type in [0, "avg_inf", "average_information"]:
                     avg_fim = np.sum([fim for fim in self.scr_fims], axis=0) / self.n_scr
@@ -3841,7 +3841,7 @@ class Designer:
                     "Analytical Jacobian unimplemented for Pseudo-bayesian D-optimal."
                 )
 
-        elif self._optimization_package is 'cvxpy':
+        elif self._optimization_package == 'cvxpy':
             if np.any([fim.shape == (1, 1) for fim in self.scr_fims]):
                 return cp.sum([-fim for fim in self.scr_fims])
             else:
@@ -3919,7 +3919,7 @@ class Designer:
 
         if self.optimal_candidates is None:
             self.get_optimal_candidates()
-        if self.n_opt_c is 0:
+        if self.n_opt_c == 0:
             print(
                 f"[Warning]: empty optimal candidates, skipping plotting of optimal "
                 f"predictions."
@@ -4419,9 +4419,9 @@ class Designer:
             # initialize response list
             self.response = []
 
-        if self._dynamic_system and self.n_spt is 1:
+        if self._dynamic_system and self.n_spt == 1:
             self._current_res = self._current_res[np.newaxis]
-        if self.n_r is 1:
+        if self.n_r == 1:
             self._current_res = self._current_res[:, np.newaxis]
 
         if self._var_n_sampling_time:
@@ -4480,19 +4480,19 @@ class Designer:
         )
 
     def _initialize_internal_simulate_function(self):
-        if self._simulate_signature is 1:
+        if self._simulate_signature == 1:
             self._simulate_internal = lambda tic, tvc, mp, spt: \
                 self.simulate(tic, mp)
-        elif self._simulate_signature is 2:
+        elif self._simulate_signature == 2:
             self._simulate_internal = lambda tic, tvc, mp, spt: \
                 self.simulate(tic, spt, mp)
-        elif self._simulate_signature is 3:
+        elif self._simulate_signature == 3:
             self._simulate_internal = lambda tic, tvc, mp, spt: \
                 self.simulate(tvc, spt, mp)
-        elif self._simulate_signature is 4:
+        elif self._simulate_signature == 4:
             self._simulate_internal = lambda tic, tvc, mp, spt: \
                 self.simulate(tic, tvc, spt, mp)
-        elif self._simulate_signature is 5:
+        elif self._simulate_signature == 5:
             self._simulate_internal = lambda tic, tvc, mp, spt: \
                 self.simulate(spt, mp)
         else:
@@ -4615,7 +4615,7 @@ class Designer:
             self._dynamic_system = True
             self._dynamic_controls = False
             self._invariant_controls = False
-        if self._simulate_signature is 0:
+        if self._simulate_signature == 0:
             raise SyntaxError(
                 "Unrecognized simulate function signature, please check if you have "
                 "specified it correctly. The base signature requires "
@@ -4629,9 +4629,9 @@ class Designer:
 
     def _check_stats_framework(self):
         """ check if local or Pseudo-bayesian designs """
-        if self.model_parameters.ndim is 1:
+        if self.model_parameters.ndim == 1:
             self._pseudo_bayesian = False
-        elif self.model_parameters.ndim is 2:
+        elif self.model_parameters.ndim == 2:
             self._pseudo_bayesian = True
         else:
             raise SyntaxError(
