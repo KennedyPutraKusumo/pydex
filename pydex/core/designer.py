@@ -3251,10 +3251,10 @@ class Designer:
 
         finish = time()
 
-        if self.fim == 0:
+        if self.fim is 0:
             return np.array([0])
-        else:
-            self.evaluate_estimability_index()
+
+        self.evaluate_estimability_index()
 
         if self._regularize_fim:
             if self._verbose >= 3:
@@ -3472,7 +3472,7 @@ class Designer:
                 fim_value = self.fim
         else:
             fim_value = self.fim
-        if fim_value == 0:
+        if fim_value is 0:
             return
 
         for i, row in enumerate(fim_value):
