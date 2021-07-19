@@ -1489,6 +1489,7 @@ class Designer:
             "pseudo_bayesian_type": self._pseudo_bayesian_type,
             "optimize_sampling_times": self._opt_sampling_times,
             "regularized": self._regularize_fim,
+            "n_spt_spec": self._n_spt_spec,
         }
         self.oed_result = oed_result
         if write:
@@ -2769,6 +2770,7 @@ class Designer:
         self._pseudo_bayesian_type = oed_result["pseudo_bayesian_type"]
         self._opt_sampling_times = oed_result["optimize_sampling_times"]
         self._regularize_fim = oed_result["regularized"]
+        self._n_spt_spec = oed_result["n_spt_spec"]
         self._candidates_changed = False
         self._model_parameters_changed = False
 
