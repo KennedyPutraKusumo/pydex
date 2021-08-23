@@ -2165,7 +2165,6 @@ class Designer:
                 axes.set_ylim([0, 1])
                 axes.set_xlabel("Control 1")
                 axes.set_ylabel("Efforts")
-            # fig = self.plot_optimal_efforts(write=write)
         elif self.n_tic == 2:
             fig, axes = plt.subplots(1, 1)
             if title:
@@ -3324,7 +3323,7 @@ class Designer:
                     print(f"{f'[Scenario {scr+1}/{self.n_scr}]':=^100}")
                     print("Model Parameters:")
                     print(mp)
-                self._eval_fim(self.efforts, store_predictions)
+                self._eval_fim(efforts, store_predictions)
                 self.scr_fims.append(self.fim)
                 if self._verbose >= 2:
                     print(f"Time elapsed: {self._sensitivity_analysis_time:.2f} seconds.")
