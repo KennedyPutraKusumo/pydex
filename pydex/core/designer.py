@@ -51,11 +51,25 @@ class Designer:
         The designer comes with various built-in plotting capabilities through
         matplotlib's plotting features.
         """
+        self.__version__ = "0.0.8"
 
         """ Experimental """
         self._alt_cvar = None
         self.error_cov = None
         self.error_fim = None
+        # goal_oriented_ds
+        self.ds_tic = None
+        self.ds_tvc = None
+        self.ds_spt = None
+        self.old_tic_cands = None
+        self.old_tvc_cands = None
+        self.old_spt_cands = None
+        self.tic_switched = None
+        self.tvc_switched = None
+        self.spt_switched = None
+        self.ds_sensitivities = None
+        self.ds_sample_sensitivities_done = False
+        self.n_c_ds = None
 
         """ CVaR-exclusive """
         self.n_cvar_scr = None
@@ -2807,8 +2821,8 @@ class Designer:
         ]
 
         designer_file = f"state"
-        fp = self._generate_result_path(designer_file, ".pkl")
-        dill.dump(state, open(designer_file, "wb"))
+        fp = self._generate_result_path(designer_file, "pkl")
+        dill.dump(state, open(fp, "wb"))
 
     def load_state(self, designer_path):
         state = dill.load(open(getcwd() + designer_path, 'rb'))
@@ -2903,6 +2917,95 @@ class Designer:
             return self._pb_ei_opt_criterion(efforts)
         else:
             return self._ei_opt_criterion(efforts)
+
+    # goal-oriented for design space
+    def vdi_criterion(self, efforts):
+        if self._pseudo_bayesian:
+            raise NotImplementedError("Pseudo-bayesian designs for the VDI criterion not"
+                                      "implemented yet, keep an eye out in future "
+                                      "releases.")
+        else:
+            return self._vdi_opt_criterion(efforts)
+
+    def _vdi_opt_criterion(self, efforts):
+        if self._optimization_package == "cvxpy":
+            raise NotImplementedError("CVXPY unavailable for vdi_opt.")
+
+        self.eval_pim_for_v_opt(efforts)
+        # ei_opts: average of the determinant of the pvar matrix over the given points
+        di_opts = np.empty((self.n_c_ds, self.n_spt))
+        for c, PVAR in enumerate(self.pvars):
+            for spt, pvar in enumerate(PVAR):
+                sign, temp_di = np.linalg.slogdet(pvar)
+                if sign != 1:
+                    temp_di = np.inf
+                di_opts[c, spt] = temp_di
+        di_opt = np.sum(di_opts)
+
+        if self._fd_jac:
+            return di_opt
+        else:
+            raise NotImplementedError("Analytic Jacobian for ei_opt unavailable.")
+
+    def eval_pim_for_v_opt(self, efforts, vector=False):
+        if self._optimization_package == "cvxpy":
+            raise NotImplementedError
+
+        """ update mp, and efforts """
+        self.eval_fim(efforts)
+
+        fim_inv = np.linalg.inv(self.fim)
+
+        # compute the sensitivities of the samples from design spaces
+        if self.ds_sample_sensitivities_done is False:
+            self._temporary_switch_of_candidates(new_tic=self.ds_tic, new_tvc=self.ds_tvc, new_spt=self.ds_spt)
+            self.eval_sensitivities()
+            self.ds_sensitivities = np.copy(self.sensitivities)
+            self.ds_sample_sensitivities_done = True
+        if vector:
+            self.pvars = np.array([
+                [f @ fim_inv @ f.T for f in F] for F in self.ds_sensitivities
+            ])
+        else:
+            self.pvars = np.empty((self.n_c_ds, self.n_spt, self.n_r, self.n_r))
+            for c, F in enumerate(self.ds_sensitivities):
+                for spt, f in enumerate(F):
+                    self.pvars[c, spt, :, :] = f @ fim_inv @ f.T
+        self._revert_candidates()
+        return self.pvars
+
+    def _temporary_switch_of_candidates(self, new_tic=None, new_tvc=None, new_spt=None):
+        if new_tic is not None:
+            self.old_tic_cands = np.copy(self.ti_controls_candidates)
+            self.ti_controls_candidates = new_tic
+            self.n_c_ds = new_tic.shape[0]
+            self.tic_switched = True
+        if new_tvc is not None:
+            self.old_tvc_cands = np.copy(self.tv_controls_candidates)
+            self.tv_controls_candidates = new_tvc
+            self.tvc_switched = True
+        if new_spt is not None:
+            self.old_spt_cands = np.copy(self.sampling_times_candidates)
+            self.sampling_times_candidates = new_spt
+            self.spt_switched = True
+        self.old_sensitivities = np.copy(self.sensitivities)
+        self.initialize(verbose=self._verbose)
+
+    def _revert_candidates(self):
+        self.ti_controls_candidates = self.old_tic_cands
+        self.tic_switched = False
+
+        self.tv_controls_candidates = self.old_tic_cands
+        self.tvc_switched = False
+
+        self.spt_controls_candidates = self.old_tic_cands
+        self.spt_switched = False
+
+        self.sensitivities = self.old_sensitivities
+        self.initialize(verbose=0)
+
+        self._model_parameters_changed = False
+        self._candidates_changed = False
 
     # experimental
     def u_opt_criterion(self, efforts):
