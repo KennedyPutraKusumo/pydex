@@ -13,6 +13,7 @@ from matplotlib import pyplot as plt
 from matplotlib import cm
 from matplotlib.widgets import RadioButtons, CheckButtons
 from mpl_toolkits.mplot3d import Axes3D
+from matplotlib.ticker import AutoMinorLocator
 from scipy.optimize import minimize, least_squares
 from pydex.utils.trellis_plotter import TrellisPlotter
 from pydex.core.bnb.tree import Tree
@@ -70,6 +71,7 @@ class Designer:
         self.ds_sensitivities = None
         self.ds_sample_sensitivities_done = False
         self.n_c_ds = None
+        self._step_nom = None
 
         """ CVaR-exclusive """
         self.n_cvar_scr = None
@@ -1511,14 +1513,14 @@ class Designer:
 
         return oed_result
 
-    def plot_criterion_cdf(self, write=False, iteration=None, dpi=360):
+    def plot_criterion_cdf(self, write=False, iteration=None, dpi=360, figsize=(4.5, 3.5), annotate=True, minor_ticks=False, legend=False, grid=False):
         if not self._pseudo_bayesian or not self._cvar_problem:
             raise SyntaxError(
                 "Plotting cumulative distribution function only valid for pseudo-"
                 "bayesian and cvar problems."
             )
 
-        fig = plt.figure()
+        fig = plt.figure(figsize=figsize)
         axes = fig.add_subplot(111)
         if self._cvar_problem:
             x = np.sort(self.phi.value)
@@ -1548,11 +1550,75 @@ class Designer:
                 c="tab:blue",
                 label=f"Mean",
             )
-            axes.set_xlabel(f"{self._current_criterion}")
+            # axes.set_xlabel(f"{self._current_criterion}")
+            axes.set_xlabel(f"D-optimal Criterion")
             axes.set_ylim(0, 1)
             axes.set_ylabel("Cumulative Probability")
-            axes.legend()
+
+            if legend:
+                axes.legend()
+
+            if minor_ticks:
+                axes.xaxis.set_minor_locator(AutoMinorLocator(5))
+                axes.yaxis.set_minor_locator(AutoMinorLocator(5))
+
+            if grid:
+                axes.grid(visible=False, which="both")
+
+            if annotate:
+                axes.axhline(
+                    y=0.25,
+                    ls="--",
+                    c="tab:red",
+                )
+                axes.annotate(
+                    r"$(1 - \beta) = 0.25$",
+                    xy=(-1.25, 0.25),
+                    xytext=(-2.0, 0.50),
+                    arrowprops={
+                        "width": 5,
+                        "shrink": 0.05,
+                        "facecolor": "tab:red",
+                        "edgecolor": "k",
+                    },
+                )
+
+                axes.annotate(
+                    "VaR",
+                    xy=(self.v.value, 0.80),
+                    xytext=(-1.5, 0.65),
+                    arrowprops={
+                        "width": 5,
+                        "shrink": 0.05,
+                        "facecolor": "tab:red",
+                        "edgecolor": "k",
+                    },
+                )
+                axes.annotate(
+                    "CVaR",
+                    xy=((self.v - 1 / (self.n_scr * (1 - self.beta)) * cp.sum(self.s)).value, 0.45),
+                    xytext=(-3.0, 0.45),
+                    arrowprops={
+                        "width": 5,
+                        "shrink": 0.05,
+                        "facecolor": "tab:green",
+                        "edgecolor": "k",
+                    },
+                )
+                axes.annotate(
+                    "Mean",
+                    xy=(mean, 0.10),
+                    xytext=(-1.5, 0.10),
+                    arrowprops={
+                        "width": 5,
+                        "shrink": 0.05,
+                        "facecolor": "tab:blue",
+                        "edgecolor": "k",
+                    },
+                )
             fig.tight_layout()
+            fig.savefig("cvar_illustration.png", dpi=360)
+            plt.show()
         else:
             raise NotImplementedError(
                 "Plotting cumulative distribution function not implemented for pseudo-"
@@ -1608,6 +1674,16 @@ class Designer:
             fig.savefig(fname=fp, dpi=dpi)
 
         return fig
+
+    def compute_criterion_value(self, criterion, decimal_places=3):
+        crit_val = criterion(self.efforts)
+        try:
+            crit_val = crit_val.value
+        except AttributeError:
+            pass
+        if self._verbose >= 1:
+            print(f"{criterion.__name__}: {crit_val:.{decimal_places}E}")
+        return crit_val
 
     def estimability_study(self, base_step=None, step_ratio=None, num_steps=None,
                            estimable_tolerance=0.04, write=False,
@@ -1802,7 +1878,10 @@ class Designer:
             non_trimmed_rounded_efforts = non_trimmed_apportionments / np.sum(non_trimmed_apportionments)
             if compute_actual_efficiency:
                 _original_efforts = np.copy(self.efforts)
-                rounded_criterion_value = getattr(self, self._current_criterion)(non_trimmed_rounded_efforts).value
+                try:
+                    rounded_criterion_value = getattr(self, self._current_criterion)(non_trimmed_rounded_efforts).value
+                except AttributeError:
+                    rounded_criterion_value = getattr(self, self._current_criterion)(non_trimmed_rounded_efforts)
                 if self._current_criterion == "d_opt_criterion":
                     efficiency = np.exp(1 / self.n_mp * (-rounded_criterion_value - self._criterion_value))
                 elif self._current_criterion == "a_opt_criterion":
@@ -3056,6 +3135,7 @@ class Designer:
     def eval_sensitivities(self, method='forward', base_step=2, step_ratio=2,
                            store_predictions=True,
                            plot_analysis_times=False, save_sensitivities=None,
+                           num_steps=None,
                            reporting_frequency=None):
         """
         Main evaluator for computing numerical sensitivities of the responses with
@@ -3075,6 +3155,7 @@ class Designer:
                 base_step=base_step,
                 step_ratio=step_ratio,
                 num_steps=self._num_steps,
+                step_nom=self._step_nom,
             )
 
         if isinstance(reporting_frequency, int) and reporting_frequency > 0:
@@ -3314,7 +3395,7 @@ class Designer:
         if self._pseudo_bayesian:
             self._compute_sensitivities = self._compute_atomics or self.scr_fims is None
 
-        if self._compute_sensitivities:
+        if self._compute_sensitivities and self._compute_atomics:
             self.eval_sensitivities(
                 save_sensitivities=self._save_sensitivities,
                 store_predictions=store_predictions,
@@ -3760,7 +3841,7 @@ class Designer:
                 if sign != 1:
                     temp_dg = np.inf
                 dg_opts[c, spt] = sign * np.exp(temp_dg)
-        dg_opt = np.max(dg_opts)
+        dg_opt = np.nanmax(dg_opts)
 
         if self._fd_jac:
             return dg_opt
@@ -3780,7 +3861,7 @@ class Designer:
                 if sign != 1:
                     temp_dg = np.inf
                 dg_opts[c, spt] = temp_dg
-        dg_opt = np.sum(dg_opts)
+        dg_opt = np.nansum(dg_opts)
 
         if self._fd_jac:
             return dg_opt
@@ -3798,7 +3879,7 @@ class Designer:
             for spt, pvar in enumerate(PVAR):
                 temp_dg = np.trace(pvar)
                 ag_opts[c, spt] = temp_dg
-        ag_opt = np.max(ag_opts)
+        ag_opt = np.nanmax(ag_opts)
 
         if self._fd_jac:
             return ag_opt
@@ -3816,7 +3897,7 @@ class Designer:
             for spt, pvar in enumerate(PVAR):
                 temp_dg = np.trace(pvar)
                 ai_opts[c, spt] = temp_dg
-        ag_opt = np.sum(ai_opts)
+        ag_opt = np.nansum(ai_opts)
 
         if self._fd_jac:
             return ag_opt
@@ -3834,7 +3915,7 @@ class Designer:
             for spt, pvar in enumerate(PVAR):
                 temp_dg = np.linalg.eigvals(pvar).max()
                 eg_opts[c, spt] = temp_dg
-        eg_opt = np.max(eg_opts)
+        eg_opt = np.nanmax(eg_opts)
 
         if self._fd_jac:
             return eg_opt
@@ -3852,7 +3933,7 @@ class Designer:
             for spt, pvar in enumerate(PVAR):
                 temp_dg = np.linalg.eigvals(pvar).max()
                 ei_opts[c, spt] = temp_dg
-        ei_opt = np.sum(ei_opts)
+        ei_opt = np.nansum(ei_opts)
 
         if self._fd_jac:
             return ei_opt

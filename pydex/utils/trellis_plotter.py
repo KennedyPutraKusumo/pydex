@@ -177,7 +177,7 @@ class TrellisPlotter:
                     )
                     # add label
                     axis.annotate(
-                        s=self.oaxis_xlabel,
+                        text=self.oaxis_xlabel,
                         xy=(np.mean(self.bounds[3, :]), 0.5),
                         ha="center",
                         va="center",
@@ -219,7 +219,7 @@ class TrellisPlotter:
                     )
                     # add label
                     axis.annotate(
-                        s=self.oaxis_ylabel,
+                        text=self.oaxis_ylabel,
                         xy=(0.50, np.mean(self.bounds[2, :])),
                         verticalalignment="center",
                         horizontalalignment="center",
@@ -364,7 +364,7 @@ class TrellisPlotter:
                     )
                     # add label
                     axis.annotate(
-                        s=self.oaxis_xlabel,
+                        text=self.oaxis_xlabel,
                         xy=(np.mean(self.bounds[3, :]), 0.5),
                         ha="center",
                         va="center",
@@ -406,7 +406,7 @@ class TrellisPlotter:
                     )
                     # add label
                     axis.annotate(
-                        s=self.oaxis_ylabel,
+                        text=self.oaxis_ylabel,
                         xy=(0.50, np.mean(self.bounds[2, :])),
                         verticalalignment="center",
                         horizontalalignment="center",
@@ -588,7 +588,7 @@ if __name__ == "__main__":
                      -1:1:7j
                      ]
     plotter1.data = np.array([x1.flatten(), x2.flatten(), x3.flatten(), x4.flatten()]).T
-    plotter1.fun = fun(plotter1.data.qin)
+    plotter1.fun = fun(plotter1.data.T)
 
     plotter1.intervals = np.array([5, 7])
 
