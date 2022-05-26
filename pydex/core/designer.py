@@ -1550,8 +1550,7 @@ class Designer:
                 c="tab:blue",
                 label=f"Mean",
             )
-            # axes.set_xlabel(f"{self._current_criterion}")
-            axes.set_xlabel(f"D-optimal Criterion")
+            axes.set_xlabel(f"{self._current_criterion}")
             axes.set_ylim(0, 1)
             axes.set_ylabel("Cumulative Probability")
 
@@ -1567,14 +1566,15 @@ class Designer:
 
             if annotate:
                 axes.axhline(
-                    y=0.25,
+                    y=1-self.beta,
                     ls="--",
                     c="tab:red",
                 )
                 axes.annotate(
-                    r"$(1 - \beta) = 0.25$",
-                    xy=(-1.25, 0.25),
-                    xytext=(-2.0, 0.50),
+                    rf"$(1 - \beta) = {1 - self.beta:.2f}$",
+                    xy=(0.20, 1 - self.beta),
+                    xytext=(0.50, 1 - self.beta + 0.25),
+                    xycoords="axes fraction",
                     arrowprops={
                         "width": 5,
                         "shrink": 0.05,
@@ -1586,7 +1586,7 @@ class Designer:
                 axes.annotate(
                     "VaR",
                     xy=(self.v.value, 0.80),
-                    xytext=(-1.5, 0.65),
+                    xytext=(self.v.value + 0.2 * np.abs(self.v.value), 0.80),
                     arrowprops={
                         "width": 5,
                         "shrink": 0.05,
@@ -1594,10 +1594,11 @@ class Designer:
                         "edgecolor": "k",
                     },
                 )
+                cvar = (self.v - 1 / (self.n_scr * (1 - self.beta)) * cp.sum(self.s)).value
                 axes.annotate(
                     "CVaR",
-                    xy=((self.v - 1 / (self.n_scr * (1 - self.beta)) * cp.sum(self.s)).value, 0.45),
-                    xytext=(-3.0, 0.45),
+                    xy=(cvar, 0.50),
+                    xytext=(cvar + 0.2 * np.abs(cvar), 0.50),
                     arrowprops={
                         "width": 5,
                         "shrink": 0.05,
@@ -1608,7 +1609,7 @@ class Designer:
                 axes.annotate(
                     "Mean",
                     xy=(mean, 0.10),
-                    xytext=(-1.5, 0.10),
+                    xytext=(mean + 0.2 * np.abs(mean), 0.10),
                     arrowprops={
                         "width": 5,
                         "shrink": 0.05,
@@ -1617,8 +1618,6 @@ class Designer:
                     },
                 )
             fig.tight_layout()
-            fig.savefig("cvar_illustration.png", dpi=360)
-            plt.show()
         else:
             raise NotImplementedError(
                 "Plotting cumulative distribution function not implemented for pseudo-"
