@@ -1,5 +1,5 @@
 from pydex.core.designer import Designer
-from examples.time_varying_controls.case_2_tvc_model import simulate
+from case_2_tvc_model import simulate
 import numpy as np
 
 
@@ -8,7 +8,7 @@ designer_1.simulate = simulate
 
 """ specifying nominal model parameter values """
 np.random.seed(123)
-n_scr = 100
+n_scr = 200
 pre_exp_constant = np.random.uniform(0.1, 1.0, n_scr)
 activ_energy = np.random.uniform(1e3, 1e4, n_scr)
 theta_0 = np.log(pre_exp_constant) - activ_energy / (8.314159 * 273.15)
@@ -27,7 +27,7 @@ tic, tvc = designer_1.enumerate_candidates(
     ],
     levels=[
         1,
-        5,
+        3,
         3,
         1,
         1,
@@ -52,6 +52,8 @@ designer_1.initialize(verbose=2)  # 0: silent, 1: overview, 2: detail
 """ (optional) plotting attributes """
 designer_1.response_names = ["c_A", "c_B"]
 designer_1.model_parameter_names = ["\\theta_0", "\\theta_1", "\\alpha", "\\nu"]
+
+designer_1.load_atomics("\case2_tvc_atom_fims_243_n_c_200_n_scr.pkl")
 
 pkg = "cvxpy"
 opt = "MOSEK"
