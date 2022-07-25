@@ -120,7 +120,7 @@ class Designer:
         self.cost = None
         self.cand_cost = None
         self.spt_cost = None
-        self._norm_sens_by_params = False
+        self._norm_sens_by_params = True
 
         """" Type of Problem """
         self._invariant_controls = None
