@@ -171,6 +171,8 @@ class Designer:
         self.optimal_candidates = None
         self.atomic_fims = None
         self.apportionments = None
+        self.non_trimmed_apportionments = None
+        self.n_exp = None
         self.epsilon = None
 
         # exclusive to prediction-oriented criteria
@@ -1748,6 +1750,8 @@ class Designer:
     """ core utilities """
 
     def apportion(self, n_exp, method="adams", trimmed=True, compute_actual_efficiency=True):
+        self.n_exp = n_exp
+
         if self._dynamic_system and self._specified_n_spt:
             print(
                 "[WARNING]: The apportion method does not support experimental design "
@@ -1864,17 +1868,17 @@ class Designer:
             i.e., need candidates with zero efforts too.
             """
             # initialize the non_trimmed_apportionments
-            non_trimmed_apportionments = np.zeros_like(self.efforts)
+            self.non_trimmed_apportionments = np.zeros_like(self.efforts)
             for opt_c, app_c in zip(self.optimal_candidates, self.apportionments):
                 opt_idx = opt_c[0]
                 opt_spt = opt_c[5]
                 if isinstance(app_c, float):
-                    non_trimmed_apportionments[opt_idx, opt_spt] = app_c
+                    self.non_trimmed_apportionments[opt_idx, opt_spt] = app_c
                 else:
                     for spt, app in zip(opt_spt, app_c):
-                        non_trimmed_apportionments[opt_idx, spt] = app
+                        self.non_trimmed_apportionments[opt_idx, spt] = app
             # normalized to non_trimmed_rounded_efforts
-            non_trimmed_rounded_efforts = non_trimmed_apportionments / np.sum(non_trimmed_apportionments)
+            non_trimmed_rounded_efforts = self.non_trimmed_apportionments / np.sum(self.non_trimmed_apportionments)
             if compute_actual_efficiency:
                 _original_efforts = np.copy(self.efforts)
                 try:
@@ -1890,7 +1894,7 @@ class Designer:
                 self.efforts = _original_efforts
 
             if not trimmed:
-                self.apportionments = non_trimmed_apportionments
+                self.apportionments = self.non_trimmed_apportionments
 
             print(f"".center(100, "-"))
             print(
@@ -1898,6 +1902,7 @@ class Designer:
                 f"{self.epsilon * 100:.2f}% as good as the continuous design."
             )
             if compute_actual_efficiency:
+                efficiency = np.squeeze(efficiency)
                 print(
                     f"The actual criterion value of the rounded design is "
                     f"{efficiency * 100:.2f}% as informative as the continuous design."
@@ -1905,7 +1910,7 @@ class Designer:
             print(f"{'':#^100}")
         self._save_atomics = _original_save_atomics
 
-        return self.apportionments
+        return self.apportionments.astype(int)
 
     def _adams_apportionment(self, efforts, n_exp):
 
@@ -1936,7 +1941,8 @@ class Designer:
         self.apportionments = np.zeros_like(efforts)
         chosen_supports = []
         for _ in range(n_exp):
-            chosen_support = np.where(efforts == np.nanmax(efforts))
+            chosen_support = np.where(efforts == np.nanmax(efforts))[0]
+            chosen_support = np.random.choice(chosen_support)
             efforts[chosen_support] = 0
             chosen_supports.append(chosen_support)
         for support in chosen_supports:
