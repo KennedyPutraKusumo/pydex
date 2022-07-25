@@ -8,13 +8,16 @@ import itertools
 import __main__ as main
 import dill
 import sys
+import corner
 
+import emcee as mc
 from matplotlib import pyplot as plt
 from matplotlib import cm
 from matplotlib.widgets import RadioButtons, CheckButtons
 from mpl_toolkits.mplot3d import Axes3D
 from matplotlib.ticker import AutoMinorLocator
 from scipy.optimize import minimize, least_squares
+from scipy.stats import chi2
 from pydex.utils.trellis_plotter import TrellisPlotter
 from pydex.core.bnb.tree import Tree
 from pydex.core.bnb.node import Node
@@ -53,6 +56,11 @@ class Designer:
         matplotlib's plotting features.
         """
         self.__version__ = "0.0.8"
+
+        """ In Silico Experiments """
+        self._bayes_pe_time = None
+        self.insilico_data = None
+        self.bayesian_pe_samples = None
 
         """ Experimental """
         self._alt_cvar = None
@@ -654,6 +662,188 @@ class Designer:
                 print(fr"{mp:>40} +- {np.sqrt(np.diag(self.mp_covar)[p]) / mp * 100} %")
 
         return pe_result
+
+    def insilico_bayesian_inference(self, n_walkers, n_steps, burn_in, verbose=True, prior_pdf=None, bounds=None, seed=123456, write=True, dpi=160):
+        if self._verbose >= 1:
+            print(f"".center(100, "="))
+        np.random.seed(seed)
+        self.insilico_data = self.generate_insilico_data(seed)
+        tic, tvc, spt = self._get_apportioned_candidates()
+
+        if prior_pdf is None:
+            if bounds is None:
+                raise SyntaxWarning(
+                    "Please provide either the prior_pdf function or bounds, Pydex "
+                    "assumes uniform distribution between the given bounds."
+                )
+                return
+            else:
+                prior_pdf = self.uniform_prior_pdf(bounds)
+
+        def likelihood_function(p):
+            lkhd = 0
+            for c, (ti, tv, sp) in enumerate(zip(tic, tvc, spt)):
+                y_pred = self._simulate_internal(ti, tv, p, sp)
+                delta = y_pred - self.insilico_data[c]
+                for j in range(self._n_spt_spec):
+                    lkhd += np.log(1 / np.sqrt((2 * np.pi) ** self.n_mp * np.linalg.det(self.error_cov)) * np.exp(-1/2 * delta[j] @ self.error_fim @ delta[j].T))
+            return lkhd
+
+        def log_prob(p):
+            return likelihood_function(p) + prior_pdf(p)
+
+        self._bayes_pe_time = time()
+        sampler = mc.EnsembleSampler(
+            nwalkers=n_walkers,
+            ndim=self.n_mp,
+            log_prob_fn=log_prob,
+        )
+        init_pos = np.random.uniform(0.95, 1.05, size=(n_walkers, self.n_mp)) * self.model_parameters
+        sampler.run_mcmc(
+            init_pos,
+            nsteps=n_steps,
+            progress=verbose,
+        )
+        tau = sampler.get_autocorr_time()
+        self._bayes_pe_time = time() - self._bayes_pe_time
+        try:
+            thin_factor = int(np.round(np.nanmean(tau) / 2))
+            self.bayesian_pe_samples = sampler.get_chain(discard=burn_in, thin=thin_factor, flat=True)
+        except ValueError:
+            self.bayesian_pe_samples = sampler.get_chain(discard=burn_in, flat=True)
+            print(
+                f"[WARNING]: ValueError when computing auto-correlation time, "
+                f"Pydex did not specify any kwarg when getting the chain from emcee. "
+            )
+
+        if self._verbose >= 3:
+            print(self.bayesian_pe_samples.shape)
+        if self._verbose >= 1:
+            print(
+                f"In-silico Bayesian Inference for {self.n_exp} of experiments completed "
+                f"within {self._bayes_pe_time:.2f} seconds.",
+            )
+            print(f"".center(100, "="))
+
+        if write:
+            fn = f"insilico_bayes_pe_samples_{self.n_exp}_exp_{n_walkers}_walkers_{n_steps}_steps_{burn_in}_burnin_{seed}_seed"
+            fp = self._generate_result_path(fn, "pkl")
+            dump(self.bayesian_pe_samples, open(fp, 'wb'))
+
+        return self.bayesian_pe_samples
+
+    def plot_bayesian_inference_samples(self, bounds=None, title=None, contours=True, density=False, reso=201j, plot_fim_confidence=True, figsize=None, write=True, dpi=160):
+        fig = corner.corner(
+            self.bayesian_pe_samples,
+            truths=self.model_parameters,
+            plot_contours=contours,
+            plot_density=density,
+            range=bounds,
+            levels=1.0 - np.exp(-0.5 * np.arange(1.0, 2.1, 1.0) ** 2),
+            show_titles=True,
+            quantiles=[0.025, 0.16, 0.50, 0.84, 0.975],
+        )
+
+        if plot_fim_confidence:
+            bpe_mean = np.mean(self.bayesian_pe_samples, axis=0)
+            _old_efforts = np.copy(self.efforts)
+            _old_fim = np.copy(self.fim)
+            print(f"Old FIM: \n {_old_fim}")
+            unnorm_fim = self.eval_fim(self.non_trimmed_apportionments, store_predictions=False)
+            print(f"Unnorm FIM: \n {unnorm_fim}")
+            axes = fig.get_axes()
+            axes = np.array(axes).reshape((self.n_mp, self.n_mp))
+            for p1 in range(self.n_mp):
+                for p2 in range(self.n_mp):
+                    if p1 > p2:
+                        temp_unnorm_fim = unnorm_fim[(p2, p1), ][:, (p2, p1)]
+                        temp_bpe_mean = bpe_mean[(p2, p1), ]
+                        print(f"The mean for p1: {p1}, p2: {p2} \n {temp_bpe_mean}")
+                        print(f"The FIM for p1: {p1}, p2: {p2} \n {temp_unnorm_fim}")
+                        x_lim = axes[p1, p2].get_xlim()
+                        y_lim = axes[p1, p2].get_ylim()
+                        x_grid, y_grid = np.mgrid[x_lim[0]:x_lim[1]:reso, y_lim[0]:y_lim[1]:reso]
+                        x_grid, y_grid = x_grid.flatten(), y_grid.flatten()
+                        xy_grid = np.array([x_grid, y_grid]).T
+                        fim_pdf = []
+                        for xy in xy_grid:
+                            fim_pdf.append((xy - temp_bpe_mean) @ temp_unnorm_fim @ (xy - temp_bpe_mean).T)
+                        fim_pdf = np.array(fim_pdf)
+                        sigma_levels = chi2.ppf([chi2.cdf(1.0, 1), chi2.cdf(2.0**2, 1)], df=1)
+                        if self._verbose >= 3:
+                            axes[p1, p2].set_title(f"p1: {p1}, p2: {p2}")
+                        axes[p1, p2].tricontour(
+                            xy_grid[:, 0],
+                            xy_grid[:, 1],
+                            fim_pdf,
+                            levels=sigma_levels,
+                            colors=["tab:red"],
+                            linestyles="dashed",
+                            linewidths=1.5,
+                        )
+                        axes[p1, p2].scatter(
+                            temp_bpe_mean[0],
+                            temp_bpe_mean[1],
+                            marker="H",
+                            color="tab:red",
+                            alpha=0.5,
+                            s=100,
+                        )
+            self.fim = _old_fim
+            self.efforts = _old_efforts
+        fig.tight_layout()
+        fig.suptitle(title)
+        if write:
+            fn = f"corner_bayes_pe_{self.n_exp}_exp"
+            fp = self._generate_result_path(fn, "png")
+            fig.savefig(fp, dpi=dpi)
+        return fig
+
+    def generate_insilico_data(self, seed=123456):
+        if self.apportionments is None:
+            raise SyntaxWarning(
+                "Please run an apportionment before running an in-silico activity with "
+                "Pydex."
+            )
+        np.random.seed(seed)
+        tic, tvc, spt = self._get_apportioned_candidates()
+        self.insilico_data = np.empty((self.n_exp, self._n_spt_spec, self.n_m_r))
+        for c, (ti, tv, sp) in enumerate(zip(tic, tvc, spt)):
+            self.insilico_data[c] = self._simulate_internal(ti, tv, self.model_parameters, sp)
+        self.insilico_data += np.random.multivariate_normal(
+            np.zeros(self.n_m_r),
+            cov=self.error_cov,
+            size=(self.n_exp, self._n_spt_spec),
+        )
+        return self.insilico_data
+
+    def _get_apportioned_candidates(self):
+        app_tic_candidates = []
+        app_tvc_candidates = []
+        app_spt_candidates = []
+        for i, app in enumerate(self.apportionments):
+            tic = self.optimal_candidates[i][1]
+            tvc = self.optimal_candidates[i][2]
+            spt = self.optimal_candidates[i][3]
+            for _ in range(int(app)):
+                app_tic_candidates.append(tic)
+                app_tvc_candidates.append(tvc)
+                app_spt_candidates.append(spt)
+        app_tic_candidates = np.array(app_tic_candidates)
+        app_tvc_candidates = np.array(app_tvc_candidates)
+        app_spt_candidates = np.array(app_spt_candidates)
+        return app_tic_candidates, app_tvc_candidates, app_spt_candidates
+
+    def uniform_prior_pdf(self, bounds):
+        def prior_f(p):
+            out = 0
+            for i, bound in enumerate(bounds):
+                if bound[0] <= p[i] <= bound[1]:
+                    out += 0
+                else:
+                    out -= np.inf
+            return out
+        return prior_f
 
     def solve_cvar_problem(self, criterion, beta, n_spt=None, n_exp=None,
                            optimize_sampling_times=False, package="cvxpy",
@@ -2848,6 +3038,189 @@ class Designer:
 
     def stop_logging(self):
         sys.stdout = sys.__stdout__
+
+    def plot_prediction_variance(self, reso=None, bounds=None, alpha=0.5):
+        """
+        Plots the prediction variance of the optimal experiment design. To be run after
+        an optimal design is computed. Only supports time-invariant, static systems with
+        less than or equal to two inputs and outputs.
+        """
+        if self._dynamic_system:
+            print(
+                "[WARNING]: dynamic systems are not supported for "
+                "plot_prediction_variance. Skipping command."
+            )
+            return
+        if self.n_tic > 2:
+            print(
+                f"[WARNING]: plot_prediction_variance supports less than or equal to"
+                f" two time-invariant controls. The designer detects {self.n_tic} number"
+                f" of tics. Skipping command."
+            )
+            return
+        if self.n_m_r > 2:
+            print(
+                f"[WARNING]: plot_prediction_variance supports less than or equal to"
+                f" two measured responses. The designer detects {self.n_m_r} number"
+                f" of measured responses. Skipping command."
+            )
+            return
+        if reso:
+            pass
+        else:
+            reso = 11j
+        fig1 = plt.figure(figsize=(12, 5))
+        axes1 = fig1.add_subplot(121)
+
+        axes1.scatter(
+            self.ti_controls_candidates[:, 0],
+            self.ti_controls_candidates[:, 1],
+            alpha=alpha,
+        )
+        axes1.scatter(
+            self.ti_controls_candidates[:, 0],
+            self.ti_controls_candidates[:, 1],
+            s=self.efforts * 400,
+        )
+
+        if self.pvars is None:
+            self.eval_pim_for_v_opt(self.efforts)
+
+        axes2 = fig1.add_subplot(122)
+        y1, y2 = np.mgrid[bounds[0][0]:bounds[0][1]:reso, bounds[1][0]:bounds[1][1]:reso]
+        y1 = y1.flatten()
+        y2 = y2.flatten()
+        y_list = np.array([y1, y2]).transpose()
+
+        print("Please select initial control to initialize plot.")
+        global x, pvar
+        x = np.array(fig1.ginput(1))[0]
+        print("Chosen:")
+        print(x)
+        current_control = axes1.scatter(x[0], x[1], marker='x', s=50)
+        contour_levels = [
+            chi2.ppf(q=0.6827, df=2),
+            chi2.ppf(q=0.9545, df=2),
+            chi2.ppf(q=0.9973, df=2),
+        ]
+        contour1 = axes2.tricontour(
+            y_list[:, 0],
+            y_list[:, 1],
+            predict_var,
+            levels=contour_levels,
+        )
+        c_labels = [r'$68.27\%$',
+                    r'$95.45\%$',
+                    r'$99.73\%$']
+        c_fmt = {}
+        for level, label in zip(contour1.levels, c_labels):
+            c_fmt[level] = label
+        axes2.clabel(contour1, inline=1, fontsize=20, fmt=c_fmt)
+        axes2.set_title(r"$x_1 = $ %.2f, $x_2 = $%.2f" % (x[0], x[1]))
+        axes2.set_ylabel(r"$y_2$")
+        axes2.set_xlabel(r"$y_1$")
+
+        plt.draw()
+
+        def recentre(event):
+            if event.button == 1 and event.inaxes == axes2:
+                bounds = np.array([axes2.get_xlim(), axes2.get_ylim()])
+                ranges = np.array(
+                    [bounds[0][1] - bounds[0][0], bounds[1][1] - bounds[1][0]]) / 2
+                bounds = np.array([[event.xdata - ranges[0], event.xdata + ranges[0]],
+                                   [event.ydata - ranges[1], event.ydata + ranges[1]]])
+                y1, y2 = np.mgrid[bounds[0][0]:bounds[0][1]:reso,
+                         bounds[1][0]:bounds[1][1]:reso]
+                y1 = y1.flatten()
+                y2 = y2.flatten()
+                y_list = np.array([y1, y2]).transpose()
+
+                predict_var = np.array([])
+                for y in y_list:
+                    predict_var = np.append(predict_var,
+                                            y.dot(np.linalg.inv(pvar)).dot(y.transpose()))
+
+                axes2.clear()
+                contour1 = axes2.tricontour(y_list[:, 0], y_list[:, 1], predict_var,
+                                            levels=contour_levels)
+                axes2.clabel(contour1, inline=1, fontsize=10, fmt=c_fmt)
+                axes2.set_title(r"$x_1 = $ %.2f, $x_2 = $%.2f" % (x[0], x[1]))
+                axes2.set_ylabel(r"$y_2$")
+                axes2.set_xlabel(r"$y_1$")
+
+                plt.draw()
+
+        def change_x(event):
+            if event.inaxes == axes1:
+                bounds = np.array([axes2.get_xlim(), axes2.get_ylim()])
+                y1, y2 = np.mgrid[bounds[0][0]:bounds[0][1]:reso,
+                         bounds[1][0]:bounds[1][1]:reso]
+                y1 = y1.flatten()
+                y2 = y2.flatten()
+                y_list = np.array([y1, y2]).transpose()
+
+                global x, pvar
+                x = np.array([event.xdata, event.ydata])
+                pvar = self.eval_pvar(x)
+                predict_var = np.array([])
+                for y in y_list:
+                    predict_var = np.append(predict_var,
+                                            y.dot(np.linalg.inv(pvar)).dot(y.transpose()))
+
+                current_control.set_offsets([x[0], x[1]])
+
+                axes2.clear()
+                contour1 = axes2.tricontour(y_list[:, 0], y_list[:, 1], predict_var,
+                                            levels=contour_levels)
+                axes2.clabel(contour1, inline=1, fontsize=10, fmt=c_fmt)
+                axes2.set_title(r"$x_1 = $ %.2f, $x_2 = $%.2f" % (x[0], x[1]))
+                axes2.set_ylabel(r"$y_2$")
+                axes2.set_xlabel(r"$y_1$")
+
+                plt.draw()
+
+        def zoom(event):
+            sensitivity = 0.2
+            if event.inaxes == axes2:
+                bounds = np.array([axes2.get_xlim(), axes2.get_ylim()])
+                ranges = np.array(
+                    [bounds[0][1] - bounds[0][0], bounds[1][1] - bounds[1][0]]) / 2
+                if keyboard.is_pressed("shift"):
+                    bounds = bounds + sensitivity * np.array(
+                        [[-event.step * ranges[0], event.step * ranges[0]], [0, 0]])
+                elif keyboard.is_pressed("ctrl"):
+                    bounds = bounds + sensitivity * np.array(
+                        [[0, 0], [-event.step * ranges[1], event.step * ranges[1]]])
+                else:
+                    bounds = bounds + sensitivity * np.array(
+                        [[-event.step * ranges[0], event.step * ranges[0]],
+                         [-event.step * ranges[1], event.step * ranges[1]]])
+                y1, y2 = np.mgrid[bounds[0][0]:bounds[0][1]:reso,
+                         bounds[1][0]:bounds[1][1]:reso]
+                y1 = y1.flatten()
+                y2 = y2.flatten()
+                y_list = np.array([y1, y2]).transpose()
+
+                predict_var = np.array([])
+                for y in y_list:
+                    predict_var = np.append(predict_var,
+                                            y.dot(np.linalg.inv(pvar)).dot(y.transpose()))
+
+                axes2.clear()
+                contour1 = axes2.tricontour(y_list[:, 0], y_list[:, 1], predict_var,
+                                            levels=contour_levels)
+                axes2.clabel(contour1, inline=1, fontsize=10, fmt=c_fmt)
+                axes2.set_title(r"$x_1 = $ %.2f, $x_2 = $%.2f" % (x[0], x[1]))
+                axes2.set_ylabel(r"$y_2$")
+                axes2.set_xlabel(r"$y_1$")
+
+                plt.draw()
+
+        fig1.canvas.mpl_connect('button_press_event', recentre)
+        fig1.canvas.mpl_connect('button_press_event', change_x)
+        fig1.canvas.mpl_connect("scroll_event", zoom)
+
+        plt.show()
 
     @staticmethod
     def show_plots():
