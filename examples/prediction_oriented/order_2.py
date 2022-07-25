@@ -48,7 +48,6 @@ designer.design_experiment(
     optimizer=optimizer,
     write=False,
 )
-
 designer.print_optimal_candidates()
 designer.plot_optimal_efforts()
 designer.plot_optimal_controls(non_opt_candidates=True)
@@ -60,7 +59,6 @@ designer.design_experiment(
     optimizer=optimizer,
     write=False,
 )
-
 designer.print_optimal_candidates()
 designer.plot_optimal_efforts()
 designer.plot_optimal_controls(non_opt_candidates=True)
@@ -72,7 +70,6 @@ designer.design_experiment(
     optimizer=optimizer,
     write=False,
 )
-
 designer.print_optimal_candidates()
 designer.plot_optimal_efforts()
 designer.plot_optimal_controls(non_opt_candidates=True)
@@ -91,7 +88,6 @@ designer.design_experiment(
         "disp": True
     },
 )
-
 designer.print_optimal_candidates()
 designer.plot_optimal_efforts()
 designer.plot_optimal_controls(non_opt_candidates=True)
@@ -110,7 +106,6 @@ designer.design_experiment(
         "disp": True
     },
 )
-
 designer.print_optimal_candidates()
 designer.plot_optimal_efforts()
 designer.plot_optimal_controls(non_opt_candidates=True)
@@ -129,7 +124,6 @@ designer.design_experiment(
         "disp": True
     },
 )
-
 designer.print_optimal_candidates()
 designer.plot_optimal_efforts()
 designer.plot_optimal_controls(non_opt_candidates=True)

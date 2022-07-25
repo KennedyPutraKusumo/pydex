@@ -25,8 +25,11 @@ for n_spt in [1, 2]:
         write=False,
         optimize_sampling_times=True,
         n_spt=n_spt,
+        optimizer="SLSQP",
+        package="scipy",
     )
     designer.print_optimal_candidates()
     designer.plot_optimal_predictions()
     designer.plot_optimal_sensitivities()
+    designer.apportion(4)
 designer.show_plots()

@@ -1,6 +1,5 @@
 from pydex.core.designer import Designer
 import numpy as np
-import sobol_seq
 
 
 """ 
@@ -14,21 +13,33 @@ Solution    : 3^2 factorial design, varying efforts depending on chosen criterio
 """
 
 def simulate(ti_controls, model_parameters):
-    return np.array([
+    inner_designer = Designer()
+    return_sensitivities = inner_designer.detect_sensitivity_analysis_function()
+    res = np.array([
         # constant term
         model_parameters[0] +
         # linear term
         model_parameters[1] * ti_controls[0] +
         model_parameters[2] * ti_controls[1] +
-        # linear-linear terms
+        # 2-interaction term
         model_parameters[3] * ti_controls[0] * ti_controls[1] +
         # squared terms
         model_parameters[4] * ti_controls[0] ** 2 +
         model_parameters[5] * ti_controls[1] ** 2
     ])
+    if return_sensitivities:
+        sens = np.array([
+            [
+                [1, ti_controls[0], ti_controls[1], ti_controls[0] * ti_controls[1], ti_controls[0] ** 2, ti_controls[1] ** 2],
+            ],
+        ])
+        return res, sens
+    else:
+        return res
 
 
 designer = Designer()
+designer.use_finite_difference = False
 designer.simulate = simulate
 designer.model_parameters = np.ones(6)  # values won't affect design, but still needed
 designer.ti_controls_candidates = designer.enumerate_candidates(
@@ -43,8 +54,8 @@ designer.ti_controls_candidates = designer.enumerate_candidates(
 )
 
 designer.start_logging()
-designer.initialize(verbose=2)  # 0: silent, 1: overview, 2: detailed, 3: very detailed
-designer.ti_controls_names = [r"$x_1$", r"$x_2$"]
+designer.error_cov = np.diag([4])
+designer.initialize(verbose=3)  # 0: silent, 1: overview, 2: detailed, 3: very detailed
 
 """ cvxpy optimizers """
 package, optimizer = ("cvxpy", "MOSEK")
@@ -60,10 +71,9 @@ package, optimizer = ("cvxpy", "MOSEK")
 # package, optimizer = ("scipy", "nelder-mead")
 # package, optimizer = ("scipy", "SLSQP")  # supports constrained form
 
-designer.eval_sensitivities(method="central", num_steps=3)
-
 """ designing experiment """
 criterion = designer.d_opt_criterion
+designer._norm_sens_by_params = False
 designer.design_experiment(
     criterion=criterion,
     package=package,
@@ -71,9 +81,34 @@ designer.design_experiment(
     write=False,
 )
 designer.print_optimal_candidates()
-designer.apportion(9)
 designer.plot_optimal_efforts()
-designer.plot_optimal_controls(non_opt_candidates=True, title=True, write=False)
+designer.plot_optimal_controls()
+mp_bounds = np.array([
+    [-10, 10],
+    [-10, 10],
+    [-10, 10],
+    [-10, 10],
+    [-10, 10],
+    [-10, 10],
+])
+n_exps = [6, 7, 8, 9, 10]
+for n_exp in n_exps:
+    designer.apportion(n_exp)
+    designer.insilico_bayesian_inference(
+        n_walkers=32,
+        n_steps=5000,
+        burn_in=100,
+        bounds=mp_bounds,
+        seed=123,
+    )
+    designer.plot_bayesian_inference_samples(
+        bounds=mp_bounds,
+        contours=True,
+        density=False,
+        plot_fim_confidence=True,
+        write=True,
+        reso=201j,
+    )
 
 criterion = designer.a_opt_criterion
 designer.design_experiment(
@@ -83,9 +118,8 @@ designer.design_experiment(
     write=False,
 )
 designer.print_optimal_candidates()
-designer.apportion(9)
 designer.plot_optimal_efforts()
-designer.plot_optimal_controls(non_opt_candidates=True, title=True, write=False)
+designer.plot_optimal_controls()
 
 criterion = designer.e_opt_criterion
 designer.design_experiment(
@@ -95,9 +129,8 @@ designer.design_experiment(
     write=False,
 )
 designer.print_optimal_candidates()
-designer.apportion(11)
 designer.plot_optimal_efforts()
-designer.plot_optimal_controls(non_opt_candidates=True, title=True, write=False)
+designer.plot_optimal_controls()
 
 designer.stop_logging()
 designer.show_plots()

@@ -11,9 +11,9 @@ def simulate(ti_controls, sampling_times, model_parameters):
     # time-invariant
     model.theta_0.fix(model_parameters[0])
     model.theta_1.fix(model_parameters[1])
-    model.alpha_a.fix(model_parameters[2])
+    model.alpha_a.fix(np.round(model_parameters[2]))
     model.alpha_b.fix(0)
-    model.nu.fix(model_parameters[3])
+    model.nu.fix(np.round(model_parameters[3]))
 
     model.tau.fix(max(sampling_times))
     model.ca[0].fix(ti_controls[0])

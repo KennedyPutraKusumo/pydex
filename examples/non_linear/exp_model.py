@@ -1,4 +1,5 @@
 import numpy as np
+import casadi
 
 from pydex.core.designer import Designer
 
@@ -12,13 +13,13 @@ designer = Designer()
 designer.simulate = simulate
 
 reso = 21j
-tic = np.mgrid[0:1:reso]
+tic = np.mgrid[0:0.5:reso]
 designer.ti_controls_candidates = np.array([tic]).T
 
-designer.model_parameters = [1, -1]
+designer.model_parameters = [5.5, -5]
 
+designer._norm_sens_by_params = False
 designer.initialize(verbose=2)
-
 """ 
 Pseudo-bayesian type do not really matter in this case because only a single model 
 parameter is involved i.e, information is a scalar, all criterion becomes equivalent to 
@@ -33,4 +34,28 @@ designer.design_experiment(
 )
 designer.print_optimal_candidates()
 designer.plot_optimal_controls()
+
+designer.error_cov = np.diag([0.1])
+n_exps = [2, 3, 4, 6, 10, 20, 40]
+seed = 123456
+for n_exp in n_exps:
+    designer.apportion(n_exp)
+    mp_bounds = np.array([
+        [0, 10],
+        [-40, 0],
+    ])
+    designer.insilico_bayesian_inference(
+        n_walkers=32,
+        n_steps=5000,
+        burn_in=100,
+        bounds=mp_bounds,
+    )
+    designer.plot_bayesian_inference_samples(
+        contours=True,
+        density=False,
+        bounds=mp_bounds,
+        title=f"{n_exp} Experiments, Seed: {seed}",
+        plot_fim_confidence=True,
+    )
+
 designer.show_plots()

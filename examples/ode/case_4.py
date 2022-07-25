@@ -19,7 +19,7 @@ designer.sampling_times_candidates = spt
 
 # nominal at 1, 1
 if True:
-    mp = [1, 1]
+    mp = [0.10, 4]
 # uncertain uniform
 if False:
     mp = np.random.uniform(
@@ -29,6 +29,8 @@ if False:
     )
 designer.model_parameters = mp
 
+designer.error_cov = np.diag([0.01, 0.01, 0.01])
+designer._norm_sens_by_params = True
 designer.initialize(verbose=2)
 designer.sens_report_freq = 2
 
@@ -47,27 +49,24 @@ if True:
     designer.plot_optimal_predictions()
     designer.plot_optimal_sensitivities()
 
-    designer.design_experiment(
-        designer.a_opt_criterion,
-        optimize_sampling_times=True,
-        package=pkg,
-        optimizer=opt,
-        pseudo_bayesian_type=1,
-    )
-    designer.print_optimal_candidates()
-    designer.plot_optimal_predictions()
-    designer.plot_optimal_sensitivities()
+    n_exps = [4]
+    mp_bounds = np.array([
+        [-4, 4],
+        [1, 7],
+    ])
+    for n_exp in n_exps:
+        designer.apportion(n_exp)
 
-    designer.design_experiment(
-        designer.e_opt_criterion,
-        optimize_sampling_times=True,
-        package=pkg,
-        optimizer=opt,
-        pseudo_bayesian_type=1,
-    )
-    designer.print_optimal_candidates()
-    designer.plot_optimal_predictions()
-    designer.plot_optimal_sensitivities()
+        designer.insilico_bayesian_inference(
+            bounds=mp_bounds,
+            n_walkers=32,
+            n_steps=5000,
+            burn_in=100,
+        )
+        designer.plot_bayesian_inference_samples(
+            contours=True,
+            bounds=mp_bounds,
+        )
 
 """ CVaR - Mean Pareto Efficient Designs """
 if False:

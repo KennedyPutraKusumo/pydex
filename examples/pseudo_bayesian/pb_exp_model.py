@@ -1,4 +1,6 @@
 import numpy as np
+import pickle
+import os
 from pydex.core.designer import Designer
 
 
@@ -28,39 +30,48 @@ designer.model_parameters = np.random.multivariate_normal(
 )
 designer.initialize(verbose=2)
 
-""" 
-Pseudo-bayesian type do not really matter in this case because only a single model 
-parameter is involved i.e, information is a scalar, all criterion becomes equivalent to 
-the information matrix itself.
-"""
-designer.design_experiment(
-    designer.d_opt_criterion,
-    write=False,
-    package="cvxpy",
-    optimizer="MOSEK",
-    pseudo_bayesian_type=1,
-)
+load = False
+if not load:
+    save_atomics = False
+    designer.design_experiment(
+        designer.e_opt_criterion,
+        write=True,
+        package="cvxpy",
+        optimizer="MOSEK",
+        pseudo_bayesian_type=1,
+        save_atomics=save_atomics,
+    )
+else:
+    designer.load_atomics("/pb_exp_model_result/date_2021-7-17/run_1/run_1_atomics_21_can_100_scr.pkl")
+    designer.load_oed_result("/pb_exp_model_result/date_2021-7-17/run_1/run_1_d_opt_criterion_oed_result.pkl")
 designer.print_optimal_candidates()
 designer.plot_optimal_controls()
+n_exps = [5, 6, 7, 8, 9, 10]
+for n_exp in n_exps:
+    designer.apportion(n_exp)
 
-designer.design_experiment(
-    designer.a_opt_criterion,
-    write=False,
-    package="cvxpy",
-    optimizer="MOSEK",
-    pseudo_bayesian_type=1,
-)
-designer.print_optimal_candidates()
-designer.plot_optimal_controls()
+# designer.design_experiment(
+#     designer.a_opt_criterion,
+#     write=False,
+#     package="cvxpy",
+#     optimizer="MOSEK",
+#     pseudo_bayesian_type=1,
+# )
+# designer.print_optimal_candidates()
+# designer.plot_optimal_controls()
+# for n_exp in n_exps:
+#     designer.apportion(n_exp)
 
-designer.design_experiment(
-    designer.e_opt_criterion,
-    write=False,
-    package="cvxpy",
-    optimizer="MOSEK",
-    pseudo_bayesian_type=1,
-)
-designer.print_optimal_candidates()
-designer.plot_optimal_controls()
+# designer.design_experiment(
+#     designer.e_opt_criterion,
+#     write=False,
+#     package="cvxpy",
+#     optimizer="MOSEK",
+#     pseudo_bayesian_type=1,
+# )
+# designer.print_optimal_candidates()
+# designer.plot_optimal_controls()
+# for n_exp in n_exps:
+#     designer.apportion(n_exp)
 
 designer.show_plots()

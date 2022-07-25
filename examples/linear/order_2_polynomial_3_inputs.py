@@ -51,8 +51,8 @@ designer.start_logging()
 designer.initialize(verbose=2)  # 0: silent, 1: overview, 2: detailed, 3: very detailed
 
 """ cvxpy optimizers """
-# package, optimizer = ("cvxpy", "MOSEK")
-package, optimizer = ("cvxpy", "SCS")
+package, optimizer = ("cvxpy", "MOSEK")
+# package, optimizer = ("cvxpy", "SCS")
 # package, optimizer = ("cvxpy", "CVXOPT")  # only for A-optimal
 
 """ scipy optimizers, all supported, but many require unconstrained form """

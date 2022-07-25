@@ -21,7 +21,7 @@ def simulate(ti_controls, model_parameters):
 designer_1 = Designer()
 designer_1.simulate = simulate
 
-reso = 7
+reso = 11
 tic = designer_1.create_grid(
     bounds=[(-1, 1), (-1, 1)],
     levels=[reso, reso]

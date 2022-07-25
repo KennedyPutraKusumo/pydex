@@ -40,8 +40,6 @@ def pyomo_simulate(ti_controls, sampling_times, model_parameters):
     candidates. Returns the predictions at specified sampling times.
 
     Parameters:
-        model               : a Pyomo model instance
-        simulator           : a Pyomo simulator instance
         ti_controls         : time-invariant controls of candidate (1D np.array)
         sampling_times      : sampling time choices of candidate (1D np.array)
         model_parameters    : nominal model parameter values (1D np.array)
@@ -78,8 +76,6 @@ def scipy_simulate(ti_controls, sampling_times, model_parameters):
     predictions of the model at specified sampling times.
 
     Parameters:
-        model               : a Pyomo model instance
-        simulator           : a Pyomo simulator instance
         ti_controls         : time-invariant controls of candidate (1D np.array)
         sampling_times      : sampling time choices of candidate (1D np.array)
         model_parameters    : nominal model parameter values (1D np.array)

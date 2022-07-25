@@ -66,6 +66,7 @@ def create_model(spt):
     return m
 
 def simulate(ti_controls, sampling_times, model_parameters):
+    norm_spt = sampling_times / np.max(sampling_times)
     m = create_model(sampling_times)
     m.tau.fix(max(sampling_times))
 
@@ -81,7 +82,7 @@ def simulate(ti_controls, sampling_times, model_parameters):
     t, profile = simulator.simulate(integrator="idas")
 
     simulator.initialize_model()
-    c = np.array([[m.c[t, i].value for t in m.t] for i in m.i])
+    c = np.array([[m.c[t, i].value for t in norm_spt] for i in m.i])
 
     if False:
         plt.plot(t, profile)

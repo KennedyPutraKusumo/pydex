@@ -44,6 +44,23 @@ result = designer_1.design_experiment(
     optimize_sampling_times=True,
 )
 designer_1.print_optimal_candidates()
+n_exps = [2, 3, 4, 5, 6]
+mp_bounds = np.array([
+    [0, 2],
+])
+for n_exp in n_exps:
+    designer_1.apportion(n_exp)
+
+    designer_1.insilico_bayesian_inference(
+        bounds=mp_bounds,
+        n_walkers=32,
+        n_steps=5000,
+        burn_in=100,
+    )
+    designer_1.plot_bayesian_inference_samples(
+        contours=True,
+        bounds=mp_bounds,
+    )
 designer_1.plot_optimal_efforts()
 designer_1.plot_optimal_predictions()
 designer_1.plot_optimal_sensitivities()

@@ -104,7 +104,7 @@ tic = designer_1.enumerate_candidates(
 )
 designer_1.ti_controls_candidates = tic
 spt_candidates = np.array([
-    np.linspace(0, 200, 11)
+    np.linspace(0, 200, 101)
     for _ in tic
 ])
 designer_1.sampling_times_candidates = spt_candidates

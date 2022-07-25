@@ -43,6 +43,7 @@ designer_1.ti_controls_candidates = designer_1.enumerate_candidates(
         21,
     ],
 )
+designer_1.error_cov = np.diag([1.0])
 designer_1.initialize(verbose=2)  # 0: silent, 1: overview, 2: detailed, 3: very detailed
 
 """ cvxpy solvers """
@@ -67,22 +68,50 @@ designer_1.design_experiment(criterion=criterion, package=package, optimizer=opt
 designer_1.print_optimal_candidates()
 designer_1.plot_optimal_efforts()
 designer_1.plot_optimal_controls(non_opt_candidates=True)
-designer_1.show_plots()
+mp_bounds = np.array([
+    [-10, 10],
+    [-10, 10],
+    [-10, 10],
+    [-10, 10],
+    [-10, 10],
+    [-10, 10],
+    [-10, 10],
+    [-10, 10],
+    [-10, 10],
+    [-10, 10],
+])
+n_exps = [48]
+for n_exp in n_exps:
+    designer_1.apportion(n_exp)
+    designer_1.insilico_bayesian_inference(
+        n_walkers=32,
+        n_steps=10000,
+        burn_in=100,
+        bounds=mp_bounds,
+        seed=123,
+    )
+    designer_1.plot_bayesian_inference_samples(
+        bounds=mp_bounds,
+        contours=True,
+        density=False,
+        plot_fim_confidence=True,
+        write=True,
+        reso=201j,
+    )
 
-criterion = designer_1.a_opt_criterion
-designer_1.design_experiment(criterion=criterion, package=package, optimizer=optimizer,
-                             write=False)
-
-designer_1.print_optimal_candidates()
-designer_1.plot_optimal_efforts()
-designer_1.plot_optimal_controls(non_opt_candidates=True)
-designer_1.show_plots()
-
-criterion = designer_1.e_opt_criterion
-designer_1.design_experiment(criterion=criterion, package=package, optimizer=optimizer,
-                             write=False)
-
-designer_1.print_optimal_candidates()
-designer_1.plot_optimal_efforts()
-designer_1.plot_optimal_controls(non_opt_candidates=True)
+# criterion = designer_1.a_opt_criterion
+# designer_1.design_experiment(criterion=criterion, package=package, optimizer=optimizer,
+#                              write=False)
+#
+# designer_1.print_optimal_candidates()
+# designer_1.plot_optimal_efforts()
+# designer_1.plot_optimal_controls(non_opt_candidates=True)
+#
+# criterion = designer_1.e_opt_criterion
+# designer_1.design_experiment(criterion=criterion, package=package, optimizer=optimizer,
+#                              write=False)
+#
+# designer_1.print_optimal_candidates()
+# designer_1.plot_optimal_efforts()
+# designer_1.plot_optimal_controls(non_opt_candidates=True)
 designer_1.show_plots()

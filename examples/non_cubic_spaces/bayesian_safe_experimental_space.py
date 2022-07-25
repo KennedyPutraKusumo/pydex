@@ -37,4 +37,9 @@ designer.print_optimal_candidates()
 
 designer.ti_controls_names = [r"$x_1$", r"$x_2$"]
 designer.plot_optimal_controls(non_opt_candidates=True)
+
+n_exps = [6, 7, 8, 9, 10, 14, 20, 30, 40, 50]
+for n_exp in n_exps:
+    designer.apportion(n_exp)
+
 designer.show_plots()

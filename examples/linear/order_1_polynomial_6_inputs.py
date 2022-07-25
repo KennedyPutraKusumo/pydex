@@ -6,7 +6,7 @@ import numpy as np
 Setting     : a non-dynamic experimental system with 4 time-invariant control variables 
               and 1 response.
 Problem     : design optimal experiment for a order 1 polynomial.
-Solution    : a 2^4 factorial design.
+Solution    : a 2^6 factorial design.
 """
 
 def simulate(ti_controls, model_parameters):
@@ -19,12 +19,14 @@ def simulate(ti_controls, model_parameters):
         model_parameters[1] * ti_controls[0] +
         model_parameters[2] * ti_controls[1] +
         model_parameters[3] * ti_controls[2] +
-        model_parameters[4] * ti_controls[3]
+        model_parameters[4] * ti_controls[3] +
+        model_parameters[5] * ti_controls[4] +
+        model_parameters[6] * ti_controls[5]
     ])
     if return_sensitivities:
         sens = np.array([
             [
-                [1, ti_controls[0], ti_controls[1], ti_controls[2], ti_controls[3]]
+                [1, ti_controls[0], ti_controls[1], ti_controls[2], ti_controls[3], ti_controls[4], ti_controls[5]]
             ],
         ])
         return res, sens
@@ -34,9 +36,11 @@ def simulate(ti_controls, model_parameters):
 designer = Designer()
 designer.use_finite_difference = False
 designer.simulate = simulate
-designer.model_parameters = np.ones(5)
+designer.model_parameters = np.ones(7)
 designer.ti_controls_candidates = designer.enumerate_candidates(
     bounds=[
+        [-1, 1],
+        [-1, 1],
         [-1, 1],
         [-1, 1],
         [-1, 1],
@@ -47,32 +51,36 @@ designer.ti_controls_candidates = designer.enumerate_candidates(
         5,
         5,
         5,
+        5,
+        5,
     ],
 )
-designer.error_cov = np.diag([8])
+designer.error_cov = np.diag([2])
 designer.initialize(verbose=2)
+designer.start_logging()
 designer.design_experiment(
     designer.d_opt_criterion,
     write=False,
 )
 designer.print_optimal_candidates()
 designer.plot_optimal_efforts()
-designer.plot_optimal_controls()
 
-n_exps = [10]
+n_exps = [80]
 seed = 123
 for n_exp in n_exps:
     designer.apportion(n_exp=n_exp)
     mp_bounds = np.array([
-            [-5, 5],
-            [-5, 5],
-            [-5, 5],
-            [-5, 5],
-            [-5, 5],
+            [0, 2],
+            [0, 2],
+            [0, 2],
+            [0, 2],
+            [0, 2],
+            [0, 2],
+            [0, 2],
         ])
     designer.insilico_bayesian_inference(
         n_walkers=32,
-        n_steps=20000,
+        n_steps=10000,
         burn_in=100,
         bounds=mp_bounds,
         verbose=True,
@@ -87,4 +95,5 @@ for n_exp in n_exps:
     )
     fig.savefig(f"bayesian_pe_{n_exp}_exp_{designer.error_cov[0][0]}_error.png")
     fig.tight_layout()
+designer.stop_logging()
 designer.show_plots()
