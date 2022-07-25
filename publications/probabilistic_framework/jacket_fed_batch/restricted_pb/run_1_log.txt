@@ -1,0 +1,554 @@
+====================================================================================================
+Initialization complete: designer ready.
+----------------------------------------------------------------------------------------------------
+Number of model parameters              : 5
+Number of candidates                    : 424
+Number of responses                     : 5
+Number of measured responses            : 5
+Number of time-invariant controls       : 3
+Number of sampling time choices         : 31
+====================================================================================================
+
+######################################## Optimal Candidates ########################################
+Obtained on                             : 2021-07-29 15:26:55.996731
+Criterion                               : d_opt_criterion
+Criterion Value                         : 8.54026064650105
+Pseudo-bayesian                         : True
+Pseudo-bayesian Criterion Type          : 1
+CVaR Problem                            : False
+Dynamic                                 : True
+Time-invariant Controls                 : True
+Time-varying Controls                   : False
+Number of Candidates                    : 424
+Number of Optimal Candidates            : 8
+Number of Sampling Time Choices         : 31
+Sampling Times Optimized                : True
+Number of Samples Per Experiment        : 1
+Number of Scenarios                     : 100
+Information Matrix Regularized          : False
+Minimum Effort Threshold                : 0.01
+------------------------------------------[Candidate 164]-------------------------------------------
+                             Recommended Effort: 13.23% of experiments                              
+Time-invariant Controls:
+[1.67721715 4.43292558 0.40504237]
+Sampling Times:
+[    105.00]: dedicate 13.23% of experiments
+------------------------------------------[Candidate 168]-------------------------------------------
+                              Recommended Effort: 5.95% of experiments                              
+Time-invariant Controls:
+[1.62460249 2.45089934 0.238817  ]
+Sampling Times:
+[    103.00]: dedicate  5.95% of experiments
+------------------------------------------[Candidate 194]-------------------------------------------
+                              Recommended Effort: 2.93% of experiments                              
+Time-invariant Controls:
+[1.94014266 2.77372466 0.11000949]
+Sampling Times:
+[    103.00]: dedicate  2.93% of experiments
+------------------------------------------[Candidate 235]-------------------------------------------
+                              Recommended Effort: 6.29% of experiments                              
+Time-invariant Controls:
+[1.63384117 1.2702094  0.77991107]
+Sampling Times:
+[    102.00]: dedicate  6.29% of experiments
+------------------------------------------[Candidate 256]-------------------------------------------
+                             Recommended Effort: 23.71% of experiments                              
+Time-invariant Controls:
+[1.76043295 2.37074619 0.19238125]
+Sampling Times:
+[    103.00]: dedicate 23.71% of experiments
+------------------------------------------[Candidate 269]-------------------------------------------
+                             Recommended Effort: 18.31% of experiments                              
+Time-invariant Controls:
+[1.99422771 1.25962824 2.14725425]
+Sampling Times:
+[    102.00]: dedicate 18.31% of experiments
+------------------------------------------[Candidate 325]-------------------------------------------
+                              Recommended Effort: 8.46% of experiments                              
+Time-invariant Controls:
+[2.07492807 1.01274892 0.15897416]
+Sampling Times:
+[    102.00]: dedicate  8.46% of experiments
+------------------------------------------[Candidate 335]-------------------------------------------
+                             Recommended Effort: 21.12% of experiments                              
+Time-invariant Controls:
+[1.81078074 2.66555126 0.2122603 ]
+Sampling Times:
+[    103.00]: dedicate 21.12% of experiments
+####################################################################################################
+################################## Optimal Experiment for 5 Runs ###################################
+Obtained on                             : 2021-07-29 15:27:01.191417
+Criterion                               : d_opt_criterion
+Criterion Value                         : 8.54026064650105
+Pseudo-bayesian                         : True
+Pseudo-bayesian Criterion Type          : 1
+CVaR Problem                            : False
+Dynamic                                 : True
+Time-invariant Controls                 : True
+Time-varying Controls                   : False
+Number of Candidates                    : 424
+Number of Optimal Candidates            : 8
+Number of Sampling Time Choices         : 31
+Sampling Times Optimized                : True
+Number of Samples Per Experiment        : 1
+Number of Scenarios                     : 100
+------------------------------------------[Candidate 164]-------------------------------------------
+                           Recommended Apportionment: Run 1/5 Experiments                           
+Time-invariant Controls:
+[1.67721715 4.43292558 0.40504237]
+Sampling Times:
+[    105.00]: Run    1/1 experiments, sampling at given time
+------------------------------------------[Candidate 168]-------------------------------------------
+                           Recommended Apportionment: Run 0/5 Experiments                           
+Time-invariant Controls:
+[1.62460249 2.45089934 0.238817  ]
+Sampling Times:
+[    103.00]: Run    0/0 experiments, sampling at given time
+------------------------------------------[Candidate 194]-------------------------------------------
+                           Recommended Apportionment: Run 0/5 Experiments                           
+Time-invariant Controls:
+[1.94014266 2.77372466 0.11000949]
+Sampling Times:
+[    103.00]: Run    0/0 experiments, sampling at given time
+------------------------------------------[Candidate 235]-------------------------------------------
+                           Recommended Apportionment: Run 0/5 Experiments                           
+Time-invariant Controls:
+[1.63384117 1.2702094  0.77991107]
+Sampling Times:
+[    102.00]: Run    0/0 experiments, sampling at given time
+------------------------------------------[Candidate 256]-------------------------------------------
+                           Recommended Apportionment: Run 1/5 Experiments                           
+Time-invariant Controls:
+[1.76043295 2.37074619 0.19238125]
+Sampling Times:
+[    103.00]: Run    1/1 experiments, sampling at given time
+------------------------------------------[Candidate 269]-------------------------------------------
+                           Recommended Apportionment: Run 1/5 Experiments                           
+Time-invariant Controls:
+[1.99422771 1.25962824 2.14725425]
+Sampling Times:
+[    102.00]: Run    1/1 experiments, sampling at given time
+------------------------------------------[Candidate 325]-------------------------------------------
+                           Recommended Apportionment: Run 1/5 Experiments                           
+Time-invariant Controls:
+[2.07492807 1.01274892 0.15897416]
+Sampling Times:
+[    102.00]: Run    1/1 experiments, sampling at given time
+------------------------------------------[Candidate 335]-------------------------------------------
+                           Recommended Apportionment: Run 1/5 Experiments                           
+Time-invariant Controls:
+[1.81078074 2.66555126 0.2122603 ]
+Sampling Times:
+[    103.00]: Run    1/1 experiments, sampling at given time
+----------------------------------------------------------------------------------------------------
+The rounded design for 5 runs is guaranteed to be at least 0.00% as good as the continuous design.
+The actual criterion value of the rounded design is 96.57% as informative as the continuous design.
+####################################################################################################
+################################## Optimal Experiment for 6 Runs ###################################
+Obtained on                             : 2021-07-29 15:27:07.937647
+Criterion                               : d_opt_criterion
+Criterion Value                         : 8.54026064650105
+Pseudo-bayesian                         : True
+Pseudo-bayesian Criterion Type          : 1
+CVaR Problem                            : False
+Dynamic                                 : True
+Time-invariant Controls                 : True
+Time-varying Controls                   : False
+Number of Candidates                    : 424
+Number of Optimal Candidates            : 8
+Number of Sampling Time Choices         : 31
+Sampling Times Optimized                : True
+Number of Samples Per Experiment        : 1
+Number of Scenarios                     : 100
+------------------------------------------[Candidate 164]-------------------------------------------
+                           Recommended Apportionment: Run 1/6 Experiments                           
+Time-invariant Controls:
+[1.67721715 4.43292558 0.40504237]
+Sampling Times:
+[    105.00]: Run    1/1 experiments, sampling at given time
+------------------------------------------[Candidate 168]-------------------------------------------
+                           Recommended Apportionment: Run 0/6 Experiments                           
+Time-invariant Controls:
+[1.62460249 2.45089934 0.238817  ]
+Sampling Times:
+[    103.00]: Run    0/0 experiments, sampling at given time
+------------------------------------------[Candidate 194]-------------------------------------------
+                           Recommended Apportionment: Run 0/6 Experiments                           
+Time-invariant Controls:
+[1.94014266 2.77372466 0.11000949]
+Sampling Times:
+[    103.00]: Run    0/0 experiments, sampling at given time
+------------------------------------------[Candidate 235]-------------------------------------------
+                           Recommended Apportionment: Run 1/6 Experiments                           
+Time-invariant Controls:
+[1.63384117 1.2702094  0.77991107]
+Sampling Times:
+[    102.00]: Run    1/1 experiments, sampling at given time
+------------------------------------------[Candidate 256]-------------------------------------------
+                           Recommended Apportionment: Run 1/6 Experiments                           
+Time-invariant Controls:
+[1.76043295 2.37074619 0.19238125]
+Sampling Times:
+[    103.00]: Run    1/1 experiments, sampling at given time
+------------------------------------------[Candidate 269]-------------------------------------------
+                           Recommended Apportionment: Run 1/6 Experiments                           
+Time-invariant Controls:
+[1.99422771 1.25962824 2.14725425]
+Sampling Times:
+[    102.00]: Run    1/1 experiments, sampling at given time
+------------------------------------------[Candidate 325]-------------------------------------------
+                           Recommended Apportionment: Run 1/6 Experiments                           
+Time-invariant Controls:
+[2.07492807 1.01274892 0.15897416]
+Sampling Times:
+[    102.00]: Run    1/1 experiments, sampling at given time
+------------------------------------------[Candidate 335]-------------------------------------------
+                           Recommended Apportionment: Run 1/6 Experiments                           
+Time-invariant Controls:
+[1.81078074 2.66555126 0.2122603 ]
+Sampling Times:
+[    103.00]: Run    1/1 experiments, sampling at given time
+----------------------------------------------------------------------------------------------------
+The rounded design for 6 runs is guaranteed to be at least 0.00% as good as the continuous design.
+The actual criterion value of the rounded design is 95.46% as informative as the continuous design.
+####################################################################################################
+################################## Optimal Experiment for 7 Runs ###################################
+Obtained on                             : 2021-07-29 15:27:14.656780
+Criterion                               : d_opt_criterion
+Criterion Value                         : 8.54026064650105
+Pseudo-bayesian                         : True
+Pseudo-bayesian Criterion Type          : 1
+CVaR Problem                            : False
+Dynamic                                 : True
+Time-invariant Controls                 : True
+Time-varying Controls                   : False
+Number of Candidates                    : 424
+Number of Optimal Candidates            : 8
+Number of Sampling Time Choices         : 31
+Sampling Times Optimized                : True
+Number of Samples Per Experiment        : 1
+Number of Scenarios                     : 100
+------------------------------------------[Candidate 164]-------------------------------------------
+                           Recommended Apportionment: Run 1/7 Experiments                           
+Time-invariant Controls:
+[1.67721715 4.43292558 0.40504237]
+Sampling Times:
+[    105.00]: Run    1/1 experiments, sampling at given time
+------------------------------------------[Candidate 168]-------------------------------------------
+                           Recommended Apportionment: Run 1/7 Experiments                           
+Time-invariant Controls:
+[1.62460249 2.45089934 0.238817  ]
+Sampling Times:
+[    103.00]: Run    1/1 experiments, sampling at given time
+------------------------------------------[Candidate 194]-------------------------------------------
+                           Recommended Apportionment: Run 0/7 Experiments                           
+Time-invariant Controls:
+[1.94014266 2.77372466 0.11000949]
+Sampling Times:
+[    103.00]: Run    0/0 experiments, sampling at given time
+------------------------------------------[Candidate 235]-------------------------------------------
+                           Recommended Apportionment: Run 1/7 Experiments                           
+Time-invariant Controls:
+[1.63384117 1.2702094  0.77991107]
+Sampling Times:
+[    102.00]: Run    1/1 experiments, sampling at given time
+------------------------------------------[Candidate 256]-------------------------------------------
+                           Recommended Apportionment: Run 1/7 Experiments                           
+Time-invariant Controls:
+[1.76043295 2.37074619 0.19238125]
+Sampling Times:
+[    103.00]: Run    1/1 experiments, sampling at given time
+------------------------------------------[Candidate 269]-------------------------------------------
+                           Recommended Apportionment: Run 1/7 Experiments                           
+Time-invariant Controls:
+[1.99422771 1.25962824 2.14725425]
+Sampling Times:
+[    102.00]: Run    1/1 experiments, sampling at given time
+------------------------------------------[Candidate 325]-------------------------------------------
+                           Recommended Apportionment: Run 1/7 Experiments                           
+Time-invariant Controls:
+[2.07492807 1.01274892 0.15897416]
+Sampling Times:
+[    102.00]: Run    1/1 experiments, sampling at given time
+------------------------------------------[Candidate 335]-------------------------------------------
+                           Recommended Apportionment: Run 1/7 Experiments                           
+Time-invariant Controls:
+[1.81078074 2.66555126 0.2122603 ]
+Sampling Times:
+[    103.00]: Run    1/1 experiments, sampling at given time
+----------------------------------------------------------------------------------------------------
+The rounded design for 7 runs is guaranteed to be at least 0.00% as good as the continuous design.
+The actual criterion value of the rounded design is 93.61% as informative as the continuous design.
+####################################################################################################
+################################## Optimal Experiment for 8 Runs ###################################
+Obtained on                             : 2021-07-29 15:27:21.397275
+Criterion                               : d_opt_criterion
+Criterion Value                         : 8.54026064650105
+Pseudo-bayesian                         : True
+Pseudo-bayesian Criterion Type          : 1
+CVaR Problem                            : False
+Dynamic                                 : True
+Time-invariant Controls                 : True
+Time-varying Controls                   : False
+Number of Candidates                    : 424
+Number of Optimal Candidates            : 8
+Number of Sampling Time Choices         : 31
+Sampling Times Optimized                : True
+Number of Samples Per Experiment        : 1
+Number of Scenarios                     : 100
+------------------------------------------[Candidate 164]-------------------------------------------
+                           Recommended Apportionment: Run 1/8 Experiments                           
+Time-invariant Controls:
+[1.67721715 4.43292558 0.40504237]
+Sampling Times:
+[    105.00]: Run    1/1 experiments, sampling at given time
+------------------------------------------[Candidate 168]-------------------------------------------
+                           Recommended Apportionment: Run 1/8 Experiments                           
+Time-invariant Controls:
+[1.62460249 2.45089934 0.238817  ]
+Sampling Times:
+[    103.00]: Run    1/1 experiments, sampling at given time
+------------------------------------------[Candidate 194]-------------------------------------------
+                           Recommended Apportionment: Run 1/8 Experiments                           
+Time-invariant Controls:
+[1.94014266 2.77372466 0.11000949]
+Sampling Times:
+[    103.00]: Run    1/1 experiments, sampling at given time
+------------------------------------------[Candidate 235]-------------------------------------------
+                           Recommended Apportionment: Run 1/8 Experiments                           
+Time-invariant Controls:
+[1.63384117 1.2702094  0.77991107]
+Sampling Times:
+[    102.00]: Run    1/1 experiments, sampling at given time
+------------------------------------------[Candidate 256]-------------------------------------------
+                           Recommended Apportionment: Run 1/8 Experiments                           
+Time-invariant Controls:
+[1.76043295 2.37074619 0.19238125]
+Sampling Times:
+[    103.00]: Run    1/1 experiments, sampling at given time
+------------------------------------------[Candidate 269]-------------------------------------------
+                           Recommended Apportionment: Run 1/8 Experiments                           
+Time-invariant Controls:
+[1.99422771 1.25962824 2.14725425]
+Sampling Times:
+[    102.00]: Run    1/1 experiments, sampling at given time
+------------------------------------------[Candidate 325]-------------------------------------------
+                           Recommended Apportionment: Run 1/8 Experiments                           
+Time-invariant Controls:
+[2.07492807 1.01274892 0.15897416]
+Sampling Times:
+[    102.00]: Run    1/1 experiments, sampling at given time
+------------------------------------------[Candidate 335]-------------------------------------------
+                           Recommended Apportionment: Run 1/8 Experiments                           
+Time-invariant Controls:
+[1.81078074 2.66555126 0.2122603 ]
+Sampling Times:
+[    103.00]: Run    1/1 experiments, sampling at given time
+----------------------------------------------------------------------------------------------------
+The rounded design for 8 runs is guaranteed to be at least 52.73% as good as the continuous design.
+The actual criterion value of the rounded design is 93.96% as informative as the continuous design.
+####################################################################################################
+################################## Optimal Experiment for 9 Runs ###################################
+Obtained on                             : 2021-07-29 15:27:28.099277
+Criterion                               : d_opt_criterion
+Criterion Value                         : 8.54026064650105
+Pseudo-bayesian                         : True
+Pseudo-bayesian Criterion Type          : 1
+CVaR Problem                            : False
+Dynamic                                 : True
+Time-invariant Controls                 : True
+Time-varying Controls                   : False
+Number of Candidates                    : 424
+Number of Optimal Candidates            : 8
+Number of Sampling Time Choices         : 31
+Sampling Times Optimized                : True
+Number of Samples Per Experiment        : 1
+Number of Scenarios                     : 100
+------------------------------------------[Candidate 164]-------------------------------------------
+                           Recommended Apportionment: Run 1/9 Experiments                           
+Time-invariant Controls:
+[1.67721715 4.43292558 0.40504237]
+Sampling Times:
+[    105.00]: Run    1/1 experiments, sampling at given time
+------------------------------------------[Candidate 168]-------------------------------------------
+                           Recommended Apportionment: Run 1/9 Experiments                           
+Time-invariant Controls:
+[1.62460249 2.45089934 0.238817  ]
+Sampling Times:
+[    103.00]: Run    1/1 experiments, sampling at given time
+------------------------------------------[Candidate 194]-------------------------------------------
+                           Recommended Apportionment: Run 1/9 Experiments                           
+Time-invariant Controls:
+[1.94014266 2.77372466 0.11000949]
+Sampling Times:
+[    103.00]: Run    1/1 experiments, sampling at given time
+------------------------------------------[Candidate 235]-------------------------------------------
+                           Recommended Apportionment: Run 1/9 Experiments                           
+Time-invariant Controls:
+[1.63384117 1.2702094  0.77991107]
+Sampling Times:
+[    102.00]: Run    1/1 experiments, sampling at given time
+------------------------------------------[Candidate 256]-------------------------------------------
+                           Recommended Apportionment: Run 2/9 Experiments                           
+Time-invariant Controls:
+[1.76043295 2.37074619 0.19238125]
+Sampling Times:
+[    103.00]: Run    2/2 experiments, sampling at given time
+------------------------------------------[Candidate 269]-------------------------------------------
+                           Recommended Apportionment: Run 1/9 Experiments                           
+Time-invariant Controls:
+[1.99422771 1.25962824 2.14725425]
+Sampling Times:
+[    102.00]: Run    1/1 experiments, sampling at given time
+------------------------------------------[Candidate 325]-------------------------------------------
+                           Recommended Apportionment: Run 1/9 Experiments                           
+Time-invariant Controls:
+[2.07492807 1.01274892 0.15897416]
+Sampling Times:
+[    102.00]: Run    1/1 experiments, sampling at given time
+------------------------------------------[Candidate 335]-------------------------------------------
+                           Recommended Apportionment: Run 1/9 Experiments                           
+Time-invariant Controls:
+[1.81078074 2.66555126 0.2122603 ]
+Sampling Times:
+[    103.00]: Run    1/1 experiments, sampling at given time
+----------------------------------------------------------------------------------------------------
+The rounded design for 9 runs is guaranteed to be at least 52.61% as good as the continuous design.
+The actual criterion value of the rounded design is 96.68% as informative as the continuous design.
+####################################################################################################
+################################## Optimal Experiment for 10 Runs ##################################
+Obtained on                             : 2021-07-29 15:27:34.781132
+Criterion                               : d_opt_criterion
+Criterion Value                         : 8.54026064650105
+Pseudo-bayesian                         : True
+Pseudo-bayesian Criterion Type          : 1
+CVaR Problem                            : False
+Dynamic                                 : True
+Time-invariant Controls                 : True
+Time-varying Controls                   : False
+Number of Candidates                    : 424
+Number of Optimal Candidates            : 8
+Number of Sampling Time Choices         : 31
+Sampling Times Optimized                : True
+Number of Samples Per Experiment        : 1
+Number of Scenarios                     : 100
+------------------------------------------[Candidate 164]-------------------------------------------
+                          Recommended Apportionment: Run 1/10 Experiments                           
+Time-invariant Controls:
+[1.67721715 4.43292558 0.40504237]
+Sampling Times:
+[    105.00]: Run    1/1 experiments, sampling at given time
+------------------------------------------[Candidate 168]-------------------------------------------
+                          Recommended Apportionment: Run 1/10 Experiments                           
+Time-invariant Controls:
+[1.62460249 2.45089934 0.238817  ]
+Sampling Times:
+[    103.00]: Run    1/1 experiments, sampling at given time
+------------------------------------------[Candidate 194]-------------------------------------------
+                          Recommended Apportionment: Run 1/10 Experiments                           
+Time-invariant Controls:
+[1.94014266 2.77372466 0.11000949]
+Sampling Times:
+[    103.00]: Run    1/1 experiments, sampling at given time
+------------------------------------------[Candidate 235]-------------------------------------------
+                          Recommended Apportionment: Run 1/10 Experiments                           
+Time-invariant Controls:
+[1.63384117 1.2702094  0.77991107]
+Sampling Times:
+[    102.00]: Run    1/1 experiments, sampling at given time
+------------------------------------------[Candidate 256]-------------------------------------------
+                          Recommended Apportionment: Run 2/10 Experiments                           
+Time-invariant Controls:
+[1.76043295 2.37074619 0.19238125]
+Sampling Times:
+[    103.00]: Run    2/2 experiments, sampling at given time
+------------------------------------------[Candidate 269]-------------------------------------------
+                          Recommended Apportionment: Run 1/10 Experiments                           
+Time-invariant Controls:
+[1.99422771 1.25962824 2.14725425]
+Sampling Times:
+[    102.00]: Run    1/1 experiments, sampling at given time
+------------------------------------------[Candidate 325]-------------------------------------------
+                          Recommended Apportionment: Run 1/10 Experiments                           
+Time-invariant Controls:
+[2.07492807 1.01274892 0.15897416]
+Sampling Times:
+[    102.00]: Run    1/1 experiments, sampling at given time
+------------------------------------------[Candidate 335]-------------------------------------------
+                          Recommended Apportionment: Run 2/10 Experiments                           
+Time-invariant Controls:
+[1.81078074 2.66555126 0.2122603 ]
+Sampling Times:
+[    103.00]: Run    2/2 experiments, sampling at given time
+----------------------------------------------------------------------------------------------------
+The rounded design for 10 runs is guaranteed to be at least 54.61% as good as the continuous design.
+The actual criterion value of the rounded design is 97.16% as informative as the continuous design.
+####################################################################################################
+################################## Optimal Experiment for 20 Runs ##################################
+Obtained on                             : 2021-07-29 15:27:41.397877
+Criterion                               : d_opt_criterion
+Criterion Value                         : 8.54026064650105
+Pseudo-bayesian                         : True
+Pseudo-bayesian Criterion Type          : 1
+CVaR Problem                            : False
+Dynamic                                 : True
+Time-invariant Controls                 : True
+Time-varying Controls                   : False
+Number of Candidates                    : 424
+Number of Optimal Candidates            : 8
+Number of Sampling Time Choices         : 31
+Sampling Times Optimized                : True
+Number of Samples Per Experiment        : 1
+Number of Scenarios                     : 100
+------------------------------------------[Candidate 164]-------------------------------------------
+                          Recommended Apportionment: Run 3/20 Experiments                           
+Time-invariant Controls:
+[1.67721715 4.43292558 0.40504237]
+Sampling Times:
+[    105.00]: Run    3/3 experiments, sampling at given time
+------------------------------------------[Candidate 168]-------------------------------------------
+                          Recommended Apportionment: Run 1/20 Experiments                           
+Time-invariant Controls:
+[1.62460249 2.45089934 0.238817  ]
+Sampling Times:
+[    103.00]: Run    1/1 experiments, sampling at given time
+------------------------------------------[Candidate 194]-------------------------------------------
+                          Recommended Apportionment: Run 1/20 Experiments                           
+Time-invariant Controls:
+[1.94014266 2.77372466 0.11000949]
+Sampling Times:
+[    103.00]: Run    1/1 experiments, sampling at given time
+------------------------------------------[Candidate 235]-------------------------------------------
+                          Recommended Apportionment: Run 2/20 Experiments                           
+Time-invariant Controls:
+[1.63384117 1.2702094  0.77991107]
+Sampling Times:
+[    102.00]: Run    2/2 experiments, sampling at given time
+------------------------------------------[Candidate 256]-------------------------------------------
+                          Recommended Apportionment: Run 4/20 Experiments                           
+Time-invariant Controls:
+[1.76043295 2.37074619 0.19238125]
+Sampling Times:
+[    103.00]: Run    4/4 experiments, sampling at given time
+------------------------------------------[Candidate 269]-------------------------------------------
+                          Recommended Apportionment: Run 3/20 Experiments                           
+Time-invariant Controls:
+[1.99422771 1.25962824 2.14725425]
+Sampling Times:
+[    102.00]: Run    3/3 experiments, sampling at given time
+------------------------------------------[Candidate 325]-------------------------------------------
+                          Recommended Apportionment: Run 2/20 Experiments                           
+Time-invariant Controls:
+[2.07492807 1.01274892 0.15897416]
+Sampling Times:
+[    102.00]: Run    2/2 experiments, sampling at given time
+------------------------------------------[Candidate 335]-------------------------------------------
+                          Recommended Apportionment: Run 4/20 Experiments                           
+Time-invariant Controls:
+[1.81078074 2.66555126 0.2122603 ]
+Sampling Times:
+[    103.00]: Run    4/4 experiments, sampling at given time
+----------------------------------------------------------------------------------------------------
+The rounded design for 20 runs is guaranteed to be at least 81.92% as good as the continuous design.
+The actual criterion value of the rounded design is 99.23% as informative as the continuous design.
+####################################################################################################

@@ -1,0 +1,1791 @@
+Warning: no access to tty (Bad file descriptor).
+Thus no job control in this shell.
+Running on ce-l209 with 1 core(s) allocated
+Conducting sensitivity analysis for 21 number of candidates and 200 number of parameter scenarios.
+Parallel computation takes: 1.41 CPU seconds.
+====================================================================================================
+Initialization complete: designer ready.
+----------------------------------------------------------------------------------------------------
+Number of model parameters              : 2
+Number of candidates                    : 21
+Number of responses                     : 1
+Number of measured responses            : 1
+Number of time-invariant controls       : 1
+====================================================================================================
+******************************************* CVaR Problem *******************************************
+
+==========================================[Iteration 1/10]==========================================
+Computing the maximal mean design, obtaining the mean UB and CVaR LB in the Pareto Frontier.
+
+############################### Computing Optimal Experiment Design ################################
+Started on                              : 2021-03-15 15:54:57.032297
+Criterion                               : cvar_d_opt_criterion
+Pseudo-bayesian                         : True
+Pseudo-bayesian Criterion Type          : 0
+Dynamic                                 : False
+Time-invariant Controls                 : True
+Time-varying Controls                   : False
+Number of Candidates                    : 21
+Number of Scenarios                     : 200
+===============================================================================
+                                     CVXPY                                     
+                                    v1.1.11                                    
+===============================================================================
+(CVXPY) Mar 15 03:54:58 PM: Your problem has 422.0 variables, 422 constraints, and 0 parameters.
+(CVXPY) Mar 15 03:54:59 PM: It is compliant with the following grammars: DCP, DQCP
+(CVXPY) Mar 15 03:54:59 PM: (If you need to solve this problem multiple times, but with different data, consider using parameters.)
+(CVXPY) Mar 15 03:54:59 PM: CVXPY will first compile your problem; then, it will invoke a numerical solver to obtain a solution.
+-------------------------------------------------------------------------------
+                                  Compilation                                  
+-------------------------------------------------------------------------------
+(CVXPY) Mar 15 03:54:59 PM: Compiling problem (target solver=MOSEK).
+(CVXPY) Mar 15 03:54:59 PM: Reduction chain: FlipObjective -> Dcp2Cone -> CvxAttr2Constr -> ConeMatrixStuffing -> MOSEK
+(CVXPY) Mar 15 03:54:59 PM: Applying reduction FlipObjective
+(CVXPY) Mar 15 03:54:59 PM: Applying reduction Dcp2Cone
+(CVXPY) Mar 15 03:55:00 PM: Applying reduction CvxAttr2Constr
+(CVXPY) Mar 15 03:55:01 PM: Applying reduction ConeMatrixStuffing
+(CVXPY) Mar 15 03:55:03 PM: Applying reduction MOSEK
+(CVXPY) Mar 15 03:55:31 PM: Finished problem compilation (took 3.271e+01 seconds).
+-------------------------------------------------------------------------------
+                                Numerical solver                               
+-------------------------------------------------------------------------------
+(CVXPY) Mar 15 03:55:31 PM: Invoking solver MOSEK to obtain a solution.
+
+
+Problem
+  Name                   :                 
+  Objective sense        : max             
+  Type                   : CONIC (conic optimization problem)
+  Constraints            : 1422            
+  Cones                  : 400             
+  Scalar variables       : 1843            
+  Matrix variables       : 200             
+  Integer variables      : 0               
+
+Optimizer started.
+Problem
+  Name                   :                 
+  Objective sense        : max             
+  Type                   : CONIC (conic optimization problem)
+  Constraints            : 1422            
+  Cones                  : 400             
+  Scalar variables       : 1843            
+  Matrix variables       : 200             
+  Integer variables      : 0               
+
+Optimizer  - threads                : 24              
+Optimizer  - solved problem         : the primal      
+Optimizer  - Constraints            : 621
+Optimizer  - Cones                  : 400
+Optimizer  - Scalar variables       : 1222              conic                  : 1200            
+Optimizer  - Semi-definite variables: 200               scalarized             : 2000            
+Factor     - setup time             : 0.01              dense det. time        : 0.00            
+Factor     - ML order time          : 0.00              GP order time          : 0.00            
+Factor     - nonzeros before factor : 1.40e+04          after factor           : 1.40e+04        
+Factor     - dense dim.             : 0                 flops                  : 9.94e+05        
+ITE PFEAS    DFEAS    GFEAS    PRSTATUS   POBJ              DOBJ              MU       TIME  
+0   1.6e+02  1.3e+00  3.3e+02  0.00e+00   -3.311353596e+02  1.610204003e+00   1.0e+00  0.16  
+1   1.0e+02  8.4e-01  2.1e+02  -9.04e-02  -2.666602948e+02  2.741057055e+00   6.5e-01  0.17  
+2   5.9e+01  4.7e-01  9.6e+01  1.33e-01   -1.717283082e+02  3.916022896e+00   3.7e-01  0.18  
+3   2.4e+01  1.9e-01  2.4e+01  6.54e-01   -6.784364909e+01  5.307930806e+00   1.5e-01  0.19  
+4   5.5e+00  4.4e-02  2.0e+00  1.09e+00   -8.790737853e+00  6.267434750e+00   3.4e-02  0.21  
+5   2.2e+00  1.8e-02  4.7e-01  1.43e+00   9.692652456e-01   6.053386811e+00   1.4e-02  0.23  
+6   7.2e-01  5.7e-03  8.3e-02  1.38e+00   3.752587216e+00   5.096042387e+00   4.5e-03  0.26  
+7   2.7e-01  2.1e-03  1.7e-02  1.29e+00   3.708367001e+00   4.150446644e+00   1.6e-03  0.29  
+8   1.1e-01  8.7e-04  4.6e-03  1.11e+00   3.564058714e+00   3.740523264e+00   6.8e-04  0.32  
+9   9.0e-02  7.2e-04  3.5e-03  1.01e+00   3.550545336e+00   3.697037334e+00   5.6e-04  0.35  
+10  3.8e-02  3.1e-04  9.7e-04  1.01e+00   3.506612430e+00   3.569092894e+00   2.4e-04  0.37  
+11  2.4e-02  1.9e-04  5.0e-04  9.89e-01   3.495218797e+00   3.535300393e+00   1.5e-04  0.40  
+12  7.8e-03  6.3e-05  9.1e-05  9.92e-01   3.478965650e+00   3.491899322e+00   4.8e-05  0.43  
+13  6.1e-03  4.9e-05  6.3e-05  9.73e-01   3.477863412e+00   3.487991600e+00   3.8e-05  0.46  
+14  1.3e-03  1.0e-05  6.0e-06  9.91e-01   3.472981353e+00   3.475102968e+00   7.8e-06  0.49  
+15  3.0e-04  2.4e-06  7.0e-07  9.95e-01   3.471932973e+00   3.472438771e+00   1.9e-06  0.51  
+16  3.1e-05  2.5e-07  2.3e-08  9.99e-01   3.471614419e+00   3.471666290e+00   1.9e-07  0.52  
+17  7.7e-07  6.1e-09  8.9e-11  1.00e+00   3.471578178e+00   3.471579465e+00   4.7e-09  0.54  
+18  2.9e-08  2.3e-10  6.6e-13  1.00e+00   3.471577233e+00   3.471577281e+00   1.8e-10  0.55  
+19  2.6e-08  2.1e-10  5.7e-13  9.99e-01   3.471577230e+00   3.471577275e+00   1.6e-10  0.57  
+20  2.4e-08  1.9e-10  4.8e-13  1.00e+00   3.471577228e+00   3.471577267e+00   1.5e-10  0.59  
+Optimizer terminated. Time: 0.60    
+
+
+Interior-point solution summary
+  Problem status  : PRIMAL_AND_DUAL_FEASIBLE
+  Solution status : OPTIMAL
+  Primal.  obj: 3.4715772277e+00    nrm: 8e+00    Viol.  con: 2e-08    var: 2e-09    barvar: 0e+00    cones: 1e-10  
+  Dual.    obj: 3.4715772674e+00    nrm: 9e+00    Viol.  con: 0e+00    var: 4e-10    barvar: 2e-10    cones: 0e+00  
+-------------------------------------------------------------------------------
+                                    Summary                                    
+-------------------------------------------------------------------------------
+(CVXPY) Mar 15 03:55:32 PM: Problem status: optimal
+(CVXPY) Mar 15 03:55:32 PM: Optimal value: -3.472e+00
+(CVXPY) Mar 15 03:55:32 PM: Compilation took 3.271e+01 seconds
+(CVXPY) Mar 15 03:55:32 PM: Solver (including time spent in interface) took 6.737e-01 seconds
+---------------------------------[Optimization Complete in 35.57 s]---------------------------------
+Complete: 
+ ~ sensitivity analysis took 0.00 CPU seconds.
+ ~ optimization with MOSEK via cvxpy took 35.57 CPU seconds.
+####################################################################################################
+
+######################################## Optimal Candidates ########################################
+Obtained on                             : 2021-03-15 15:55:32.605709
+Criterion                               : cvar_d_opt_criterion
+Criterion Value                         : -3.4715772277203287
+Pseudo-bayesian                         : True
+Pseudo-bayesian Criterion Type          : 0
+CVaR Problem                            : True
+Beta                                    : 0.75
+Constrained Problem                     : False
+Dynamic                                 : False
+Time-invariant Controls                 : True
+Time-varying Controls                   : False
+Number of Candidates                    : 21
+Number of Optimal Candidates            : 3
+Number of Scenarios                     : 200
+-------------------------------------------[Candidate 1]--------------------------------------------
+                             Recommended Effort: 48.48% of experiments                              
+Time-invariant Controls:
+[0.]
+-------------------------------------------[Candidate 8]--------------------------------------------
+                             Recommended Effort: 42.83% of experiments                              
+Time-invariant Controls:
+[0.175]
+-------------------------------------------[Candidate 21]-------------------------------------------
+                              Recommended Effort: 8.70% of experiments                              
+Time-invariant Controls:
+[0.5]
+####################################################################################################
+
+Computing CVaR of Iteration 1's Solution
+############################### Computing Optimal Experiment Design ################################
+Started on                              : 2021-03-15 15:55:32.606652
+Criterion                               : cvar_d_opt_criterion
+Pseudo-bayesian                         : True
+Pseudo-bayesian Criterion Type          : 0
+Dynamic                                 : False
+Time-invariant Controls                 : True
+Time-varying Controls                   : False
+Number of Candidates                    : 21
+Number of Scenarios                     : 200
+===============================================================================
+                                     CVXPY                                     
+                                    v1.1.11                                    
+===============================================================================
+(CVXPY) Mar 15 03:55:34 PM: Your problem has 422.0 variables, 423 constraints, and 0 parameters.
+(CVXPY) Mar 15 03:55:34 PM: It is compliant with the following grammars: DCP, DQCP
+(CVXPY) Mar 15 03:55:34 PM: (If you need to solve this problem multiple times, but with different data, consider using parameters.)
+(CVXPY) Mar 15 03:55:34 PM: CVXPY will first compile your problem; then, it will invoke a numerical solver to obtain a solution.
+-------------------------------------------------------------------------------
+                                  Compilation                                  
+-------------------------------------------------------------------------------
+(CVXPY) Mar 15 03:55:35 PM: Compiling problem (target solver=MOSEK).
+(CVXPY) Mar 15 03:55:35 PM: Reduction chain: FlipObjective -> Dcp2Cone -> CvxAttr2Constr -> ConeMatrixStuffing -> MOSEK
+(CVXPY) Mar 15 03:55:35 PM: Applying reduction FlipObjective
+(CVXPY) Mar 15 03:55:35 PM: Applying reduction Dcp2Cone
+(CVXPY) Mar 15 03:55:36 PM: Applying reduction CvxAttr2Constr
+(CVXPY) Mar 15 03:55:36 PM: Applying reduction ConeMatrixStuffing
+(CVXPY) Mar 15 03:55:38 PM: Applying reduction MOSEK
+(CVXPY) Mar 15 03:56:07 PM: Finished problem compilation (took 3.278e+01 seconds).
+-------------------------------------------------------------------------------
+                                Numerical solver                               
+-------------------------------------------------------------------------------
+(CVXPY) Mar 15 03:56:07 PM: Invoking solver MOSEK to obtain a solution.
+
+
+Problem
+  Name                   :                 
+  Objective sense        : max             
+  Type                   : CONIC (conic optimization problem)
+  Constraints            : 1422            
+  Cones                  : 400             
+  Scalar variables       : 1864            
+  Matrix variables       : 200             
+  Integer variables      : 0               
+
+Optimizer started.
+Problem
+  Name                   :                 
+  Objective sense        : max             
+  Type                   : CONIC (conic optimization problem)
+  Constraints            : 1422            
+  Cones                  : 400             
+  Scalar variables       : 1864            
+  Matrix variables       : 200             
+  Integer variables      : 0               
+
+Optimizer  - threads                : 24              
+Optimizer  - solved problem         : the primal      
+Optimizer  - Constraints            : 822
+Optimizer  - Cones                  : 401
+Optimizer  - Scalar variables       : 1223              conic                  : 1222            
+Optimizer  - Semi-definite variables: 200               scalarized             : 2000            
+Factor     - setup time             : 0.01              dense det. time        : 0.00            
+Factor     - ML order time          : 0.00              GP order time          : 0.00            
+Factor     - nonzeros before factor : 1.50e+04          after factor           : 1.99e+04        
+Factor     - dense dim.             : 0                 flops                  : 1.17e+06        
+ITE PFEAS    DFEAS    GFEAS    PRSTATUS   POBJ              DOBJ              MU       TIME  
+0   1.6e+02  1.3e+00  3.3e+02  0.00e+00   -3.311353596e+02  0.000000000e+00   1.0e+00  0.10  
+1   1.0e+02  8.0e-01  2.0e+02  -7.71e-02  -2.578831233e+02  3.447460170e+00   6.2e-01  0.14  
+2   7.5e+01  6.0e-01  1.3e+02  1.97e-01   -1.986102238e+02  5.177572922e+00   4.7e-01  0.20  
+3   3.8e+01  3.0e-01  4.8e+01  4.78e-01   -1.047914486e+02  8.455254354e+00   2.4e-01  0.26  
+4   2.4e+01  1.9e-01  2.3e+01  8.93e-01   -5.848669903e+01  9.656704046e+00   1.5e-01  0.32  
+5   5.6e+00  4.4e-02  2.0e+00  1.08e+00   -3.982162378e+00  1.046540239e+01   3.4e-02  0.34  
+6   1.9e+00  1.5e-02  3.7e-01  1.53e+00   4.251617594e+00   7.950002366e+00   1.2e-02  0.36  
+7   6.0e-01  4.7e-03  5.9e-02  1.40e+00   4.813684336e+00   5.798769148e+00   3.7e-03  0.39  
+8   4.6e-01  3.7e-03  4.1e-02  1.04e+00   4.923621202e+00   5.705099151e+00   2.8e-03  0.42  
+9   2.9e-01  2.3e-03  2.2e-02  9.76e-01   5.075516392e+00   5.588924564e+00   1.8e-03  0.45  
+10  2.0e-01  1.6e-03  1.2e-02  9.56e-01   5.162370583e+00   5.511986858e+00   1.2e-03  0.48  
+11  1.3e-01  1.0e-03  6.4e-03  9.11e-01   5.248222241e+00   5.479029047e+00   7.8e-04  0.51  
+12  7.3e-02  5.8e-04  2.9e-03  8.84e-01   5.336862185e+00   5.476805155e+00   4.5e-04  0.54  
+13  5.7e-02  4.6e-04  2.1e-03  8.63e-01   5.373543051e+00   5.486004128e+00   3.5e-04  0.57  
+14  3.4e-02  2.7e-04  9.7e-04  8.76e-01   5.428769312e+00   5.498000335e+00   2.1e-04  0.60  
+15  2.5e-02  2.0e-04  6.1e-04  8.78e-01   5.456765354e+00   5.508301946e+00   1.5e-04  0.63  
+16  1.5e-02  1.2e-04  2.9e-04  9.04e-01   5.487634961e+00   5.519447196e+00   9.2e-05  0.66  
+17  1.0e-02  8.2e-05  1.7e-04  9.09e-01   5.503900994e+00   5.526539353e+00   6.4e-05  0.69  
+18  6.1e-03  4.9e-05  7.9e-05  9.40e-01   5.519837310e+00   5.533352794e+00   3.8e-05  0.72  
+19  4.2e-03  3.3e-05  4.6e-05  9.43e-01   5.527852759e+00   5.537285248e+00   2.6e-05  0.75  
+20  2.3e-03  1.8e-05  1.9e-05  9.57e-01   5.535709891e+00   5.540890032e+00   1.4e-05  0.78  
+21  8.1e-04  6.5e-06  4.0e-06  9.67e-01   5.543029189e+00   5.544889169e+00   5.0e-06  0.81  
+22  5.5e-05  4.4e-07  7.2e-08  9.87e-01   5.547135505e+00   5.547262759e+00   3.4e-07  0.84  
+23  4.2e-06  3.4e-08  1.5e-09  1.00e+00   5.547424100e+00   5.547433798e+00   2.6e-08  0.86  
+24  4.2e-06  3.3e-08  1.5e-09  1.18e+00   5.547424287e+00   5.547433919e+00   2.6e-08  0.89  
+25  1.8e-07  1.4e-09  1.3e-11  1.00e+00   5.547446331e+00   5.547446740e+00   1.1e-09  1.02  
+26  1.8e-07  1.4e-09  1.3e-11  8.11e-01   5.547446331e+00   5.547446740e+00   1.1e-09  1.10  
+27  1.8e-07  1.4e-09  1.3e-11  7.98e-01   5.547446331e+00   5.547446740e+00   1.1e-09  1.16  
+Optimizer terminated. Time: 1.21    
+
+
+Interior-point solution summary
+  Problem status  : PRIMAL_AND_DUAL_FEASIBLE
+  Solution status : OPTIMAL
+  Primal.  obj: 5.5474463306e+00    nrm: 3e+01    Viol.  con: 2e-07    var: 1e-09    barvar: 0e+00    cones: 0e+00  
+  Dual.    obj: 5.4369017345e+00    nrm: 7e+00    Viol.  con: 0e+00    var: 2e+00    barvar: 1e-09    cones: 0e+00  
+-------------------------------------------------------------------------------
+                                    Summary                                    
+-------------------------------------------------------------------------------
+(CVXPY) Mar 15 03:56:08 PM: Problem status: optimal
+(CVXPY) Mar 15 03:56:08 PM: Optimal value: -5.547e+00
+(CVXPY) Mar 15 03:56:08 PM: Compilation took 3.278e+01 seconds
+(CVXPY) Mar 15 03:56:08 PM: Solver (including time spent in interface) took 1.288e+00 seconds
+---------------------------------[Optimization Complete in 36.32 s]---------------------------------
+Complete: 
+ ~ sensitivity analysis took 0.00 CPU seconds.
+ ~ optimization with MOSEK via cvxpy took 36.32 CPU seconds.
+####################################################################################################
+Time elapsed: 0.00 seconds.
+CVaR LB: -5.547446330573135
+Mean UB: -3.4715772277203287
+=====================================[Iteration 1/10 Completed]=====================================
+
+==========================================[Iteration 2/10]==========================================
+Computing the maximal CVaR design, obtaining the CVaR UB, and mean LB in the Pareto Frontier.
+
+############################### Computing Optimal Experiment Design ################################
+Started on                              : 2021-03-15 15:56:09.156102
+Criterion                               : cvar_d_opt_criterion
+Pseudo-bayesian                         : True
+Pseudo-bayesian Criterion Type          : 0
+Dynamic                                 : False
+Time-invariant Controls                 : True
+Time-varying Controls                   : False
+Number of Candidates                    : 21
+Number of Scenarios                     : 200
+===============================================================================
+                                     CVXPY                                     
+                                    v1.1.11                                    
+===============================================================================
+(CVXPY) Mar 15 03:56:10 PM: Your problem has 422.0 variables, 422 constraints, and 0 parameters.
+(CVXPY) Mar 15 03:56:11 PM: It is compliant with the following grammars: DCP, DQCP
+(CVXPY) Mar 15 03:56:11 PM: (If you need to solve this problem multiple times, but with different data, consider using parameters.)
+(CVXPY) Mar 15 03:56:11 PM: CVXPY will first compile your problem; then, it will invoke a numerical solver to obtain a solution.
+-------------------------------------------------------------------------------
+                                  Compilation                                  
+-------------------------------------------------------------------------------
+(CVXPY) Mar 15 03:56:11 PM: Compiling problem (target solver=MOSEK).
+(CVXPY) Mar 15 03:56:11 PM: Reduction chain: FlipObjective -> Dcp2Cone -> CvxAttr2Constr -> ConeMatrixStuffing -> MOSEK
+(CVXPY) Mar 15 03:56:11 PM: Applying reduction FlipObjective
+(CVXPY) Mar 15 03:56:11 PM: Applying reduction Dcp2Cone
+(CVXPY) Mar 15 03:56:12 PM: Applying reduction CvxAttr2Constr
+(CVXPY) Mar 15 03:56:13 PM: Applying reduction ConeMatrixStuffing
+(CVXPY) Mar 15 03:56:15 PM: Applying reduction MOSEK
+(CVXPY) Mar 15 03:56:43 PM: Finished problem compilation (took 3.230e+01 seconds).
+-------------------------------------------------------------------------------
+                                Numerical solver                               
+-------------------------------------------------------------------------------
+(CVXPY) Mar 15 03:56:43 PM: Invoking solver MOSEK to obtain a solution.
+
+
+Problem
+  Name                   :                 
+  Objective sense        : max             
+  Type                   : CONIC (conic optimization problem)
+  Constraints            : 1422            
+  Cones                  : 400             
+  Scalar variables       : 1843            
+  Matrix variables       : 200             
+  Integer variables      : 0               
+
+Optimizer started.
+Problem
+  Name                   :                 
+  Objective sense        : max             
+  Type                   : CONIC (conic optimization problem)
+  Constraints            : 1422            
+  Cones                  : 400             
+  Scalar variables       : 1843            
+  Matrix variables       : 200             
+  Integer variables      : 0               
+
+Optimizer  - threads                : 24              
+Optimizer  - solved problem         : the primal      
+Optimizer  - Constraints            : 822
+Optimizer  - Cones                  : 400
+Optimizer  - Scalar variables       : 1222              conic                  : 1200            
+Optimizer  - Semi-definite variables: 200               scalarized             : 2000            
+Factor     - setup time             : 0.01              dense det. time        : 0.00            
+Factor     - ML order time          : 0.00              GP order time          : 0.00            
+Factor     - nonzeros before factor : 1.50e+04          after factor           : 1.99e+04        
+Factor     - dense dim.             : 0                 flops                  : 1.17e+06        
+ITE PFEAS    DFEAS    GFEAS    PRSTATUS   POBJ              DOBJ              MU       TIME  
+0   1.6e+02  1.3e+00  3.3e+02  0.00e+00   -3.311353596e+02  0.000000000e+00   1.0e+00  0.06  
+1   1.0e+02  8.4e-01  2.1e+02  -7.96e-02  -2.640988188e+02  3.173014456e+00   6.5e-01  0.09  
+2   5.9e+01  4.7e-01  9.4e+01  1.47e-01   -1.659899376e+02  6.630669467e+00   3.6e-01  0.12  
+3   2.3e+01  1.9e-01  2.2e+01  6.86e-01   -6.005612743e+01  9.714359042e+00   1.4e-01  0.15  
+4   5.8e+00  4.7e-02  2.1e+00  1.15e+00   -4.972940787e+00  1.024658243e+01   3.6e-02  0.18  
+5   2.5e+00  2.0e-02  5.2e-01  1.53e+00   3.037797674e+00   8.287959904e+00   1.6e-02  0.21  
+6   8.8e-01  7.1e-03  1.0e-01  1.45e+00   4.616377485e+00   6.094304307e+00   5.5e-03  0.24  
+7   4.2e-01  3.3e-03  3.5e-02  1.18e+00   4.753276198e+00   5.436757191e+00   2.6e-03  0.27  
+8   2.9e-01  2.3e-03  2.0e-02  9.49e-01   4.908419605e+00   5.390286994e+00   1.8e-03  0.29  
+9   2.1e-01  1.6e-03  1.3e-02  9.36e-01   5.005553411e+00   5.356934761e+00   1.3e-03  0.32  
+10  1.2e-01  9.6e-04  5.8e-03  9.17e-01   5.113208288e+00   5.326097915e+00   7.5e-04  0.35  
+11  8.4e-02  6.7e-04  3.4e-03  8.76e-01   5.187928692e+00   5.341217905e+00   5.2e-04  0.38  
+12  6.6e-02  5.3e-04  2.5e-03  8.78e-01   5.224616367e+00   5.348626281e+00   4.1e-04  0.41  
+13  4.5e-02  3.6e-04  1.4e-03  8.77e-01   5.272905037e+00   5.360187995e+00   2.8e-04  0.44  
+14  3.2e-02  2.5e-04  8.4e-04  8.79e-01   5.307548461e+00   5.369964122e+00   1.9e-04  0.47  
+15  1.4e-02  1.1e-04  2.5e-04  8.98e-01   5.354158095e+00   5.382403261e+00   8.5e-05  0.50  
+16  6.5e-03  5.2e-05  8.4e-05  9.18e-01   5.379794207e+00   5.393587528e+00   4.0e-05  0.52  
+17  4.1e-03  3.3e-05  4.2e-05  9.61e-01   5.389498206e+00   5.398189755e+00   2.5e-05  0.55  
+18  1.2e-03  9.9e-06  7.2e-06  9.71e-01   5.401931228e+00   5.404604631e+00   7.7e-06  0.58  
+19  2.9e-04  2.3e-06  8.3e-07  9.84e-01   5.406384136e+00   5.407019657e+00   1.8e-06  0.62  
+20  1.5e-05  1.2e-07  9.4e-09  9.97e-01   5.407738074e+00   5.407770134e+00   9.1e-08  0.64  
+21  1.2e-05  9.7e-08  7.0e-09  9.82e-01   5.407750335e+00   5.407776739e+00   7.5e-08  0.67  
+22  1.2e-05  9.6e-08  6.9e-09  1.18e+00   5.407751128e+00   5.407777248e+00   7.4e-08  0.70  
+23  1.2e-05  9.6e-08  6.9e-09  1.00e+00   5.407751185e+00   5.407777279e+00   7.4e-08  0.73  
+24  9.5e-06  7.6e-08  4.9e-09  9.69e-01   5.407762548e+00   5.407783384e+00   5.8e-08  0.78  
+25  9.5e-06  7.6e-08  4.9e-09  1.39e+00   5.407762771e+00   5.407783541e+00   5.8e-08  0.80  
+26  9.5e-06  7.6e-08  4.9e-09  9.18e-01   5.407762774e+00   5.407783543e+00   5.8e-08  0.83  
+27  9.0e-06  7.2e-08  4.6e-09  1.06e+00   5.407765282e+00   5.407785024e+00   5.6e-08  0.88  
+28  9.0e-06  7.2e-08  4.6e-09  9.59e-01   5.407765312e+00   5.407785040e+00   5.6e-08  0.91  
+29  9.0e-06  7.2e-08  4.6e-09  1.05e+00   5.407765318e+00   5.407785044e+00   5.6e-08  0.94  
+30  8.7e-06  6.9e-08  4.3e-09  1.02e+00   5.407767331e+00   5.407786217e+00   5.3e-08  0.99  
+31  8.6e-06  6.9e-08  4.2e-09  8.62e-01   5.407767516e+00   5.407786298e+00   5.3e-08  1.02  
+32  8.6e-06  6.8e-08  4.2e-09  9.50e-01   5.407767771e+00   5.407786435e+00   5.3e-08  1.05  
+33  8.5e-06  6.8e-08  4.1e-09  1.09e+00   5.407768199e+00   5.407786702e+00   5.2e-08  1.07  
+34  8.5e-06  6.8e-08  4.1e-09  1.17e+00   5.407768205e+00   5.407786706e+00   5.2e-08  1.10  
+35  8.4e-06  6.7e-08  4.1e-09  1.28e+00   5.407768991e+00   5.407787243e+00   5.2e-08  1.13  
+36  8.2e-06  6.5e-08  3.9e-09  8.70e-01   5.407769795e+00   5.407787599e+00   5.0e-08  1.16  
+37  8.2e-06  6.5e-08  3.9e-09  1.08e+00   5.407769870e+00   5.407787644e+00   5.0e-08  1.19  
+38  8.1e-06  6.4e-08  3.8e-09  8.84e-01   5.407770200e+00   5.407787798e+00   5.0e-08  1.24  
+39  8.1e-06  6.4e-08  3.8e-09  1.14e+00   5.407770205e+00   5.407787801e+00   5.0e-08  1.29  
+40  4.2e-07  3.4e-09  4.7e-11  1.00e+00   5.407809545e+00   5.407810470e+00   2.6e-09  1.37  
+41  4.2e-07  3.4e-09  4.7e-11  6.11e-01   5.407809545e+00   5.407810470e+00   2.6e-09  1.40  
+42  4.2e-07  3.4e-09  4.7e-11  6.26e-01   5.407809545e+00   5.407810470e+00   2.6e-09  1.43  
+Optimizer terminated. Time: 1.48    
+
+
+Interior-point solution summary
+  Problem status  : PRIMAL_AND_DUAL_FEASIBLE
+  Solution status : OPTIMAL
+  Primal.  obj: 5.4078095451e+00    nrm: 3e+01    Viol.  con: 6e-07    var: 4e-09    barvar: 0e+00    cones: 0e+00  
+  Dual.    obj: 5.0942863932e+00    nrm: 7e+00    Viol.  con: 0e+00    var: 1e+00    barvar: 3e-09    cones: 0e+00  
+-------------------------------------------------------------------------------
+                                    Summary                                    
+-------------------------------------------------------------------------------
+(CVXPY) Mar 15 03:56:45 PM: Problem status: optimal
+(CVXPY) Mar 15 03:56:45 PM: Optimal value: -5.408e+00
+(CVXPY) Mar 15 03:56:45 PM: Compilation took 3.230e+01 seconds
+(CVXPY) Mar 15 03:56:45 PM: Solver (including time spent in interface) took 1.558e+00 seconds
+---------------------------------[Optimization Complete in 36.08 s]---------------------------------
+Complete: 
+ ~ sensitivity analysis took 0.00 CPU seconds.
+ ~ optimization with MOSEK via cvxpy took 36.08 CPU seconds.
+####################################################################################################
+
+######################################## Optimal Candidates ########################################
+Obtained on                             : 2021-03-15 15:56:45.243653
+Criterion                               : cvar_d_opt_criterion
+Criterion Value                         : -5.407809545053058
+Pseudo-bayesian                         : True
+Pseudo-bayesian Criterion Type          : 0
+CVaR Problem                            : True
+Beta                                    : 0.75
+Constrained Problem                     : False
+Dynamic                                 : False
+Time-invariant Controls                 : True
+Time-varying Controls                   : False
+Number of Candidates                    : 21
+Number of Optimal Candidates            : 2
+Number of Scenarios                     : 200
+-------------------------------------------[Candidate 1]--------------------------------------------
+                             Recommended Effort: 50.00% of experiments                              
+Time-invariant Controls:
+[0.]
+-------------------------------------------[Candidate 7]--------------------------------------------
+                             Recommended Effort: 50.00% of experiments                              
+Time-invariant Controls:
+[0.15]
+####################################################################################################
+
+Computing Mean of Iteration 2's Solution
+############################### Computing Optimal Experiment Design ################################
+Started on                              : 2021-03-15 15:56:45.244573
+Criterion                               : cvar_d_opt_criterion
+Pseudo-bayesian                         : True
+Pseudo-bayesian Criterion Type          : 0
+Dynamic                                 : False
+Time-invariant Controls                 : True
+Time-varying Controls                   : False
+Number of Candidates                    : 21
+Number of Scenarios                     : 200
+===============================================================================
+                                     CVXPY                                     
+                                    v1.1.11                                    
+===============================================================================
+(CVXPY) Mar 15 03:56:46 PM: Your problem has 422.0 variables, 423 constraints, and 0 parameters.
+(CVXPY) Mar 15 03:56:47 PM: It is compliant with the following grammars: DCP, DQCP
+(CVXPY) Mar 15 03:56:47 PM: (If you need to solve this problem multiple times, but with different data, consider using parameters.)
+(CVXPY) Mar 15 03:56:47 PM: CVXPY will first compile your problem; then, it will invoke a numerical solver to obtain a solution.
+-------------------------------------------------------------------------------
+                                  Compilation                                  
+-------------------------------------------------------------------------------
+(CVXPY) Mar 15 03:56:47 PM: Compiling problem (target solver=MOSEK).
+(CVXPY) Mar 15 03:56:47 PM: Reduction chain: FlipObjective -> Dcp2Cone -> CvxAttr2Constr -> ConeMatrixStuffing -> MOSEK
+(CVXPY) Mar 15 03:56:47 PM: Applying reduction FlipObjective
+(CVXPY) Mar 15 03:56:47 PM: Applying reduction Dcp2Cone
+(CVXPY) Mar 15 03:56:48 PM: Applying reduction CvxAttr2Constr
+(CVXPY) Mar 15 03:56:49 PM: Applying reduction ConeMatrixStuffing
+(CVXPY) Mar 15 03:56:51 PM: Applying reduction MOSEK
+(CVXPY) Mar 15 03:57:20 PM: Finished problem compilation (took 3.286e+01 seconds).
+-------------------------------------------------------------------------------
+                                Numerical solver                               
+-------------------------------------------------------------------------------
+(CVXPY) Mar 15 03:57:20 PM: Invoking solver MOSEK to obtain a solution.
+
+
+Problem
+  Name                   :                 
+  Objective sense        : max             
+  Type                   : CONIC (conic optimization problem)
+  Constraints            : 1422            
+  Cones                  : 400             
+  Scalar variables       : 1864            
+  Matrix variables       : 200             
+  Integer variables      : 0               
+
+Optimizer started.
+Problem
+  Name                   :                 
+  Objective sense        : max             
+  Type                   : CONIC (conic optimization problem)
+  Constraints            : 1422            
+  Cones                  : 400             
+  Scalar variables       : 1864            
+  Matrix variables       : 200             
+  Integer variables      : 0               
+
+Optimizer  - threads                : 24              
+Optimizer  - solved problem         : the primal      
+Optimizer  - Constraints            : 621
+Optimizer  - Cones                  : 401
+Optimizer  - Scalar variables       : 1223              conic                  : 1222            
+Optimizer  - Semi-definite variables: 200               scalarized             : 2000            
+Factor     - setup time             : 0.01              dense det. time        : 0.00            
+Factor     - ML order time          : 0.00              GP order time          : 0.00            
+Factor     - nonzeros before factor : 1.40e+04          after factor           : 1.40e+04        
+Factor     - dense dim.             : 0                 flops                  : 9.94e+05        
+ITE PFEAS    DFEAS    GFEAS    PRSTATUS   POBJ              DOBJ              MU       TIME  
+0   1.6e+02  1.3e+00  3.3e+02  0.00e+00   -3.311353596e+02  1.610204003e+00   1.0e+00  0.07  
+1   1.0e+02  8.0e-01  2.0e+02  -8.78e-02  -2.606832733e+02  2.837149405e+00   6.2e-01  0.11  
+2   7.5e+01  6.0e-01  1.3e+02  1.82e-01   -2.023633837e+02  3.404682760e+00   4.7e-01  0.15  
+3   3.9e+01  3.1e-01  5.0e+01  4.58e-01   -1.129419444e+02  4.726587250e+00   2.4e-01  0.18  
+4   2.5e+01  2.0e-01  2.6e+01  8.46e-01   -7.003052071e+01  5.469983836e+00   1.6e-01  0.21  
+5   7.9e+00  6.3e-02  4.1e+00  1.00e+00   -1.596047597e+01  6.488038494e+00   4.9e-02  0.24  
+6   2.3e+00  1.8e-02  6.1e-01  1.25e+00   1.035227667e+00   6.595939222e+00   1.4e-02  0.28  
+7   5.0e-01  4.0e-03  4.9e-02  1.38e+00   4.416719479e+00   5.406852452e+00   3.1e-03  0.31  
+8   1.8e-01  1.5e-03  1.0e-02  1.35e+00   3.798931470e+00   4.110825145e+00   1.1e-03  0.34  
+9   1.3e-01  1.0e-03  5.8e-03  1.08e+00   3.726585721e+00   3.938568857e+00   7.7e-04  0.37  
+10  6.0e-02  4.7e-04  1.9e-03  1.05e+00   3.648540085e+00   3.748254105e+00   3.7e-04  0.40  
+11  5.4e-02  4.3e-04  1.6e-03  9.93e-01   3.643908106e+00   3.734247296e+00   3.3e-04  0.44  
+12  1.7e-02  1.4e-04  3.0e-04  1.00e+00   3.603548177e+00   3.632811454e+00   1.1e-04  0.47  
+13  1.4e-02  1.1e-04  2.2e-04  9.79e-01   3.600508803e+00   3.624018186e+00   8.6e-05  0.50  
+14  2.5e-03  2.0e-05  1.6e-05  9.94e-01   3.586757599e+00   3.590922847e+00   1.5e-05  0.53  
+15  1.2e-03  9.7e-06  5.7e-06  9.90e-01   3.585340989e+00   3.587420427e+00   7.5e-06  0.56  
+16  5.5e-05  4.4e-07  5.5e-08  9.98e-01   3.583805318e+00   3.583899141e+00   3.4e-07  0.60  
+17  5.2e-06  4.2e-08  1.6e-09  1.00e+00   3.583735277e+00   3.583744206e+00   3.2e-08  0.63  
+18  2.6e-07  2.1e-09  1.8e-11  1.00e+00   3.583728468e+00   3.583728908e+00   1.6e-09  0.65  
+19  4.2e-08  1.0e-10  6.5e-14  1.00e+00   3.583728134e+00   3.583728145e+00   3.8e-11  0.68  
+20  2.4e-08  1.0e-10  6.4e-14  1.00e+00   3.583728134e+00   3.583728144e+00   3.8e-11  0.71  
+Optimizer terminated. Time: 0.71    
+
+
+Interior-point solution summary
+  Problem status  : PRIMAL_AND_DUAL_FEASIBLE
+  Solution status : OPTIMAL
+  Primal.  obj: 3.5837281339e+00    nrm: 6e+00    Viol.  con: 2e-08    var: 0e+00    barvar: 0e+00    cones: 6e-11  
+  Dual.    obj: 3.5837281443e+00    nrm: 8e+00    Viol.  con: 0e+00    var: 1e-10    barvar: 8e-11    cones: 0e+00  
+-------------------------------------------------------------------------------
+                                    Summary                                    
+-------------------------------------------------------------------------------
+(CVXPY) Mar 15 03:57:21 PM: Problem status: optimal
+(CVXPY) Mar 15 03:57:21 PM: Optimal value: -3.584e+00
+(CVXPY) Mar 15 03:57:21 PM: Compilation took 3.286e+01 seconds
+(CVXPY) Mar 15 03:57:21 PM: Solver (including time spent in interface) took 7.930e-01 seconds
+---------------------------------[Optimization Complete in 35.91 s]---------------------------------
+Complete: 
+ ~ sensitivity analysis took 0.00 CPU seconds.
+ ~ optimization with MOSEK via cvxpy took 35.91 CPU seconds.
+####################################################################################################
+Time elapsed: 0.00 seconds.
+CVaR UB: -5.407809545053058
+MEAN LB: -3.583728133923457
+=====================================[Iteration 2/10 Completed]=====================================
+
+==========================================[Iteration 3/10]==========================================
+############################### Computing Optimal Experiment Design ################################
+Started on                              : 2021-03-15 15:57:21.370752
+Criterion                               : cvar_d_opt_criterion
+Pseudo-bayesian                         : True
+Pseudo-bayesian Criterion Type          : 0
+Dynamic                                 : False
+Time-invariant Controls                 : True
+Time-varying Controls                   : False
+Number of Candidates                    : 21
+Number of Scenarios                     : 200
+===============================================================================
+                                     CVXPY                                     
+                                    v1.1.11                                    
+===============================================================================
+(CVXPY) Mar 15 03:57:22 PM: Your problem has 422.0 variables, 423 constraints, and 0 parameters.
+(CVXPY) Mar 15 03:57:23 PM: It is compliant with the following grammars: DCP, DQCP
+(CVXPY) Mar 15 03:57:23 PM: (If you need to solve this problem multiple times, but with different data, consider using parameters.)
+(CVXPY) Mar 15 03:57:23 PM: CVXPY will first compile your problem; then, it will invoke a numerical solver to obtain a solution.
+-------------------------------------------------------------------------------
+                                  Compilation                                  
+-------------------------------------------------------------------------------
+(CVXPY) Mar 15 03:57:24 PM: Compiling problem (target solver=MOSEK).
+(CVXPY) Mar 15 03:57:24 PM: Reduction chain: FlipObjective -> Dcp2Cone -> CvxAttr2Constr -> ConeMatrixStuffing -> MOSEK
+(CVXPY) Mar 15 03:57:24 PM: Applying reduction FlipObjective
+(CVXPY) Mar 15 03:57:24 PM: Applying reduction Dcp2Cone
+(CVXPY) Mar 15 03:57:24 PM: Applying reduction CvxAttr2Constr
+(CVXPY) Mar 15 03:57:25 PM: Applying reduction ConeMatrixStuffing
+(CVXPY) Mar 15 03:57:27 PM: Applying reduction MOSEK
+(CVXPY) Mar 15 03:57:56 PM: Finished problem compilation (took 3.289e+01 seconds).
+-------------------------------------------------------------------------------
+                                Numerical solver                               
+-------------------------------------------------------------------------------
+(CVXPY) Mar 15 03:57:56 PM: Invoking solver MOSEK to obtain a solution.
+
+
+Problem
+  Name                   :                 
+  Objective sense        : max             
+  Type                   : CONIC (conic optimization problem)
+  Constraints            : 1422            
+  Cones                  : 400             
+  Scalar variables       : 1844            
+  Matrix variables       : 200             
+  Integer variables      : 0               
+
+Optimizer started.
+Problem
+  Name                   :                 
+  Objective sense        : max             
+  Type                   : CONIC (conic optimization problem)
+  Constraints            : 1422            
+  Cones                  : 400             
+  Scalar variables       : 1844            
+  Matrix variables       : 200             
+  Integer variables      : 0               
+
+Optimizer  - threads                : 24              
+Optimizer  - solved problem         : the primal      
+Optimizer  - Constraints            : 1022
+Optimizer  - Cones                  : 400
+Optimizer  - Scalar variables       : 1423              conic                  : 1200            
+Optimizer  - Semi-definite variables: 200               scalarized             : 2000            
+Factor     - setup time             : 0.01              dense det. time        : 0.00            
+Factor     - ML order time          : 0.00              GP order time          : 0.00            
+Factor     - nonzeros before factor : 3.53e+04          after factor           : 4.44e+04        
+Factor     - dense dim.             : 0                 flops                  : 4.88e+06        
+ITE PFEAS    DFEAS    GFEAS    PRSTATUS   POBJ              DOBJ              MU       TIME  
+0   1.6e+02  4.6e+02  3.3e+02  0.00e+00   -3.311353596e+02  0.000000000e+00   1.0e+00  0.08  
+1   1.0e+02  3.0e+02  1.9e+02  4.76e-01   -2.378799691e+02  2.536270607e+00   6.5e-01  0.09  
+2   8.3e+01  2.3e+02  1.4e+02  5.64e-01   -1.964203192e+02  3.638117973e+00   5.1e-01  0.11  
+3   3.5e+01  9.8e+01  3.6e+01  7.56e-01   -8.055582233e+01  6.290388054e+00   2.1e-01  0.13  
+4   8.0e+00  2.3e+01  3.5e+00  1.03e+00   -1.140964324e+01  7.221737266e+00   4.9e-02  0.15  
+5   3.6e+00  1.0e+01  9.4e-01  1.43e+00   -8.770107298e-01  6.104045829e+00   2.2e-02  0.17  
+6   1.7e+00  4.9e+00  3.6e-01  1.04e+00   2.128446453e+00   5.704277759e+00   1.1e-02  0.19  
+7   6.5e-01  1.8e+00  7.5e-02  1.10e+00   3.894217133e+00   5.128831864e+00   4.0e-03  0.21  
+8   5.1e-01  1.5e+00  5.6e-02  9.08e-01   4.162989218e+00   5.207754897e+00   3.2e-03  0.22  
+9   2.3e-01  6.5e-01  1.8e-02  9.17e-01   4.745846779e+00   5.242737036e+00   1.4e-03  0.24  
+10  1.5e-01  4.2e-01  9.1e-03  1.02e+00   4.970997115e+00   5.283421558e+00   9.1e-04  0.26  
+11  7.2e-02  2.0e-01  3.2e-03  9.92e-01   5.181010796e+00   5.334595938e+00   4.5e-04  0.28  
+12  6.5e-02  1.8e-01  2.7e-03  9.56e-01   5.206396080e+00   5.345701560e+00   4.0e-04  0.30  
+13  3.9e-02  1.1e-01  1.3e-03  1.00e+00   5.285099698e+00   5.368301446e+00   2.4e-04  0.32  
+14  2.6e-02  7.4e-02  7.1e-04  9.94e-01   5.331161490e+00   5.387698007e+00   1.6e-04  0.34  
+15  2.2e-02  6.2e-02  5.3e-04  1.01e+00   5.344698813e+00   5.391584711e+00   1.4e-04  0.36  
+16  1.2e-02  3.3e-02  2.1e-04  1.00e+00   5.378204387e+00   5.402939898e+00   7.2e-05  0.38  
+17  7.1e-03  2.0e-02  9.9e-05  1.01e+00   5.388526119e+00   5.403651102e+00   4.4e-05  0.40  
+18  5.3e-03  1.5e-02  6.4e-05  1.02e+00   5.394563969e+00   5.405864112e+00   3.3e-05  0.41  
+19  4.2e-03  1.2e-02  4.4e-05  1.02e+00   5.397832465e+00   5.406668596e+00   2.6e-05  0.43  
+20  2.3e-03  6.6e-03  1.9e-05  1.02e+00   5.402271151e+00   5.407207793e+00   1.4e-05  0.48  
+21  1.4e-03  4.0e-03  8.7e-06  1.02e+00   5.405275199e+00   5.408235043e+00   8.7e-06  0.51  
+22  9.0e-04  2.5e-03  4.4e-06  1.01e+00   5.406178318e+00   5.408047481e+00   5.5e-06  0.56  
+23  4.0e-04  1.1e-03  1.3e-06  1.02e+00   5.407727637e+00   5.408551329e+00   2.5e-06  0.57  
+24  1.1e-04  3.1e-04  1.9e-07  1.01e+00   5.408164315e+00   5.408393848e+00   6.8e-07  0.58  
+25  3.1e-05  8.6e-05  2.8e-08  1.00e+00   5.408221565e+00   5.408284696e+00   1.9e-07  0.59  
+26  1.6e-05  4.4e-05  1.0e-08  1.00e+00   5.408226420e+00   5.408258867e+00   9.7e-08  0.61  
+27  1.6e-06  4.6e-06  3.4e-10  1.00e+00   5.408225241e+00   5.408228639e+00   1.0e-08  0.62  
+28  1.8e-07  5.2e-07  1.3e-11  1.00e+00   5.408224481e+00   5.408224859e+00   1.1e-09  0.63  
+29  1.1e-07  6.7e-08  5.9e-13  1.01e+00   5.408224398e+00   5.408224447e+00   1.4e-10  0.64  
+30  1.1e-07  6.7e-08  5.9e-13  1.00e+00   5.408224398e+00   5.408224447e+00   1.4e-10  0.71  
+31  1.1e-07  6.7e-08  5.9e-13  1.00e+00   5.408224398e+00   5.408224447e+00   1.4e-10  0.78  
+Optimizer terminated. Time: 0.86    
+
+
+Interior-point solution summary
+  Problem status  : PRIMAL_AND_DUAL_FEASIBLE
+  Solution status : OPTIMAL
+  Primal.  obj: 5.4082243978e+00    nrm: 3e+01    Viol.  con: 1e-07    var: 1e-10    barvar: 0e+00    cones: 0e+00  
+  Dual.    obj: 5.4082244466e+00    nrm: 8e+00    Viol.  con: 0e+00    var: 7e-10    barvar: 5e-10    cones: 0e+00  
+-------------------------------------------------------------------------------
+                                    Summary                                    
+-------------------------------------------------------------------------------
+(CVXPY) Mar 15 03:57:57 PM: Problem status: optimal
+(CVXPY) Mar 15 03:57:57 PM: Optimal value: -5.408e+00
+(CVXPY) Mar 15 03:57:57 PM: Compilation took 3.289e+01 seconds
+(CVXPY) Mar 15 03:57:57 PM: Solver (including time spent in interface) took 9.468e-01 seconds
+---------------------------------[Optimization Complete in 36.11 s]---------------------------------
+Complete: 
+ ~ sensitivity analysis took 0.00 CPU seconds.
+ ~ optimization with MOSEK via cvxpy took 36.11 CPU seconds.
+####################################################################################################
+
+######################################## Optimal Candidates ########################################
+Obtained on                             : 2021-03-15 15:57:57.657252
+Criterion                               : cvar_d_opt_criterion
+Criterion Value                         : -5.408224397841086
+Pseudo-bayesian                         : True
+Pseudo-bayesian Criterion Type          : 0
+CVaR Problem                            : True
+Beta                                    : 0.75
+Constrained Problem                     : True
+Min. Mean Value                         : -3.571267
+Dynamic                                 : False
+Time-invariant Controls                 : True
+Time-varying Controls                   : False
+Number of Candidates                    : 21
+Number of Optimal Candidates            : 3
+Number of Scenarios                     : 200
+-------------------------------------------[Candidate 1]--------------------------------------------
+                             Recommended Effort: 49.97% of experiments                              
+Time-invariant Controls:
+[0.]
+-------------------------------------------[Candidate 7]--------------------------------------------
+                             Recommended Effort: 42.59% of experiments                              
+Time-invariant Controls:
+[0.15]
+-------------------------------------------[Candidate 8]--------------------------------------------
+                              Recommended Effort: 7.44% of experiments                              
+Time-invariant Controls:
+[0.175]
+####################################################################################################
+CVaR: -5.408224397841086
+MEAN: -3.571266919734118
+=====================================[Iteration 3/10 Completed]=====================================
+
+==========================================[Iteration 4/10]==========================================
+############################### Computing Optimal Experiment Design ################################
+Started on                              : 2021-03-15 15:57:57.658029
+Criterion                               : cvar_d_opt_criterion
+Pseudo-bayesian                         : True
+Pseudo-bayesian Criterion Type          : 0
+Dynamic                                 : False
+Time-invariant Controls                 : True
+Time-varying Controls                   : False
+Number of Candidates                    : 21
+Number of Scenarios                     : 200
+===============================================================================
+                                     CVXPY                                     
+                                    v1.1.11                                    
+===============================================================================
+(CVXPY) Mar 15 03:57:59 PM: Your problem has 422.0 variables, 423 constraints, and 0 parameters.
+(CVXPY) Mar 15 03:57:59 PM: It is compliant with the following grammars: DCP, DQCP
+(CVXPY) Mar 15 03:57:59 PM: (If you need to solve this problem multiple times, but with different data, consider using parameters.)
+(CVXPY) Mar 15 03:57:59 PM: CVXPY will first compile your problem; then, it will invoke a numerical solver to obtain a solution.
+-------------------------------------------------------------------------------
+                                  Compilation                                  
+-------------------------------------------------------------------------------
+(CVXPY) Mar 15 03:58:00 PM: Compiling problem (target solver=MOSEK).
+(CVXPY) Mar 15 03:58:00 PM: Reduction chain: FlipObjective -> Dcp2Cone -> CvxAttr2Constr -> ConeMatrixStuffing -> MOSEK
+(CVXPY) Mar 15 03:58:00 PM: Applying reduction FlipObjective
+(CVXPY) Mar 15 03:58:00 PM: Applying reduction Dcp2Cone
+(CVXPY) Mar 15 03:58:01 PM: Applying reduction CvxAttr2Constr
+(CVXPY) Mar 15 03:58:01 PM: Applying reduction ConeMatrixStuffing
+(CVXPY) Mar 15 03:58:03 PM: Applying reduction MOSEK
+(CVXPY) Mar 15 03:58:32 PM: Finished problem compilation (took 3.304e+01 seconds).
+-------------------------------------------------------------------------------
+                                Numerical solver                               
+-------------------------------------------------------------------------------
+(CVXPY) Mar 15 03:58:32 PM: Invoking solver MOSEK to obtain a solution.
+
+
+Problem
+  Name                   :                 
+  Objective sense        : max             
+  Type                   : CONIC (conic optimization problem)
+  Constraints            : 1422            
+  Cones                  : 400             
+  Scalar variables       : 1844            
+  Matrix variables       : 200             
+  Integer variables      : 0               
+
+Optimizer started.
+Problem
+  Name                   :                 
+  Objective sense        : max             
+  Type                   : CONIC (conic optimization problem)
+  Constraints            : 1422            
+  Cones                  : 400             
+  Scalar variables       : 1844            
+  Matrix variables       : 200             
+  Integer variables      : 0               
+
+Optimizer  - threads                : 24              
+Optimizer  - solved problem         : the primal      
+Optimizer  - Constraints            : 1022
+Optimizer  - Cones                  : 400
+Optimizer  - Scalar variables       : 1423              conic                  : 1200            
+Optimizer  - Semi-definite variables: 200               scalarized             : 2000            
+Factor     - setup time             : 0.01              dense det. time        : 0.00            
+Factor     - ML order time          : 0.00              GP order time          : 0.00            
+Factor     - nonzeros before factor : 3.53e+04          after factor           : 4.44e+04        
+Factor     - dense dim.             : 0                 flops                  : 4.88e+06        
+ITE PFEAS    DFEAS    GFEAS    PRSTATUS   POBJ              DOBJ              MU       TIME  
+0   1.6e+02  4.6e+02  3.3e+02  0.00e+00   -3.311353596e+02  0.000000000e+00   1.0e+00  0.04  
+1   1.0e+02  2.9e+02  1.9e+02  4.77e-01   -2.378609802e+02  2.532969199e+00   6.5e-01  0.06  
+2   8.3e+01  2.3e+02  1.4e+02  5.64e-01   -1.964435688e+02  3.632281900e+00   5.1e-01  0.08  
+3   3.5e+01  9.8e+01  3.6e+01  7.56e-01   -8.062130488e+01  6.279828398e+00   2.2e-01  0.10  
+4   8.0e+00  2.3e+01  3.5e+00  1.02e+00   -1.143458183e+01  7.212234517e+00   4.9e-02  0.13  
+5   3.6e+00  1.0e+01  9.4e-01  1.43e+00   -8.814281225e-01  6.098286359e+00   2.2e-02  0.15  
+6   1.8e+00  4.9e+00  3.6e-01  1.04e+00   2.111006099e+00   5.708524287e+00   1.1e-02  0.17  
+7   6.5e-01  1.8e+00  7.5e-02  1.10e+00   3.886983444e+00   5.129111642e+00   4.0e-03  0.20  
+8   5.1e-01  1.4e+00  5.6e-02  9.02e-01   4.156143048e+00   5.209187663e+00   3.2e-03  0.23  
+9   2.3e-01  6.5e-01  1.8e-02  9.10e-01   4.742556862e+00   5.242862214e+00   1.4e-03  0.26  
+10  1.5e-01  4.1e-01  9.2e-03  1.01e+00   4.968446108e+00   5.283776903e+00   9.1e-04  0.29  
+11  7.2e-02  2.0e-01  3.2e-03  9.86e-01   5.180516036e+00   5.336499455e+00   4.5e-04  0.32  
+12  6.5e-02  1.8e-01  2.7e-03  9.53e-01   5.206092180e+00   5.347833328e+00   4.0e-04  0.35  
+13  3.6e-02  1.0e-01  1.1e-03  1.00e+00   5.296403906e+00   5.374016922e+00   2.2e-04  0.38  
+14  2.3e-02  6.4e-02  5.7e-04  9.97e-01   5.345191840e+00   5.394448316e+00   1.4e-04  0.41  
+15  2.0e-02  5.5e-02  4.5e-04  1.04e+00   5.354759931e+00   5.397059436e+00   1.2e-04  0.44  
+16  1.1e-02  3.0e-02  1.8e-04  1.03e+00   5.383271930e+00   5.406094733e+00   6.6e-05  0.47  
+17  5.7e-03  1.6e-02  7.3e-05  1.01e+00   5.395032244e+00   5.407380139e+00   3.5e-05  0.50  
+18  4.4e-03  1.2e-02  4.8e-05  1.03e+00   5.399338042e+00   5.408683123e+00   2.7e-05  0.52  
+19  3.0e-03  8.3e-03  2.7e-05  1.03e+00   5.402988023e+00   5.409292718e+00   1.8e-05  0.55  
+20  2.2e-03  6.2e-03  1.8e-05  1.03e+00   5.404378750e+00   5.409087927e+00   1.4e-05  0.58  
+21  1.8e-03  5.1e-03  1.3e-05  1.02e+00   5.405259728e+00   5.409108632e+00   1.1e-05  0.61  
+22  1.1e-03  3.2e-03  6.5e-06  1.02e+00   5.406735714e+00   5.409147551e+00   7.1e-06  0.64  
+23  9.3e-04  2.6e-03  4.7e-06  1.02e+00   5.407762742e+00   5.409721596e+00   5.8e-06  0.66  
+24  5.5e-04  1.5e-03  2.1e-06  1.02e+00   5.408301674e+00   5.409452551e+00   3.4e-06  0.69  
+25  2.3e-04  6.4e-04  5.6e-07  1.01e+00   5.409087395e+00   5.409559203e+00   1.4e-06  0.72  
+26  4.1e-05  1.2e-04  4.4e-08  1.01e+00   5.409243209e+00   5.409329207e+00   2.6e-07  0.75  
+27  4.0e-06  1.1e-05  1.3e-09  1.00e+00   5.409243536e+00   5.409251934e+00   2.5e-08  0.78  
+28  4.8e-07  1.4e-06  5.5e-11  1.00e+00   5.409242124e+00   5.409243127e+00   3.0e-09  0.81  
+29  6.1e-08  6.6e-08  5.9e-13  1.00e+00   5.409241948e+00   5.409241996e+00   1.4e-10  0.83  
+30  2.0e-09  4.5e-09  2.1e-15  1.00e+00   5.409241939e+00   5.409241940e+00   3.4e-12  0.89  
+Optimizer terminated. Time: 0.90    
+
+
+Interior-point solution summary
+  Problem status  : PRIMAL_AND_DUAL_FEASIBLE
+  Solution status : OPTIMAL
+  Primal.  obj: 5.4092419390e+00    nrm: 3e+01    Viol.  con: 2e-09    var: 2e-12    barvar: 0e+00    cones: 0e+00  
+  Dual.    obj: 5.4092419401e+00    nrm: 8e+00    Viol.  con: 0e+00    var: 1e-11    barvar: 5e-09    cones: 0e+00  
+-------------------------------------------------------------------------------
+                                    Summary                                    
+-------------------------------------------------------------------------------
+(CVXPY) Mar 15 03:58:33 PM: Problem status: optimal
+(CVXPY) Mar 15 03:58:33 PM: Optimal value: -5.409e+00
+(CVXPY) Mar 15 03:58:33 PM: Compilation took 3.304e+01 seconds
+(CVXPY) Mar 15 03:58:33 PM: Solver (including time spent in interface) took 9.752e-01 seconds
+---------------------------------[Optimization Complete in 36.28 s]---------------------------------
+Complete: 
+ ~ sensitivity analysis took 0.00 CPU seconds.
+ ~ optimization with MOSEK via cvxpy took 36.28 CPU seconds.
+####################################################################################################
+
+######################################## Optimal Candidates ########################################
+Obtained on                             : 2021-03-15 15:58:34.116005
+Criterion                               : cvar_d_opt_criterion
+Criterion Value                         : -5.4092419389778374
+Pseudo-bayesian                         : True
+Pseudo-bayesian Criterion Type          : 0
+CVaR Problem                            : True
+Beta                                    : 0.75
+Constrained Problem                     : True
+Min. Mean Value                         : -3.558806
+Dynamic                                 : False
+Time-invariant Controls                 : True
+Time-varying Controls                   : False
+Number of Candidates                    : 21
+Number of Optimal Candidates            : 3
+Number of Scenarios                     : 200
+-------------------------------------------[Candidate 1]--------------------------------------------
+                             Recommended Effort: 49.95% of experiments                              
+Time-invariant Controls:
+[0.]
+-------------------------------------------[Candidate 7]--------------------------------------------
+                             Recommended Effort: 34.49% of experiments                              
+Time-invariant Controls:
+[0.15]
+-------------------------------------------[Candidate 8]--------------------------------------------
+                             Recommended Effort: 15.56% of experiments                              
+Time-invariant Controls:
+[0.175]
+####################################################################################################
+CVaR: -5.4092419389778374
+MEAN: -3.5588057102875665
+=====================================[Iteration 4/10 Completed]=====================================
+
+==========================================[Iteration 5/10]==========================================
+############################### Computing Optimal Experiment Design ################################
+Started on                              : 2021-03-15 15:58:34.116779
+Criterion                               : cvar_d_opt_criterion
+Pseudo-bayesian                         : True
+Pseudo-bayesian Criterion Type          : 0
+Dynamic                                 : False
+Time-invariant Controls                 : True
+Time-varying Controls                   : False
+Number of Candidates                    : 21
+Number of Scenarios                     : 200
+===============================================================================
+                                     CVXPY                                     
+                                    v1.1.11                                    
+===============================================================================
+(CVXPY) Mar 15 03:58:35 PM: Your problem has 422.0 variables, 423 constraints, and 0 parameters.
+(CVXPY) Mar 15 03:58:36 PM: It is compliant with the following grammars: DCP, DQCP
+(CVXPY) Mar 15 03:58:36 PM: (If you need to solve this problem multiple times, but with different data, consider using parameters.)
+(CVXPY) Mar 15 03:58:36 PM: CVXPY will first compile your problem; then, it will invoke a numerical solver to obtain a solution.
+-------------------------------------------------------------------------------
+                                  Compilation                                  
+-------------------------------------------------------------------------------
+(CVXPY) Mar 15 03:58:36 PM: Compiling problem (target solver=MOSEK).
+(CVXPY) Mar 15 03:58:36 PM: Reduction chain: FlipObjective -> Dcp2Cone -> CvxAttr2Constr -> ConeMatrixStuffing -> MOSEK
+(CVXPY) Mar 15 03:58:36 PM: Applying reduction FlipObjective
+(CVXPY) Mar 15 03:58:36 PM: Applying reduction Dcp2Cone
+(CVXPY) Mar 15 03:58:37 PM: Applying reduction CvxAttr2Constr
+(CVXPY) Mar 15 03:58:38 PM: Applying reduction ConeMatrixStuffing
+(CVXPY) Mar 15 03:58:40 PM: Applying reduction MOSEK
+(CVXPY) Mar 15 03:59:09 PM: Finished problem compilation (took 3.305e+01 seconds).
+-------------------------------------------------------------------------------
+                                Numerical solver                               
+-------------------------------------------------------------------------------
+(CVXPY) Mar 15 03:59:09 PM: Invoking solver MOSEK to obtain a solution.
+
+
+Problem
+  Name                   :                 
+  Objective sense        : max             
+  Type                   : CONIC (conic optimization problem)
+  Constraints            : 1422            
+  Cones                  : 400             
+  Scalar variables       : 1844            
+  Matrix variables       : 200             
+  Integer variables      : 0               
+
+Optimizer started.
+Problem
+  Name                   :                 
+  Objective sense        : max             
+  Type                   : CONIC (conic optimization problem)
+  Constraints            : 1422            
+  Cones                  : 400             
+  Scalar variables       : 1844            
+  Matrix variables       : 200             
+  Integer variables      : 0               
+
+Optimizer  - threads                : 24              
+Optimizer  - solved problem         : the primal      
+Optimizer  - Constraints            : 1022
+Optimizer  - Cones                  : 400
+Optimizer  - Scalar variables       : 1423              conic                  : 1200            
+Optimizer  - Semi-definite variables: 200               scalarized             : 2000            
+Factor     - setup time             : 0.01              dense det. time        : 0.00            
+Factor     - ML order time          : 0.00              GP order time          : 0.00            
+Factor     - nonzeros before factor : 3.53e+04          after factor           : 4.44e+04        
+Factor     - dense dim.             : 0                 flops                  : 4.88e+06        
+ITE PFEAS    DFEAS    GFEAS    PRSTATUS   POBJ              DOBJ              MU       TIME  
+0   1.6e+02  4.5e+02  3.3e+02  0.00e+00   -3.311353596e+02  0.000000000e+00   1.0e+00  0.04  
+1   1.0e+02  2.9e+02  1.9e+02  4.78e-01   -2.378424922e+02  2.529664210e+00   6.5e-01  0.10  
+2   8.3e+01  2.3e+02  1.4e+02  5.64e-01   -1.964671228e+02  3.626455650e+00   5.1e-01  0.14  
+3   3.5e+01  9.8e+01  3.6e+01  7.57e-01   -8.068716385e+01  6.269293495e+00   2.2e-01  0.15  
+4   8.0e+00  2.2e+01  3.5e+00  1.02e+00   -1.145906779e+01  7.202792333e+00   4.9e-02  0.17  
+5   3.6e+00  1.0e+01  9.4e-01  1.42e+00   -8.854407698e-01  6.092644074e+00   2.2e-02  0.18  
+6   1.8e+00  4.9e+00  3.6e-01  1.03e+00   2.093570392e+00   5.713103943e+00   1.1e-02  0.19  
+7   6.5e-01  1.8e+00  7.5e-02  1.09e+00   3.879850200e+00   5.129641818e+00   4.0e-03  0.20  
+8   5.1e-01  1.4e+00  5.7e-02  8.96e-01   4.149377268e+00   5.210939388e+00   3.2e-03  0.22  
+9   2.3e-01  6.4e-01  1.8e-02  9.02e-01   4.739486731e+00   5.243208593e+00   1.4e-03  0.24  
+10  1.5e-01  4.1e-01  9.2e-03  1.00e+00   4.965919544e+00   5.284260014e+00   9.0e-04  0.26  
+11  7.2e-02  2.0e-01  3.2e-03  9.77e-01   5.179958524e+00   5.338512234e+00   4.5e-04  0.28  
+12  6.5e-02  1.8e-01  2.8e-03  9.48e-01   5.205785848e+00   5.350172095e+00   4.0e-04  0.30  
+13  3.1e-02  8.6e-02  9.0e-04  9.98e-01   5.315328102e+00   5.382828851e+00   1.9e-04  0.32  
+14  2.1e-02  6.0e-02  5.3e-04  1.00e+00   5.350698609e+00   5.398403851e+00   1.3e-04  0.35  
+15  1.8e-02  5.0e-02  4.0e-04  1.05e+00   5.364857092e+00   5.404253713e+00   1.1e-04  0.38  
+16  1.1e-02  3.2e-02  2.0e-04  1.05e+00   5.383385725e+00   5.407888008e+00   6.9e-05  0.41  
+17  5.7e-03  1.6e-02  7.3e-05  1.03e+00   5.399212567e+00   5.411605393e+00   3.5e-05  0.44  
+18  3.2e-03  8.9e-03  3.0e-05  1.02e+00   5.404666041e+00   5.411518100e+00   2.0e-05  0.47  
+19  2.6e-03  7.2e-03  2.2e-05  1.02e+00   5.406373419e+00   5.411867800e+00   1.6e-05  0.50  
+20  1.8e-03  5.2e-03  1.3e-05  1.02e+00   5.408088724e+00   5.412051044e+00   1.1e-05  0.53  
+21  7.9e-04  2.2e-03  3.8e-06  1.02e+00   5.410073962e+00   5.411767216e+00   4.9e-06  0.56  
+22  3.1e-04  8.7e-04  9.2e-07  1.01e+00   5.410641008e+00   5.411299774e+00   1.9e-06  0.59  
+23  2.3e-04  6.5e-04  5.9e-07  1.01e+00   5.410746466e+00   5.411238296e+00   1.4e-06  0.62  
+24  1.7e-04  4.8e-04  3.8e-07  1.01e+00   5.410821766e+00   5.411187979e+00   1.1e-06  0.65  
+25  8.4e-05  2.3e-04  1.3e-07  1.01e+00   5.410999099e+00   5.411175138e+00   5.2e-07  0.67  
+26  6.1e-05  1.7e-04  8.0e-08  1.01e+00   5.410905701e+00   5.411035123e+00   3.8e-07  0.70  
+27  3.3e-05  9.3e-05  3.2e-08  1.01e+00   5.411025946e+00   5.411095592e+00   2.0e-07  0.73  
+28  2.2e-06  6.2e-06  5.4e-10  1.00e+00   5.411026258e+00   5.411030877e+00   1.4e-08  0.76  
+29  4.3e-08  1.2e-07  1.5e-12  1.00e+00   5.411025833e+00   5.411025923e+00   2.7e-10  0.79  
+30  9.4e-09  2.6e-08  1.5e-13  1.00e+00   5.411025827e+00   5.411025846e+00   5.8e-11  0.85  
+Optimizer terminated. Time: 0.86    
+
+
+Interior-point solution summary
+  Problem status  : PRIMAL_AND_DUAL_FEASIBLE
+  Solution status : OPTIMAL
+  Primal.  obj: 5.4110258265e+00    nrm: 3e+01    Viol.  con: 1e-08    var: 4e-11    barvar: 0e+00    cones: 0e+00  
+  Dual.    obj: 5.4110258463e+00    nrm: 8e+00    Viol.  con: 0e+00    var: 2e-10    barvar: 7e-10    cones: 0e+00  
+-------------------------------------------------------------------------------
+                                    Summary                                    
+-------------------------------------------------------------------------------
+(CVXPY) Mar 15 03:59:10 PM: Problem status: optimal
+(CVXPY) Mar 15 03:59:10 PM: Optimal value: -5.411e+00
+(CVXPY) Mar 15 03:59:10 PM: Compilation took 3.305e+01 seconds
+(CVXPY) Mar 15 03:59:10 PM: Solver (including time spent in interface) took 9.328e-01 seconds
+---------------------------------[Optimization Complete in 36.23 s]---------------------------------
+Complete: 
+ ~ sensitivity analysis took 0.00 CPU seconds.
+ ~ optimization with MOSEK via cvxpy took 36.23 CPU seconds.
+####################################################################################################
+
+######################################## Optimal Candidates ########################################
+Obtained on                             : 2021-03-15 15:59:10.523321
+Criterion                               : cvar_d_opt_criterion
+Criterion Value                         : -5.411025826529142
+Pseudo-bayesian                         : True
+Pseudo-bayesian Criterion Type          : 0
+CVaR Problem                            : True
+Beta                                    : 0.75
+Constrained Problem                     : True
+Min. Mean Value                         : -3.546344
+Dynamic                                 : False
+Time-invariant Controls                 : True
+Time-varying Controls                   : False
+Number of Candidates                    : 21
+Number of Optimal Candidates            : 3
+Number of Scenarios                     : 200
+-------------------------------------------[Candidate 1]--------------------------------------------
+                             Recommended Effort: 49.94% of experiments                              
+Time-invariant Controls:
+[0.]
+-------------------------------------------[Candidate 7]--------------------------------------------
+                             Recommended Effort: 25.54% of experiments                              
+Time-invariant Controls:
+[0.15]
+-------------------------------------------[Candidate 8]--------------------------------------------
+                             Recommended Effort: 24.52% of experiments                              
+Time-invariant Controls:
+[0.175]
+####################################################################################################
+CVaR: -5.411025826529142
+MEAN: -3.546344498122861
+=====================================[Iteration 5/10 Completed]=====================================
+
+==========================================[Iteration 6/10]==========================================
+############################### Computing Optimal Experiment Design ################################
+Started on                              : 2021-03-15 15:59:10.524121
+Criterion                               : cvar_d_opt_criterion
+Pseudo-bayesian                         : True
+Pseudo-bayesian Criterion Type          : 0
+Dynamic                                 : False
+Time-invariant Controls                 : True
+Time-varying Controls                   : False
+Number of Candidates                    : 21
+Number of Scenarios                     : 200
+===============================================================================
+                                     CVXPY                                     
+                                    v1.1.11                                    
+===============================================================================
+(CVXPY) Mar 15 03:59:12 PM: Your problem has 422.0 variables, 423 constraints, and 0 parameters.
+(CVXPY) Mar 15 03:59:12 PM: It is compliant with the following grammars: DCP, DQCP
+(CVXPY) Mar 15 03:59:12 PM: (If you need to solve this problem multiple times, but with different data, consider using parameters.)
+(CVXPY) Mar 15 03:59:12 PM: CVXPY will first compile your problem; then, it will invoke a numerical solver to obtain a solution.
+-------------------------------------------------------------------------------
+                                  Compilation                                  
+-------------------------------------------------------------------------------
+(CVXPY) Mar 15 03:59:13 PM: Compiling problem (target solver=MOSEK).
+(CVXPY) Mar 15 03:59:13 PM: Reduction chain: FlipObjective -> Dcp2Cone -> CvxAttr2Constr -> ConeMatrixStuffing -> MOSEK
+(CVXPY) Mar 15 03:59:13 PM: Applying reduction FlipObjective
+(CVXPY) Mar 15 03:59:13 PM: Applying reduction Dcp2Cone
+(CVXPY) Mar 15 03:59:14 PM: Applying reduction CvxAttr2Constr
+(CVXPY) Mar 15 03:59:14 PM: Applying reduction ConeMatrixStuffing
+(CVXPY) Mar 15 03:59:16 PM: Applying reduction MOSEK
+(CVXPY) Mar 15 03:59:45 PM: Finished problem compilation (took 3.317e+01 seconds).
+-------------------------------------------------------------------------------
+                                Numerical solver                               
+-------------------------------------------------------------------------------
+(CVXPY) Mar 15 03:59:45 PM: Invoking solver MOSEK to obtain a solution.
+
+
+Problem
+  Name                   :                 
+  Objective sense        : max             
+  Type                   : CONIC (conic optimization problem)
+  Constraints            : 1422            
+  Cones                  : 400             
+  Scalar variables       : 1844            
+  Matrix variables       : 200             
+  Integer variables      : 0               
+
+Optimizer started.
+Problem
+  Name                   :                 
+  Objective sense        : max             
+  Type                   : CONIC (conic optimization problem)
+  Constraints            : 1422            
+  Cones                  : 400             
+  Scalar variables       : 1844            
+  Matrix variables       : 200             
+  Integer variables      : 0               
+
+Optimizer  - threads                : 24              
+Optimizer  - solved problem         : the primal      
+Optimizer  - Constraints            : 1022
+Optimizer  - Cones                  : 400
+Optimizer  - Scalar variables       : 1423              conic                  : 1200            
+Optimizer  - Semi-definite variables: 200               scalarized             : 2000            
+Factor     - setup time             : 0.01              dense det. time        : 0.00            
+Factor     - ML order time          : 0.00              GP order time          : 0.00            
+Factor     - nonzeros before factor : 3.53e+04          after factor           : 4.44e+04        
+Factor     - dense dim.             : 0                 flops                  : 4.88e+06        
+ITE PFEAS    DFEAS    GFEAS    PRSTATUS   POBJ              DOBJ              MU       TIME  
+0   1.6e+02  4.5e+02  3.3e+02  0.00e+00   -3.311353596e+02  0.000000000e+00   1.0e+00  0.06  
+1   1.0e+02  2.9e+02  1.9e+02  4.79e-01   -2.378245103e+02  2.526355676e+00   6.5e-01  0.08  
+2   8.3e+01  2.3e+02  1.4e+02  5.65e-01   -1.964909838e+02  3.620639314e+00   5.1e-01  0.10  
+3   3.5e+01  9.7e+01  3.7e+01  7.57e-01   -8.075339727e+01  6.258783558e+00   2.2e-01  0.14  
+4   8.0e+00  2.2e+01  3.5e+00  1.02e+00   -1.148416358e+01  7.193397361e+00   4.9e-02  0.18  
+5   3.6e+00  1.0e+01  9.4e-01  1.42e+00   -8.892425938e-01  6.087218098e+00   2.2e-02  0.22  
+6   1.8e+00  4.9e+00  3.6e-01  1.03e+00   2.076302393e+00   5.718007106e+00   1.1e-02  0.26  
+7   6.5e-01  1.8e+00  7.6e-02  1.09e+00   3.872793151e+00   5.130445108e+00   4.0e-03  0.30  
+8   5.1e-01  1.4e+00  5.7e-02  8.89e-01   4.142662741e+00   5.213037688e+00   3.2e-03  0.34  
+9   2.3e-01  6.3e-01  1.8e-02  8.93e-01   4.736644277e+00   5.243798923e+00   1.4e-03  0.38  
+10  1.5e-01  4.1e-01  9.2e-03  9.90e-01   4.963422037e+00   5.284910937e+00   9.0e-04  0.42  
+11  7.2e-02  2.0e-01  3.3e-03  9.66e-01   5.179299405e+00   5.340643621e+00   4.4e-04  0.45  
+12  6.4e-02  1.8e-01  2.8e-03  9.40e-01   5.205405349e+00   5.352698888e+00   4.0e-04  0.49  
+13  3.0e-02  8.4e-02  8.9e-04  9.91e-01   5.320721223e+00   5.388460994e+00   1.9e-04  0.53  
+14  2.1e-02  5.9e-02  5.3e-04  9.99e-01   5.351565186e+00   5.399683677e+00   1.3e-04  0.57  
+15  1.5e-02  4.1e-02  3.1e-04  1.05e+00   5.377488570e+00   5.410465022e+00   9.1e-05  0.61  
+16  1.2e-02  3.2e-02  2.1e-04  1.05e+00   5.384984145e+00   5.410775612e+00   7.1e-05  0.64  
+17  6.7e-03  1.9e-02  9.5e-05  1.04e+00   5.401602496e+00   5.416470314e+00   4.2e-05  0.68  
+18  3.4e-03  9.6e-03  3.5e-05  1.03e+00   5.408638069e+00   5.416208669e+00   2.1e-05  0.72  
+19  2.9e-03  8.0e-03  2.6e-05  1.02e+00   5.410390083e+00   5.416637534e+00   1.8e-05  0.76  
+20  1.4e-03  3.8e-03  8.6e-06  1.02e+00   5.412814830e+00   5.415783356e+00   8.4e-06  0.80  
+21  1.2e-03  3.3e-03  7.0e-06  1.02e+00   5.413170684e+00   5.415753333e+00   7.3e-06  0.84  
+22  8.1e-04  2.3e-03  3.9e-06  1.02e+00   5.413917976e+00   5.415662627e+00   5.0e-06  0.86  
+23  3.7e-04  1.0e-03  1.2e-06  1.02e+00   5.414507343e+00   5.415298186e+00   2.3e-06  0.89  
+24  9.9e-05  2.8e-04  1.7e-07  1.01e+00   5.414715112e+00   5.414928846e+00   6.1e-07  0.92  
+25  1.5e-05  4.2e-05  9.9e-09  1.00e+00   5.414747726e+00   5.414779980e+00   9.3e-08  0.95  
+26  8.1e-07  2.3e-06  1.3e-10  1.00e+00   5.414749333e+00   5.414751083e+00   5.0e-09  0.98  
+27  4.2e-08  1.2e-07  1.5e-12  1.00e+00   5.414749368e+00   5.414749459e+00   2.6e-10  1.00  
+28  3.1e-09  8.6e-09  2.9e-14  9.99e-01   5.414749370e+00   5.414749377e+00   1.9e-11  1.07  
+Optimizer terminated. Time: 1.07    
+
+
+Interior-point solution summary
+  Problem status  : PRIMAL_AND_DUAL_FEASIBLE
+  Solution status : OPTIMAL
+  Primal.  obj: 5.4147493704e+00    nrm: 3e+01    Viol.  con: 4e-09    var: 1e-11    barvar: 0e+00    cones: 0e+00  
+  Dual.    obj: 5.4147493771e+00    nrm: 8e+00    Viol.  con: 0e+00    var: 7e-11    barvar: 2e-09    cones: 0e+00  
+-------------------------------------------------------------------------------
+                                    Summary                                    
+-------------------------------------------------------------------------------
+(CVXPY) Mar 15 03:59:47 PM: Problem status: optimal
+(CVXPY) Mar 15 03:59:47 PM: Optimal value: -5.415e+00
+(CVXPY) Mar 15 03:59:47 PM: Compilation took 3.317e+01 seconds
+(CVXPY) Mar 15 03:59:47 PM: Solver (including time spent in interface) took 1.146e+00 seconds
+---------------------------------[Optimization Complete in 36.58 s]---------------------------------
+Complete: 
+ ~ sensitivity analysis took 0.00 CPU seconds.
+ ~ optimization with MOSEK via cvxpy took 36.58 CPU seconds.
+####################################################################################################
+
+######################################## Optimal Candidates ########################################
+Obtained on                             : 2021-03-15 15:59:47.288240
+Criterion                               : cvar_d_opt_criterion
+Criterion Value                         : -5.414749370443319
+Pseudo-bayesian                         : True
+Pseudo-bayesian Criterion Type          : 0
+CVaR Problem                            : True
+Beta                                    : 0.75
+Constrained Problem                     : True
+Min. Mean Value                         : -3.533883
+Dynamic                                 : False
+Time-invariant Controls                 : True
+Time-varying Controls                   : False
+Number of Candidates                    : 21
+Number of Optimal Candidates            : 3
+Number of Scenarios                     : 200
+-------------------------------------------[Candidate 1]--------------------------------------------
+                             Recommended Effort: 49.95% of experiments                              
+Time-invariant Controls:
+[0.]
+-------------------------------------------[Candidate 7]--------------------------------------------
+                             Recommended Effort: 15.52% of experiments                              
+Time-invariant Controls:
+[0.15]
+-------------------------------------------[Candidate 8]--------------------------------------------
+                             Recommended Effort: 34.53% of experiments                              
+Time-invariant Controls:
+[0.175]
+####################################################################################################
+CVaR: -5.414749370443319
+MEAN: -3.5338832866161938
+=====================================[Iteration 6/10 Completed]=====================================
+
+==========================================[Iteration 7/10]==========================================
+############################### Computing Optimal Experiment Design ################################
+Started on                              : 2021-03-15 15:59:47.289060
+Criterion                               : cvar_d_opt_criterion
+Pseudo-bayesian                         : True
+Pseudo-bayesian Criterion Type          : 0
+Dynamic                                 : False
+Time-invariant Controls                 : True
+Time-varying Controls                   : False
+Number of Candidates                    : 21
+Number of Scenarios                     : 200
+===============================================================================
+                                     CVXPY                                     
+                                    v1.1.11                                    
+===============================================================================
+(CVXPY) Mar 15 03:59:48 PM: Your problem has 422.0 variables, 423 constraints, and 0 parameters.
+(CVXPY) Mar 15 03:59:49 PM: It is compliant with the following grammars: DCP, DQCP
+(CVXPY) Mar 15 03:59:49 PM: (If you need to solve this problem multiple times, but with different data, consider using parameters.)
+(CVXPY) Mar 15 03:59:49 PM: CVXPY will first compile your problem; then, it will invoke a numerical solver to obtain a solution.
+-------------------------------------------------------------------------------
+                                  Compilation                                  
+-------------------------------------------------------------------------------
+(CVXPY) Mar 15 03:59:49 PM: Compiling problem (target solver=MOSEK).
+(CVXPY) Mar 15 03:59:49 PM: Reduction chain: FlipObjective -> Dcp2Cone -> CvxAttr2Constr -> ConeMatrixStuffing -> MOSEK
+(CVXPY) Mar 15 03:59:49 PM: Applying reduction FlipObjective
+(CVXPY) Mar 15 03:59:49 PM: Applying reduction Dcp2Cone
+(CVXPY) Mar 15 03:59:50 PM: Applying reduction CvxAttr2Constr
+(CVXPY) Mar 15 03:59:51 PM: Applying reduction ConeMatrixStuffing
+(CVXPY) Mar 15 03:59:53 PM: Applying reduction MOSEK
+(CVXPY) Mar 15 04:00:22 PM: Finished problem compilation (took 3.288e+01 seconds).
+-------------------------------------------------------------------------------
+                                Numerical solver                               
+-------------------------------------------------------------------------------
+(CVXPY) Mar 15 04:00:22 PM: Invoking solver MOSEK to obtain a solution.
+
+
+Problem
+  Name                   :                 
+  Objective sense        : max             
+  Type                   : CONIC (conic optimization problem)
+  Constraints            : 1422            
+  Cones                  : 400             
+  Scalar variables       : 1844            
+  Matrix variables       : 200             
+  Integer variables      : 0               
+
+Optimizer started.
+Problem
+  Name                   :                 
+  Objective sense        : max             
+  Type                   : CONIC (conic optimization problem)
+  Constraints            : 1422            
+  Cones                  : 400             
+  Scalar variables       : 1844            
+  Matrix variables       : 200             
+  Integer variables      : 0               
+
+Optimizer  - threads                : 24              
+Optimizer  - solved problem         : the primal      
+Optimizer  - Constraints            : 1022
+Optimizer  - Cones                  : 400
+Optimizer  - Scalar variables       : 1423              conic                  : 1200            
+Optimizer  - Semi-definite variables: 200               scalarized             : 2000            
+Factor     - setup time             : 0.01              dense det. time        : 0.00            
+Factor     - ML order time          : 0.00              GP order time          : 0.00            
+Factor     - nonzeros before factor : 3.53e+04          after factor           : 4.44e+04        
+Factor     - dense dim.             : 0                 flops                  : 4.88e+06        
+ITE PFEAS    DFEAS    GFEAS    PRSTATUS   POBJ              DOBJ              MU       TIME  
+0   1.6e+02  4.5e+02  3.3e+02  0.00e+00   -3.311353596e+02  0.000000000e+00   1.0e+00  0.04  
+1   1.0e+02  2.9e+02  1.9e+02  4.80e-01   -2.378070400e+02  2.523043632e+00   6.5e-01  0.10  
+2   8.3e+01  2.3e+02  1.4e+02  5.65e-01   -1.965151544e+02  3.614832986e+00   5.1e-01  0.13  
+3   3.5e+01  9.7e+01  3.7e+01  7.57e-01   -8.082000325e+01  6.248298802e+00   2.2e-01  0.16  
+4   8.0e+00  2.2e+01  3.5e+00  1.02e+00   -1.151082061e+01  7.184037726e+00   4.9e-02  0.20  
+5   3.6e+00  1.0e+01  9.4e-01  1.42e+00   -8.929958537e-01  6.082097029e+00   2.2e-02  0.23  
+6   1.8e+00  4.9e+00  3.7e-01  1.02e+00   2.059326680e+00   5.723228679e+00   1.1e-02  0.26  
+7   6.5e-01  1.8e+00  7.6e-02  1.08e+00   3.865829654e+00   5.131536022e+00   4.0e-03  0.29  
+8   5.1e-01  1.4e+00  5.8e-02  8.82e-01   4.135991797e+00   5.215508793e+00   3.2e-03  0.32  
+9   2.3e-01  6.3e-01  1.8e-02  8.84e-01   4.734074833e+00   5.244688015e+00   1.4e-03  0.35  
+10  1.4e-01  4.0e-01  9.3e-03  9.77e-01   4.961022093e+00   5.285793602e+00   8.9e-04  0.38  
+11  7.1e-02  2.0e-01  3.3e-03  9.52e-01   5.178564965e+00   5.342932334e+00   4.4e-04  0.41  
+12  6.4e-02  1.8e-01  2.9e-03  9.26e-01   5.204932261e+00   5.355421931e+00   4.0e-04  0.43  
+13  2.8e-02  7.8e-02  8.3e-04  9.78e-01   5.330726598e+00   5.396208361e+00   1.7e-04  0.46  
+14  2.1e-02  5.7e-02  5.3e-04  9.96e-01   5.356914588e+00   5.405591534e+00   1.3e-04  0.49  
+15  1.1e-02  3.2e-02  2.2e-04  1.05e+00   5.388087665e+00   5.414604130e+00   7.1e-05  0.52  
+16  9.8e-03  2.7e-02  1.7e-04  1.08e+00   5.396873853e+00   5.419247388e+00   6.0e-05  0.55  
+17  6.9e-03  1.9e-02  1.0e-04  1.06e+00   5.404731538e+00   5.420416799e+00   4.3e-05  0.58  
+18  3.5e-03  9.7e-03  3.6e-05  1.04e+00   5.414395049e+00   5.422249068e+00   2.2e-05  0.60  
+19  1.8e-03  5.0e-03  1.4e-05  1.02e+00   5.417394992e+00   5.421445059e+00   1.1e-05  0.63  
+20  1.7e-03  4.6e-03  1.2e-05  1.03e+00   5.418021408e+00   5.421741439e+00   1.0e-05  0.66  
+21  8.7e-04  2.4e-03  4.5e-06  1.02e+00   5.419405142e+00   5.421328829e+00   5.4e-06  0.69  
+22  2.5e-04  7.1e-04  7.1e-07  1.01e+00   5.420309715e+00   5.420870582e+00   1.6e-06  0.71  
+23  7.8e-05  2.2e-04  1.2e-07  1.01e+00   5.420447587e+00   5.420620879e+00   4.8e-07  0.74  
+24  3.2e-06  8.8e-06  9.8e-10  1.00e+00   5.420465955e+00   5.420472908e+00   1.9e-08  0.77  
+25  8.3e-08  2.3e-07  4.2e-12  1.00e+00   5.420465922e+00   5.420466104e+00   5.1e-10  0.80  
+26  3.7e-08  1.8e-08  8.5e-14  1.01e+00   5.420465948e+00   5.420465962e+00   3.6e-11  0.85  
+Optimizer terminated. Time: 0.85    
+
+
+Interior-point solution summary
+  Problem status  : PRIMAL_AND_DUAL_FEASIBLE
+  Solution status : OPTIMAL
+  Primal.  obj: 5.4204659480e+00    nrm: 3e+01    Viol.  con: 4e-08    var: 4e-11    barvar: 0e+00    cones: 0e+00  
+  Dual.    obj: 5.4204659620e+00    nrm: 8e+00    Viol.  con: 0e+00    var: 1e-10    barvar: 5e-10    cones: 0e+00  
+-------------------------------------------------------------------------------
+                                    Summary                                    
+-------------------------------------------------------------------------------
+(CVXPY) Mar 15 04:00:23 PM: Problem status: optimal
+(CVXPY) Mar 15 04:00:23 PM: Optimal value: -5.420e+00
+(CVXPY) Mar 15 04:00:23 PM: Compilation took 3.288e+01 seconds
+(CVXPY) Mar 15 04:00:23 PM: Solver (including time spent in interface) took 9.283e-01 seconds
+---------------------------------[Optimization Complete in 36.01 s]---------------------------------
+Complete: 
+ ~ sensitivity analysis took 0.00 CPU seconds.
+ ~ optimization with MOSEK via cvxpy took 36.01 CPU seconds.
+####################################################################################################
+
+######################################## Optimal Candidates ########################################
+Obtained on                             : 2021-03-15 16:00:23.469739
+Criterion                               : cvar_d_opt_criterion
+Criterion Value                         : -5.420465947962617
+Pseudo-bayesian                         : True
+Pseudo-bayesian Criterion Type          : 0
+CVaR Problem                            : True
+Beta                                    : 0.75
+Constrained Problem                     : True
+Min. Mean Value                         : -3.521422
+Dynamic                                 : False
+Time-invariant Controls                 : True
+Time-varying Controls                   : False
+Number of Candidates                    : 21
+Number of Optimal Candidates            : 4
+Number of Scenarios                     : 200
+-------------------------------------------[Candidate 1]--------------------------------------------
+                             Recommended Effort: 49.96% of experiments                              
+Time-invariant Controls:
+[0.]
+-------------------------------------------[Candidate 7]--------------------------------------------
+                              Recommended Effort: 5.44% of experiments                              
+Time-invariant Controls:
+[0.15]
+-------------------------------------------[Candidate 8]--------------------------------------------
+                             Recommended Effort: 44.51% of experiments                              
+Time-invariant Controls:
+[0.175]
+-------------------------------------------[Candidate 21]-------------------------------------------
+                              Recommended Effort: 0.10% of experiments                              
+Time-invariant Controls:
+[0.5]
+####################################################################################################
+CVaR: -5.420465947962617
+MEAN: -3.5214220747230054
+=====================================[Iteration 7/10 Completed]=====================================
+
+==========================================[Iteration 8/10]==========================================
+############################### Computing Optimal Experiment Design ################################
+Started on                              : 2021-03-15 16:00:23.470729
+Criterion                               : cvar_d_opt_criterion
+Pseudo-bayesian                         : True
+Pseudo-bayesian Criterion Type          : 0
+Dynamic                                 : False
+Time-invariant Controls                 : True
+Time-varying Controls                   : False
+Number of Candidates                    : 21
+Number of Scenarios                     : 200
+===============================================================================
+                                     CVXPY                                     
+                                    v1.1.11                                    
+===============================================================================
+(CVXPY) Mar 15 04:00:25 PM: Your problem has 422.0 variables, 423 constraints, and 0 parameters.
+(CVXPY) Mar 15 04:00:25 PM: It is compliant with the following grammars: DCP, DQCP
+(CVXPY) Mar 15 04:00:25 PM: (If you need to solve this problem multiple times, but with different data, consider using parameters.)
+(CVXPY) Mar 15 04:00:25 PM: CVXPY will first compile your problem; then, it will invoke a numerical solver to obtain a solution.
+-------------------------------------------------------------------------------
+                                  Compilation                                  
+-------------------------------------------------------------------------------
+(CVXPY) Mar 15 04:00:26 PM: Compiling problem (target solver=MOSEK).
+(CVXPY) Mar 15 04:00:26 PM: Reduction chain: FlipObjective -> Dcp2Cone -> CvxAttr2Constr -> ConeMatrixStuffing -> MOSEK
+(CVXPY) Mar 15 04:00:26 PM: Applying reduction FlipObjective
+(CVXPY) Mar 15 04:00:26 PM: Applying reduction Dcp2Cone
+(CVXPY) Mar 15 04:00:26 PM: Applying reduction CvxAttr2Constr
+(CVXPY) Mar 15 04:00:27 PM: Applying reduction ConeMatrixStuffing
+(CVXPY) Mar 15 04:00:29 PM: Applying reduction MOSEK
+(CVXPY) Mar 15 04:00:58 PM: Finished problem compilation (took 3.291e+01 seconds).
+-------------------------------------------------------------------------------
+                                Numerical solver                               
+-------------------------------------------------------------------------------
+(CVXPY) Mar 15 04:00:58 PM: Invoking solver MOSEK to obtain a solution.
+
+
+Problem
+  Name                   :                 
+  Objective sense        : max             
+  Type                   : CONIC (conic optimization problem)
+  Constraints            : 1422            
+  Cones                  : 400             
+  Scalar variables       : 1844            
+  Matrix variables       : 200             
+  Integer variables      : 0               
+
+Optimizer started.
+Problem
+  Name                   :                 
+  Objective sense        : max             
+  Type                   : CONIC (conic optimization problem)
+  Constraints            : 1422            
+  Cones                  : 400             
+  Scalar variables       : 1844            
+  Matrix variables       : 200             
+  Integer variables      : 0               
+
+Optimizer  - threads                : 24              
+Optimizer  - solved problem         : the primal      
+Optimizer  - Constraints            : 1022
+Optimizer  - Cones                  : 400
+Optimizer  - Scalar variables       : 1423              conic                  : 1200            
+Optimizer  - Semi-definite variables: 200               scalarized             : 2000            
+Factor     - setup time             : 0.01              dense det. time        : 0.00            
+Factor     - ML order time          : 0.00              GP order time          : 0.00            
+Factor     - nonzeros before factor : 3.53e+04          after factor           : 4.44e+04        
+Factor     - dense dim.             : 0                 flops                  : 4.88e+06        
+ITE PFEAS    DFEAS    GFEAS    PRSTATUS   POBJ              DOBJ              MU       TIME  
+0   1.6e+02  4.5e+02  3.3e+02  0.00e+00   -3.311353596e+02  0.000000000e+00   1.0e+00  0.05  
+1   1.0e+02  2.9e+02  1.9e+02  4.81e-01   -2.377900867e+02  2.519728116e+00   6.5e-01  0.07  
+2   8.3e+01  2.3e+02  1.4e+02  5.65e-01   -1.965396370e+02  3.609036765e+00   5.1e-01  0.09  
+3   3.5e+01  9.7e+01  3.7e+01  7.57e-01   -8.088698004e+01  6.237839447e+00   2.2e-01  0.11  
+4   8.0e+00  2.2e+01  3.5e+00  1.02e+00   -1.153706346e+01  7.174741068e+00   4.9e-02  0.14  
+5   3.6e+00  9.9e+00  9.4e-01  1.42e+00   -8.962758387e-01  6.077107435e+00   2.2e-02  0.16  
+6   1.8e+00  4.9e+00  3.7e-01  1.02e+00   2.042366678e+00   5.728828435e+00   1.1e-02  0.18  
+7   6.5e-01  1.8e+00  7.6e-02  1.08e+00   3.858998767e+00   5.132951225e+00   4.0e-03  0.20  
+8   5.1e-01  1.4e+00  5.8e-02  8.74e-01   4.129479292e+00   5.218412853e+00   3.2e-03  0.22  
+9   2.2e-01  6.2e-01  1.8e-02  8.74e-01   4.731925442e+00   5.245988824e+00   1.4e-03  0.24  
+10  1.4e-01  3.9e-01  9.3e-03  9.61e-01   4.958805371e+00   5.287017739e+00   8.8e-04  0.26  
+11  7.0e-02  2.0e-01  3.4e-03  9.34e-01   5.177840942e+00   5.345466470e+00   4.3e-04  0.27  
+12  6.3e-02  1.8e-01  2.9e-03  9.05e-01   5.204427965e+00   5.358410740e+00   3.9e-04  0.29  
+13  2.5e-02  6.8e-02  7.0e-04  9.57e-01   5.347369184e+00   5.406886426e+00   1.5e-04  0.31  
+14  1.9e-02  5.4e-02  5.0e-04  9.91e-01   5.368095955e+00   5.416072475e+00   1.2e-04  0.33  
+15  1.1e-02  3.1e-02  2.2e-04  1.05e+00   5.394093175e+00   5.421453654e+00   7.0e-05  0.35  
+16  9.1e-03  2.5e-02  1.6e-04  1.06e+00   5.402470740e+00   5.424322033e+00   5.6e-05  0.37  
+17  6.6e-03  1.8e-02  9.7e-05  1.07e+00   5.413201503e+00   5.428787914e+00   4.1e-05  0.39  
+18  5.8e-03  1.6e-02  7.9e-05  1.08e+00   5.416454245e+00   5.429957357e+00   3.6e-05  0.41  
+19  3.1e-03  8.6e-03  3.1e-05  1.05e+00   5.421967389e+00   5.429170454e+00   1.9e-05  0.43  
+20  1.1e-03  3.0e-03  6.5e-06  1.04e+00   5.427229125e+00   5.429714095e+00   6.7e-06  0.45  
+21  3.9e-04  1.1e-03  1.4e-06  1.01e+00   5.428181389e+00   5.429079375e+00   2.4e-06  0.47  
+22  2.5e-04  6.9e-04  7.1e-07  1.01e+00   5.428448631e+00   5.429013272e+00   1.5e-06  0.48  
+23  5.4e-05  1.5e-04  7.2e-08  1.01e+00   5.428638479e+00   5.428761167e+00   3.3e-07  0.50  
+24  6.5e-06  1.8e-05  3.0e-09  1.00e+00   5.428671059e+00   5.428685907e+00   4.0e-08  0.52  
+25  3.5e-07  9.7e-07  3.7e-11  1.00e+00   5.428674669e+00   5.428675466e+00   2.2e-09  0.54  
+26  3.0e-08  5.7e-08  5.4e-13  1.00e+00   5.428674764e+00   5.428674811e+00   1.3e-10  0.56  
+Optimizer terminated. Time: 0.56    
+
+
+Interior-point solution summary
+  Problem status  : PRIMAL_AND_DUAL_FEASIBLE
+  Solution status : OPTIMAL
+  Primal.  obj: 5.4286747637e+00    nrm: 4e+01    Viol.  con: 3e-08    var: 1e-10    barvar: 0e+00    cones: 0e+00  
+  Dual.    obj: 5.4286748107e+00    nrm: 8e+00    Viol.  con: 0e+00    var: 5e-10    barvar: 4e-10    cones: 0e+00  
+-------------------------------------------------------------------------------
+                                    Summary                                    
+-------------------------------------------------------------------------------
+(CVXPY) Mar 15 04:00:59 PM: Problem status: optimal
+(CVXPY) Mar 15 04:00:59 PM: Optimal value: -5.429e+00
+(CVXPY) Mar 15 04:00:59 PM: Compilation took 3.291e+01 seconds
+(CVXPY) Mar 15 04:00:59 PM: Solver (including time spent in interface) took 6.417e-01 seconds
+---------------------------------[Optimization Complete in 35.79 s]---------------------------------
+Complete: 
+ ~ sensitivity analysis took 0.00 CPU seconds.
+ ~ optimization with MOSEK via cvxpy took 35.79 CPU seconds.
+####################################################################################################
+
+######################################## Optimal Candidates ########################################
+Obtained on                             : 2021-03-15 16:00:59.436024
+Criterion                               : cvar_d_opt_criterion
+Criterion Value                         : -5.428674763737751
+Pseudo-bayesian                         : True
+Pseudo-bayesian Criterion Type          : 0
+CVaR Problem                            : True
+Beta                                    : 0.75
+Constrained Problem                     : True
+Min. Mean Value                         : -3.508961
+Dynamic                                 : False
+Time-invariant Controls                 : True
+Time-varying Controls                   : False
+Number of Candidates                    : 21
+Number of Optimal Candidates            : 3
+Number of Scenarios                     : 200
+-------------------------------------------[Candidate 1]--------------------------------------------
+                             Recommended Effort: 49.86% of experiments                              
+Time-invariant Controls:
+[0.]
+-------------------------------------------[Candidate 8]--------------------------------------------
+                             Recommended Effort: 49.47% of experiments                              
+Time-invariant Controls:
+[0.175]
+-------------------------------------------[Candidate 21]-------------------------------------------
+                              Recommended Effort: 0.67% of experiments                              
+Time-invariant Controls:
+[0.5]
+####################################################################################################
+CVaR: -5.428674763737751
+MEAN: -3.5089608624786433
+=====================================[Iteration 8/10 Completed]=====================================
+
+==========================================[Iteration 9/10]==========================================
+############################### Computing Optimal Experiment Design ################################
+Started on                              : 2021-03-15 16:00:59.436830
+Criterion                               : cvar_d_opt_criterion
+Pseudo-bayesian                         : True
+Pseudo-bayesian Criterion Type          : 0
+Dynamic                                 : False
+Time-invariant Controls                 : True
+Time-varying Controls                   : False
+Number of Candidates                    : 21
+Number of Scenarios                     : 200
+===============================================================================
+                                     CVXPY                                     
+                                    v1.1.11                                    
+===============================================================================
+(CVXPY) Mar 15 04:01:01 PM: Your problem has 422.0 variables, 423 constraints, and 0 parameters.
+(CVXPY) Mar 15 04:01:01 PM: It is compliant with the following grammars: DCP, DQCP
+(CVXPY) Mar 15 04:01:01 PM: (If you need to solve this problem multiple times, but with different data, consider using parameters.)
+(CVXPY) Mar 15 04:01:01 PM: CVXPY will first compile your problem; then, it will invoke a numerical solver to obtain a solution.
+-------------------------------------------------------------------------------
+                                  Compilation                                  
+-------------------------------------------------------------------------------
+(CVXPY) Mar 15 04:01:02 PM: Compiling problem (target solver=MOSEK).
+(CVXPY) Mar 15 04:01:02 PM: Reduction chain: FlipObjective -> Dcp2Cone -> CvxAttr2Constr -> ConeMatrixStuffing -> MOSEK
+(CVXPY) Mar 15 04:01:02 PM: Applying reduction FlipObjective
+(CVXPY) Mar 15 04:01:02 PM: Applying reduction Dcp2Cone
+(CVXPY) Mar 15 04:01:02 PM: Applying reduction CvxAttr2Constr
+(CVXPY) Mar 15 04:01:03 PM: Applying reduction ConeMatrixStuffing
+(CVXPY) Mar 15 04:01:05 PM: Applying reduction MOSEK
+(CVXPY) Mar 15 04:01:34 PM: Finished problem compilation (took 3.306e+01 seconds).
+-------------------------------------------------------------------------------
+                                Numerical solver                               
+-------------------------------------------------------------------------------
+(CVXPY) Mar 15 04:01:34 PM: Invoking solver MOSEK to obtain a solution.
+
+
+Problem
+  Name                   :                 
+  Objective sense        : max             
+  Type                   : CONIC (conic optimization problem)
+  Constraints            : 1422            
+  Cones                  : 400             
+  Scalar variables       : 1844            
+  Matrix variables       : 200             
+  Integer variables      : 0               
+
+Optimizer started.
+Problem
+  Name                   :                 
+  Objective sense        : max             
+  Type                   : CONIC (conic optimization problem)
+  Constraints            : 1422            
+  Cones                  : 400             
+  Scalar variables       : 1844            
+  Matrix variables       : 200             
+  Integer variables      : 0               
+
+Optimizer  - threads                : 24              
+Optimizer  - solved problem         : the primal      
+Optimizer  - Constraints            : 1022
+Optimizer  - Cones                  : 400
+Optimizer  - Scalar variables       : 1423              conic                  : 1200            
+Optimizer  - Semi-definite variables: 200               scalarized             : 2000            
+Factor     - setup time             : 0.01              dense det. time        : 0.00            
+Factor     - ML order time          : 0.00              GP order time          : 0.00            
+Factor     - nonzeros before factor : 3.53e+04          after factor           : 4.44e+04        
+Factor     - dense dim.             : 0                 flops                  : 4.88e+06        
+ITE PFEAS    DFEAS    GFEAS    PRSTATUS   POBJ              DOBJ              MU       TIME  
+0   1.6e+02  4.5e+02  3.3e+02  0.00e+00   -3.311353596e+02  0.000000000e+00   1.0e+00  0.04  
+1   1.0e+02  2.9e+02  1.9e+02  4.82e-01   -2.377736559e+02  2.516409164e+00   6.5e-01  0.08  
+2   8.3e+01  2.3e+02  1.4e+02  5.66e-01   -1.965644341e+02  3.603250750e+00   5.1e-01  0.10  
+3   3.5e+01  9.7e+01  3.7e+01  7.57e-01   -8.095432600e+01  6.227405716e+00   2.2e-01  0.11  
+4   8.0e+00  2.2e+01  3.5e+00  1.02e+00   -1.156239081e+01  7.165515180e+00   4.9e-02  0.13  
+5   3.6e+00  9.9e+00  9.4e-01  1.41e+00   -8.990417363e-01  6.072208339e+00   2.2e-02  0.14  
+6   1.8e+00  4.9e+00  3.7e-01  1.01e+00   2.025425117e+00   5.734816579e+00   1.1e-02  0.16  
+7   6.5e-01  1.8e+00  7.7e-02  1.07e+00   3.852326767e+00   5.134707635e+00   4.0e-03  0.18  
+8   5.1e-01  1.4e+00  5.8e-02  8.65e-01   4.123126281e+00   5.221787960e+00   3.1e-03  0.21  
+9   2.2e-01  6.1e-01  1.8e-02  8.63e-01   4.730299536e+00   5.247753712e+00   1.4e-03  0.23  
+10  1.4e-01  3.9e-01  9.3e-03  9.43e-01   4.956888786e+00   5.288681392e+00   8.6e-04  0.25  
+11  6.9e-02  1.9e-01  3.4e-03  9.11e-01   5.177210274e+00   5.348370662e+00   4.3e-04  0.27  
+12  6.2e-02  1.7e-01  3.0e-03  8.74e-01   5.203935418e+00   5.361776780e+00   3.9e-04  0.29  
+13  2.2e-02  6.2e-02  6.4e-04  9.25e-01   5.359707827e+00   5.416928859e+00   1.4e-04  0.32  
+14  1.8e-02  5.1e-02  5.0e-04  9.71e-01   5.378685711e+00   5.427437394e+00   1.1e-04  0.34  
+15  6.5e-03  1.8e-02  9.9e-05  1.05e+00   5.422947873e+00   5.439423461e+00   4.0e-05  0.36  
+16  3.6e-03  1.0e-02  4.3e-05  1.01e+00   5.430150906e+00   5.439487673e+00   2.2e-05  0.38  
+17  2.9e-03  7.9e-03  3.0e-05  1.04e+00   5.432349481e+00   5.439681129e+00   1.8e-05  0.40  
+18  2.2e-03  6.1e-03  2.0e-05  1.06e+00   5.435316810e+00   5.440818787e+00   1.4e-05  0.42  
+19  1.6e-03  4.5e-03  1.3e-05  1.06e+00   5.436867615e+00   5.440934846e+00   1.0e-05  0.44  
+20  1.4e-03  3.8e-03  9.6e-06  1.13e+00   5.438008441e+00   5.441339682e+00   8.4e-06  0.46  
+21  6.5e-04  1.8e-03  3.2e-06  1.05e+00   5.439485932e+00   5.441060309e+00   4.0e-06  0.49  
+22  1.3e-04  3.5e-04  2.8e-07  1.03e+00   5.440350124e+00   5.440657553e+00   7.9e-07  0.51  
+23  1.5e-05  4.1e-05  1.1e-08  1.00e+00   5.440525758e+00   5.440561085e+00   9.1e-08  0.53  
+24  1.6e-06  4.4e-06  3.8e-10  1.00e+00   5.440547623e+00   5.440551427e+00   9.8e-09  0.55  
+25  1.7e-07  4.6e-07  1.3e-11  1.00e+00   5.440549590e+00   5.440549992e+00   1.0e-09  0.57  
+26  8.6e-08  2.3e-08  1.4e-13  1.01e+00   5.440549805e+00   5.440549825e+00   4.9e-11  0.59  
+27  6.5e-08  1.8e-08  9.5e-14  1.00e+00   5.440549809e+00   5.440549824e+00   3.7e-11  0.66  
+28  3.0e-09  1.2e-08  5.2e-16  9.99e-01   5.440549821e+00   5.440549821e+00   1.2e-12  0.73  
+Optimizer terminated. Time: 0.73    
+
+
+Interior-point solution summary
+  Problem status  : PRIMAL_AND_DUAL_FEASIBLE
+  Solution status : OPTIMAL
+  Primal.  obj: 5.4405498209e+00    nrm: 4e+01    Viol.  con: 3e-09    var: 1e-12    barvar: 0e+00    cones: 0e+00  
+  Dual.    obj: 5.4405498214e+00    nrm: 8e+00    Viol.  con: 0e+00    var: 5e-12    barvar: 1e-08    cones: 0e+00  
+-------------------------------------------------------------------------------
+                                    Summary                                    
+-------------------------------------------------------------------------------
+(CVXPY) Mar 15 04:01:35 PM: Problem status: optimal
+(CVXPY) Mar 15 04:01:35 PM: Optimal value: -5.441e+00
+(CVXPY) Mar 15 04:01:35 PM: Compilation took 3.306e+01 seconds
+(CVXPY) Mar 15 04:01:35 PM: Solver (including time spent in interface) took 8.101e-01 seconds
+---------------------------------[Optimization Complete in 36.14 s]---------------------------------
+Complete: 
+ ~ sensitivity analysis took 0.00 CPU seconds.
+ ~ optimization with MOSEK via cvxpy took 36.14 CPU seconds.
+####################################################################################################
+
+######################################## Optimal Candidates ########################################
+Obtained on                             : 2021-03-15 16:01:35.754333
+Criterion                               : cvar_d_opt_criterion
+Criterion Value                         : -5.440549820907819
+Pseudo-bayesian                         : True
+Pseudo-bayesian Criterion Type          : 0
+CVaR Problem                            : True
+Beta                                    : 0.75
+Constrained Problem                     : True
+Min. Mean Value                         : -3.496500
+Dynamic                                 : False
+Time-invariant Controls                 : True
+Time-varying Controls                   : False
+Number of Candidates                    : 21
+Number of Optimal Candidates            : 3
+Number of Scenarios                     : 200
+-------------------------------------------[Candidate 1]--------------------------------------------
+                             Recommended Effort: 49.62% of experiments                              
+Time-invariant Controls:
+[0.]
+-------------------------------------------[Candidate 8]--------------------------------------------
+                             Recommended Effort: 48.47% of experiments                              
+Time-invariant Controls:
+[0.175]
+-------------------------------------------[Candidate 21]-------------------------------------------
+                              Recommended Effort: 1.92% of experiments                              
+Time-invariant Controls:
+[0.5]
+####################################################################################################
+CVaR: -5.440549820907819
+MEAN: -3.4964996513151503
+=====================================[Iteration 9/10 Completed]=====================================
+
+=========================================[Iteration 10/10]==========================================
+############################### Computing Optimal Experiment Design ################################
+Started on                              : 2021-03-15 16:01:35.755168
+Criterion                               : cvar_d_opt_criterion
+Pseudo-bayesian                         : True
+Pseudo-bayesian Criterion Type          : 0
+Dynamic                                 : False
+Time-invariant Controls                 : True
+Time-varying Controls                   : False
+Number of Candidates                    : 21
+Number of Scenarios                     : 200
+===============================================================================
+                                     CVXPY                                     
+                                    v1.1.11                                    
+===============================================================================
+(CVXPY) Mar 15 04:01:37 PM: Your problem has 422.0 variables, 423 constraints, and 0 parameters.
+(CVXPY) Mar 15 04:01:37 PM: It is compliant with the following grammars: DCP, DQCP
+(CVXPY) Mar 15 04:01:37 PM: (If you need to solve this problem multiple times, but with different data, consider using parameters.)
+(CVXPY) Mar 15 04:01:37 PM: CVXPY will first compile your problem; then, it will invoke a numerical solver to obtain a solution.
+-------------------------------------------------------------------------------
+                                  Compilation                                  
+-------------------------------------------------------------------------------
+(CVXPY) Mar 15 04:01:38 PM: Compiling problem (target solver=MOSEK).
+(CVXPY) Mar 15 04:01:38 PM: Reduction chain: FlipObjective -> Dcp2Cone -> CvxAttr2Constr -> ConeMatrixStuffing -> MOSEK
+(CVXPY) Mar 15 04:01:38 PM: Applying reduction FlipObjective
+(CVXPY) Mar 15 04:01:38 PM: Applying reduction Dcp2Cone
+(CVXPY) Mar 15 04:01:39 PM: Applying reduction CvxAttr2Constr
+(CVXPY) Mar 15 04:01:39 PM: Applying reduction ConeMatrixStuffing
+(CVXPY) Mar 15 04:01:41 PM: Applying reduction MOSEK
+(CVXPY) Mar 15 04:02:10 PM: Finished problem compilation (took 3.292e+01 seconds).
+-------------------------------------------------------------------------------
+                                Numerical solver                               
+-------------------------------------------------------------------------------
+(CVXPY) Mar 15 04:02:10 PM: Invoking solver MOSEK to obtain a solution.
+
+
+Problem
+  Name                   :                 
+  Objective sense        : max             
+  Type                   : CONIC (conic optimization problem)
+  Constraints            : 1422            
+  Cones                  : 400             
+  Scalar variables       : 1844            
+  Matrix variables       : 200             
+  Integer variables      : 0               
+
+Optimizer started.
+Problem
+  Name                   :                 
+  Objective sense        : max             
+  Type                   : CONIC (conic optimization problem)
+  Constraints            : 1422            
+  Cones                  : 400             
+  Scalar variables       : 1844            
+  Matrix variables       : 200             
+  Integer variables      : 0               
+
+Optimizer  - threads                : 24              
+Optimizer  - solved problem         : the primal      
+Optimizer  - Constraints            : 1022
+Optimizer  - Cones                  : 400
+Optimizer  - Scalar variables       : 1423              conic                  : 1200            
+Optimizer  - Semi-definite variables: 200               scalarized             : 2000            
+Factor     - setup time             : 0.01              dense det. time        : 0.00            
+Factor     - ML order time          : 0.00              GP order time          : 0.00            
+Factor     - nonzeros before factor : 3.53e+04          after factor           : 4.44e+04        
+Factor     - dense dim.             : 0                 flops                  : 4.88e+06        
+ITE PFEAS    DFEAS    GFEAS    PRSTATUS   POBJ              DOBJ              MU       TIME  
+0   1.6e+02  4.5e+02  3.3e+02  0.00e+00   -3.311353596e+02  0.000000000e+00   1.0e+00  0.05  
+1   1.0e+02  2.9e+02  1.9e+02  4.83e-01   -2.377577530e+02  2.513086814e+00   6.5e-01  0.07  
+2   8.3e+01  2.3e+02  1.4e+02  5.66e-01   -1.965895483e+02  3.597475043e+00   5.1e-01  0.11  
+3   3.5e+01  9.6e+01  3.7e+01  7.57e-01   -8.102203963e+01  6.216997835e+00   2.2e-01  0.14  
+4   8.0e+00  2.2e+01  3.5e+00  1.02e+00   -1.158779343e+01  7.156347702e+00   4.9e-02  0.17  
+5   3.6e+00  9.8e+00  9.3e-01  1.41e+00   -9.014276153e-01  6.067492765e+00   2.2e-02  0.20  
+6   1.8e+00  4.8e+00  3.7e-01  1.01e+00   2.008609606e+00   5.741198352e+00   1.1e-02  0.24  
+7   6.5e-01  1.8e+00  7.7e-02  1.07e+00   3.845831430e+00   5.136832040e+00   4.0e-03  0.27  
+8   5.1e-01  1.4e+00  5.9e-02  8.56e-01   4.116958590e+00   5.225681951e+00   3.1e-03  0.30  
+9   2.2e-01  6.0e-01  1.8e-02  8.50e-01   4.729323468e+00   5.250053669e+00   1.3e-03  0.33  
+10  1.4e-01  3.8e-01  9.3e-03  9.20e-01   4.955424276e+00   5.290930875e+00   8.5e-04  0.36  
+11  6.8e-02  1.9e-01  3.4e-03  8.82e-01   5.176903662e+00   5.351886556e+00   4.2e-04  0.39  
+12  6.1e-02  1.7e-01  3.0e-03  8.29e-01   5.203691285e+00   5.365784283e+00   3.8e-04  0.42  
+13  2.2e-02  6.1e-02  6.8e-04  8.76e-01   5.363215187e+00   5.424657510e+00   1.4e-04  0.45  
+14  1.8e-02  5.0e-02  5.3e-04  9.11e-01   5.384916317e+00   5.437621441e+00   1.1e-04  0.48  
+15  5.3e-03  1.5e-02  8.1e-05  9.90e-01   5.445791358e+00   5.460876166e+00   3.3e-05  0.51  
+16  3.6e-03  9.8e-03  4.7e-05  9.71e-01   5.454073998e+00   5.464565373e+00   2.2e-05  0.54  
+17  6.1e-04  1.7e-03  3.2e-06  1.04e+00   5.463880774e+00   5.465628544e+00   3.8e-06  0.57  
+18  2.2e-04  6.0e-04  7.1e-07  1.00e+00   5.464932341e+00   5.465560153e+00   1.3e-06  0.60  
+19  5.1e-06  1.4e-05  2.5e-09  1.01e+00   5.465381009e+00   5.465395647e+00   3.1e-08  0.62  
+20  1.9e-07  5.4e-07  1.9e-11  1.00e+00   5.465390487e+00   5.465391046e+00   1.2e-09  0.65  
+21  1.6e-08  4.3e-08  4.4e-13  1.00e+00   5.465390941e+00   5.465390986e+00   9.7e-11  0.70  
+Optimizer terminated. Time: 0.71    
+
+
+Interior-point solution summary
+  Problem status  : PRIMAL_AND_DUAL_FEASIBLE
+  Solution status : OPTIMAL
+  Primal.  obj: 5.4653909406e+00    nrm: 5e+01    Viol.  con: 3e-08    var: 9e-11    barvar: 0e+00    cones: 0e+00  
+  Dual.    obj: 5.4653909858e+00    nrm: 8e+00    Viol.  con: 0e+00    var: 5e-10    barvar: 5e-10    cones: 0e+00  
+-------------------------------------------------------------------------------
+                                    Summary                                    
+-------------------------------------------------------------------------------
+(CVXPY) Mar 15 04:02:11 PM: Problem status: optimal
+(CVXPY) Mar 15 04:02:11 PM: Optimal value: -5.465e+00
+(CVXPY) Mar 15 04:02:11 PM: Compilation took 3.292e+01 seconds
+(CVXPY) Mar 15 04:02:11 PM: Solver (including time spent in interface) took 7.850e-01 seconds
+/home/ps/ce-fs2/kpk15/.conda/envs/pydexenv_yml/lib/python3.7/site-packages/pydex/core/designer.py:2405: RuntimeWarning: More than 20 figures have been opened. Figures created through the pyplot interface (`matplotlib.pyplot.figure`) are retained until explicitly closed and may consume too much memory. (To control this warning, see the rcParam `figure.max_open_warning`).
+  fig = plt.figure()
+---------------------------------[Optimization Complete in 35.89 s]---------------------------------
+Complete: 
+ ~ sensitivity analysis took 0.00 CPU seconds.
+ ~ optimization with MOSEK via cvxpy took 35.89 CPU seconds.
+####################################################################################################
+
+######################################## Optimal Candidates ########################################
+Obtained on                             : 2021-03-15 16:02:11.827008
+Criterion                               : cvar_d_opt_criterion
+Criterion Value                         : -5.465390940600718
+Pseudo-bayesian                         : True
+Pseudo-bayesian Criterion Type          : 0
+CVaR Problem                            : True
+Beta                                    : 0.75
+Constrained Problem                     : True
+Min. Mean Value                         : -3.484038
+Dynamic                                 : False
+Time-invariant Controls                 : True
+Time-varying Controls                   : False
+Number of Candidates                    : 21
+Number of Optimal Candidates            : 3
+Number of Scenarios                     : 200
+-------------------------------------------[Candidate 1]--------------------------------------------
+                             Recommended Effort: 49.30% of experiments                              
+Time-invariant Controls:
+[0.]
+-------------------------------------------[Candidate 8]--------------------------------------------
+                             Recommended Effort: 47.00% of experiments                              
+Time-invariant Controls:
+[0.175]
+-------------------------------------------[Candidate 21]-------------------------------------------
+                              Recommended Effort: 3.70% of experiments                              
+Time-invariant Controls:
+[0.5]
+####################################################################################################
+CVaR: -5.465390940600718
+MEAN: -3.4840384389889443
+====================================[Iteration 10/10 Completed]=====================================
+
+
+######################################## Optimal Candidates ########################################
+Obtained on                             : 2021-03-15 16:02:18.840159
+Criterion                               : cvar_d_opt_criterion
+Criterion Value                         : -5.465390940600718
+Pseudo-bayesian                         : True
+Pseudo-bayesian Criterion Type          : 0
+CVaR Problem                            : True
+Beta                                    : 0.75
+Constrained Problem                     : True
+Min. Mean Value                         : -3.484038
+Dynamic                                 : False
+Time-invariant Controls                 : True
+Time-varying Controls                   : False
+Number of Candidates                    : 21
+Number of Optimal Candidates            : 3
+Number of Scenarios                     : 200
+-------------------------------------------[Candidate 1]--------------------------------------------
+                             Recommended Effort: 49.30% of experiments                              
+Time-invariant Controls:
+[0.]
+-------------------------------------------[Candidate 8]--------------------------------------------
+                             Recommended Effort: 47.00% of experiments                              
+Time-invariant Controls:
+[0.175]
+-------------------------------------------[Candidate 21]-------------------------------------------
+                              Recommended Effort: 3.70% of experiments                              
+Time-invariant Controls:
+[0.5]
+####################################################################################################

@@ -1,0 +1,1281 @@
+====================================================================================================
+Initialization complete: designer ready.
+----------------------------------------------------------------------------------------------------
+Number of model parameters              : 4
+Number of candidates                    : 1080
+Number of responses                     : 2
+Number of measured responses            : 2
+Number of time-invariant controls       : 1
+Number of sampling time choices         : 11
+Number of time-varying controls         : 1
+====================================================================================================
+############################### Computing Optimal Experiment Design ################################
+Started on                              : 2022-04-04 20:36:59.533755
+Criterion                               : d_opt_criterion
+Pseudo-bayesian                         : False
+Dynamic                                 : True
+Time-invariant Controls                 : True
+Time-varying Controls                   : True
+Number of Candidates                    : 1080
+Number of Sampling Time Choices         : 11
+Sampling Times Optimized                : False
+---------------------------------------[Sensitivity Analysis]---------------------------------------
+Use Finite Difference                   : False
+----------------------------------------------------------------------------------------------------
+[Candidate   108/1080]: time elapsed            4.26 seconds.
+[Candidate   216/1080]: time elapsed            8.51 seconds.
+[Candidate   324/1080]: time elapsed           12.88 seconds.
+[Candidate   432/1080]: time elapsed           17.31 seconds.
+[Candidate   540/1080]: time elapsed           21.87 seconds.
+[Candidate   648/1080]: time elapsed           26.56 seconds.
+[Candidate   756/1080]: time elapsed           31.26 seconds.
+[Candidate   864/1080]: time elapsed           36.18 seconds.
+[Candidate   972/1080]: time elapsed           41.23 seconds.
+[Candidate  1080/1080]: time elapsed           46.37 seconds.
+----------------------------------------------------------------------------------------------------
+===============================================================================
+                                     CVXPY                                     
+                                    v1.1.12                                    
+===============================================================================
+-------------------------------------------------------------------------------
+                                  Compilation                                  
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+                                Numerical solver                               
+-------------------------------------------------------------------------------
+
+
+Problem
+  Name                   :                 
+  Objective sense        : max             
+  Type                   : CONIC (conic optimization problem)
+  Constraints            : 11894           
+  Cones                  : 4               
+  Scalar variables       : 23773           
+  Matrix variables       : 1               
+  Integer variables      : 0               
+
+Optimizer started.
+Problem
+  Name                   :                 
+  Objective sense        : max             
+  Type                   : CONIC (conic optimization problem)
+  Constraints            : 11894           
+  Cones                  : 4               
+  Scalar variables       : 23773           
+  Matrix variables       : 1               
+  Integer variables      : 0               
+
+Optimizer  - threads                : 16              
+Optimizer  - solved problem         : the primal      
+Optimizer  - Constraints            : 11890
+Optimizer  - Cones                  : 5
+Optimizer  - Scalar variables       : 22694             conic                  : 10813           
+Optimizer  - Semi-definite variables: 1                 scalarized             : 36              
+Factor     - setup time             : 10.60             dense det. time        : 0.00            
+Factor     - ML order time          : 7.67              GP order time          : 0.00            
+Factor     - nonzeros before factor : 7.07e+07          after factor           : 7.07e+07        
+Factor     - dense dim.             : 3                 flops                  : 5.62e+11        
+ITE PFEAS    DFEAS    GFEAS    PRSTATUS   POBJ              DOBJ              MU       TIME  
+0   1.5e+00  1.3e+00  7.5e+00  0.00e+00   -3.311353596e+00  3.220408006e+00   1.0e+00  10.68 
+1   9.0e-01  7.9e-01  4.1e+00  3.79e-01   -2.018737031e+00  2.653966256e+00   6.1e-01  14.94 
+2   8.8e-01  7.7e-01  4.0e+00  3.83e-01   -2.063778425e+00  2.562430065e+00   6.0e-01  19.16 
+3   8.6e-01  7.5e-01  3.9e+00  4.22e-01   -1.841506166e+00  2.689375934e+00   5.8e-01  23.40 
+4   7.8e-01  6.9e-01  3.4e+00  4.32e-01   -2.038811647e+00  2.172204377e+00   5.3e-01  27.47 
+5   6.7e-01  5.9e-01  2.6e+00  6.26e-01   -2.360512893e+00  1.210031034e+00   4.5e-01  31.71 
+6   4.0e-01  3.5e-01  1.0e+00  8.32e-01   -2.974500185e+00  -9.912744314e-01  2.7e-01  35.91 
+7   3.0e-01  2.7e-01  4.6e-01  2.02e+00   -2.737589509e+00  -1.675289101e+00  2.1e-01  39.96 
+8   2.3e-01  2.1e-01  3.0e-01  2.25e+00   -2.223323396e+00  -1.558863255e+00  1.6e-01  43.91 
+9   1.9e-01  1.6e-01  2.1e-01  2.06e+00   -1.718410873e+00  -1.253146805e+00  1.3e-01  47.85 
+10  1.7e-01  1.5e-01  1.8e-01  1.46e+00   -2.085106354e+00  -1.657305022e+00  1.1e-01  51.93 
+11  1.2e-01  1.0e-01  9.8e-02  1.74e+00   -1.209000600e+00  -9.554112110e-01  8.0e-02  55.94 
+12  9.0e-02  7.9e-02  6.9e-02  1.01e+00   -1.547890073e+00  -1.343639772e+00  6.1e-02  60.06 
+13  7.8e-02  6.8e-02  5.4e-02  1.17e+00   -8.570418181e-01  -6.843337157e-01  5.3e-02  64.09 
+14  6.0e-02  5.3e-02  3.9e-02  9.94e-01   -7.391257296e-01  -5.984537206e-01  4.1e-02  68.25 
+15  4.4e-02  3.8e-02  2.5e-02  1.06e+00   -3.689530375e-01  -2.643119625e-01  3.0e-02  72.43 
+16  3.7e-02  3.3e-02  2.0e-02  7.67e-01   -4.257334272e-01  -3.308724912e-01  2.5e-02  76.50 
+17  2.2e-02  1.9e-02  9.4e-03  9.38e-01   1.675269545e-01   2.258469912e-01   1.5e-02  80.53 
+18  1.4e-02  1.2e-02  5.4e-03  5.20e-01   -9.228658741e-02  -4.849264189e-02  9.2e-03  84.67 
+19  1.1e-02  9.2e-03  3.8e-03  6.28e-01   -2.816130853e-02  8.302428126e-03   7.1e-03  88.81 
+20  4.4e-03  3.9e-03  1.2e-03  5.42e-01   -1.016152712e-01  -8.288634824e-02  3.0e-03  93.04 
+21  3.3e-03  2.9e-03  8.3e-04  6.04e-01   2.649605706e-02   4.144482222e-02   2.3e-03  97.14 
+22  1.2e-03  1.0e-03  2.0e-04  6.25e-01   2.134266072e-01   2.195485859e-01   8.0e-04  101.21
+23  7.2e-04  6.3e-04  1.0e-04  7.31e-01   1.740733450e-01   1.780750253e-01   4.8e-04  105.39
+24  5.0e-04  4.4e-04  6.1e-05  7.10e-01   1.060196032e-01   1.089836670e-01   3.4e-04  109.47
+25  3.7e-04  3.3e-04  4.2e-05  7.01e-01   -6.095737740e-02  -5.861299393e-02  2.5e-04  113.62
+26  2.8e-04  2.4e-04  2.8e-05  6.92e-01   -3.407095623e-01  -3.388619196e-01  1.9e-04  117.71
+27  2.3e-04  2.1e-04  2.3e-05  6.41e-01   -6.556681717e-01  -6.540443400e-01  1.6e-04  121.75
+28  1.9e-04  1.6e-04  1.7e-05  6.44e-01   -8.899388995e-01  -8.885899716e-01  1.3e-04  125.94
+29  1.4e-04  1.3e-04  1.2e-05  5.97e-01   -1.314773800e+00  -1.313666968e+00  9.8e-05  130.10
+30  9.6e-05  8.4e-05  7.0e-06  6.15e-01   -1.732480188e+00  -1.731687257e+00  6.5e-05  134.25
+31  7.9e-05  6.9e-05  5.4e-06  6.35e-01   -1.924822478e+00  -1.924147772e+00  5.4e-05  138.26
+32  5.0e-05  4.4e-05  2.9e-06  6.46e-01   -2.334630902e+00  -2.334174927e+00  3.4e-05  142.20
+33  3.0e-05  2.6e-05  1.4e-06  7.29e-01   -2.617534983e+00  -2.617249485e+00  2.0e-05  146.25
+34  2.7e-05  2.4e-05  1.3e-06  7.81e-01   -2.664462540e+00  -2.664200667e+00  1.8e-05  150.39
+35  1.4e-05  1.3e-05  5.3e-07  7.84e-01   -2.921231838e+00  -2.921086880e+00  9.8e-06  154.48
+36  1.2e-05  1.0e-05  3.9e-07  8.66e-01   -2.984054095e+00  -2.983936698e+00  7.9e-06  158.55
+37  6.8e-06  5.9e-06  1.8e-07  8.78e-01   -3.134726443e+00  -3.134658061e+00  4.6e-06  162.60
+38  3.9e-06  3.4e-06  8.1e-08  9.29e-01   -3.246190752e+00  -3.246151127e+00  2.7e-06  166.61
+39  1.5e-06  1.3e-06  2.0e-08  9.51e-01   -3.340073777e+00  -3.340059042e+00  1.0e-06  170.71
+40  4.3e-07  3.7e-07  3.1e-09  9.78e-01   -3.387827235e+00  -3.387823141e+00  2.9e-07  174.82
+41  1.3e-07  9.4e-07  5.6e-10  9.92e-01   -3.402771369e+00  -3.402770073e+00  9.1e-08  178.88
+42  4.7e-08  1.8e-06  1.2e-10  9.97e-01   -3.407220584e+00  -3.407220135e+00  3.2e-08  183.07
+43  1.1e-08  6.2e-06  1.5e-11  9.99e-01   -3.409138914e+00  -3.409138806e+00  7.9e-09  187.15
+44  1.0e-08  1.8e-05  7.2e-12  1.00e+00   -3.409401299e+00  -3.409401232e+00  4.9e-09  192.14
+45  7.0e-09  3.3e-04  4.7e-13  1.00e+00   -3.409758529e+00  -3.409758518e+00  7.9e-10  196.24
+Optimizer terminated. Time: 196.25  
+
+
+Interior-point solution summary
+  Problem status  : PRIMAL_AND_DUAL_FEASIBLE
+  Solution status : OPTIMAL
+  Primal.  obj: -3.4097585287e+00   nrm: 6e+02    Viol.  con: 7e-05    var: 7e-05    barvar: 0e+00    cones: 0e+00  
+  Dual.    obj: -3.4097585178e+00   nrm: 1e+04    Viol.  con: 0e+00    var: 7e-10    barvar: 2e-09    cones: 0e+00  
+-------------------------------------------------------------------------------
+                                    Summary                                    
+-------------------------------------------------------------------------------
+--------------------------------[Optimization Complete in 224.91 s]---------------------------------
+Complete: 
+ ~ sensitivity analysis took 46.37 CPU seconds.
+ ~ optimization with MOSEK via cvxpy took 224.91 CPU seconds.
+####################################################################################################
+
+######################################## Optimal Candidates ########################################
+Obtained on                             : 2022-04-04 20:41:30.996126
+Criterion                               : d_opt_criterion
+Criterion Value                         : 3.409759431487594
+Pseudo-bayesian                         : False
+CVaR Problem                            : False
+Dynamic                                 : True
+Time-invariant Controls                 : True
+Time-varying Controls                   : True
+Number of Candidates                    : 1080
+Number of Optimal Candidates            : 5
+Number of Sampling Time Choices         : 11
+Sampling Times Optimized                : False
+Information Matrix Regularized          : False
+Minimum Effort Threshold                : 0.0001
+-------------------------------------------[Candidate 55]-------------------------------------------
+                             Recommended Effort: 48.27% of experiments                              
+Time-invariant Controls:
+[347.67209048]
+Time-varying Controls:
+[{0.0: 1.2275924613895854e-05, 0.25: 9.113743213423436e-06, 0.5: 5.410882335258963e-06, 0.75: 6.63442879243608e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+-------------------------------------------[Candidate 66]-------------------------------------------
+                              Recommended Effort: 5.07% of experiments                              
+Time-invariant Controls:
+[348.1405831]
+Time-varying Controls:
+[{0.0: 1.1888963457726013e-05, 0.25: 6.86353210514826e-07, 0.5: 1.8711296793350277e-06, 0.75: 1.0402557060977912e-05}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+------------------------------------------[Candidate 260]-------------------------------------------
+                             Recommended Effort: 30.35% of experiments                              
+Time-invariant Controls:
+[338.34327156]
+Time-varying Controls:
+[{0.0: 1.1563555623091245e-05, 0.25: 6.320650031745717e-06, 0.5: 2.7074272096895386e-06, 0.75: 1.55697066242761e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+------------------------------------------[Candidate 461]-------------------------------------------
+                             Recommended Effort: 13.56% of experiments                              
+Time-invariant Controls:
+[340.20777959]
+Time-varying Controls:
+[{0.0: 4.537631267822916e-06, 0.25: 1.4954788393303627e-06, 0.5: 3.7686203978251244e-06, 0.75: 1.426516549857238e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+------------------------------------------[Candidate 524]-------------------------------------------
+                              Recommended Effort: 2.74% of experiments                              
+Time-invariant Controls:
+[347.84508862]
+Time-varying Controls:
+[{0.0: 1.243790750624166e-05, 0.25: 1.8684394129485719e-06, 0.5: 8.798571672749215e-07, 0.75: 1.6765710179592567e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+####################################################################################################
+################################## Optimal Experiment for 2 Runs ###################################
+Obtained on                             : 2022-04-04 20:41:31.695334
+Criterion                               : d_opt_criterion
+Criterion Value                         : 3.409759431487594
+Pseudo-bayesian                         : False
+CVaR Problem                            : False
+Dynamic                                 : True
+Time-invariant Controls                 : True
+Time-varying Controls                   : True
+Number of Candidates                    : 1080
+Number of Optimal Candidates            : 5
+Number of Sampling Time Choices         : 11
+Sampling Times Optimized                : False
+-------------------------------------------[Candidate 55]-------------------------------------------
+                           Recommended Apportionment: Run 1/2 Experiments                           
+Time-invariant Controls:
+[347.67209048]
+Time-varying Controls:
+[{0.0: 1.2275924613895854e-05, 0.25: 9.113743213423436e-06, 0.5: 5.410882335258963e-06, 0.75: 6.63442879243608e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+-------------------------------------------[Candidate 66]-------------------------------------------
+                           Recommended Apportionment: Run 0/2 Experiments                           
+Time-invariant Controls:
+[348.1405831]
+Time-varying Controls:
+[{0.0: 1.1888963457726013e-05, 0.25: 6.86353210514826e-07, 0.5: 1.8711296793350277e-06, 0.75: 1.0402557060977912e-05}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+------------------------------------------[Candidate 260]-------------------------------------------
+                           Recommended Apportionment: Run 1/2 Experiments                           
+Time-invariant Controls:
+[338.34327156]
+Time-varying Controls:
+[{0.0: 1.1563555623091245e-05, 0.25: 6.320650031745717e-06, 0.5: 2.7074272096895386e-06, 0.75: 1.55697066242761e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+------------------------------------------[Candidate 461]-------------------------------------------
+                           Recommended Apportionment: Run 0/2 Experiments                           
+Time-invariant Controls:
+[340.20777959]
+Time-varying Controls:
+[{0.0: 4.537631267822916e-06, 0.25: 1.4954788393303627e-06, 0.5: 3.7686203978251244e-06, 0.75: 1.426516549857238e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+------------------------------------------[Candidate 524]-------------------------------------------
+                           Recommended Apportionment: Run 0/2 Experiments                           
+Time-invariant Controls:
+[347.84508862]
+Time-varying Controls:
+[{0.0: 1.243790750624166e-05, 0.25: 1.8684394129485719e-06, 0.5: 8.798571672749215e-07, 0.75: 1.6765710179592567e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+----------------------------------------------------------------------------------------------------
+The rounded design for 2 runs is guaranteed to be at least 0.00% as good as the continuous design.
+The actual criterion value of the rounded design is 87.52% as informative as the continuous design.
+####################################################################################################
+################################## Optimal Experiment for 3 Runs ###################################
+Obtained on                             : 2022-04-04 20:41:32.224090
+Criterion                               : d_opt_criterion
+Criterion Value                         : 3.409759431487594
+Pseudo-bayesian                         : False
+CVaR Problem                            : False
+Dynamic                                 : True
+Time-invariant Controls                 : True
+Time-varying Controls                   : True
+Number of Candidates                    : 1080
+Number of Optimal Candidates            : 5
+Number of Sampling Time Choices         : 11
+Sampling Times Optimized                : False
+-------------------------------------------[Candidate 55]-------------------------------------------
+                           Recommended Apportionment: Run 1/3 Experiments                           
+Time-invariant Controls:
+[347.67209048]
+Time-varying Controls:
+[{0.0: 1.2275924613895854e-05, 0.25: 9.113743213423436e-06, 0.5: 5.410882335258963e-06, 0.75: 6.63442879243608e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+-------------------------------------------[Candidate 66]-------------------------------------------
+                           Recommended Apportionment: Run 0/3 Experiments                           
+Time-invariant Controls:
+[348.1405831]
+Time-varying Controls:
+[{0.0: 1.1888963457726013e-05, 0.25: 6.86353210514826e-07, 0.5: 1.8711296793350277e-06, 0.75: 1.0402557060977912e-05}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+------------------------------------------[Candidate 260]-------------------------------------------
+                           Recommended Apportionment: Run 1/3 Experiments                           
+Time-invariant Controls:
+[338.34327156]
+Time-varying Controls:
+[{0.0: 1.1563555623091245e-05, 0.25: 6.320650031745717e-06, 0.5: 2.7074272096895386e-06, 0.75: 1.55697066242761e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+------------------------------------------[Candidate 461]-------------------------------------------
+                           Recommended Apportionment: Run 1/3 Experiments                           
+Time-invariant Controls:
+[340.20777959]
+Time-varying Controls:
+[{0.0: 4.537631267822916e-06, 0.25: 1.4954788393303627e-06, 0.5: 3.7686203978251244e-06, 0.75: 1.426516549857238e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+------------------------------------------[Candidate 524]-------------------------------------------
+                           Recommended Apportionment: Run 0/3 Experiments                           
+Time-invariant Controls:
+[347.84508862]
+Time-varying Controls:
+[{0.0: 1.243790750624166e-05, 0.25: 1.8684394129485719e-06, 0.5: 8.798571672749215e-07, 0.75: 1.6765710179592567e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+----------------------------------------------------------------------------------------------------
+The rounded design for 3 runs is guaranteed to be at least 0.00% as good as the continuous design.
+The actual criterion value of the rounded design is 93.54% as informative as the continuous design.
+####################################################################################################
+################################## Optimal Experiment for 4 Runs ###################################
+Obtained on                             : 2022-04-04 20:41:32.256360
+Criterion                               : d_opt_criterion
+Criterion Value                         : 3.409759431487594
+Pseudo-bayesian                         : False
+CVaR Problem                            : False
+Dynamic                                 : True
+Time-invariant Controls                 : True
+Time-varying Controls                   : True
+Number of Candidates                    : 1080
+Number of Optimal Candidates            : 5
+Number of Sampling Time Choices         : 11
+Sampling Times Optimized                : False
+-------------------------------------------[Candidate 55]-------------------------------------------
+                           Recommended Apportionment: Run 1/4 Experiments                           
+Time-invariant Controls:
+[347.67209048]
+Time-varying Controls:
+[{0.0: 1.2275924613895854e-05, 0.25: 9.113743213423436e-06, 0.5: 5.410882335258963e-06, 0.75: 6.63442879243608e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+-------------------------------------------[Candidate 66]-------------------------------------------
+                           Recommended Apportionment: Run 1/4 Experiments                           
+Time-invariant Controls:
+[348.1405831]
+Time-varying Controls:
+[{0.0: 1.1888963457726013e-05, 0.25: 6.86353210514826e-07, 0.5: 1.8711296793350277e-06, 0.75: 1.0402557060977912e-05}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+------------------------------------------[Candidate 260]-------------------------------------------
+                           Recommended Apportionment: Run 1/4 Experiments                           
+Time-invariant Controls:
+[338.34327156]
+Time-varying Controls:
+[{0.0: 1.1563555623091245e-05, 0.25: 6.320650031745717e-06, 0.5: 2.7074272096895386e-06, 0.75: 1.55697066242761e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+------------------------------------------[Candidate 461]-------------------------------------------
+                           Recommended Apportionment: Run 1/4 Experiments                           
+Time-invariant Controls:
+[340.20777959]
+Time-varying Controls:
+[{0.0: 4.537631267822916e-06, 0.25: 1.4954788393303627e-06, 0.5: 3.7686203978251244e-06, 0.75: 1.426516549857238e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+------------------------------------------[Candidate 524]-------------------------------------------
+                           Recommended Apportionment: Run 0/4 Experiments                           
+Time-invariant Controls:
+[347.84508862]
+Time-varying Controls:
+[{0.0: 1.243790750624166e-05, 0.25: 1.8684394129485719e-06, 0.5: 8.798571672749215e-07, 0.75: 1.6765710179592567e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+----------------------------------------------------------------------------------------------------
+The rounded design for 4 runs is guaranteed to be at least 0.00% as good as the continuous design.
+The actual criterion value of the rounded design is 91.22% as informative as the continuous design.
+####################################################################################################
+################################## Optimal Experiment for 5 Runs ###################################
+Obtained on                             : 2022-04-04 20:41:32.289091
+Criterion                               : d_opt_criterion
+Criterion Value                         : 3.409759431487594
+Pseudo-bayesian                         : False
+CVaR Problem                            : False
+Dynamic                                 : True
+Time-invariant Controls                 : True
+Time-varying Controls                   : True
+Number of Candidates                    : 1080
+Number of Optimal Candidates            : 5
+Number of Sampling Time Choices         : 11
+Sampling Times Optimized                : False
+-------------------------------------------[Candidate 55]-------------------------------------------
+                           Recommended Apportionment: Run 1/5 Experiments                           
+Time-invariant Controls:
+[347.67209048]
+Time-varying Controls:
+[{0.0: 1.2275924613895854e-05, 0.25: 9.113743213423436e-06, 0.5: 5.410882335258963e-06, 0.75: 6.63442879243608e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+-------------------------------------------[Candidate 66]-------------------------------------------
+                           Recommended Apportionment: Run 1/5 Experiments                           
+Time-invariant Controls:
+[348.1405831]
+Time-varying Controls:
+[{0.0: 1.1888963457726013e-05, 0.25: 6.86353210514826e-07, 0.5: 1.8711296793350277e-06, 0.75: 1.0402557060977912e-05}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+------------------------------------------[Candidate 260]-------------------------------------------
+                           Recommended Apportionment: Run 1/5 Experiments                           
+Time-invariant Controls:
+[338.34327156]
+Time-varying Controls:
+[{0.0: 1.1563555623091245e-05, 0.25: 6.320650031745717e-06, 0.5: 2.7074272096895386e-06, 0.75: 1.55697066242761e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+------------------------------------------[Candidate 461]-------------------------------------------
+                           Recommended Apportionment: Run 1/5 Experiments                           
+Time-invariant Controls:
+[340.20777959]
+Time-varying Controls:
+[{0.0: 4.537631267822916e-06, 0.25: 1.4954788393303627e-06, 0.5: 3.7686203978251244e-06, 0.75: 1.426516549857238e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+------------------------------------------[Candidate 524]-------------------------------------------
+                           Recommended Apportionment: Run 1/5 Experiments                           
+Time-invariant Controls:
+[347.84508862]
+Time-varying Controls:
+[{0.0: 1.243790750624166e-05, 0.25: 1.8684394129485719e-06, 0.5: 8.798571672749215e-07, 0.75: 1.6765710179592567e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+----------------------------------------------------------------------------------------------------
+The rounded design for 5 runs is guaranteed to be at least 41.43% as good as the continuous design.
+The actual criterion value of the rounded design is 86.58% as informative as the continuous design.
+####################################################################################################
+################################## Optimal Experiment for 6 Runs ###################################
+Obtained on                             : 2022-04-04 20:41:32.321713
+Criterion                               : d_opt_criterion
+Criterion Value                         : 3.409759431487594
+Pseudo-bayesian                         : False
+CVaR Problem                            : False
+Dynamic                                 : True
+Time-invariant Controls                 : True
+Time-varying Controls                   : True
+Number of Candidates                    : 1080
+Number of Optimal Candidates            : 5
+Number of Sampling Time Choices         : 11
+Sampling Times Optimized                : False
+-------------------------------------------[Candidate 55]-------------------------------------------
+                           Recommended Apportionment: Run 2/6 Experiments                           
+Time-invariant Controls:
+[347.67209048]
+Time-varying Controls:
+[{0.0: 1.2275924613895854e-05, 0.25: 9.113743213423436e-06, 0.5: 5.410882335258963e-06, 0.75: 6.63442879243608e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+-------------------------------------------[Candidate 66]-------------------------------------------
+                           Recommended Apportionment: Run 1/6 Experiments                           
+Time-invariant Controls:
+[348.1405831]
+Time-varying Controls:
+[{0.0: 1.1888963457726013e-05, 0.25: 6.86353210514826e-07, 0.5: 1.8711296793350277e-06, 0.75: 1.0402557060977912e-05}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+------------------------------------------[Candidate 260]-------------------------------------------
+                           Recommended Apportionment: Run 1/6 Experiments                           
+Time-invariant Controls:
+[338.34327156]
+Time-varying Controls:
+[{0.0: 1.1563555623091245e-05, 0.25: 6.320650031745717e-06, 0.5: 2.7074272096895386e-06, 0.75: 1.55697066242761e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+------------------------------------------[Candidate 461]-------------------------------------------
+                           Recommended Apportionment: Run 1/6 Experiments                           
+Time-invariant Controls:
+[340.20777959]
+Time-varying Controls:
+[{0.0: 4.537631267822916e-06, 0.25: 1.4954788393303627e-06, 0.5: 3.7686203978251244e-06, 0.75: 1.426516549857238e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+------------------------------------------[Candidate 524]-------------------------------------------
+                           Recommended Apportionment: Run 1/6 Experiments                           
+Time-invariant Controls:
+[347.84508862]
+Time-varying Controls:
+[{0.0: 1.243790750624166e-05, 0.25: 1.8684394129485719e-06, 0.5: 8.798571672749215e-07, 0.75: 1.6765710179592567e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+----------------------------------------------------------------------------------------------------
+The rounded design for 6 runs is guaranteed to be at least 54.91% as good as the continuous design.
+The actual criterion value of the rounded design is 91.59% as informative as the continuous design.
+####################################################################################################
+################################## Optimal Experiment for 7 Runs ###################################
+Obtained on                             : 2022-04-04 20:41:32.354132
+Criterion                               : d_opt_criterion
+Criterion Value                         : 3.409759431487594
+Pseudo-bayesian                         : False
+CVaR Problem                            : False
+Dynamic                                 : True
+Time-invariant Controls                 : True
+Time-varying Controls                   : True
+Number of Candidates                    : 1080
+Number of Optimal Candidates            : 5
+Number of Sampling Time Choices         : 11
+Sampling Times Optimized                : False
+-------------------------------------------[Candidate 55]-------------------------------------------
+                           Recommended Apportionment: Run 2/7 Experiments                           
+Time-invariant Controls:
+[347.67209048]
+Time-varying Controls:
+[{0.0: 1.2275924613895854e-05, 0.25: 9.113743213423436e-06, 0.5: 5.410882335258963e-06, 0.75: 6.63442879243608e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+-------------------------------------------[Candidate 66]-------------------------------------------
+                           Recommended Apportionment: Run 1/7 Experiments                           
+Time-invariant Controls:
+[348.1405831]
+Time-varying Controls:
+[{0.0: 1.1888963457726013e-05, 0.25: 6.86353210514826e-07, 0.5: 1.8711296793350277e-06, 0.75: 1.0402557060977912e-05}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+------------------------------------------[Candidate 260]-------------------------------------------
+                           Recommended Apportionment: Run 2/7 Experiments                           
+Time-invariant Controls:
+[338.34327156]
+Time-varying Controls:
+[{0.0: 1.1563555623091245e-05, 0.25: 6.320650031745717e-06, 0.5: 2.7074272096895386e-06, 0.75: 1.55697066242761e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+------------------------------------------[Candidate 461]-------------------------------------------
+                           Recommended Apportionment: Run 1/7 Experiments                           
+Time-invariant Controls:
+[340.20777959]
+Time-varying Controls:
+[{0.0: 4.537631267822916e-06, 0.25: 1.4954788393303627e-06, 0.5: 3.7686203978251244e-06, 0.75: 1.426516549857238e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+------------------------------------------[Candidate 524]-------------------------------------------
+                           Recommended Apportionment: Run 1/7 Experiments                           
+Time-invariant Controls:
+[347.84508862]
+Time-varying Controls:
+[{0.0: 1.243790750624166e-05, 0.25: 1.8684394129485719e-06, 0.5: 8.798571672749215e-07, 0.75: 1.6765710179592567e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+----------------------------------------------------------------------------------------------------
+The rounded design for 7 runs is guaranteed to be at least 59.19% as good as the continuous design.
+The actual criterion value of the rounded design is 95.22% as informative as the continuous design.
+####################################################################################################
+################################## Optimal Experiment for 8 Runs ###################################
+Obtained on                             : 2022-04-04 20:41:32.386435
+Criterion                               : d_opt_criterion
+Criterion Value                         : 3.409759431487594
+Pseudo-bayesian                         : False
+CVaR Problem                            : False
+Dynamic                                 : True
+Time-invariant Controls                 : True
+Time-varying Controls                   : True
+Number of Candidates                    : 1080
+Number of Optimal Candidates            : 5
+Number of Sampling Time Choices         : 11
+Sampling Times Optimized                : False
+-------------------------------------------[Candidate 55]-------------------------------------------
+                           Recommended Apportionment: Run 3/8 Experiments                           
+Time-invariant Controls:
+[347.67209048]
+Time-varying Controls:
+[{0.0: 1.2275924613895854e-05, 0.25: 9.113743213423436e-06, 0.5: 5.410882335258963e-06, 0.75: 6.63442879243608e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+-------------------------------------------[Candidate 66]-------------------------------------------
+                           Recommended Apportionment: Run 1/8 Experiments                           
+Time-invariant Controls:
+[348.1405831]
+Time-varying Controls:
+[{0.0: 1.1888963457726013e-05, 0.25: 6.86353210514826e-07, 0.5: 1.8711296793350277e-06, 0.75: 1.0402557060977912e-05}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+------------------------------------------[Candidate 260]-------------------------------------------
+                           Recommended Apportionment: Run 2/8 Experiments                           
+Time-invariant Controls:
+[338.34327156]
+Time-varying Controls:
+[{0.0: 1.1563555623091245e-05, 0.25: 6.320650031745717e-06, 0.5: 2.7074272096895386e-06, 0.75: 1.55697066242761e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+------------------------------------------[Candidate 461]-------------------------------------------
+                           Recommended Apportionment: Run 1/8 Experiments                           
+Time-invariant Controls:
+[340.20777959]
+Time-varying Controls:
+[{0.0: 4.537631267822916e-06, 0.25: 1.4954788393303627e-06, 0.5: 3.7686203978251244e-06, 0.75: 1.426516549857238e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+------------------------------------------[Candidate 524]-------------------------------------------
+                           Recommended Apportionment: Run 1/8 Experiments                           
+Time-invariant Controls:
+[347.84508862]
+Time-varying Controls:
+[{0.0: 1.243790750624166e-05, 0.25: 1.8684394129485719e-06, 0.5: 8.798571672749215e-07, 0.75: 1.6765710179592567e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+----------------------------------------------------------------------------------------------------
+The rounded design for 8 runs is guaranteed to be at least 77.68% as good as the continuous design.
+The actual criterion value of the rounded design is 97.55% as informative as the continuous design.
+####################################################################################################
+################################## Optimal Experiment for 9 Runs ###################################
+Obtained on                             : 2022-04-04 20:41:32.418777
+Criterion                               : d_opt_criterion
+Criterion Value                         : 3.409759431487594
+Pseudo-bayesian                         : False
+CVaR Problem                            : False
+Dynamic                                 : True
+Time-invariant Controls                 : True
+Time-varying Controls                   : True
+Number of Candidates                    : 1080
+Number of Optimal Candidates            : 5
+Number of Sampling Time Choices         : 11
+Sampling Times Optimized                : False
+-------------------------------------------[Candidate 55]-------------------------------------------
+                           Recommended Apportionment: Run 4/9 Experiments                           
+Time-invariant Controls:
+[347.67209048]
+Time-varying Controls:
+[{0.0: 1.2275924613895854e-05, 0.25: 9.113743213423436e-06, 0.5: 5.410882335258963e-06, 0.75: 6.63442879243608e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+-------------------------------------------[Candidate 66]-------------------------------------------
+                           Recommended Apportionment: Run 1/9 Experiments                           
+Time-invariant Controls:
+[348.1405831]
+Time-varying Controls:
+[{0.0: 1.1888963457726013e-05, 0.25: 6.86353210514826e-07, 0.5: 1.8711296793350277e-06, 0.75: 1.0402557060977912e-05}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+------------------------------------------[Candidate 260]-------------------------------------------
+                           Recommended Apportionment: Run 2/9 Experiments                           
+Time-invariant Controls:
+[338.34327156]
+Time-varying Controls:
+[{0.0: 1.1563555623091245e-05, 0.25: 6.320650031745717e-06, 0.5: 2.7074272096895386e-06, 0.75: 1.55697066242761e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+------------------------------------------[Candidate 461]-------------------------------------------
+                           Recommended Apportionment: Run 1/9 Experiments                           
+Time-invariant Controls:
+[340.20777959]
+Time-varying Controls:
+[{0.0: 4.537631267822916e-06, 0.25: 1.4954788393303627e-06, 0.5: 3.7686203978251244e-06, 0.75: 1.426516549857238e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+------------------------------------------[Candidate 524]-------------------------------------------
+                           Recommended Apportionment: Run 1/9 Experiments                           
+Time-invariant Controls:
+[347.84508862]
+Time-varying Controls:
+[{0.0: 1.243790750624166e-05, 0.25: 1.8684394129485719e-06, 0.5: 8.798571672749215e-07, 0.75: 1.6765710179592567e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+----------------------------------------------------------------------------------------------------
+The rounded design for 9 runs is guaranteed to be at least 73.22% as good as the continuous design.
+The actual criterion value of the rounded design is 97.97% as informative as the continuous design.
+####################################################################################################
+################################## Optimal Experiment for 10 Runs ##################################
+Obtained on                             : 2022-04-04 20:41:32.451491
+Criterion                               : d_opt_criterion
+Criterion Value                         : 3.409759431487594
+Pseudo-bayesian                         : False
+CVaR Problem                            : False
+Dynamic                                 : True
+Time-invariant Controls                 : True
+Time-varying Controls                   : True
+Number of Candidates                    : 1080
+Number of Optimal Candidates            : 5
+Number of Sampling Time Choices         : 11
+Sampling Times Optimized                : False
+-------------------------------------------[Candidate 55]-------------------------------------------
+                          Recommended Apportionment: Run 4/10 Experiments                           
+Time-invariant Controls:
+[347.67209048]
+Time-varying Controls:
+[{0.0: 1.2275924613895854e-05, 0.25: 9.113743213423436e-06, 0.5: 5.410882335258963e-06, 0.75: 6.63442879243608e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+-------------------------------------------[Candidate 66]-------------------------------------------
+                          Recommended Apportionment: Run 1/10 Experiments                           
+Time-invariant Controls:
+[348.1405831]
+Time-varying Controls:
+[{0.0: 1.1888963457726013e-05, 0.25: 6.86353210514826e-07, 0.5: 1.8711296793350277e-06, 0.75: 1.0402557060977912e-05}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+------------------------------------------[Candidate 260]-------------------------------------------
+                          Recommended Apportionment: Run 3/10 Experiments                           
+Time-invariant Controls:
+[338.34327156]
+Time-varying Controls:
+[{0.0: 1.1563555623091245e-05, 0.25: 6.320650031745717e-06, 0.5: 2.7074272096895386e-06, 0.75: 1.55697066242761e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+------------------------------------------[Candidate 461]-------------------------------------------
+                          Recommended Apportionment: Run 1/10 Experiments                           
+Time-invariant Controls:
+[340.20777959]
+Time-varying Controls:
+[{0.0: 4.537631267822916e-06, 0.25: 1.4954788393303627e-06, 0.5: 3.7686203978251244e-06, 0.75: 1.426516549857238e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+------------------------------------------[Candidate 524]-------------------------------------------
+                          Recommended Apportionment: Run 1/10 Experiments                           
+Time-invariant Controls:
+[347.84508862]
+Time-varying Controls:
+[{0.0: 1.243790750624166e-05, 0.25: 1.8684394129485719e-06, 0.5: 8.798571672749215e-07, 0.75: 1.6765710179592567e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+----------------------------------------------------------------------------------------------------
+The rounded design for 10 runs is guaranteed to be at least 73.73% as good as the continuous design.
+The actual criterion value of the rounded design is 99.19% as informative as the continuous design.
+####################################################################################################
+################################## Optimal Experiment for 11 Runs ##################################
+Obtained on                             : 2022-04-04 20:41:32.483603
+Criterion                               : d_opt_criterion
+Criterion Value                         : 3.409759431487594
+Pseudo-bayesian                         : False
+CVaR Problem                            : False
+Dynamic                                 : True
+Time-invariant Controls                 : True
+Time-varying Controls                   : True
+Number of Candidates                    : 1080
+Number of Optimal Candidates            : 5
+Number of Sampling Time Choices         : 11
+Sampling Times Optimized                : False
+-------------------------------------------[Candidate 55]-------------------------------------------
+                          Recommended Apportionment: Run 4/11 Experiments                           
+Time-invariant Controls:
+[347.67209048]
+Time-varying Controls:
+[{0.0: 1.2275924613895854e-05, 0.25: 9.113743213423436e-06, 0.5: 5.410882335258963e-06, 0.75: 6.63442879243608e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+-------------------------------------------[Candidate 66]-------------------------------------------
+                          Recommended Apportionment: Run 1/11 Experiments                           
+Time-invariant Controls:
+[348.1405831]
+Time-varying Controls:
+[{0.0: 1.1888963457726013e-05, 0.25: 6.86353210514826e-07, 0.5: 1.8711296793350277e-06, 0.75: 1.0402557060977912e-05}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+------------------------------------------[Candidate 260]-------------------------------------------
+                          Recommended Apportionment: Run 3/11 Experiments                           
+Time-invariant Controls:
+[338.34327156]
+Time-varying Controls:
+[{0.0: 1.1563555623091245e-05, 0.25: 6.320650031745717e-06, 0.5: 2.7074272096895386e-06, 0.75: 1.55697066242761e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+------------------------------------------[Candidate 461]-------------------------------------------
+                          Recommended Apportionment: Run 2/11 Experiments                           
+Time-invariant Controls:
+[340.20777959]
+Time-varying Controls:
+[{0.0: 4.537631267822916e-06, 0.25: 1.4954788393303627e-06, 0.5: 3.7686203978251244e-06, 0.75: 1.426516549857238e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+------------------------------------------[Candidate 524]-------------------------------------------
+                          Recommended Apportionment: Run 1/11 Experiments                           
+Time-invariant Controls:
+[347.84508862]
+Time-varying Controls:
+[{0.0: 1.243790750624166e-05, 0.25: 1.8684394129485719e-06, 0.5: 8.798571672749215e-07, 0.75: 1.6765710179592567e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+----------------------------------------------------------------------------------------------------
+The rounded design for 11 runs is guaranteed to be at least 75.33% as good as the continuous design.
+The actual criterion value of the rounded design is 97.51% as informative as the continuous design.
+####################################################################################################
+################################## Optimal Experiment for 12 Runs ##################################
+Obtained on                             : 2022-04-04 20:41:32.515924
+Criterion                               : d_opt_criterion
+Criterion Value                         : 3.409759431487594
+Pseudo-bayesian                         : False
+CVaR Problem                            : False
+Dynamic                                 : True
+Time-invariant Controls                 : True
+Time-varying Controls                   : True
+Number of Candidates                    : 1080
+Number of Optimal Candidates            : 5
+Number of Sampling Time Choices         : 11
+Sampling Times Optimized                : False
+-------------------------------------------[Candidate 55]-------------------------------------------
+                          Recommended Apportionment: Run 5/12 Experiments                           
+Time-invariant Controls:
+[347.67209048]
+Time-varying Controls:
+[{0.0: 1.2275924613895854e-05, 0.25: 9.113743213423436e-06, 0.5: 5.410882335258963e-06, 0.75: 6.63442879243608e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+-------------------------------------------[Candidate 66]-------------------------------------------
+                          Recommended Apportionment: Run 1/12 Experiments                           
+Time-invariant Controls:
+[348.1405831]
+Time-varying Controls:
+[{0.0: 1.1888963457726013e-05, 0.25: 6.86353210514826e-07, 0.5: 1.8711296793350277e-06, 0.75: 1.0402557060977912e-05}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+------------------------------------------[Candidate 260]-------------------------------------------
+                          Recommended Apportionment: Run 3/12 Experiments                           
+Time-invariant Controls:
+[338.34327156]
+Time-varying Controls:
+[{0.0: 1.1563555623091245e-05, 0.25: 6.320650031745717e-06, 0.5: 2.7074272096895386e-06, 0.75: 1.55697066242761e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+------------------------------------------[Candidate 461]-------------------------------------------
+                          Recommended Apportionment: Run 2/12 Experiments                           
+Time-invariant Controls:
+[340.20777959]
+Time-varying Controls:
+[{0.0: 4.537631267822916e-06, 0.25: 1.4954788393303627e-06, 0.5: 3.7686203978251244e-06, 0.75: 1.426516549857238e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+------------------------------------------[Candidate 524]-------------------------------------------
+                          Recommended Apportionment: Run 1/12 Experiments                           
+Time-invariant Controls:
+[347.84508862]
+Time-varying Controls:
+[{0.0: 1.243790750624166e-05, 0.25: 1.8684394129485719e-06, 0.5: 8.798571672749215e-07, 0.75: 1.6765710179592567e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+----------------------------------------------------------------------------------------------------
+The rounded design for 12 runs is guaranteed to be at least 82.37% as good as the continuous design.
+The actual criterion value of the rounded design is 98.40% as informative as the continuous design.
+####################################################################################################
+################################## Optimal Experiment for 13 Runs ##################################
+Obtained on                             : 2022-04-04 20:41:32.548321
+Criterion                               : d_opt_criterion
+Criterion Value                         : 3.409759431487594
+Pseudo-bayesian                         : False
+CVaR Problem                            : False
+Dynamic                                 : True
+Time-invariant Controls                 : True
+Time-varying Controls                   : True
+Number of Candidates                    : 1080
+Number of Optimal Candidates            : 5
+Number of Sampling Time Choices         : 11
+Sampling Times Optimized                : False
+-------------------------------------------[Candidate 55]-------------------------------------------
+                          Recommended Apportionment: Run 5/13 Experiments                           
+Time-invariant Controls:
+[347.67209048]
+Time-varying Controls:
+[{0.0: 1.2275924613895854e-05, 0.25: 9.113743213423436e-06, 0.5: 5.410882335258963e-06, 0.75: 6.63442879243608e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+-------------------------------------------[Candidate 66]-------------------------------------------
+                          Recommended Apportionment: Run 1/13 Experiments                           
+Time-invariant Controls:
+[348.1405831]
+Time-varying Controls:
+[{0.0: 1.1888963457726013e-05, 0.25: 6.86353210514826e-07, 0.5: 1.8711296793350277e-06, 0.75: 1.0402557060977912e-05}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+------------------------------------------[Candidate 260]-------------------------------------------
+                          Recommended Apportionment: Run 4/13 Experiments                           
+Time-invariant Controls:
+[338.34327156]
+Time-varying Controls:
+[{0.0: 1.1563555623091245e-05, 0.25: 6.320650031745717e-06, 0.5: 2.7074272096895386e-06, 0.75: 1.55697066242761e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+------------------------------------------[Candidate 461]-------------------------------------------
+                          Recommended Apportionment: Run 2/13 Experiments                           
+Time-invariant Controls:
+[340.20777959]
+Time-varying Controls:
+[{0.0: 4.537631267822916e-06, 0.25: 1.4954788393303627e-06, 0.5: 3.7686203978251244e-06, 0.75: 1.426516549857238e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+------------------------------------------[Candidate 524]-------------------------------------------
+                          Recommended Apportionment: Run 1/13 Experiments                           
+Time-invariant Controls:
+[347.84508862]
+Time-varying Controls:
+[{0.0: 1.243790750624166e-05, 0.25: 1.8684394129485719e-06, 0.5: 8.798571672749215e-07, 0.75: 1.6765710179592567e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+----------------------------------------------------------------------------------------------------
+The rounded design for 13 runs is guaranteed to be at least 79.67% as good as the continuous design.
+The actual criterion value of the rounded design is 98.83% as informative as the continuous design.
+####################################################################################################
+################################## Optimal Experiment for 14 Runs ##################################
+Obtained on                             : 2022-04-04 20:41:32.581372
+Criterion                               : d_opt_criterion
+Criterion Value                         : 3.409759431487594
+Pseudo-bayesian                         : False
+CVaR Problem                            : False
+Dynamic                                 : True
+Time-invariant Controls                 : True
+Time-varying Controls                   : True
+Number of Candidates                    : 1080
+Number of Optimal Candidates            : 5
+Number of Sampling Time Choices         : 11
+Sampling Times Optimized                : False
+-------------------------------------------[Candidate 55]-------------------------------------------
+                          Recommended Apportionment: Run 6/14 Experiments                           
+Time-invariant Controls:
+[347.67209048]
+Time-varying Controls:
+[{0.0: 1.2275924613895854e-05, 0.25: 9.113743213423436e-06, 0.5: 5.410882335258963e-06, 0.75: 6.63442879243608e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+-------------------------------------------[Candidate 66]-------------------------------------------
+                          Recommended Apportionment: Run 1/14 Experiments                           
+Time-invariant Controls:
+[348.1405831]
+Time-varying Controls:
+[{0.0: 1.1888963457726013e-05, 0.25: 6.86353210514826e-07, 0.5: 1.8711296793350277e-06, 0.75: 1.0402557060977912e-05}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+------------------------------------------[Candidate 260]-------------------------------------------
+                          Recommended Apportionment: Run 4/14 Experiments                           
+Time-invariant Controls:
+[338.34327156]
+Time-varying Controls:
+[{0.0: 1.1563555623091245e-05, 0.25: 6.320650031745717e-06, 0.5: 2.7074272096895386e-06, 0.75: 1.55697066242761e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+------------------------------------------[Candidate 461]-------------------------------------------
+                          Recommended Apportionment: Run 2/14 Experiments                           
+Time-invariant Controls:
+[340.20777959]
+Time-varying Controls:
+[{0.0: 4.537631267822916e-06, 0.25: 1.4954788393303627e-06, 0.5: 3.7686203978251244e-06, 0.75: 1.426516549857238e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+------------------------------------------[Candidate 524]-------------------------------------------
+                          Recommended Apportionment: Run 1/14 Experiments                           
+Time-invariant Controls:
+[347.84508862]
+Time-varying Controls:
+[{0.0: 1.243790750624166e-05, 0.25: 1.8684394129485719e-06, 0.5: 8.798571672749215e-07, 0.75: 1.6765710179592567e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+----------------------------------------------------------------------------------------------------
+The rounded design for 14 runs is guaranteed to be at least 88.78% as good as the continuous design.
+The actual criterion value of the rounded design is 99.46% as informative as the continuous design.
+####################################################################################################
+################################## Optimal Experiment for 15 Runs ##################################
+Obtained on                             : 2022-04-04 20:41:32.613977
+Criterion                               : d_opt_criterion
+Criterion Value                         : 3.409759431487594
+Pseudo-bayesian                         : False
+CVaR Problem                            : False
+Dynamic                                 : True
+Time-invariant Controls                 : True
+Time-varying Controls                   : True
+Number of Candidates                    : 1080
+Number of Optimal Candidates            : 5
+Number of Sampling Time Choices         : 11
+Sampling Times Optimized                : False
+-------------------------------------------[Candidate 55]-------------------------------------------
+                          Recommended Apportionment: Run 7/15 Experiments                           
+Time-invariant Controls:
+[347.67209048]
+Time-varying Controls:
+[{0.0: 1.2275924613895854e-05, 0.25: 9.113743213423436e-06, 0.5: 5.410882335258963e-06, 0.75: 6.63442879243608e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+-------------------------------------------[Candidate 66]-------------------------------------------
+                          Recommended Apportionment: Run 1/15 Experiments                           
+Time-invariant Controls:
+[348.1405831]
+Time-varying Controls:
+[{0.0: 1.1888963457726013e-05, 0.25: 6.86353210514826e-07, 0.5: 1.8711296793350277e-06, 0.75: 1.0402557060977912e-05}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+------------------------------------------[Candidate 260]-------------------------------------------
+                          Recommended Apportionment: Run 4/15 Experiments                           
+Time-invariant Controls:
+[338.34327156]
+Time-varying Controls:
+[{0.0: 1.1563555623091245e-05, 0.25: 6.320650031745717e-06, 0.5: 2.7074272096895386e-06, 0.75: 1.55697066242761e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+------------------------------------------[Candidate 461]-------------------------------------------
+                          Recommended Apportionment: Run 2/15 Experiments                           
+Time-invariant Controls:
+[340.20777959]
+Time-varying Controls:
+[{0.0: 4.537631267822916e-06, 0.25: 1.4954788393303627e-06, 0.5: 3.7686203978251244e-06, 0.75: 1.426516549857238e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+------------------------------------------[Candidate 524]-------------------------------------------
+                          Recommended Apportionment: Run 1/15 Experiments                           
+Time-invariant Controls:
+[347.84508862]
+Time-varying Controls:
+[{0.0: 1.243790750624166e-05, 0.25: 1.8684394129485719e-06, 0.5: 8.798571672749215e-07, 0.75: 1.6765710179592567e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+----------------------------------------------------------------------------------------------------
+The rounded design for 15 runs is guaranteed to be at least 87.86% as good as the continuous design.
+The actual criterion value of the rounded design is 99.60% as informative as the continuous design.
+####################################################################################################
+################################## Optimal Experiment for 16 Runs ##################################
+Obtained on                             : 2022-04-04 20:41:32.646481
+Criterion                               : d_opt_criterion
+Criterion Value                         : 3.409759431487594
+Pseudo-bayesian                         : False
+CVaR Problem                            : False
+Dynamic                                 : True
+Time-invariant Controls                 : True
+Time-varying Controls                   : True
+Number of Candidates                    : 1080
+Number of Optimal Candidates            : 5
+Number of Sampling Time Choices         : 11
+Sampling Times Optimized                : False
+-------------------------------------------[Candidate 55]-------------------------------------------
+                          Recommended Apportionment: Run 7/16 Experiments                           
+Time-invariant Controls:
+[347.67209048]
+Time-varying Controls:
+[{0.0: 1.2275924613895854e-05, 0.25: 9.113743213423436e-06, 0.5: 5.410882335258963e-06, 0.75: 6.63442879243608e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+-------------------------------------------[Candidate 66]-------------------------------------------
+                          Recommended Apportionment: Run 1/16 Experiments                           
+Time-invariant Controls:
+[348.1405831]
+Time-varying Controls:
+[{0.0: 1.1888963457726013e-05, 0.25: 6.86353210514826e-07, 0.5: 1.8711296793350277e-06, 0.75: 1.0402557060977912e-05}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+------------------------------------------[Candidate 260]-------------------------------------------
+                          Recommended Apportionment: Run 5/16 Experiments                           
+Time-invariant Controls:
+[338.34327156]
+Time-varying Controls:
+[{0.0: 1.1563555623091245e-05, 0.25: 6.320650031745717e-06, 0.5: 2.7074272096895386e-06, 0.75: 1.55697066242761e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+------------------------------------------[Candidate 461]-------------------------------------------
+                          Recommended Apportionment: Run 2/16 Experiments                           
+Time-invariant Controls:
+[340.20777959]
+Time-varying Controls:
+[{0.0: 4.537631267822916e-06, 0.25: 1.4954788393303627e-06, 0.5: 3.7686203978251244e-06, 0.75: 1.426516549857238e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+------------------------------------------[Candidate 524]-------------------------------------------
+                          Recommended Apportionment: Run 1/16 Experiments                           
+Time-invariant Controls:
+[347.84508862]
+Time-varying Controls:
+[{0.0: 1.243790750624166e-05, 0.25: 1.8684394129485719e-06, 0.5: 8.798571672749215e-07, 0.75: 1.6765710179592567e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+----------------------------------------------------------------------------------------------------
+The rounded design for 16 runs is guaranteed to be at least 90.63% as good as the continuous design.
+The actual criterion value of the rounded design is 99.80% as informative as the continuous design.
+####################################################################################################
+################################## Optimal Experiment for 17 Runs ##################################
+Obtained on                             : 2022-04-04 20:41:32.678839
+Criterion                               : d_opt_criterion
+Criterion Value                         : 3.409759431487594
+Pseudo-bayesian                         : False
+CVaR Problem                            : False
+Dynamic                                 : True
+Time-invariant Controls                 : True
+Time-varying Controls                   : True
+Number of Candidates                    : 1080
+Number of Optimal Candidates            : 5
+Number of Sampling Time Choices         : 11
+Sampling Times Optimized                : False
+-------------------------------------------[Candidate 55]-------------------------------------------
+                          Recommended Apportionment: Run 8/17 Experiments                           
+Time-invariant Controls:
+[347.67209048]
+Time-varying Controls:
+[{0.0: 1.2275924613895854e-05, 0.25: 9.113743213423436e-06, 0.5: 5.410882335258963e-06, 0.75: 6.63442879243608e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+-------------------------------------------[Candidate 66]-------------------------------------------
+                          Recommended Apportionment: Run 1/17 Experiments                           
+Time-invariant Controls:
+[348.1405831]
+Time-varying Controls:
+[{0.0: 1.1888963457726013e-05, 0.25: 6.86353210514826e-07, 0.5: 1.8711296793350277e-06, 0.75: 1.0402557060977912e-05}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+------------------------------------------[Candidate 260]-------------------------------------------
+                          Recommended Apportionment: Run 5/17 Experiments                           
+Time-invariant Controls:
+[338.34327156]
+Time-varying Controls:
+[{0.0: 1.1563555623091245e-05, 0.25: 6.320650031745717e-06, 0.5: 2.7074272096895386e-06, 0.75: 1.55697066242761e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+------------------------------------------[Candidate 461]-------------------------------------------
+                          Recommended Apportionment: Run 2/17 Experiments                           
+Time-invariant Controls:
+[340.20777959]
+Time-varying Controls:
+[{0.0: 4.537631267822916e-06, 0.25: 1.4954788393303627e-06, 0.5: 3.7686203978251244e-06, 0.75: 1.426516549857238e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+------------------------------------------[Candidate 524]-------------------------------------------
+                          Recommended Apportionment: Run 1/17 Experiments                           
+Time-invariant Controls:
+[347.84508862]
+Time-varying Controls:
+[{0.0: 1.243790750624166e-05, 0.25: 1.8684394129485719e-06, 0.5: 8.798571672749215e-07, 0.75: 1.6765710179592567e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+----------------------------------------------------------------------------------------------------
+The rounded design for 17 runs is guaranteed to be at least 86.74% as good as the continuous design.
+The actual criterion value of the rounded design is 99.93% as informative as the continuous design.
+####################################################################################################
+################################## Optimal Experiment for 18 Runs ##################################
+Obtained on                             : 2022-04-04 20:41:32.711142
+Criterion                               : d_opt_criterion
+Criterion Value                         : 3.409759431487594
+Pseudo-bayesian                         : False
+CVaR Problem                            : False
+Dynamic                                 : True
+Time-invariant Controls                 : True
+Time-varying Controls                   : True
+Number of Candidates                    : 1080
+Number of Optimal Candidates            : 5
+Number of Sampling Time Choices         : 11
+Sampling Times Optimized                : False
+-------------------------------------------[Candidate 55]-------------------------------------------
+                          Recommended Apportionment: Run 8/18 Experiments                           
+Time-invariant Controls:
+[347.67209048]
+Time-varying Controls:
+[{0.0: 1.2275924613895854e-05, 0.25: 9.113743213423436e-06, 0.5: 5.410882335258963e-06, 0.75: 6.63442879243608e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+-------------------------------------------[Candidate 66]-------------------------------------------
+                          Recommended Apportionment: Run 1/18 Experiments                           
+Time-invariant Controls:
+[348.1405831]
+Time-varying Controls:
+[{0.0: 1.1888963457726013e-05, 0.25: 6.86353210514826e-07, 0.5: 1.8711296793350277e-06, 0.75: 1.0402557060977912e-05}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+------------------------------------------[Candidate 260]-------------------------------------------
+                          Recommended Apportionment: Run 5/18 Experiments                           
+Time-invariant Controls:
+[338.34327156]
+Time-varying Controls:
+[{0.0: 1.1563555623091245e-05, 0.25: 6.320650031745717e-06, 0.5: 2.7074272096895386e-06, 0.75: 1.55697066242761e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+------------------------------------------[Candidate 461]-------------------------------------------
+                          Recommended Apportionment: Run 3/18 Experiments                           
+Time-invariant Controls:
+[340.20777959]
+Time-varying Controls:
+[{0.0: 4.537631267822916e-06, 0.25: 1.4954788393303627e-06, 0.5: 3.7686203978251244e-06, 0.75: 1.426516549857238e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+------------------------------------------[Candidate 524]-------------------------------------------
+                          Recommended Apportionment: Run 1/18 Experiments                           
+Time-invariant Controls:
+[347.84508862]
+Time-varying Controls:
+[{0.0: 1.243790750624166e-05, 0.25: 1.8684394129485719e-06, 0.5: 8.798571672749215e-07, 0.75: 1.6765710179592567e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+----------------------------------------------------------------------------------------------------
+The rounded design for 18 runs is guaranteed to be at least 91.52% as good as the continuous design.
+The actual criterion value of the rounded design is 99.46% as informative as the continuous design.
+####################################################################################################
+################################## Optimal Experiment for 19 Runs ##################################
+Obtained on                             : 2022-04-04 20:41:32.743781
+Criterion                               : d_opt_criterion
+Criterion Value                         : 3.409759431487594
+Pseudo-bayesian                         : False
+CVaR Problem                            : False
+Dynamic                                 : True
+Time-invariant Controls                 : True
+Time-varying Controls                   : True
+Number of Candidates                    : 1080
+Number of Optimal Candidates            : 5
+Number of Sampling Time Choices         : 11
+Sampling Times Optimized                : False
+-------------------------------------------[Candidate 55]-------------------------------------------
+                          Recommended Apportionment: Run 8/19 Experiments                           
+Time-invariant Controls:
+[347.67209048]
+Time-varying Controls:
+[{0.0: 1.2275924613895854e-05, 0.25: 9.113743213423436e-06, 0.5: 5.410882335258963e-06, 0.75: 6.63442879243608e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+-------------------------------------------[Candidate 66]-------------------------------------------
+                          Recommended Apportionment: Run 1/19 Experiments                           
+Time-invariant Controls:
+[348.1405831]
+Time-varying Controls:
+[{0.0: 1.1888963457726013e-05, 0.25: 6.86353210514826e-07, 0.5: 1.8711296793350277e-06, 0.75: 1.0402557060977912e-05}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+------------------------------------------[Candidate 260]-------------------------------------------
+                          Recommended Apportionment: Run 6/19 Experiments                           
+Time-invariant Controls:
+[338.34327156]
+Time-varying Controls:
+[{0.0: 1.1563555623091245e-05, 0.25: 6.320650031745717e-06, 0.5: 2.7074272096895386e-06, 0.75: 1.55697066242761e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+------------------------------------------[Candidate 461]-------------------------------------------
+                          Recommended Apportionment: Run 3/19 Experiments                           
+Time-invariant Controls:
+[340.20777959]
+Time-varying Controls:
+[{0.0: 4.537631267822916e-06, 0.25: 1.4954788393303627e-06, 0.5: 3.7686203978251244e-06, 0.75: 1.426516549857238e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+------------------------------------------[Candidate 524]-------------------------------------------
+                          Recommended Apportionment: Run 1/19 Experiments                           
+Time-invariant Controls:
+[347.84508862]
+Time-varying Controls:
+[{0.0: 1.243790750624166e-05, 0.25: 1.8684394129485719e-06, 0.5: 8.798571672749215e-07, 0.75: 1.6765710179592567e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+----------------------------------------------------------------------------------------------------
+The rounded design for 19 runs is guaranteed to be at least 87.22% as good as the continuous design.
+The actual criterion value of the rounded design is 99.51% as informative as the continuous design.
+####################################################################################################
+################################## Optimal Experiment for 20 Runs ##################################
+Obtained on                             : 2022-04-04 20:41:32.776399
+Criterion                               : d_opt_criterion
+Criterion Value                         : 3.409759431487594
+Pseudo-bayesian                         : False
+CVaR Problem                            : False
+Dynamic                                 : True
+Time-invariant Controls                 : True
+Time-varying Controls                   : True
+Number of Candidates                    : 1080
+Number of Optimal Candidates            : 5
+Number of Sampling Time Choices         : 11
+Sampling Times Optimized                : False
+-------------------------------------------[Candidate 55]-------------------------------------------
+                          Recommended Apportionment: Run 9/20 Experiments                           
+Time-invariant Controls:
+[347.67209048]
+Time-varying Controls:
+[{0.0: 1.2275924613895854e-05, 0.25: 9.113743213423436e-06, 0.5: 5.410882335258963e-06, 0.75: 6.63442879243608e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+-------------------------------------------[Candidate 66]-------------------------------------------
+                          Recommended Apportionment: Run 1/20 Experiments                           
+Time-invariant Controls:
+[348.1405831]
+Time-varying Controls:
+[{0.0: 1.1888963457726013e-05, 0.25: 6.86353210514826e-07, 0.5: 1.8711296793350277e-06, 0.75: 1.0402557060977912e-05}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+------------------------------------------[Candidate 260]-------------------------------------------
+                          Recommended Apportionment: Run 6/20 Experiments                           
+Time-invariant Controls:
+[338.34327156]
+Time-varying Controls:
+[{0.0: 1.1563555623091245e-05, 0.25: 6.320650031745717e-06, 0.5: 2.7074272096895386e-06, 0.75: 1.55697066242761e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+------------------------------------------[Candidate 461]-------------------------------------------
+                          Recommended Apportionment: Run 3/20 Experiments                           
+Time-invariant Controls:
+[340.20777959]
+Time-varying Controls:
+[{0.0: 4.537631267822916e-06, 0.25: 1.4954788393303627e-06, 0.5: 3.7686203978251244e-06, 0.75: 1.426516549857238e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+------------------------------------------[Candidate 524]-------------------------------------------
+                          Recommended Apportionment: Run 1/20 Experiments                           
+Time-invariant Controls:
+[347.84508862]
+Time-varying Controls:
+[{0.0: 1.243790750624166e-05, 0.25: 1.8684394129485719e-06, 0.5: 8.798571672749215e-07, 0.75: 1.6765710179592567e-06}]
+Sampling Times:
+[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1. ]
+----------------------------------------------------------------------------------------------------
+The rounded design for 20 runs is guaranteed to be at least 93.22% as good as the continuous design.
+The actual criterion value of the rounded design is 99.82% as informative as the continuous design.
+####################################################################################################

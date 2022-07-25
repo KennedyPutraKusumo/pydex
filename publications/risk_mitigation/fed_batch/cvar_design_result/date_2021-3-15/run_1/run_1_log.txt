@@ -1,0 +1,2666 @@
+******************************************* CVaR Problem *******************************************
+
+==========================================[Iteration 1/5]===========================================
+Computing the maximal mean design, obtaining the mean UB and CVaR LB in the Pareto Frontier.
+
+############################### Computing Optimal Experiment Design ################################
+Started on                              : 2021-03-15 13:52:05.024144
+Criterion                               : cvar_d_opt_criterion
+Pseudo-bayesian                         : True
+Pseudo-bayesian Criterion Type          : 0
+Dynamic                                 : True
+Time-invariant Controls                 : True
+Time-varying Controls                   : True
+Number of Candidates                    : 243
+Number of Sampling Time Choices         : 11
+Sampling Times Optimized                : True
+Number of Scenarios                     : 200
+===============================================================================
+                                     CVXPY                                     
+                                    v1.1.11                                    
+===============================================================================
+-------------------------------------------------------------------------------
+                                  Compilation                                  
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+                                Numerical solver                               
+-------------------------------------------------------------------------------
+
+
+Problem
+  Name                   :                 
+  Objective sense        : max             
+  Type                   : CONIC (conic optimization problem)
+  Constraints            : 5874            
+  Cones                  : 800             
+  Scalar variables       : 5674            
+  Matrix variables       : 200             
+  Integer variables      : 0               
+
+Optimizer started.
+Problem
+  Name                   :                 
+  Objective sense        : max             
+  Type                   : CONIC (conic optimization problem)
+  Constraints            : 5874            
+  Cones                  : 800             
+  Scalar variables       : 5674            
+  Matrix variables       : 200             
+  Integer variables      : 0               
+
+Optimizer  - threads                : 24              
+Optimizer  - solved problem         : the primal      
+Optimizer  - Constraints            : 4430
+Optimizer  - Cones                  : 800
+Optimizer  - Scalar variables       : 4831              conic                  : 2400            
+Optimizer  - Semi-definite variables: 200               scalarized             : 7200            
+Factor     - setup time             : 2.11              dense det. time        : 0.00            
+Factor     - ML order time          : 0.36              GP order time          : 0.00            
+Factor     - nonzeros before factor : 7.83e+06          after factor           : 7.83e+06        
+Factor     - dense dim.             : 1                 flops                  : 2.66e+10        
+ITE PFEAS    DFEAS    GFEAS    PRSTATUS   POBJ              DOBJ              MU       TIME  
+0   1.6e+02  3.2e+01  6.7e+02  0.00e+00   -6.622707193e+02  3.220408006e+00   1.0e+00  2.89  
+1   6.5e+01  1.3e+01  2.7e+02  -1.77e-01  -4.179882572e+02  7.917470872e+00   4.1e-01  23.05 
+2   2.2e+01  4.6e+00  7.3e+01  2.20e-01   -1.899757576e+02  1.342081953e+01   1.4e-01  47.88 
+3   9.6e+00  2.0e+00  2.3e+01  5.19e-01   -8.652237636e+01  1.696997497e+01   6.2e-02  70.62 
+4   4.3e+00  8.8e-01  7.3e+00  7.47e-01   -3.105117888e+01  1.846054381e+01   2.8e-02  95.12 
+5   2.6e+00  5.3e-01  3.4e+00  9.55e-01   -1.143357706e+01  1.781881994e+01   1.7e-02  120.26
+6   7.8e-01  1.6e-01  4.4e-01  1.14e+00   6.998030380e+00   1.447269757e+01   5.0e-03  144.04
+7   1.3e-01  2.7e-02  2.6e-02  1.34e+00   7.345954889e+00   8.388352401e+00   8.4e-04  168.14
+8   5.4e-02  1.1e-02  8.2e-03  9.08e-01   4.020139155e+00   4.508537642e+00   3.5e-04  193.28
+9   1.6e-02  3.3e-03  1.6e-03  8.28e-01   2.366506128e+00   2.530260401e+00   1.0e-04  218.20
+10  7.5e-03  1.5e-03  6.3e-04  5.95e-01   1.317194177e+00   1.414019791e+00   4.8e-05  243.30
+11  3.1e-03  6.3e-04  1.9e-04  6.78e-01   6.718447707e-01   7.177254448e-01   2.0e-05  268.55
+12  2.2e-03  4.6e-04  1.3e-04  5.66e-01   4.142283787e-01   4.520375920e-01   1.4e-05  293.08
+13  7.9e-04  1.6e-04  3.1e-05  6.96e-01   -5.776640947e-02  -4.268772263e-02  5.1e-06  316.48
+14  3.6e-04  7.4e-05  1.0e-05  8.48e-01   -2.531288210e-01  -2.458451479e-01  2.3e-06  341.39
+15  2.0e-04  4.2e-05  4.4e-06  9.14e-01   -3.402178528e-01  -3.360275101e-01  1.3e-06  364.97
+16  5.1e-05  1.1e-05  5.9e-07  9.49e-01   -4.289967487e-01  -4.279198469e-01  3.3e-07  389.80
+17  1.4e-05  2.8e-06  8.3e-08  9.85e-01   -4.534850664e-01  -4.531975838e-01  8.8e-08  412.16
+18  2.5e-06  5.2e-07  6.7e-09  9.96e-01   -4.611130203e-01  -4.610596439e-01  1.6e-08  434.52
+19  3.3e-07  6.7e-08  3.1e-10  9.99e-01   -4.626603485e-01  -4.626534345e-01  2.1e-09  456.82
+20  2.9e-08  5.9e-09  8.0e-12  1.00e+00   -4.628711983e-01  -4.628705963e-01  1.8e-10  479.96
+21  1.0e-08  1.5e-08  5.8e-14  1.00e+00   -4.628905807e-01  -4.628905583e-01  6.8e-12  502.33
+22  8.2e-09  1.3e-08  5.5e-14  1.00e+00   -4.628906029e-01  -4.628905812e-01  6.6e-12  524.15
+23  8.0e-09  1.4e-08  5.5e-14  1.02e+00   -4.628906052e-01  -4.628905835e-01  6.6e-12  545.33
+24  6.9e-09  2.3e-08  5.2e-14  1.00e+00   -4.628906284e-01  -4.628906074e-01  6.4e-12  570.00
+25  6.9e-09  2.3e-08  5.2e-14  1.00e+00   -4.628906284e-01  -4.628906074e-01  6.4e-12  593.43
+26  6.9e-09  2.3e-08  5.2e-14  1.00e+00   -4.628906284e-01  -4.628906074e-01  6.4e-12  615.67
+27  7.3e-10  6.2e-07  9.2e-16  1.00e+00   -4.628912819e-01  -4.628912804e-01  4.3e-13  640.94
+Optimizer terminated. Time: 641.04  
+
+
+Interior-point solution summary
+  Problem status  : PRIMAL_AND_DUAL_FEASIBLE
+  Solution status : OPTIMAL
+  Primal.  obj: -4.6289128186e-01   nrm: 4e+00    Viol.  con: 4e-08    var: 0e+00    barvar: 0e+00    cones: 2e-11  
+  Dual.    obj: -4.6289128045e-01   nrm: 9e+01    Viol.  con: 0e+00    var: 1e-14    barvar: 1e-12    cones: 0e+00  
+-------------------------------------------------------------------------------
+                                    Summary                                    
+-------------------------------------------------------------------------------
+--------------------------------[Optimization Complete in 1961.15 s]--------------------------------
+Complete: 
+ ~ sensitivity analysis took 0.00 CPU seconds.
+ ~ optimization with MOSEK via cvxpy took 1961.15 CPU seconds.
+####################################################################################################
+
+######################################## Optimal Candidates ########################################
+Obtained on                             : 2021-03-15 14:24:46.235894
+Criterion                               : cvar_d_opt_criterion
+Criterion Value                         : 0.46289128186416195
+Pseudo-bayesian                         : True
+Pseudo-bayesian Criterion Type          : 0
+CVaR Problem                            : True
+Beta                                    : 0.8
+Constrained Problem                     : False
+Dynamic                                 : True
+Time-invariant Controls                 : True
+Time-varying Controls                   : True
+Number of Candidates                    : 243
+Number of Optimal Candidates            : 30
+Number of Sampling Time Choices         : 11
+Sampling Times Optimized                : True
+Number of Samples Per Experiment        : 1
+Number of Scenarios                     : 200
+-------------------------------------------[Candidate 25]-------------------------------------------
+                              Recommended Effort: 6.29% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.0, 0.25: 0.1, 0.5: 0.1, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[    160.00]: dedicate  6.29% of experiments
+-------------------------------------------[Candidate 55]-------------------------------------------
+                              Recommended Effort: 9.24% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.0, 0.5: 0.0, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[    200.00]: dedicate  9.24% of experiments
+-------------------------------------------[Candidate 64]-------------------------------------------
+                              Recommended Effort: 0.84% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.05, 0.5: 0.0, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[    120.00]: dedicate  0.84% of experiments
+-------------------------------------------[Candidate 65]-------------------------------------------
+                              Recommended Effort: 0.84% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.05, 0.5: 0.0, 0.75: 0.05} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[    120.00]: dedicate  0.84% of experiments
+-------------------------------------------[Candidate 66]-------------------------------------------
+                              Recommended Effort: 0.84% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.05, 0.5: 0.0, 0.75: 0.1} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[    120.00]: dedicate  0.84% of experiments
+-------------------------------------------[Candidate 67]-------------------------------------------
+                              Recommended Effort: 7.78% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.05, 0.5: 0.05, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[    200.00]: dedicate  7.78% of experiments
+-------------------------------------------[Candidate 73]-------------------------------------------
+                              Recommended Effort: 1.05% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.1, 0.5: 0.0, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     60.00]: dedicate  1.05% of experiments
+-------------------------------------------[Candidate 74]-------------------------------------------
+                              Recommended Effort: 1.05% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.1, 0.5: 0.0, 0.75: 0.05} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     60.00]: dedicate  1.05% of experiments
+-------------------------------------------[Candidate 75]-------------------------------------------
+                              Recommended Effort: 1.05% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.1, 0.5: 0.0, 0.75: 0.1} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     60.00]: dedicate  1.05% of experiments
+-------------------------------------------[Candidate 76]-------------------------------------------
+                              Recommended Effort: 9.73% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.1, 0.5: 0.05, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     60.00]: dedicate  1.05% of experiments
+[    160.00]: dedicate  7.19% of experiments
+[    180.00]: dedicate  1.49% of experiments
+-------------------------------------------[Candidate 77]-------------------------------------------
+                              Recommended Effort: 1.05% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.1, 0.5: 0.05, 0.75: 0.05} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     60.00]: dedicate  1.05% of experiments
+-------------------------------------------[Candidate 78]-------------------------------------------
+                              Recommended Effort: 1.05% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.1, 0.5: 0.05, 0.75: 0.1} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     60.00]: dedicate  1.05% of experiments
+-------------------------------------------[Candidate 79]-------------------------------------------
+                              Recommended Effort: 1.05% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.1, 0.5: 0.1, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     60.00]: dedicate  1.05% of experiments
+-------------------------------------------[Candidate 80]-------------------------------------------
+                              Recommended Effort: 4.42% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.1, 0.5: 0.1, 0.75: 0.05} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     60.00]: dedicate  1.05% of experiments
+[    160.00]: dedicate  3.38% of experiments
+-------------------------------------------[Candidate 81]-------------------------------------------
+                              Recommended Effort: 1.05% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.1, 0.5: 0.1, 0.75: 0.1} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     60.00]: dedicate  1.05% of experiments
+------------------------------------------[Candidate 187]-------------------------------------------
+                              Recommended Effort: 8.38% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.0, 0.25: 0.1, 0.5: 0.1, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[    160.00]: dedicate  8.38% of experiments
+------------------------------------------[Candidate 217]-------------------------------------------
+                              Recommended Effort: 9.01% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.0, 0.5: 0.0, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[    200.00]: dedicate  9.01% of experiments
+------------------------------------------[Candidate 220]-------------------------------------------
+                              Recommended Effort: 4.33% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.0, 0.5: 0.05, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[    200.00]: dedicate  4.33% of experiments
+------------------------------------------[Candidate 226]-------------------------------------------
+                              Recommended Effort: 0.34% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.05, 0.5: 0.0, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[    140.00]: dedicate  0.34% of experiments
+------------------------------------------[Candidate 227]-------------------------------------------
+                              Recommended Effort: 0.34% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.05, 0.5: 0.0, 0.75: 0.05} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[    140.00]: dedicate  0.34% of experiments
+------------------------------------------[Candidate 228]-------------------------------------------
+                              Recommended Effort: 0.34% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.05, 0.5: 0.0, 0.75: 0.1} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[    140.00]: dedicate  0.34% of experiments
+------------------------------------------[Candidate 235]-------------------------------------------
+                              Recommended Effort: 1.28% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.1, 0.5: 0.0, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     60.00]: dedicate  1.28% of experiments
+------------------------------------------[Candidate 236]-------------------------------------------
+                              Recommended Effort: 1.28% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.1, 0.5: 0.0, 0.75: 0.05} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     60.00]: dedicate  1.28% of experiments
+------------------------------------------[Candidate 237]-------------------------------------------
+                              Recommended Effort: 1.28% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.1, 0.5: 0.0, 0.75: 0.1} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     60.00]: dedicate  1.28% of experiments
+------------------------------------------[Candidate 238]-------------------------------------------
+                             Recommended Effort: 15.33% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.1, 0.5: 0.05, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     60.00]: dedicate  1.28% of experiments
+[    160.00]: dedicate  7.22% of experiments
+[    180.00]: dedicate  6.84% of experiments
+------------------------------------------[Candidate 239]-------------------------------------------
+                              Recommended Effort: 1.28% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.1, 0.5: 0.05, 0.75: 0.05} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     60.00]: dedicate  1.28% of experiments
+------------------------------------------[Candidate 240]-------------------------------------------
+                              Recommended Effort: 1.28% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.1, 0.5: 0.05, 0.75: 0.1} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     60.00]: dedicate  1.28% of experiments
+------------------------------------------[Candidate 241]-------------------------------------------
+                              Recommended Effort: 1.28% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.1, 0.5: 0.1, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     60.00]: dedicate  1.28% of experiments
+------------------------------------------[Candidate 242]-------------------------------------------
+                              Recommended Effort: 5.67% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.1, 0.5: 0.1, 0.75: 0.05} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     60.00]: dedicate  1.28% of experiments
+[    160.00]: dedicate  4.40% of experiments
+------------------------------------------[Candidate 243]-------------------------------------------
+                              Recommended Effort: 1.28% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.1, 0.5: 0.1, 0.75: 0.1} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     60.00]: dedicate  1.28% of experiments
+####################################################################################################
+
+Computing CVaR of Iteration 1's Solution
+############################### Computing Optimal Experiment Design ################################
+Started on                              : 2021-03-15 14:24:46.251539
+Criterion                               : cvar_d_opt_criterion
+Pseudo-bayesian                         : True
+Pseudo-bayesian Criterion Type          : 0
+Dynamic                                 : True
+Time-invariant Controls                 : True
+Time-varying Controls                   : True
+Number of Candidates                    : 243
+Number of Sampling Time Choices         : 11
+Sampling Times Optimized                : True
+Number of Scenarios                     : 200
+===============================================================================
+                                     CVXPY                                     
+                                    v1.1.11                                    
+===============================================================================
+-------------------------------------------------------------------------------
+                                  Compilation                                  
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+                                Numerical solver                               
+-------------------------------------------------------------------------------
+
+
+Problem
+  Name                   :                 
+  Objective sense        : max             
+  Type                   : CONIC (conic optimization problem)
+  Constraints            : 5874            
+  Cones                  : 800             
+  Scalar variables       : 8347            
+  Matrix variables       : 200             
+  Integer variables      : 0               
+
+Optimizer started.
+Problem
+  Name                   :                 
+  Objective sense        : max             
+  Type                   : CONIC (conic optimization problem)
+  Constraints            : 5874            
+  Cones                  : 800             
+  Scalar variables       : 8347            
+  Matrix variables       : 200             
+  Integer variables      : 0               
+
+Optimizer  - threads                : 24              
+Optimizer  - solved problem         : the primal      
+Optimizer  - Constraints            : 5031
+Optimizer  - Cones                  : 801
+Optimizer  - Scalar variables       : 4832              conic                  : 4831            
+Optimizer  - Semi-definite variables: 200               scalarized             : 7200            
+Factor     - setup time             : 1.98              dense det. time        : 0.00            
+Factor     - ML order time          : 0.34              GP order time          : 0.00            
+Factor     - nonzeros before factor : 7.83e+06          after factor           : 7.84e+06        
+Factor     - dense dim.             : 3                 flops                  : 2.66e+10        
+ITE PFEAS    DFEAS    GFEAS    PRSTATUS   POBJ              DOBJ              MU       TIME  
+0   1.6e+02  3.2e+01  6.6e+02  0.00e+00   -6.622707193e+02  0.000000000e+00   1.0e+00  2.65  
+1   1.3e+02  2.6e+01  5.3e+02  -8.59e-02  -5.993081919e+02  2.331873460e+00   8.2e-01  33.92 
+2   1.1e+02  2.2e+01  4.4e+02  4.26e-02   -5.468179066e+02  4.063874655e+00   7.0e-01  63.37 
+3   7.4e+01  1.5e+01  2.7e+02  1.09e-01   -4.217097202e+02  8.800097382e+00   4.6e-01  92.32 
+4   2.2e+01  4.4e+00  5.8e+01  2.92e-01   -1.540884942e+02  1.937327763e+01   1.4e-01  120.27
+5   1.2e+01  2.5e+00  2.8e+01  6.43e-01   -8.926253563e+01  2.362680584e+01   7.7e-02  149.61
+6   9.8e+00  2.0e+00  1.7e+01  3.51e-01   -5.838760658e+01  2.203789819e+01   6.1e-02  178.90
+7   4.0e+00  7.9e-01  5.7e+00  7.35e-01   -1.317555983e+01  2.713216698e+01   2.5e-02  206.76
+8   2.2e+00  4.4e-01  2.9e+00  6.33e-01   2.846850966e+00   3.026473646e+01   1.4e-02  233.74
+9   1.5e+00  2.9e-01  2.0e+00  1.55e-01   1.247240195e+01   3.644324299e+01   9.1e-03  265.01
+10  8.2e-01  1.6e-01  1.1e+00  1.57e-01   2.513315648e+01   4.287029623e+01   5.1e-03  291.60
+11  3.6e-01  7.3e-02  3.5e-01  4.01e-01   3.097579414e+01   3.988367949e+01   2.3e-03  320.94
+12  8.2e-02  1.6e-02  3.0e-02  8.74e-01   2.092074172e+01   2.284018972e+01   5.1e-04  351.97
+13  3.3e-02  6.6e-03  7.7e-03  1.22e+00   9.494719508e+00   1.020711695e+01   2.1e-04  383.48
+14  2.5e-02  4.9e-03  5.1e-03  1.02e+00   8.067216925e+00   8.601197078e+00   1.5e-04  410.99
+15  1.8e-02  3.5e-03  3.3e-03  9.69e-01   6.885289577e+00   7.273238072e+00   1.1e-04  442.14
+16  1.2e-02  2.4e-03  1.9e-03  9.30e-01   5.842676158e+00   6.115321419e+00   7.5e-05  472.95
+17  9.7e-03  1.9e-03  1.4e-03  8.98e-01   5.391100555e+00   5.616059884e+00   6.1e-05  503.67
+18  7.0e-03  1.4e-03  9.1e-04  8.84e-01   4.782620590e+00   4.948096875e+00   4.3e-05  534.57
+19  5.0e-03  9.9e-04  5.7e-04  8.72e-01   4.291240272e+00   4.412392411e+00   3.1e-05  563.47
+20  3.6e-03  7.2e-04  3.7e-04  8.77e-01   3.959070916e+00   4.049562456e+00   2.3e-05  594.78
+21  2.8e-03  5.7e-04  2.6e-04  8.92e-01   3.783617174e+00   3.855669113e+00   1.8e-05  626.03
+22  2.2e-03  4.4e-04  1.8e-04  9.08e-01   3.647005802e+00   3.703155405e+00   1.4e-05  657.97
+23  1.8e-03  3.6e-04  1.4e-04  9.23e-01   3.565932477e+00   3.612844330e+00   1.1e-05  688.98
+24  1.3e-03  2.6e-04  8.4e-05  9.22e-01   3.427525914e+00   3.461056802e+00   8.0e-06  721.18
+25  1.2e-03  2.3e-04  7.4e-05  9.42e-01   3.401096238e+00   3.431879175e+00   7.3e-06  752.29
+26  7.2e-04  1.4e-04  3.6e-05  9.37e-01   3.291992406e+00   3.311138421e+00   4.5e-06  784.23
+27  6.8e-04  1.4e-04  3.4e-05  9.66e-01   3.281578080e+00   3.299709391e+00   4.2e-06  813.65
+28  5.3e-04  1.1e-04  2.3e-05  9.60e-01   3.253560607e+00   3.267659849e+00   3.3e-06  840.64
+29  4.2e-04  8.3e-05  1.7e-05  9.56e-01   3.217242467e+00   3.228536543e+00   2.6e-06  868.19
+30  3.4e-04  6.8e-05  1.2e-05  9.68e-01   3.206540821e+00   3.215795134e+00   2.1e-06  896.11
+31  2.7e-04  5.3e-05  8.7e-06  9.67e-01   3.185533581e+00   3.192827958e+00   1.7e-06  926.96
+32  2.2e-04  4.5e-05  6.7e-06  9.90e-01   3.177995732e+00   3.184116274e+00   1.4e-06  955.19
+33  1.9e-04  3.7e-05  5.1e-06  9.79e-01   3.167998755e+00   3.173085277e+00   1.2e-06  985.03
+34  1.1e-04  2.1e-05  2.2e-06  9.95e-01   3.152748813e+00   3.155655365e+00   6.6e-07  1014.85
+35  6.7e-05  1.3e-05  1.1e-06  9.94e-01   3.145767128e+00   3.147594696e+00   4.2e-07  1044.84
+36  6.6e-06  1.3e-06  3.7e-08  9.97e-01   3.134847640e+00   3.135028793e+00   4.1e-08  1074.71
+37  2.8e-07  5.5e-08  3.1e-10  9.99e-01   3.133871320e+00   3.133878873e+00   1.7e-09  1104.76
+38  2.7e-07  5.5e-08  3.1e-10  1.00e+00   3.133871175e+00   3.133878705e+00   1.7e-09  1132.70
+39  2.7e-07  5.5e-08  3.1e-10  1.00e+00   3.133871160e+00   3.133878688e+00   1.7e-09  1164.96
+40  2.6e-07  5.2e-08  2.9e-10  1.00e+00   3.133868775e+00   3.133875944e+00   1.6e-09  1197.18
+41  2.6e-07  5.2e-08  2.9e-10  1.00e+00   3.133868692e+00   3.133875848e+00   1.6e-09  1227.32
+42  2.6e-07  5.2e-08  2.9e-10  9.97e-01   3.133868652e+00   3.133875806e+00   1.6e-09  1258.03
+43  2.6e-07  5.2e-08  2.9e-10  9.99e-01   3.133868570e+00   3.133875715e+00   1.6e-09  1288.56
+44  2.4e-07  4.9e-08  2.6e-10  1.00e+00   3.133867939e+00   3.133874638e+00   1.5e-09  1320.05
+45  2.4e-07  4.9e-08  2.6e-10  1.00e+00   3.133867907e+00   3.133874601e+00   1.5e-09  1349.78
+46  2.4e-07  4.9e-08  2.6e-10  1.00e+00   3.133867907e+00   3.133874600e+00   1.5e-09  1377.55
+47  2.4e-07  4.8e-08  2.6e-10  9.99e-01   3.133867657e+00   3.133874290e+00   1.5e-09  1405.48
+48  2.4e-07  4.8e-08  2.6e-10  9.99e-01   3.133867652e+00   3.133874284e+00   1.5e-09  1436.36
+49  2.4e-07  4.8e-08  2.5e-10  1.00e+00   3.133867289e+00   3.133873880e+00   1.5e-09  1466.53
+50  2.4e-07  4.8e-08  2.5e-10  1.00e+00   3.133867285e+00   3.133873875e+00   1.5e-09  1496.36
+51  2.4e-07  4.8e-08  2.5e-10  1.00e+00   3.133867278e+00   3.133873867e+00   1.5e-09  1525.47
+52  2.4e-07  4.8e-08  2.5e-10  1.00e+00   3.133867273e+00   3.133873862e+00   1.5e-09  1555.09
+53  2.4e-07  4.8e-08  2.5e-10  9.99e-01   3.133867273e+00   3.133873862e+00   1.5e-09  1584.60
+54  2.4e-07  4.8e-08  2.5e-10  9.99e-01   3.133867273e+00   3.133873862e+00   1.5e-09  1616.46
+Optimizer terminated. Time: 1648.24 
+
+
+Interior-point solution summary
+  Problem status  : PRIMAL_AND_DUAL_FEASIBLE
+  Solution status : OPTIMAL
+  Primal.  obj: 3.1338672733e+00    nrm: 1e+01    Viol.  con: 2e-04    var: 2e-09    barvar: 0e+00    cones: 0e+00  
+  Dual.    obj: 1.3662733980e+00    nrm: 9e+01    Viol.  con: 0e+00    var: 4e-01    barvar: 1e-08    cones: 0e+00  
+-------------------------------------------------------------------------------
+                                    Summary                                    
+-------------------------------------------------------------------------------
+--------------------------------[Optimization Complete in 3006.59 s]--------------------------------
+Complete: 
+ ~ sensitivity analysis took 0.00 CPU seconds.
+ ~ optimization with MOSEK via cvxpy took 3006.59 CPU seconds.
+####################################################################################################
+Time elapsed: 0.00 seconds.
+CVaR LB: -3.133867273265413
+Mean UB: 0.46289128186416195
+=====================================[Iteration 1/5 Completed]======================================
+
+==========================================[Iteration 2/5]===========================================
+Computing the maximal CVaR design, obtaining the CVaR UB, and mean LB in the Pareto Frontier.
+
+############################### Computing Optimal Experiment Design ################################
+Started on                              : 2021-03-15 15:14:56.586362
+Criterion                               : cvar_d_opt_criterion
+Pseudo-bayesian                         : True
+Pseudo-bayesian Criterion Type          : 0
+Dynamic                                 : True
+Time-invariant Controls                 : True
+Time-varying Controls                   : True
+Number of Candidates                    : 243
+Number of Sampling Time Choices         : 11
+Sampling Times Optimized                : True
+Number of Scenarios                     : 200
+===============================================================================
+                                     CVXPY                                     
+                                    v1.1.11                                    
+===============================================================================
+-------------------------------------------------------------------------------
+                                  Compilation                                  
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+                                Numerical solver                               
+-------------------------------------------------------------------------------
+
+
+Problem
+  Name                   :                 
+  Objective sense        : max             
+  Type                   : CONIC (conic optimization problem)
+  Constraints            : 5874            
+  Cones                  : 800             
+  Scalar variables       : 5674            
+  Matrix variables       : 200             
+  Integer variables      : 0               
+
+Optimizer started.
+Problem
+  Name                   :                 
+  Objective sense        : max             
+  Type                   : CONIC (conic optimization problem)
+  Constraints            : 5874            
+  Cones                  : 800             
+  Scalar variables       : 5674            
+  Matrix variables       : 200             
+  Integer variables      : 0               
+
+Optimizer  - threads                : 24              
+Optimizer  - solved problem         : the primal      
+Optimizer  - Constraints            : 5031
+Optimizer  - Cones                  : 800
+Optimizer  - Scalar variables       : 4831              conic                  : 2400            
+Optimizer  - Semi-definite variables: 200               scalarized             : 7200            
+Factor     - setup time             : 1.95              dense det. time        : 0.00            
+Factor     - ML order time          : 0.36              GP order time          : 0.00            
+Factor     - nonzeros before factor : 7.83e+06          after factor           : 7.84e+06        
+Factor     - dense dim.             : 1                 flops                  : 2.66e+10        
+ITE PFEAS    DFEAS    GFEAS    PRSTATUS   POBJ              DOBJ              MU       TIME  
+0   1.6e+02  3.2e+01  6.6e+02  0.00e+00   -6.622707193e+02  0.000000000e+00   1.0e+00  2.69  
+1   6.6e+01  1.3e+01  2.6e+02  -1.72e-01  -4.125521046e+02  1.027206192e+01   4.1e-01  24.95 
+2   2.3e+01  4.6e+00  7.1e+01  2.31e-01   -1.790030010e+02  2.110548440e+01   1.4e-01  49.28 
+3   9.9e+00  2.0e+00  2.3e+01  5.47e-01   -7.348050859e+01  2.670153840e+01   6.2e-02  73.98 
+4   4.4e+00  8.8e-01  6.9e+00  8.03e-01   -1.883108815e+01  2.764430661e+01   2.8e-02  95.96 
+5   2.7e+00  5.3e-01  3.1e+00  1.05e+00   -1.770479136e+00  2.482714093e+01   1.7e-02  117.63
+6   8.2e-01  1.6e-01  4.5e-01  1.19e+00   1.088940803e+01   1.793524693e+01   5.1e-03  141.61
+7   2.7e-01  5.4e-02  7.7e-02  1.33e+00   8.609459260e+00   1.061255477e+01   1.7e-03  167.45
+8   1.4e-01  2.7e-02  2.9e-02  1.10e+00   6.429654013e+00   7.440000984e+00   8.5e-04  190.20
+9   1.1e-01  2.2e-02  2.1e-02  9.40e-01   5.884935182e+00   6.704218465e+00   6.8e-04  213.60
+10  6.5e-02  1.3e-02  1.0e-02  9.08e-01   5.016185226e+00   5.534553109e+00   4.1e-04  236.51
+11  3.6e-02  7.2e-03  4.5e-03  8.42e-01   4.151918770e+00   4.460916036e+00   2.3e-04  258.84
+12  2.3e-02  4.6e-03  2.5e-03  7.98e-01   3.605834116e+00   3.818680440e+00   1.4e-04  279.75
+13  1.7e-02  3.5e-03  1.6e-03  7.79e-01   3.304047798e+00   3.470386881e+00   1.1e-04  304.76
+14  1.2e-02  2.4e-03  9.9e-04  7.75e-01   2.965787300e+00   3.087335780e+00   7.4e-05  329.41
+15  9.9e-03  2.0e-03  7.7e-04  7.82e-01   2.817507953e+00   2.921669309e+00   6.2e-05  353.37
+16  6.8e-03  1.4e-03  4.6e-04  7.82e-01   2.542100774e+00   2.617712317e+00   4.3e-05  375.05
+17  5.6e-03  1.1e-03  3.5e-04  8.03e-01   2.409234427e+00   2.472965727e+00   3.5e-05  398.45
+18  4.9e-03  9.8e-04  2.9e-04  8.04e-01   2.338098190e+00   2.395079027e+00   3.1e-05  423.50
+19  2.7e-03  5.3e-04  1.2e-04  7.98e-01   2.063138281e+00   2.096378635e+00   1.7e-05  446.28
+20  2.3e-03  4.5e-04  9.9e-05  8.66e-01   2.001866055e+00   2.030599975e+00   1.4e-05  467.84
+21  2.0e-03  4.0e-04  8.2e-05  8.80e-01   1.961043112e+00   1.986381272e+00   1.2e-05  489.73
+22  1.4e-03  2.8e-04  4.9e-05  8.69e-01   1.871377498e+00   1.889639557e+00   8.7e-06  511.63
+23  1.2e-03  2.4e-04  4.0e-05  9.05e-01   1.838496696e+00   1.854284581e+00   7.5e-06  533.17
+24  9.0e-04  1.8e-04  2.6e-05  9.09e-01   1.788395108e+00   1.800501899e+00   5.6e-06  557.58
+25  8.4e-04  1.7e-04  2.4e-05  9.27e-01   1.776429696e+00   1.787710091e+00   5.2e-06  583.20
+26  4.9e-04  9.9e-05  1.1e-05  9.20e-01   1.713536528e+00   1.720333485e+00   3.1e-06  607.93
+27  4.4e-04  8.9e-05  9.4e-06  9.71e-01   1.705295303e+00   1.711407816e+00   2.8e-06  629.66
+28  4.0e-04  7.9e-05  8.1e-06  9.45e-01   1.695046962e+00   1.700556208e+00   2.5e-06  652.22
+29  3.0e-04  6.1e-05  5.5e-06  9.85e-01   1.678300741e+00   1.682541886e+00   1.9e-06  673.40
+30  2.0e-04  4.0e-05  3.0e-06  9.58e-01   1.656454807e+00   1.659299024e+00   1.3e-06  695.46
+31  1.5e-04  3.1e-05  2.0e-06  9.79e-01   1.648631257e+00   1.650800741e+00   9.6e-07  720.14
+32  1.3e-04  2.7e-05  1.6e-06  9.81e-01   1.644248928e+00   1.646129806e+00   8.3e-07  745.39
+33  8.3e-05  1.7e-05  8.1e-07  9.75e-01   1.633137984e+00   1.634316085e+00   5.2e-07  768.74
+34  5.2e-05  1.0e-05  4.1e-07  9.83e-01   1.626778438e+00   1.627523028e+00   3.3e-07  790.44
+35  4.7e-05  9.5e-06  3.5e-07  9.95e-01   1.625019709e+00   1.625695021e+00   3.0e-07  814.46
+36  1.8e-05  3.7e-06  8.6e-08  9.95e-01   1.618083700e+00   1.618345763e+00   1.1e-07  839.66
+37  3.2e-06  6.4e-07  6.4e-09  9.99e-01   1.614820708e+00   1.614866231e+00   2.0e-08  863.66
+38  2.7e-06  5.5e-07  5.1e-09  1.00e+00   1.614710627e+00   1.614749532e+00   1.7e-08  888.68
+39  2.7e-06  5.3e-07  4.9e-09  1.01e+00   1.614692798e+00   1.614730655e+00   1.7e-08  914.31
+40  2.6e-06  5.3e-07  4.8e-09  9.99e-01   1.614686538e+00   1.614724023e+00   1.6e-08  939.98
+41  2.4e-06  4.2e-07  3.5e-09  1.01e+00   1.614565128e+00   1.614595297e+00   1.3e-08  961.66
+42  2.3e-06  4.2e-07  3.5e-09  9.98e-01   1.614564761e+00   1.614594908e+00   1.3e-08  985.43
+43  3.7e-07  7.4e-08  2.6e-10  1.00e+00   1.614152399e+00   1.614157681e+00   2.3e-09  1010.03
+44  3.7e-07  7.4e-08  2.6e-10  1.00e+00   1.614152386e+00   1.614157667e+00   2.3e-09  1033.83
+45  3.7e-07  7.4e-08  2.6e-10  1.00e+00   1.614152364e+00   1.614157643e+00   2.3e-09  1056.01
+46  3.7e-07  7.4e-08  2.6e-10  1.00e+00   1.614152308e+00   1.614157584e+00   2.3e-09  1079.80
+47  3.7e-07  7.4e-08  2.6e-10  1.00e+00   1.614152296e+00   1.614157571e+00   2.3e-09  1104.92
+48  3.7e-07  7.4e-08  2.6e-10  1.00e+00   1.614152255e+00   1.614157527e+00   2.3e-09  1129.56
+49  3.7e-07  7.4e-08  2.5e-10  1.00e+00   1.614152176e+00   1.614157442e+00   2.3e-09  1153.94
+50  3.7e-07  7.4e-08  2.5e-10  1.00e+00   1.614152164e+00   1.614157430e+00   2.3e-09  1179.33
+51  3.7e-07  7.4e-08  2.5e-10  9.99e-01   1.614152013e+00   1.614157270e+00   2.3e-09  1203.83
+52  3.7e-07  7.4e-08  2.5e-10  1.00e+00   1.614151988e+00   1.614157244e+00   2.3e-09  1226.71
+53  3.7e-07  7.4e-08  2.5e-10  1.00e+00   1.614151929e+00   1.614157181e+00   2.3e-09  1251.87
+54  3.7e-07  7.4e-08  2.5e-10  9.99e-01   1.614151875e+00   1.614157125e+00   2.3e-09  1276.76
+55  3.7e-07  7.4e-08  2.5e-10  1.00e+00   1.614151718e+00   1.614156957e+00   2.3e-09  1299.47
+56  3.7e-07  7.3e-08  2.5e-10  1.00e+00   1.614151469e+00   1.614156689e+00   2.3e-09  1323.73
+57  3.7e-07  7.3e-08  2.5e-10  9.99e-01   1.614151447e+00   1.614156666e+00   2.3e-09  1348.34
+58  3.7e-07  7.3e-08  2.5e-10  9.99e-01   1.614151384e+00   1.614156599e+00   2.3e-09  1372.58
+59  3.7e-07  7.3e-08  2.5e-10  9.99e-01   1.614151384e+00   1.614156599e+00   2.3e-09  1396.62
+60  3.7e-07  7.3e-08  2.5e-10  9.99e-01   1.614151384e+00   1.614156599e+00   2.3e-09  1419.26
+Optimizer terminated. Time: 1443.61 
+
+
+Interior-point solution summary
+  Problem status  : PRIMAL_AND_DUAL_FEASIBLE
+  Solution status : OPTIMAL
+  Primal.  obj: 1.6141513845e+00    nrm: 4e+00    Viol.  con: 2e-04    var: 9e-07    barvar: 0e+00    cones: 0e+00  
+  Dual.    obj: 4.4325394312e-01    nrm: 8e+01    Viol.  con: 0e+00    var: 7e-02    barvar: 1e-08    cones: 0e+00  
+-------------------------------------------------------------------------------
+                                    Summary                                    
+-------------------------------------------------------------------------------
+--------------------------------[Optimization Complete in 2863.54 s]--------------------------------
+Complete: 
+ ~ sensitivity analysis took 0.00 CPU seconds.
+ ~ optimization with MOSEK via cvxpy took 2863.54 CPU seconds.
+####################################################################################################
+
+######################################## Optimal Candidates ########################################
+Obtained on                             : 2021-03-15 16:02:40.235188
+Criterion                               : cvar_d_opt_criterion
+Criterion Value                         : -1.6141513844784154
+Pseudo-bayesian                         : True
+Pseudo-bayesian Criterion Type          : 0
+CVaR Problem                            : True
+Beta                                    : 0.8
+Constrained Problem                     : False
+Dynamic                                 : True
+Time-invariant Controls                 : True
+Time-varying Controls                   : True
+Number of Candidates                    : 243
+Number of Optimal Candidates            : 31
+Number of Sampling Time Choices         : 11
+Sampling Times Optimized                : True
+Number of Samples Per Experiment        : 1
+Number of Scenarios                     : 200
+-------------------------------------------[Candidate 3]--------------------------------------------
+                             Recommended Effort: 19.10% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.0, 0.25: 0.0, 0.5: 0.0, 0.75: 0.1} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[    180.00]: dedicate 19.10% of experiments
+-------------------------------------------[Candidate 55]-------------------------------------------
+                              Recommended Effort: 5.41% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.0, 0.5: 0.0, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[    200.00]: dedicate  5.41% of experiments
+-------------------------------------------[Candidate 56]-------------------------------------------
+                             Recommended Effort: 19.86% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.0, 0.5: 0.0, 0.75: 0.05} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[    160.00]: dedicate 19.86% of experiments
+------------------------------------------[Candidate 163]-------------------------------------------
+                              Recommended Effort: 5.17% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.0, 0.25: 0.0, 0.5: 0.0, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[    200.00]: dedicate  5.17% of experiments
+------------------------------------------[Candidate 217]-------------------------------------------
+                             Recommended Effort: 11.64% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.0, 0.5: 0.0, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.74% of experiments
+[    200.00]: dedicate 10.90% of experiments
+------------------------------------------[Candidate 218]-------------------------------------------
+                              Recommended Effort: 0.74% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.0, 0.5: 0.0, 0.75: 0.05} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.74% of experiments
+------------------------------------------[Candidate 219]-------------------------------------------
+                              Recommended Effort: 0.74% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.0, 0.5: 0.0, 0.75: 0.1} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.74% of experiments
+------------------------------------------[Candidate 220]-------------------------------------------
+                              Recommended Effort: 0.74% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.0, 0.5: 0.05, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.74% of experiments
+------------------------------------------[Candidate 221]-------------------------------------------
+                              Recommended Effort: 0.74% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.0, 0.5: 0.05, 0.75: 0.05} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.74% of experiments
+------------------------------------------[Candidate 222]-------------------------------------------
+                              Recommended Effort: 0.74% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.0, 0.5: 0.05, 0.75: 0.1} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.74% of experiments
+------------------------------------------[Candidate 223]-------------------------------------------
+                              Recommended Effort: 0.74% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.0, 0.5: 0.1, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.74% of experiments
+------------------------------------------[Candidate 224]-------------------------------------------
+                              Recommended Effort: 0.74% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.0, 0.5: 0.1, 0.75: 0.05} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.74% of experiments
+------------------------------------------[Candidate 225]-------------------------------------------
+                              Recommended Effort: 0.74% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.0, 0.5: 0.1, 0.75: 0.1} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.74% of experiments
+------------------------------------------[Candidate 226]-------------------------------------------
+                              Recommended Effort: 0.74% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.05, 0.5: 0.0, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.74% of experiments
+------------------------------------------[Candidate 227]-------------------------------------------
+                              Recommended Effort: 0.74% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.05, 0.5: 0.0, 0.75: 0.05} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.74% of experiments
+------------------------------------------[Candidate 228]-------------------------------------------
+                              Recommended Effort: 0.74% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.05, 0.5: 0.0, 0.75: 0.1} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.74% of experiments
+------------------------------------------[Candidate 229]-------------------------------------------
+                              Recommended Effort: 0.74% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.05, 0.5: 0.05, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.74% of experiments
+------------------------------------------[Candidate 230]-------------------------------------------
+                              Recommended Effort: 0.74% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.05, 0.5: 0.05, 0.75: 0.05} {0: 10.0}
+ {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.74% of experiments
+------------------------------------------[Candidate 231]-------------------------------------------
+                              Recommended Effort: 0.74% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.05, 0.5: 0.05, 0.75: 0.1} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.74% of experiments
+------------------------------------------[Candidate 232]-------------------------------------------
+                              Recommended Effort: 0.74% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.05, 0.5: 0.1, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.74% of experiments
+------------------------------------------[Candidate 233]-------------------------------------------
+                              Recommended Effort: 0.74% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.05, 0.5: 0.1, 0.75: 0.05} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.74% of experiments
+------------------------------------------[Candidate 234]-------------------------------------------
+                              Recommended Effort: 0.74% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.05, 0.5: 0.1, 0.75: 0.1} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.74% of experiments
+------------------------------------------[Candidate 235]-------------------------------------------
+                              Recommended Effort: 0.74% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.1, 0.5: 0.0, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.74% of experiments
+------------------------------------------[Candidate 236]-------------------------------------------
+                             Recommended Effort: 20.18% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.1, 0.5: 0.0, 0.75: 0.05} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.74% of experiments
+[    160.00]: dedicate 19.44% of experiments
+------------------------------------------[Candidate 237]-------------------------------------------
+                              Recommended Effort: 0.74% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.1, 0.5: 0.0, 0.75: 0.1} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.74% of experiments
+------------------------------------------[Candidate 238]-------------------------------------------
+                              Recommended Effort: 0.74% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.1, 0.5: 0.05, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.74% of experiments
+------------------------------------------[Candidate 239]-------------------------------------------
+                              Recommended Effort: 0.74% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.1, 0.5: 0.05, 0.75: 0.05} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.74% of experiments
+------------------------------------------[Candidate 240]-------------------------------------------
+                              Recommended Effort: 0.74% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.1, 0.5: 0.05, 0.75: 0.1} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.74% of experiments
+------------------------------------------[Candidate 241]-------------------------------------------
+                              Recommended Effort: 0.74% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.1, 0.5: 0.1, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.74% of experiments
+------------------------------------------[Candidate 242]-------------------------------------------
+                              Recommended Effort: 0.74% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.1, 0.5: 0.1, 0.75: 0.05} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.74% of experiments
+------------------------------------------[Candidate 243]-------------------------------------------
+                              Recommended Effort: 0.74% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.1, 0.5: 0.1, 0.75: 0.1} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.74% of experiments
+####################################################################################################
+
+Computing Mean of Iteration 2's Solution
+############################### Computing Optimal Experiment Design ################################
+Started on                              : 2021-03-15 16:02:40.250608
+Criterion                               : cvar_d_opt_criterion
+Pseudo-bayesian                         : True
+Pseudo-bayesian Criterion Type          : 0
+Dynamic                                 : True
+Time-invariant Controls                 : True
+Time-varying Controls                   : True
+Number of Candidates                    : 243
+Number of Sampling Time Choices         : 11
+Sampling Times Optimized                : True
+Number of Scenarios                     : 200
+===============================================================================
+                                     CVXPY                                     
+                                    v1.1.11                                    
+===============================================================================
+-------------------------------------------------------------------------------
+                                  Compilation                                  
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+                                Numerical solver                               
+-------------------------------------------------------------------------------
+
+
+Problem
+  Name                   :                 
+  Objective sense        : max             
+  Type                   : CONIC (conic optimization problem)
+  Constraints            : 5874            
+  Cones                  : 800             
+  Scalar variables       : 8347            
+  Matrix variables       : 200             
+  Integer variables      : 0               
+
+Optimizer started.
+Problem
+  Name                   :                 
+  Objective sense        : max             
+  Type                   : CONIC (conic optimization problem)
+  Constraints            : 5874            
+  Cones                  : 800             
+  Scalar variables       : 8347            
+  Matrix variables       : 200             
+  Integer variables      : 0               
+
+Optimizer  - threads                : 24              
+Optimizer  - solved problem         : the primal      
+Optimizer  - Constraints            : 4430
+Optimizer  - Cones                  : 801
+Optimizer  - Scalar variables       : 4832              conic                  : 4831            
+Optimizer  - Semi-definite variables: 200               scalarized             : 7200            
+Factor     - setup time             : 1.96              dense det. time        : 0.00            
+Factor     - ML order time          : 0.33              GP order time          : 0.00            
+Factor     - nonzeros before factor : 7.83e+06          after factor           : 7.83e+06        
+Factor     - dense dim.             : 3                 flops                  : 2.66e+10        
+ITE PFEAS    DFEAS    GFEAS    PRSTATUS   POBJ              DOBJ              MU       TIME  
+0   1.6e+02  3.2e+01  6.7e+02  0.00e+00   -6.622707193e+02  3.220408006e+00   1.0e+00  2.65  
+1   1.3e+02  2.6e+01  5.3e+02  -9.27e-02  -6.010210940e+02  4.246867284e+00   8.2e-01  33.48 
+2   1.1e+02  2.2e+01  4.4e+02  3.26e-02   -5.507084739e+02  4.997475770e+00   7.0e-01  65.25 
+3   7.2e+01  1.5e+01  2.7e+02  9.60e-02   -4.298251771e+02  7.179776823e+00   4.6e-01  97.24 
+4   2.1e+01  4.3e+00  5.9e+01  2.71e-01   -1.632509664e+02  1.252485276e+01   1.3e-01  128.89
+5   1.2e+01  2.4e+00  2.7e+01  6.30e-01   -9.529811378e+01  1.507350971e+01   7.4e-02  159.80
+6   1.0e+01  2.0e+00  2.4e+01  1.76e-01   -9.042395684e+01  1.674195581e+01   6.4e-02  188.82
+7   4.0e+00  8.1e-01  7.2e+00  5.22e-01   -3.056330634e+01  2.047628466e+01   2.5e-02  217.29
+8   1.6e+00  3.2e-01  2.2e+00  6.44e-01   -1.053278464e+00  2.306012659e+01   1.0e-02  244.02
+9   9.6e-01  2.0e-01  1.2e+00  3.96e-01   7.542911990e+00   2.496826672e+01   6.2e-03  272.74
+10  4.3e-01  8.8e-02  3.8e-01  5.94e-01   1.513804272e+01   2.372877457e+01   2.8e-03  301.28
+11  1.7e-01  3.4e-02  8.8e-02  9.40e-01   1.377444490e+01   1.699034136e+01   1.1e-03  329.28
+12  3.7e-02  7.6e-03  8.5e-03  1.09e+00   7.378137141e+00   8.047657127e+00   2.4e-04  358.00
+13  9.2e-03  1.9e-03  1.2e-03  1.01e+00   3.055131572e+00   3.226501529e+00   5.9e-05  386.88
+14  3.4e-03  7.0e-04  3.1e-04  7.94e-01   1.732271146e+00   1.804303917e+00   2.2e-05  415.00
+15  2.2e-03  4.5e-04  1.8e-04  7.53e-01   1.324681522e+00   1.375411186e+00   1.4e-05  443.31
+16  6.8e-04  1.4e-04  3.3e-05  8.19e-01   7.498668827e-01   7.669676186e-01   4.4e-06  469.18
+17  7.4e-05  1.5e-05  1.2e-06  9.59e-01   4.789674064e-01   4.808395891e-01   4.7e-07  496.52
+18  6.4e-06  1.3e-06  3.1e-08  9.92e-01   4.454044315e-01   4.455660942e-01   4.1e-08  522.96
+19  1.6e-07  3.2e-08  1.2e-10  1.00e+00   4.423546991e-01   4.423586958e-01   1.0e-09  552.27
+20  7.0e-09  1.4e-09  1.1e-12  1.00e+00   4.422827791e-01   4.422829559e-01   4.5e-11  578.02
+21  2.9e-09  2.9e-09  4.7e-14  1.00e+00   4.422799991e-01   4.422800203e-01   5.4e-12  605.09
+22  5.3e-10  1.8e-08  1.8e-15  1.00e+00   4.422796686e-01   4.422796709e-01   6.0e-13  632.20
+Optimizer terminated. Time: 632.31  
+
+
+Interior-point solution summary
+  Problem status  : PRIMAL_AND_DUAL_FEASIBLE
+  Solution status : OPTIMAL
+  Primal.  obj: 4.4227966857e-01    nrm: 7e+00    Viol.  con: 7e-08    var: 0e+00    barvar: 0e+00    cones: 3e-11  
+  Dual.    obj: 4.4227967095e-01    nrm: 8e+01    Viol.  con: 0e+00    var: 1e-11    barvar: 1e-07    cones: 0e+00  
+-------------------------------------------------------------------------------
+                                    Summary                                    
+-------------------------------------------------------------------------------
+--------------------------------[Optimization Complete in 2040.02 s]--------------------------------
+Complete: 
+ ~ sensitivity analysis took 0.00 CPU seconds.
+ ~ optimization with MOSEK via cvxpy took 2040.02 CPU seconds.
+####################################################################################################
+Time elapsed: 0.00 seconds.
+CVaR UB: -1.6141513844784154
+MEAN LB: -0.4422796685688164
+=====================================[Iteration 2/5 Completed]======================================
+
+==========================================[Iteration 3/5]===========================================
+############################### Computing Optimal Experiment Design ################################
+Started on                              : 2021-03-15 16:36:40.571955
+Criterion                               : cvar_d_opt_criterion
+Pseudo-bayesian                         : True
+Pseudo-bayesian Criterion Type          : 0
+Dynamic                                 : True
+Time-invariant Controls                 : True
+Time-varying Controls                   : True
+Number of Candidates                    : 243
+Number of Sampling Time Choices         : 11
+Sampling Times Optimized                : True
+Number of Scenarios                     : 200
+===============================================================================
+                                     CVXPY                                     
+                                    v1.1.11                                    
+===============================================================================
+-------------------------------------------------------------------------------
+                                  Compilation                                  
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+                                Numerical solver                               
+-------------------------------------------------------------------------------
+
+
+Problem
+  Name                   :                 
+  Objective sense        : max             
+  Type                   : CONIC (conic optimization problem)
+  Constraints            : 5874            
+  Cones                  : 800             
+  Scalar variables       : 5675            
+  Matrix variables       : 200             
+  Integer variables      : 0               
+
+Optimizer started.
+Problem
+  Name                   :                 
+  Objective sense        : max             
+  Type                   : CONIC (conic optimization problem)
+  Constraints            : 5874            
+  Cones                  : 800             
+  Scalar variables       : 5675            
+  Matrix variables       : 200             
+  Integer variables      : 0               
+
+Optimizer  - threads                : 24              
+Optimizer  - solved problem         : the primal      
+Optimizer  - Constraints            : 5231
+Optimizer  - Cones                  : 800
+Optimizer  - Scalar variables       : 5032              conic                  : 2400            
+Optimizer  - Semi-definite variables: 200               scalarized             : 7200            
+Factor     - setup time             : 1.96              dense det. time        : 0.00            
+Factor     - ML order time          : 0.34              GP order time          : 0.00            
+Factor     - nonzeros before factor : 7.85e+06          after factor           : 9.81e+06        
+Factor     - dense dim.             : 1                 flops                  : 3.15e+10        
+ITE PFEAS    DFEAS    GFEAS    PRSTATUS   POBJ              DOBJ              MU       TIME  
+0   1.6e+02  3.2e+01  6.6e+02  0.00e+00   -6.622707193e+02  0.000000000e+00   1.0e+00  2.59  
+1   5.8e+01  1.2e+01  2.5e+02  -4.34e-02  -4.231953282e+02  5.455676709e+00   3.7e-01  26.11 
+2   2.7e+01  5.5e+00  1.2e+02  -8.92e-02  -2.978235562e+02  1.109667922e+01   1.7e-01  51.63 
+3   1.4e+01  2.8e+00  5.9e+01  -4.78e-02  -2.036141703e+02  1.671757661e+01   8.8e-02  77.47 
+4   7.3e+00  1.5e+00  2.4e+01  3.81e-01   -1.117924708e+02  1.898661184e+01   4.7e-02  103.13
+5   2.3e+00  4.8e-01  4.5e+00  6.61e-01   -2.552312366e+01  1.915782953e+01   1.5e-02  128.95
+6   8.4e-01  1.7e-01  8.7e-01  1.18e+00   -1.439150392e+00  1.293049545e+01   5.4e-03  154.52
+7   5.9e-01  1.2e-01  6.0e-01  7.55e-01   1.085068888e+00   1.271003308e+01   3.8e-03  180.44
+8   2.4e-01  5.0e-02  1.8e-01  8.11e-01   3.759187265e+00   8.921568762e+00   1.6e-03  201.07
+9   1.4e-01  2.9e-02  8.0e-02  9.16e-01   3.439662892e+00   6.465885551e+00   8.9e-04  225.94
+10  5.4e-02  1.1e-02  1.9e-02  1.00e+00   3.012965200e+00   4.143890232e+00   3.5e-04  250.23
+11  4.3e-02  8.9e-03  1.3e-02  1.18e+00   3.017668352e+00   3.885972288e+00   2.8e-04  273.53
+12  1.5e-02  3.0e-03  2.4e-03  1.18e+00   2.994180497e+00   3.257720530e+00   9.3e-05  295.87
+13  7.2e-03  1.5e-03  8.1e-04  1.17e+00   2.735924819e+00   2.857313805e+00   4.6e-05  316.62
+14  4.2e-03  8.6e-04  3.5e-04  1.13e+00   2.383671450e+00   2.451625779e+00   2.7e-05  337.09
+15  2.8e-03  5.8e-04  1.9e-04  1.10e+00   2.192361350e+00   2.237488935e+00   1.8e-05  359.66
+16  1.8e-03  3.7e-04  9.6e-05  1.08e+00   2.023888197e+00   2.051802329e+00   1.1e-05  384.28
+17  1.2e-03  2.5e-04  5.4e-05  1.06e+00   1.920835135e+00   1.939779592e+00   7.9e-06  409.71
+18  6.6e-04  1.4e-04  2.1e-05  1.05e+00   1.805406008e+00   1.815478635e+00   4.2e-06  433.83
+19  4.5e-04  9.3e-05  1.2e-05  1.03e+00   1.762615212e+00   1.769529342e+00   2.9e-06  455.34
+20  3.4e-04  7.0e-05  7.9e-06  1.03e+00   1.739162972e+00   1.744327464e+00   2.2e-06  478.74
+21  3.0e-04  6.1e-05  6.5e-06  1.02e+00   1.721749843e+00   1.726278945e+00   1.9e-06  499.97
+22  9.0e-05  1.9e-05  1.1e-06  1.02e+00   1.673433594e+00   1.674787270e+00   5.8e-07  525.02
+23  3.3e-05  6.8e-06  2.4e-07  1.01e+00   1.656938157e+00   1.657434880e+00   2.1e-07  549.91
+24  4.3e-06  8.9e-07  1.1e-08  1.00e+00   1.648297833e+00   1.648362723e+00   2.8e-08  572.74
+25  9.1e-08  1.9e-08  3.3e-11  1.00e+00   1.646717678e+00   1.646719039e+00   5.8e-10  594.21
+26  4.9e-09  2.1e-08  4.1e-13  1.00e+00   1.646685854e+00   1.646685926e+00   3.1e-11  618.73
+27  4.8e-10  3.6e-07  1.3e-14  1.00e+00   1.646684271e+00   1.646684278e+00   3.1e-12  644.08
+Optimizer terminated. Time: 644.16  
+
+
+Interior-point solution summary
+  Problem status  : PRIMAL_AND_DUAL_FEASIBLE
+  Solution status : OPTIMAL
+  Primal.  obj: 1.6466842709e+00    nrm: 5e+00    Viol.  con: 2e-07    var: 9e-10    barvar: 0e+00    cones: 0e+00  
+  Dual.    obj: 1.6466842781e+00    nrm: 8e+01    Viol.  con: 0e+00    var: 2e-11    barvar: 3e-12    cones: 4e-18  
+-------------------------------------------------------------------------------
+                                    Summary                                    
+-------------------------------------------------------------------------------
+--------------------------------[Optimization Complete in 2077.22 s]--------------------------------
+Complete: 
+ ~ sensitivity analysis took 0.00 CPU seconds.
+ ~ optimization with MOSEK via cvxpy took 2077.22 CPU seconds.
+####################################################################################################
+
+######################################## Optimal Candidates ########################################
+Obtained on                             : 2021-03-15 17:11:18.095963
+Criterion                               : cvar_d_opt_criterion
+Criterion Value                         : -1.6466842709142124
+Pseudo-bayesian                         : True
+Pseudo-bayesian Criterion Type          : 0
+CVaR Problem                            : True
+Beta                                    : 0.8
+Constrained Problem                     : True
+Min. Mean Value                         : -0.215987
+Dynamic                                 : True
+Time-invariant Controls                 : True
+Time-varying Controls                   : True
+Number of Candidates                    : 243
+Number of Optimal Candidates            : 55
+Number of Sampling Time Choices         : 11
+Sampling Times Optimized                : True
+Number of Samples Per Experiment        : 1
+Number of Scenarios                     : 200
+-------------------------------------------[Candidate 55]-------------------------------------------
+                              Recommended Effort: 8.42% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.0, 0.5: 0.0, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.71% of experiments
+[    200.00]: dedicate  7.71% of experiments
+-------------------------------------------[Candidate 56]-------------------------------------------
+                             Recommended Effort: 10.43% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.0, 0.5: 0.0, 0.75: 0.05} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.71% of experiments
+[    160.00]: dedicate  9.73% of experiments
+-------------------------------------------[Candidate 57]-------------------------------------------
+                              Recommended Effort: 0.71% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.0, 0.5: 0.0, 0.75: 0.1} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.71% of experiments
+-------------------------------------------[Candidate 58]-------------------------------------------
+                              Recommended Effort: 0.71% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.0, 0.5: 0.05, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.71% of experiments
+-------------------------------------------[Candidate 59]-------------------------------------------
+                              Recommended Effort: 0.71% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.0, 0.5: 0.05, 0.75: 0.05} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.71% of experiments
+-------------------------------------------[Candidate 60]-------------------------------------------
+                              Recommended Effort: 0.71% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.0, 0.5: 0.05, 0.75: 0.1} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.71% of experiments
+-------------------------------------------[Candidate 61]-------------------------------------------
+                              Recommended Effort: 0.71% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.0, 0.5: 0.1, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.71% of experiments
+-------------------------------------------[Candidate 62]-------------------------------------------
+                              Recommended Effort: 0.71% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.0, 0.5: 0.1, 0.75: 0.05} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.71% of experiments
+-------------------------------------------[Candidate 63]-------------------------------------------
+                              Recommended Effort: 0.71% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.0, 0.5: 0.1, 0.75: 0.1} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.71% of experiments
+-------------------------------------------[Candidate 64]-------------------------------------------
+                              Recommended Effort: 0.71% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.05, 0.5: 0.0, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.71% of experiments
+-------------------------------------------[Candidate 65]-------------------------------------------
+                              Recommended Effort: 0.71% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.05, 0.5: 0.0, 0.75: 0.05} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.71% of experiments
+-------------------------------------------[Candidate 66]-------------------------------------------
+                              Recommended Effort: 0.71% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.05, 0.5: 0.0, 0.75: 0.1} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.71% of experiments
+-------------------------------------------[Candidate 67]-------------------------------------------
+                              Recommended Effort: 0.71% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.05, 0.5: 0.05, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.71% of experiments
+-------------------------------------------[Candidate 68]-------------------------------------------
+                              Recommended Effort: 0.71% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.05, 0.5: 0.05, 0.75: 0.05} {0: 10.0}
+ {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.71% of experiments
+-------------------------------------------[Candidate 69]-------------------------------------------
+                              Recommended Effort: 0.71% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.05, 0.5: 0.05, 0.75: 0.1} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.71% of experiments
+-------------------------------------------[Candidate 70]-------------------------------------------
+                              Recommended Effort: 0.71% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.05, 0.5: 0.1, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.71% of experiments
+-------------------------------------------[Candidate 71]-------------------------------------------
+                              Recommended Effort: 0.71% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.05, 0.5: 0.1, 0.75: 0.05} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.71% of experiments
+-------------------------------------------[Candidate 72]-------------------------------------------
+                              Recommended Effort: 0.71% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.05, 0.5: 0.1, 0.75: 0.1} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.71% of experiments
+-------------------------------------------[Candidate 73]-------------------------------------------
+                              Recommended Effort: 0.71% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.1, 0.5: 0.0, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.71% of experiments
+-------------------------------------------[Candidate 74]-------------------------------------------
+                              Recommended Effort: 8.75% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.1, 0.5: 0.0, 0.75: 0.05} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.71% of experiments
+[    160.00]: dedicate  8.04% of experiments
+-------------------------------------------[Candidate 75]-------------------------------------------
+                              Recommended Effort: 0.71% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.1, 0.5: 0.0, 0.75: 0.1} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.71% of experiments
+-------------------------------------------[Candidate 76]-------------------------------------------
+                              Recommended Effort: 0.71% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.1, 0.5: 0.05, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.71% of experiments
+-------------------------------------------[Candidate 77]-------------------------------------------
+                              Recommended Effort: 0.71% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.1, 0.5: 0.05, 0.75: 0.05} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.71% of experiments
+-------------------------------------------[Candidate 78]-------------------------------------------
+                              Recommended Effort: 0.71% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.1, 0.5: 0.05, 0.75: 0.1} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.71% of experiments
+-------------------------------------------[Candidate 79]-------------------------------------------
+                              Recommended Effort: 0.71% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.1, 0.5: 0.1, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.71% of experiments
+-------------------------------------------[Candidate 80]-------------------------------------------
+                              Recommended Effort: 0.71% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.1, 0.5: 0.1, 0.75: 0.05} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.71% of experiments
+-------------------------------------------[Candidate 81]-------------------------------------------
+                              Recommended Effort: 0.71% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.1, 0.5: 0.1, 0.75: 0.1} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.71% of experiments
+------------------------------------------[Candidate 163]-------------------------------------------
+                              Recommended Effort: 3.74% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.0, 0.25: 0.0, 0.5: 0.0, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[    200.00]: dedicate  3.74% of experiments
+------------------------------------------[Candidate 217]-------------------------------------------
+                             Recommended Effort: 11.70% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.0, 0.5: 0.0, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.75% of experiments
+[    200.00]: dedicate 10.95% of experiments
+------------------------------------------[Candidate 218]-------------------------------------------
+                              Recommended Effort: 0.75% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.0, 0.5: 0.0, 0.75: 0.05} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.75% of experiments
+------------------------------------------[Candidate 219]-------------------------------------------
+                              Recommended Effort: 0.75% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.0, 0.5: 0.0, 0.75: 0.1} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.75% of experiments
+------------------------------------------[Candidate 220]-------------------------------------------
+                              Recommended Effort: 0.75% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.0, 0.5: 0.05, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.75% of experiments
+------------------------------------------[Candidate 221]-------------------------------------------
+                              Recommended Effort: 0.75% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.0, 0.5: 0.05, 0.75: 0.05} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.75% of experiments
+------------------------------------------[Candidate 222]-------------------------------------------
+                              Recommended Effort: 0.75% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.0, 0.5: 0.05, 0.75: 0.1} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.75% of experiments
+------------------------------------------[Candidate 223]-------------------------------------------
+                              Recommended Effort: 0.75% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.0, 0.5: 0.1, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.75% of experiments
+------------------------------------------[Candidate 224]-------------------------------------------
+                              Recommended Effort: 0.75% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.0, 0.5: 0.1, 0.75: 0.05} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.75% of experiments
+------------------------------------------[Candidate 225]-------------------------------------------
+                              Recommended Effort: 0.75% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.0, 0.5: 0.1, 0.75: 0.1} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.75% of experiments
+------------------------------------------[Candidate 226]-------------------------------------------
+                              Recommended Effort: 0.75% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.05, 0.5: 0.0, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.75% of experiments
+------------------------------------------[Candidate 227]-------------------------------------------
+                              Recommended Effort: 0.75% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.05, 0.5: 0.0, 0.75: 0.05} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.75% of experiments
+------------------------------------------[Candidate 228]-------------------------------------------
+                              Recommended Effort: 0.75% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.05, 0.5: 0.0, 0.75: 0.1} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.75% of experiments
+------------------------------------------[Candidate 229]-------------------------------------------
+                              Recommended Effort: 0.75% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.05, 0.5: 0.05, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.75% of experiments
+------------------------------------------[Candidate 230]-------------------------------------------
+                              Recommended Effort: 0.75% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.05, 0.5: 0.05, 0.75: 0.05} {0: 10.0}
+ {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.75% of experiments
+------------------------------------------[Candidate 231]-------------------------------------------
+                              Recommended Effort: 0.75% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.05, 0.5: 0.05, 0.75: 0.1} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.75% of experiments
+------------------------------------------[Candidate 232]-------------------------------------------
+                              Recommended Effort: 0.75% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.05, 0.5: 0.1, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.75% of experiments
+------------------------------------------[Candidate 233]-------------------------------------------
+                              Recommended Effort: 0.75% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.05, 0.5: 0.1, 0.75: 0.05} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.75% of experiments
+------------------------------------------[Candidate 234]-------------------------------------------
+                              Recommended Effort: 0.75% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.05, 0.5: 0.1, 0.75: 0.1} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.75% of experiments
+------------------------------------------[Candidate 235]-------------------------------------------
+                              Recommended Effort: 0.75% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.1, 0.5: 0.0, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.75% of experiments
+------------------------------------------[Candidate 236]-------------------------------------------
+                             Recommended Effort: 21.22% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.1, 0.5: 0.0, 0.75: 0.05} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.75% of experiments
+[    160.00]: dedicate 20.47% of experiments
+------------------------------------------[Candidate 237]-------------------------------------------
+                              Recommended Effort: 0.75% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.1, 0.5: 0.0, 0.75: 0.1} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.75% of experiments
+------------------------------------------[Candidate 238]-------------------------------------------
+                              Recommended Effort: 0.75% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.1, 0.5: 0.05, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.75% of experiments
+------------------------------------------[Candidate 239]-------------------------------------------
+                              Recommended Effort: 0.75% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.1, 0.5: 0.05, 0.75: 0.05} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.75% of experiments
+------------------------------------------[Candidate 240]-------------------------------------------
+                              Recommended Effort: 0.75% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.1, 0.5: 0.05, 0.75: 0.1} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.75% of experiments
+------------------------------------------[Candidate 241]-------------------------------------------
+                              Recommended Effort: 0.75% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.1, 0.5: 0.1, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.75% of experiments
+------------------------------------------[Candidate 242]-------------------------------------------
+                              Recommended Effort: 0.75% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.1, 0.5: 0.1, 0.75: 0.05} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.75% of experiments
+------------------------------------------[Candidate 243]-------------------------------------------
+                              Recommended Effort: 0.75% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.1, 0.5: 0.1, 0.75: 0.1} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.75% of experiments
+####################################################################################################
+CVaR: -1.6466842709142124
+MEAN: -0.215986930857226
+=====================================[Iteration 3/5 Completed]======================================
+
+==========================================[Iteration 4/5]===========================================
+############################### Computing Optimal Experiment Design ################################
+Started on                              : 2021-03-15 17:11:18.119301
+Criterion                               : cvar_d_opt_criterion
+Pseudo-bayesian                         : True
+Pseudo-bayesian Criterion Type          : 0
+Dynamic                                 : True
+Time-invariant Controls                 : True
+Time-varying Controls                   : True
+Number of Candidates                    : 243
+Number of Sampling Time Choices         : 11
+Sampling Times Optimized                : True
+Number of Scenarios                     : 200
+===============================================================================
+                                     CVXPY                                     
+                                    v1.1.11                                    
+===============================================================================
+-------------------------------------------------------------------------------
+                                  Compilation                                  
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+                                Numerical solver                               
+-------------------------------------------------------------------------------
+
+
+Problem
+  Name                   :                 
+  Objective sense        : max             
+  Type                   : CONIC (conic optimization problem)
+  Constraints            : 5874            
+  Cones                  : 800             
+  Scalar variables       : 5675            
+  Matrix variables       : 200             
+  Integer variables      : 0               
+
+Optimizer started.
+Problem
+  Name                   :                 
+  Objective sense        : max             
+  Type                   : CONIC (conic optimization problem)
+  Constraints            : 5874            
+  Cones                  : 800             
+  Scalar variables       : 5675            
+  Matrix variables       : 200             
+  Integer variables      : 0               
+
+Optimizer  - threads                : 24              
+Optimizer  - solved problem         : the primal      
+Optimizer  - Constraints            : 5231
+Optimizer  - Cones                  : 800
+Optimizer  - Scalar variables       : 5032              conic                  : 2400            
+Optimizer  - Semi-definite variables: 200               scalarized             : 7200            
+Factor     - setup time             : 2.12              dense det. time        : 0.00            
+Factor     - ML order time          : 0.36              GP order time          : 0.00            
+Factor     - nonzeros before factor : 7.85e+06          after factor           : 9.81e+06        
+Factor     - dense dim.             : 1                 flops                  : 3.15e+10        
+ITE PFEAS    DFEAS    GFEAS    PRSTATUS   POBJ              DOBJ              MU       TIME  
+0   1.6e+02  3.2e+01  6.6e+02  0.00e+00   -6.622707193e+02  0.000000000e+00   1.0e+00  2.88  
+1   5.7e+01  1.2e+01  2.6e+02  -8.04e-02  -4.298633929e+02  5.598837341e+00   3.7e-01  27.34 
+2   2.7e+01  5.5e+00  1.2e+02  -1.26e-01  -3.077684699e+02  1.138022746e+01   1.7e-01  49.90 
+3   1.5e+01  3.0e+00  6.5e+01  -7.43e-02  -2.191301174e+02  1.678746102e+01   9.3e-02  73.67 
+4   7.8e+00  1.6e+00  2.8e+01  3.29e-01   -1.253641417e+02  1.950076693e+01   5.0e-02  95.52 
+5   2.5e+00  5.1e-01  5.3e+00  6.05e-01   -3.017453473e+01  2.052426779e+01   1.6e-02  119.78
+6   8.9e-01  1.8e-01  1.0e+00  1.14e+00   -2.006361704e+00  1.433618519e+01   5.7e-03  141.84
+7   6.2e-01  1.3e-01  7.0e-01  7.38e-01   1.075882902e+00   1.443127070e+01   4.0e-03  163.00
+8   2.6e-01  5.4e-02  2.2e-01  7.96e-01   4.277553186e+00   1.041372016e+01   1.7e-03  185.59
+9   1.5e-01  3.0e-02  9.8e-02  8.55e-01   3.977199437e+00   7.603668838e+00   9.5e-04  210.46
+10  6.2e-02  1.3e-02  2.6e-02  9.49e-01   3.176899878e+00   4.660704422e+00   3.9e-04  233.12
+11  5.2e-02  1.1e-02  2.0e-02  1.13e+00   3.142397713e+00   4.371723470e+00   3.3e-04  256.27
+12  2.4e-02  4.9e-03  5.9e-03  1.15e+00   3.025692178e+00   3.542021293e+00   1.5e-04  280.55
+13  1.2e-02  2.6e-03  2.1e-03  1.24e+00   2.981528392e+00   3.224365339e+00   8.0e-05  304.97
+14  5.8e-03  1.2e-03  6.4e-04  1.20e+00   2.786184254e+00   2.891734699e+00   3.7e-05  329.54
+15  3.6e-03  7.5e-04  3.1e-04  1.15e+00   2.494561596e+00   2.557752809e+00   2.3e-05  354.03
+16  2.0e-03  4.2e-04  1.3e-04  1.12e+00   2.253095405e+00   2.287342885e+00   1.3e-05  379.57
+17  1.4e-03  2.8e-04  6.8e-05  1.09e+00   2.115455216e+00   2.137765467e+00   8.7e-06  400.43
+18  9.0e-04  1.8e-04  3.6e-05  1.07e+00   2.013024836e+00   2.027630052e+00   5.8e-06  423.88
+19  4.9e-04  1.0e-04  1.5e-05  1.05e+00   1.917351124e+00   1.925294205e+00   3.2e-06  445.07
+20  2.5e-04  5.2e-05  5.4e-06  1.03e+00   1.852455919e+00   1.856510418e+00   1.6e-06  469.07
+21  2.1e-04  4.3e-05  4.0e-06  1.02e+00   1.838110866e+00   1.841416725e+00   1.3e-06  493.71
+22  3.3e-05  6.9e-06  2.6e-07  1.01e+00   1.785453294e+00   1.785983271e+00   2.1e-07  518.91
+23  9.7e-06  2.0e-06  4.0e-08  1.00e+00   1.777588284e+00   1.777742580e+00   6.2e-08  543.77
+24  7.5e-07  1.5e-07  8.4e-10  1.00e+00   1.774482548e+00   1.774494492e+00   4.8e-09  567.96
+25  3.4e-08  6.9e-09  8.0e-12  1.00e+00   1.774192294e+00   1.774192831e+00   2.2e-10  592.94
+26  7.9e-09  1.5e-07  3.5e-13  1.00e+00   1.774180488e+00   1.774180555e+00   2.7e-11  614.37
+27  1.3e-09  1.2e-06  2.2e-14  1.00e+00   1.774179079e+00   1.774179090e+00   4.3e-12  639.11
+Optimizer terminated. Time: 639.19  
+
+
+Interior-point solution summary
+  Problem status  : PRIMAL_AND_DUAL_FEASIBLE
+  Solution status : OPTIMAL
+  Primal.  obj: 1.7741790792e+00    nrm: 7e+00    Viol.  con: 3e-07    var: 6e-10    barvar: 0e+00    cones: 0e+00  
+  Dual.    obj: 1.7741790899e+00    nrm: 8e+01    Viol.  con: 0e+00    var: 3e-11    barvar: 6e-12    cones: 1e-17  
+-------------------------------------------------------------------------------
+                                    Summary                                    
+-------------------------------------------------------------------------------
+--------------------------------[Optimization Complete in 2033.11 s]--------------------------------
+Complete: 
+ ~ sensitivity analysis took 0.00 CPU seconds.
+ ~ optimization with MOSEK via cvxpy took 2033.11 CPU seconds.
+####################################################################################################
+
+######################################## Optimal Candidates ########################################
+Obtained on                             : 2021-03-15 17:45:11.509573
+Criterion                               : cvar_d_opt_criterion
+Criterion Value                         : -1.7741790792424341
+Pseudo-bayesian                         : True
+Pseudo-bayesian Criterion Type          : 0
+CVaR Problem                            : True
+Beta                                    : 0.8
+Constrained Problem                     : True
+Min. Mean Value                         : 0.010306
+Dynamic                                 : True
+Time-invariant Controls                 : True
+Time-varying Controls                   : True
+Number of Candidates                    : 243
+Number of Optimal Candidates            : 57
+Number of Sampling Time Choices         : 11
+Sampling Times Optimized                : True
+Number of Samples Per Experiment        : 1
+Number of Scenarios                     : 200
+-------------------------------------------[Candidate 55]-------------------------------------------
+                             Recommended Effort: 11.04% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.0, 0.5: 0.0, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.64% of experiments
+[    200.00]: dedicate 10.40% of experiments
+-------------------------------------------[Candidate 56]-------------------------------------------
+                              Recommended Effort: 0.64% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.0, 0.5: 0.0, 0.75: 0.05} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.64% of experiments
+-------------------------------------------[Candidate 57]-------------------------------------------
+                              Recommended Effort: 0.64% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.0, 0.5: 0.0, 0.75: 0.1} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.64% of experiments
+-------------------------------------------[Candidate 58]-------------------------------------------
+                              Recommended Effort: 0.64% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.0, 0.5: 0.05, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.64% of experiments
+-------------------------------------------[Candidate 59]-------------------------------------------
+                              Recommended Effort: 0.64% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.0, 0.5: 0.05, 0.75: 0.05} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.64% of experiments
+-------------------------------------------[Candidate 60]-------------------------------------------
+                              Recommended Effort: 0.64% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.0, 0.5: 0.05, 0.75: 0.1} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.64% of experiments
+-------------------------------------------[Candidate 61]-------------------------------------------
+                              Recommended Effort: 0.64% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.0, 0.5: 0.1, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.64% of experiments
+-------------------------------------------[Candidate 62]-------------------------------------------
+                              Recommended Effort: 0.64% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.0, 0.5: 0.1, 0.75: 0.05} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.64% of experiments
+-------------------------------------------[Candidate 63]-------------------------------------------
+                              Recommended Effort: 0.64% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.0, 0.5: 0.1, 0.75: 0.1} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.64% of experiments
+-------------------------------------------[Candidate 64]-------------------------------------------
+                              Recommended Effort: 0.64% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.05, 0.5: 0.0, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.64% of experiments
+-------------------------------------------[Candidate 65]-------------------------------------------
+                              Recommended Effort: 0.64% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.05, 0.5: 0.0, 0.75: 0.05} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.64% of experiments
+-------------------------------------------[Candidate 66]-------------------------------------------
+                              Recommended Effort: 0.64% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.05, 0.5: 0.0, 0.75: 0.1} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.64% of experiments
+-------------------------------------------[Candidate 67]-------------------------------------------
+                              Recommended Effort: 0.64% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.05, 0.5: 0.05, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.64% of experiments
+-------------------------------------------[Candidate 68]-------------------------------------------
+                              Recommended Effort: 0.64% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.05, 0.5: 0.05, 0.75: 0.05} {0: 10.0}
+ {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.64% of experiments
+-------------------------------------------[Candidate 69]-------------------------------------------
+                              Recommended Effort: 0.64% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.05, 0.5: 0.05, 0.75: 0.1} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.64% of experiments
+-------------------------------------------[Candidate 70]-------------------------------------------
+                              Recommended Effort: 0.64% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.05, 0.5: 0.1, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.64% of experiments
+-------------------------------------------[Candidate 71]-------------------------------------------
+                              Recommended Effort: 0.64% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.05, 0.5: 0.1, 0.75: 0.05} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.64% of experiments
+-------------------------------------------[Candidate 72]-------------------------------------------
+                              Recommended Effort: 0.64% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.05, 0.5: 0.1, 0.75: 0.1} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.64% of experiments
+-------------------------------------------[Candidate 73]-------------------------------------------
+                              Recommended Effort: 0.64% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.1, 0.5: 0.0, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.64% of experiments
+-------------------------------------------[Candidate 74]-------------------------------------------
+                             Recommended Effort: 13.89% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.1, 0.5: 0.0, 0.75: 0.05} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.64% of experiments
+[    160.00]: dedicate 13.25% of experiments
+-------------------------------------------[Candidate 75]-------------------------------------------
+                              Recommended Effort: 0.64% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.1, 0.5: 0.0, 0.75: 0.1} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.64% of experiments
+-------------------------------------------[Candidate 76]-------------------------------------------
+                              Recommended Effort: 2.31% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.1, 0.5: 0.05, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.64% of experiments
+[    160.00]: dedicate  1.67% of experiments
+-------------------------------------------[Candidate 77]-------------------------------------------
+                              Recommended Effort: 0.64% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.1, 0.5: 0.05, 0.75: 0.05} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.64% of experiments
+-------------------------------------------[Candidate 78]-------------------------------------------
+                              Recommended Effort: 0.64% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.1, 0.5: 0.05, 0.75: 0.1} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.64% of experiments
+-------------------------------------------[Candidate 79]-------------------------------------------
+                              Recommended Effort: 0.64% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.1, 0.5: 0.1, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.64% of experiments
+-------------------------------------------[Candidate 80]-------------------------------------------
+                              Recommended Effort: 3.20% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.1, 0.5: 0.1, 0.75: 0.05} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.64% of experiments
+[    180.00]: dedicate  2.56% of experiments
+-------------------------------------------[Candidate 81]-------------------------------------------
+                              Recommended Effort: 0.64% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.1, 0.5: 0.1, 0.75: 0.1} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.64% of experiments
+------------------------------------------[Candidate 163]-------------------------------------------
+                              Recommended Effort: 2.12% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.0, 0.25: 0.0, 0.5: 0.0, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[    200.00]: dedicate  2.12% of experiments
+------------------------------------------[Candidate 187]-------------------------------------------
+                              Recommended Effort: 0.59% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.0, 0.25: 0.1, 0.5: 0.1, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[    160.00]: dedicate  0.59% of experiments
+------------------------------------------[Candidate 190]-------------------------------------------
+                              Recommended Effort: 2.63% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.05, 0.25: 0.0, 0.5: 0.0, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[    200.00]: dedicate  2.63% of experiments
+------------------------------------------[Candidate 217]-------------------------------------------
+                              Recommended Effort: 9.18% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.0, 0.5: 0.0, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.72% of experiments
+[    200.00]: dedicate  8.45% of experiments
+------------------------------------------[Candidate 218]-------------------------------------------
+                              Recommended Effort: 0.72% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.0, 0.5: 0.0, 0.75: 0.05} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.72% of experiments
+------------------------------------------[Candidate 219]-------------------------------------------
+                              Recommended Effort: 0.72% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.0, 0.5: 0.0, 0.75: 0.1} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.72% of experiments
+------------------------------------------[Candidate 220]-------------------------------------------
+                              Recommended Effort: 0.72% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.0, 0.5: 0.05, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.72% of experiments
+------------------------------------------[Candidate 221]-------------------------------------------
+                              Recommended Effort: 0.72% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.0, 0.5: 0.05, 0.75: 0.05} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.72% of experiments
+------------------------------------------[Candidate 222]-------------------------------------------
+                              Recommended Effort: 0.72% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.0, 0.5: 0.05, 0.75: 0.1} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.72% of experiments
+------------------------------------------[Candidate 223]-------------------------------------------
+                              Recommended Effort: 0.72% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.0, 0.5: 0.1, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.72% of experiments
+------------------------------------------[Candidate 224]-------------------------------------------
+                              Recommended Effort: 0.72% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.0, 0.5: 0.1, 0.75: 0.05} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.72% of experiments
+------------------------------------------[Candidate 225]-------------------------------------------
+                              Recommended Effort: 0.72% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.0, 0.5: 0.1, 0.75: 0.1} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.72% of experiments
+------------------------------------------[Candidate 226]-------------------------------------------
+                              Recommended Effort: 0.72% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.05, 0.5: 0.0, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.72% of experiments
+------------------------------------------[Candidate 227]-------------------------------------------
+                              Recommended Effort: 0.72% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.05, 0.5: 0.0, 0.75: 0.05} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.72% of experiments
+------------------------------------------[Candidate 228]-------------------------------------------
+                              Recommended Effort: 0.72% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.05, 0.5: 0.0, 0.75: 0.1} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.72% of experiments
+------------------------------------------[Candidate 229]-------------------------------------------
+                              Recommended Effort: 0.72% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.05, 0.5: 0.05, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.72% of experiments
+------------------------------------------[Candidate 230]-------------------------------------------
+                              Recommended Effort: 0.72% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.05, 0.5: 0.05, 0.75: 0.05} {0: 10.0}
+ {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.72% of experiments
+------------------------------------------[Candidate 231]-------------------------------------------
+                              Recommended Effort: 0.72% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.05, 0.5: 0.05, 0.75: 0.1} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.72% of experiments
+------------------------------------------[Candidate 232]-------------------------------------------
+                              Recommended Effort: 0.72% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.05, 0.5: 0.1, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.72% of experiments
+------------------------------------------[Candidate 233]-------------------------------------------
+                              Recommended Effort: 0.72% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.05, 0.5: 0.1, 0.75: 0.05} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.72% of experiments
+------------------------------------------[Candidate 234]-------------------------------------------
+                              Recommended Effort: 0.72% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.05, 0.5: 0.1, 0.75: 0.1} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.72% of experiments
+------------------------------------------[Candidate 235]-------------------------------------------
+                              Recommended Effort: 0.83% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.1, 0.5: 0.0, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.72% of experiments
+[    140.00]: dedicate  0.11% of experiments
+------------------------------------------[Candidate 236]-------------------------------------------
+                             Recommended Effort: 19.28% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.1, 0.5: 0.0, 0.75: 0.05} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.72% of experiments
+[    140.00]: dedicate  0.11% of experiments
+[    160.00]: dedicate 18.44% of experiments
+------------------------------------------[Candidate 237]-------------------------------------------
+                              Recommended Effort: 0.83% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.1, 0.5: 0.0, 0.75: 0.1} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.72% of experiments
+[    140.00]: dedicate  0.11% of experiments
+------------------------------------------[Candidate 238]-------------------------------------------
+                              Recommended Effort: 3.43% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.1, 0.5: 0.05, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.72% of experiments
+[    160.00]: dedicate  2.71% of experiments
+------------------------------------------[Candidate 239]-------------------------------------------
+                              Recommended Effort: 0.72% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.1, 0.5: 0.05, 0.75: 0.05} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.72% of experiments
+------------------------------------------[Candidate 240]-------------------------------------------
+                              Recommended Effort: 0.72% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.1, 0.5: 0.05, 0.75: 0.1} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.72% of experiments
+------------------------------------------[Candidate 241]-------------------------------------------
+                              Recommended Effort: 0.72% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.1, 0.5: 0.1, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.72% of experiments
+------------------------------------------[Candidate 242]-------------------------------------------
+                              Recommended Effort: 0.72% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.1, 0.5: 0.1, 0.75: 0.05} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.72% of experiments
+------------------------------------------[Candidate 243]-------------------------------------------
+                              Recommended Effort: 0.72% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.1, 0.5: 0.1, 0.75: 0.1} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.72% of experiments
+####################################################################################################
+CVaR: -1.7741790792424341
+MEAN: 0.010305806707601301
+=====================================[Iteration 4/5 Completed]======================================
+
+==========================================[Iteration 5/5]===========================================
+############################### Computing Optimal Experiment Design ################################
+Started on                              : 2021-03-15 17:45:11.535929
+Criterion                               : cvar_d_opt_criterion
+Pseudo-bayesian                         : True
+Pseudo-bayesian Criterion Type          : 0
+Dynamic                                 : True
+Time-invariant Controls                 : True
+Time-varying Controls                   : True
+Number of Candidates                    : 243
+Number of Sampling Time Choices         : 11
+Sampling Times Optimized                : True
+Number of Scenarios                     : 200
+===============================================================================
+                                     CVXPY                                     
+                                    v1.1.11                                    
+===============================================================================
+-------------------------------------------------------------------------------
+                                  Compilation                                  
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+                                Numerical solver                               
+-------------------------------------------------------------------------------
+
+
+Problem
+  Name                   :                 
+  Objective sense        : max             
+  Type                   : CONIC (conic optimization problem)
+  Constraints            : 5874            
+  Cones                  : 800             
+  Scalar variables       : 5675            
+  Matrix variables       : 200             
+  Integer variables      : 0               
+
+Optimizer started.
+Problem
+  Name                   :                 
+  Objective sense        : max             
+  Type                   : CONIC (conic optimization problem)
+  Constraints            : 5874            
+  Cones                  : 800             
+  Scalar variables       : 5675            
+  Matrix variables       : 200             
+  Integer variables      : 0               
+
+Optimizer  - threads                : 24              
+Optimizer  - solved problem         : the primal      
+Optimizer  - Constraints            : 5231
+Optimizer  - Cones                  : 800
+Optimizer  - Scalar variables       : 5032              conic                  : 2400            
+Optimizer  - Semi-definite variables: 200               scalarized             : 7200            
+Factor     - setup time             : 2.00              dense det. time        : 0.00            
+Factor     - ML order time          : 0.34              GP order time          : 0.00            
+Factor     - nonzeros before factor : 7.85e+06          after factor           : 9.81e+06        
+Factor     - dense dim.             : 1                 flops                  : 3.15e+10        
+ITE PFEAS    DFEAS    GFEAS    PRSTATUS   POBJ              DOBJ              MU       TIME  
+0   1.6e+02  3.2e+01  6.6e+02  0.00e+00   -6.622707193e+02  0.000000000e+00   1.0e+00  2.80  
+1   5.6e+01  1.2e+01  2.6e+02  -1.19e-01  -4.368187300e+02  5.765450114e+00   3.6e-01  25.12 
+2   2.7e+01  5.5e+00  1.3e+02  -1.61e-01  -3.178469441e+02  1.169225587e+01   1.7e-01  50.50 
+3   1.5e+01  3.1e+00  7.1e+01  -1.00e-01  -2.344919174e+02  1.688120491e+01   9.8e-02  75.61 
+4   8.3e+00  1.7e+00  3.2e+01  2.78e-01   -1.388402745e+02  2.004397170e+01   5.3e-02  101.14
+5   2.6e+00  5.3e-01  6.1e+00  5.51e-01   -3.464134658e+01  2.195801807e+01   1.7e-02  127.08
+6   9.2e-01  1.9e-01  1.1e+00  1.10e+00   -2.398691617e+00  1.587029948e+01   5.9e-03  152.78
+7   6.4e-01  1.3e-01  7.9e-01  7.15e-01   1.286483245e+00   1.637202974e+01   4.1e-03  178.49
+8   2.8e-01  5.7e-02  2.6e-01  7.75e-01   5.045331968e+00   1.222062364e+01   1.8e-03  200.89
+9   1.5e-01  3.1e-02  1.2e-01  7.91e-01   4.911086372e+00   9.185479948e+00   9.8e-04  225.99
+10  6.6e-02  1.4e-02  3.4e-02  8.73e-01   3.741330448e+00   5.633858560e+00   4.2e-04  251.90
+11  5.8e-02  1.2e-02  2.8e-02  1.01e+00   3.657091808e+00   5.307719634e+00   3.7e-04  277.76
+12  3.2e-02  6.5e-03  1.1e-02  1.03e+00   3.285904954e+00   4.160369697e+00   2.0e-04  302.83
+13  2.0e-02  4.2e-03  5.3e-03  1.20e+00   3.163728940e+00   3.677773694e+00   1.3e-04  328.47
+14  1.1e-02  2.3e-03  2.1e-03  1.25e+00   3.072541526e+00   3.331393011e+00   7.3e-05  353.23
+15  5.5e-03  1.1e-03  6.5e-04  1.27e+00   2.951195175e+00   3.063053554e+00   3.5e-05  378.06
+16  2.9e-03  6.0e-04  2.4e-04  1.21e+00   2.738599889e+00   2.794261504e+00   1.9e-05  401.92
+17  1.7e-03  3.5e-04  1.1e-04  1.15e+00   2.481162329e+00   2.512335839e+00   1.1e-05  426.62
+18  1.0e-03  2.1e-04  5.0e-05  1.11e+00   2.359196826e+00   2.377880153e+00   6.7e-06  451.87
+19  5.2e-04  1.1e-04  1.7e-05  1.08e+00   2.215893231e+00   2.224999925e+00   3.3e-06  477.50
+20  3.7e-04  7.5e-05  1.0e-05  1.05e+00   2.169911869e+00   2.176342475e+00   2.4e-06  498.43
+21  1.4e-04  2.9e-05  2.5e-06  1.04e+00   2.099206427e+00   2.101691171e+00   9.2e-07  522.75
+22  4.2e-05  8.6e-06  3.9e-07  1.02e+00   2.063973759e+00   2.064692143e+00   2.7e-07  547.30
+23  6.1e-06  1.2e-06  2.1e-08  1.01e+00   2.049393869e+00   2.049498533e+00   3.9e-08  572.80
+24  4.9e-07  1.0e-07  4.9e-10  1.00e+00   2.047004898e+00   2.047013386e+00   3.2e-09  594.23
+25  5.2e-08  1.1e-08  1.7e-11  1.00e+00   2.046802803e+00   2.046803700e+00   3.3e-10  619.08
+26  3.3e-08  8.3e-08  1.6e-12  1.00e+00   2.046783895e+00   2.046784080e+00   6.9e-11  644.97
+27  5.1e-09  4.4e-07  9.7e-14  1.00e+00   2.046779749e+00   2.046779778e+00   1.1e-11  669.18
+Optimizer terminated. Time: 669.26  
+
+
+Interior-point solution summary
+  Problem status  : PRIMAL_AND_DUAL_FEASIBLE
+  Solution status : OPTIMAL
+  Primal.  obj: 2.0467797495e+00    nrm: 1e+01    Viol.  con: 9e-07    var: 3e-09    barvar: 0e+00    cones: 0e+00  
+  Dual.    obj: 2.0467797784e+00    nrm: 9e+01    Viol.  con: 0e+00    var: 8e-11    barvar: 2e-11    cones: 6e-18  
+-------------------------------------------------------------------------------
+                                    Summary                                    
+-------------------------------------------------------------------------------
+--------------------------------[Optimization Complete in 2020.40 s]--------------------------------
+Complete: 
+ ~ sensitivity analysis took 0.00 CPU seconds.
+ ~ optimization with MOSEK via cvxpy took 2020.40 CPU seconds.
+####################################################################################################
+
+######################################## Optimal Candidates ########################################
+Obtained on                             : 2021-03-15 18:18:52.241215
+Criterion                               : cvar_d_opt_criterion
+Criterion Value                         : -2.046779749459607
+Pseudo-bayesian                         : True
+Pseudo-bayesian Criterion Type          : 0
+CVaR Problem                            : True
+Beta                                    : 0.8
+Constrained Problem                     : True
+Min. Mean Value                         : 0.236599
+Dynamic                                 : True
+Time-invariant Controls                 : True
+Time-varying Controls                   : True
+Number of Candidates                    : 243
+Number of Optimal Candidates            : 44
+Number of Sampling Time Choices         : 11
+Sampling Times Optimized                : True
+Number of Samples Per Experiment        : 1
+Number of Scenarios                     : 200
+-------------------------------------------[Candidate 25]-------------------------------------------
+                              Recommended Effort: 1.38% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.0, 0.25: 0.1, 0.5: 0.1, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[    160.00]: dedicate  1.38% of experiments
+-------------------------------------------[Candidate 55]-------------------------------------------
+                             Recommended Effort: 11.13% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.0, 0.5: 0.0, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.58% of experiments
+[    200.00]: dedicate 10.55% of experiments
+-------------------------------------------[Candidate 56]-------------------------------------------
+                              Recommended Effort: 0.58% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.0, 0.5: 0.0, 0.75: 0.05} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.58% of experiments
+-------------------------------------------[Candidate 57]-------------------------------------------
+                              Recommended Effort: 0.58% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.0, 0.5: 0.0, 0.75: 0.1} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.58% of experiments
+-------------------------------------------[Candidate 58]-------------------------------------------
+                              Recommended Effort: 0.58% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.0, 0.5: 0.05, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.58% of experiments
+-------------------------------------------[Candidate 59]-------------------------------------------
+                              Recommended Effort: 0.58% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.0, 0.5: 0.05, 0.75: 0.05} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.58% of experiments
+-------------------------------------------[Candidate 60]-------------------------------------------
+                              Recommended Effort: 0.58% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.0, 0.5: 0.05, 0.75: 0.1} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.58% of experiments
+-------------------------------------------[Candidate 61]-------------------------------------------
+                              Recommended Effort: 0.58% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.0, 0.5: 0.1, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.58% of experiments
+-------------------------------------------[Candidate 62]-------------------------------------------
+                              Recommended Effort: 0.58% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.0, 0.5: 0.1, 0.75: 0.05} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.58% of experiments
+-------------------------------------------[Candidate 63]-------------------------------------------
+                              Recommended Effort: 0.58% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.0, 0.5: 0.1, 0.75: 0.1} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.58% of experiments
+-------------------------------------------[Candidate 64]-------------------------------------------
+                              Recommended Effort: 0.58% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.05, 0.5: 0.0, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.58% of experiments
+-------------------------------------------[Candidate 65]-------------------------------------------
+                              Recommended Effort: 0.58% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.05, 0.5: 0.0, 0.75: 0.05} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.58% of experiments
+-------------------------------------------[Candidate 66]-------------------------------------------
+                              Recommended Effort: 0.58% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.05, 0.5: 0.0, 0.75: 0.1} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.58% of experiments
+-------------------------------------------[Candidate 67]-------------------------------------------
+                              Recommended Effort: 0.58% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.05, 0.5: 0.05, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.58% of experiments
+-------------------------------------------[Candidate 68]-------------------------------------------
+                              Recommended Effort: 0.58% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.05, 0.5: 0.05, 0.75: 0.05} {0: 10.0}
+ {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.58% of experiments
+-------------------------------------------[Candidate 69]-------------------------------------------
+                              Recommended Effort: 0.58% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.05, 0.5: 0.05, 0.75: 0.1} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.58% of experiments
+-------------------------------------------[Candidate 70]-------------------------------------------
+                              Recommended Effort: 0.58% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.05, 0.5: 0.1, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.58% of experiments
+-------------------------------------------[Candidate 71]-------------------------------------------
+                              Recommended Effort: 0.58% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.05, 0.5: 0.1, 0.75: 0.05} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.58% of experiments
+-------------------------------------------[Candidate 72]-------------------------------------------
+                              Recommended Effort: 0.58% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.05, 0.5: 0.1, 0.75: 0.1} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.58% of experiments
+-------------------------------------------[Candidate 73]-------------------------------------------
+                              Recommended Effort: 0.58% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.1, 0.5: 0.0, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.58% of experiments
+-------------------------------------------[Candidate 74]-------------------------------------------
+                             Recommended Effort: 12.51% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.1, 0.5: 0.0, 0.75: 0.05} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.58% of experiments
+[    160.00]: dedicate 11.92% of experiments
+-------------------------------------------[Candidate 75]-------------------------------------------
+                              Recommended Effort: 0.58% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.1, 0.5: 0.0, 0.75: 0.1} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.58% of experiments
+-------------------------------------------[Candidate 76]-------------------------------------------
+                              Recommended Effort: 7.18% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.1, 0.5: 0.05, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.58% of experiments
+[    160.00]: dedicate  6.60% of experiments
+-------------------------------------------[Candidate 77]-------------------------------------------
+                              Recommended Effort: 0.58% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.1, 0.5: 0.05, 0.75: 0.05} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.58% of experiments
+-------------------------------------------[Candidate 78]-------------------------------------------
+                              Recommended Effort: 0.58% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.1, 0.5: 0.05, 0.75: 0.1} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.58% of experiments
+-------------------------------------------[Candidate 79]-------------------------------------------
+                              Recommended Effort: 0.58% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.1, 0.5: 0.1, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.58% of experiments
+-------------------------------------------[Candidate 80]-------------------------------------------
+                              Recommended Effort: 0.58% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.1, 0.5: 0.1, 0.75: 0.05} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.58% of experiments
+-------------------------------------------[Candidate 81]-------------------------------------------
+                              Recommended Effort: 0.58% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 273.15} {0: 0.1, 0.25: 0.1, 0.5: 0.1, 0.75: 0.1} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     40.00]: dedicate  0.58% of experiments
+------------------------------------------[Candidate 163]-------------------------------------------
+                              Recommended Effort: 0.29% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.0, 0.25: 0.0, 0.5: 0.0, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[    200.00]: dedicate  0.29% of experiments
+------------------------------------------[Candidate 187]-------------------------------------------
+                              Recommended Effort: 4.78% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.0, 0.25: 0.1, 0.5: 0.1, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[    160.00]: dedicate  4.78% of experiments
+------------------------------------------[Candidate 190]-------------------------------------------
+                             Recommended Effort: 10.82% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.05, 0.25: 0.0, 0.5: 0.0, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[    200.00]: dedicate 10.82% of experiments
+------------------------------------------[Candidate 217]-------------------------------------------
+                              Recommended Effort: 0.05% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.0, 0.5: 0.0, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[    200.00]: dedicate  0.05% of experiments
+------------------------------------------[Candidate 226]-------------------------------------------
+                              Recommended Effort: 1.28% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.05, 0.5: 0.0, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[    140.00]: dedicate  1.28% of experiments
+------------------------------------------[Candidate 227]-------------------------------------------
+                              Recommended Effort: 1.28% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.05, 0.5: 0.0, 0.75: 0.05} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[    140.00]: dedicate  1.28% of experiments
+------------------------------------------[Candidate 228]-------------------------------------------
+                              Recommended Effort: 1.28% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.05, 0.5: 0.0, 0.75: 0.1} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[    140.00]: dedicate  1.28% of experiments
+------------------------------------------[Candidate 235]-------------------------------------------
+                              Recommended Effort: 1.96% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.1, 0.5: 0.0, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     60.00]: dedicate  1.96% of experiments
+------------------------------------------[Candidate 236]-------------------------------------------
+                             Recommended Effort: 14.63% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.1, 0.5: 0.0, 0.75: 0.05} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     60.00]: dedicate  1.96% of experiments
+[    160.00]: dedicate 12.68% of experiments
+------------------------------------------[Candidate 237]-------------------------------------------
+                              Recommended Effort: 1.96% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.1, 0.5: 0.0, 0.75: 0.1} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     60.00]: dedicate  1.96% of experiments
+------------------------------------------[Candidate 238]-------------------------------------------
+                              Recommended Effort: 5.65% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.1, 0.5: 0.05, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     60.00]: dedicate  1.96% of experiments
+[    160.00]: dedicate  2.41% of experiments
+[    180.00]: dedicate  1.28% of experiments
+------------------------------------------[Candidate 239]-------------------------------------------
+                              Recommended Effort: 1.96% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.1, 0.5: 0.05, 0.75: 0.05} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     60.00]: dedicate  1.96% of experiments
+------------------------------------------[Candidate 240]-------------------------------------------
+                              Recommended Effort: 1.96% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.1, 0.5: 0.05, 0.75: 0.1} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     60.00]: dedicate  1.96% of experiments
+------------------------------------------[Candidate 241]-------------------------------------------
+                              Recommended Effort: 1.96% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.1, 0.5: 0.1, 0.75: 0.0} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     60.00]: dedicate  1.96% of experiments
+------------------------------------------[Candidate 242]-------------------------------------------
+                              Recommended Effort: 1.96% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.1, 0.5: 0.1, 0.75: 0.05} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     60.00]: dedicate  1.96% of experiments
+------------------------------------------[Candidate 243]-------------------------------------------
+                              Recommended Effort: 1.96% of experiments                              
+Time-invariant Controls:
+[5.]
+Time-varying Controls:
+[{0: 323.15} {0: 0.1, 0.25: 0.1, 0.5: 0.1, 0.75: 0.1} {0: 10.0} {0: 0.0}]
+Sampling Times:
+[     60.00]: dedicate  1.96% of experiments
+####################################################################################################
+CVaR: -2.046779749459607
+MEAN: 0.23659854432990643
+=====================================[Iteration 5/5 Completed]======================================
+
