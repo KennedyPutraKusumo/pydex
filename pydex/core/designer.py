@@ -339,6 +339,9 @@ class Designer:
         self._check_memory_req(memory_threshold)
 
         if self.error_cov is None:
+            print(
+                f"[WARNING]: because the error_cov is not given, Pydex defaults to the "
+                f"identity matrix of size {self.n_m_r}x{self.n_m_r}.")
             self.error_cov = np.eye(self.n_m_r)
         try:
             self.error_fim = np.linalg.inv(self.error_cov)
@@ -366,6 +369,7 @@ class Designer:
                 print(f"{'Number of sampling time choices':<40}: {self.n_spt}")
             if self._dynamic_controls:
                 print(f"{'Number of time-varying controls':<40}: {self.n_tvc}")
+            print(f"{'Covariance of measured responses':<40}: \n {self.error_cov}")
             print("".center(100, "="))
 
         return self._status
