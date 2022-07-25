@@ -274,7 +274,6 @@ class TrellisPlotter:
             figManager = plt.get_current_fig_manager()
             figManager.window.showMaximized()
 
-            plt.show()
         else:
             for d_set in self.data_sets:
                 self.data = d_set
