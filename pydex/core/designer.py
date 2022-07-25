@@ -58,19 +58,21 @@ class Designer:
         self._alt_cvar = None
         self.error_cov = None
         self.error_fim = None
-        # goal_oriented_ds
-        self.ds_tic = None
-        self.ds_tvc = None
-        self.ds_spt = None
-        self.old_tic_cands = None
-        self.old_tvc_cands = None
-        self.old_spt_cands = None
-        self.tic_switched = None
-        self.tvc_switched = None
-        self.spt_switched = None
-        self.ds_sensitivities = None
-        self.ds_sample_sensitivities_done = False
-        self.n_c_ds = None
+
+        """ goal_oriented_ds"""
+        self.n_c_go = None
+        self.n_spt_go = None
+        self.n_tic_go = None
+        self.n_r_go = None
+        self._candidates_swapped = False
+
+        self.go_simulate = None
+        self.go_tic = None
+        self.go_tvc = None
+        self.go_spt = None
+        self.go_sensitivities = None
+        self.go_sample_sensitivities_done = False
+        self.go_error_cov = None
         self._step_nom = None
 
         """ CVaR-exclusive """
@@ -3016,14 +3018,16 @@ class Designer:
             raise NotImplementedError("CVXPY unavailable for vdi_opt.")
 
         self.eval_pim_for_v_opt(efforts)
-        # ei_opts: average of the determinant of the pvar matrix over the given points
-        di_opts = np.empty((self.n_c_ds, self.n_spt))
+        di_opts = np.empty((self.n_c_go, self.n_spt_go))
         for c, PVAR in enumerate(self.pvars):
             for spt, pvar in enumerate(PVAR):
-                sign, temp_di = np.linalg.slogdet(pvar)
-                if sign != 1:
-                    temp_di = np.inf
-                di_opts[c, spt] = temp_di
+                if np.squeeze(PVAR).size == 1:
+                    di_opts[c, spt] = np.squeeze(PVAR)
+                else:
+                    sign, temp_di = np.linalg.slogdet(pvar)
+                    if sign != 1:
+                        temp_di = np.inf
+                    di_opts[c, spt] = temp_di
         di_opt = np.sum(di_opts)
 
         if self._fd_jac:
@@ -3041,51 +3045,46 @@ class Designer:
         fim_inv = np.linalg.inv(self.fim)
 
         # compute the sensitivities of the samples from design spaces
-        if self.ds_sample_sensitivities_done is False:
-            self._temporary_switch_of_candidates(new_tic=self.ds_tic, new_tvc=self.ds_tvc, new_spt=self.ds_spt)
+        if self.go_sample_sensitivities_done is False:
+            self._swap_candidates()
             self.eval_sensitivities()
-            self.ds_sensitivities = np.copy(self.sensitivities)
-            self.ds_sample_sensitivities_done = True
+            self.go_sample_sensitivities_done = True
+            self._swap_candidates()
+            self._candidates_changed = False
         if vector:
             self.pvars = np.array([
-                [f @ fim_inv @ f.T for f in F] for F in self.ds_sensitivities
+                [f @ fim_inv @ f.T for f in F] for F in self.go_sensitivities
             ])
         else:
-            self.pvars = np.empty((self.n_c_ds, self.n_spt, self.n_r, self.n_r))
-            for c, F in enumerate(self.ds_sensitivities):
+            self.pvars = np.empty((self.n_c_go, self.n_spt_go, self.n_r_go, self.n_r_go))
+            for c, F in enumerate(self.go_sensitivities):
                 for spt, f in enumerate(F):
                     self.pvars[c, spt, :, :] = f @ fim_inv @ f.T
-        self._revert_candidates()
         return self.pvars
 
-    def _temporary_switch_of_candidates(self, new_tic=None, new_tvc=None, new_spt=None):
-        if new_tic is not None:
-            self.old_tic_cands = np.copy(self.ti_controls_candidates)
-            self.ti_controls_candidates = new_tic
-            self.n_c_ds = new_tic.shape[0]
-            self.tic_switched = True
-        if new_tvc is not None:
-            self.old_tvc_cands = np.copy(self.tv_controls_candidates)
-            self.tv_controls_candidates = new_tvc
-            self.tvc_switched = True
-        if new_spt is not None:
-            self.old_spt_cands = np.copy(self.sampling_times_candidates)
-            self.sampling_times_candidates = new_spt
-            self.spt_switched = True
-        self.old_sensitivities = np.copy(self.sensitivities)
+    def _swap_candidates(self):
+        self._candidates_swapped = not self._candidates_swapped
+        self._ticc, self.go_tic = self.go_tic, self._ticc
+        self._tvcc, self.go_tvc = self.go_tvc, self._tvcc
+        self._sptc, self.go_spt = self.go_spt, self._sptc
+        self.n_c, self.n_c_go = self.n_c_go, self.n_c
+        self.n_tic, self.n_tic_go = self.n_tic_go, self.n_tic
+        self.n_r, self.n_r_go = self.n_r_go, self.n_r
+        self.n_spt, self.n_spt_go = self.n_spt_go, self.n_spt
+        self.simulate, self.go_simulate = self.go_simulate, self.simulate
+        self.go_sensitivities, self.sensitivities = self.sensitivities, self.go_sensitivities
+        self.error_cov, self.go_error_cov = self.go_error_cov, self.error_cov
         self.initialize(verbose=self._verbose)
+        self._model_parameters_changed = False
 
     def _revert_candidates(self):
         self.ti_controls_candidates = self.old_tic_cands
-        self.tic_switched = False
-
         self.tv_controls_candidates = self.old_tic_cands
-        self.tvc_switched = False
-
         self.spt_controls_candidates = self.old_tic_cands
-        self.spt_switched = False
 
         self.sensitivities = self.old_sensitivities
+        if self.go_simulate:
+            self.simulate, self.go_simulate = self.go_simulate, self.simulate
         self.initialize(verbose=0)
 
         self._model_parameters_changed = False
@@ -3177,6 +3176,7 @@ class Designer:
             print(f"{'Use Finite Difference':<40}: {self.use_finite_difference}")
             if self.use_finite_difference:
                 print(f"{'Richardson Extrapolation Steps':<40}: {self._num_steps}")
+            print(f"{'Normalized by Parameter Values':<40}: {self._norm_sens_by_params}")
             print(f"".center(100, "-"))
         start = time()
 
@@ -3283,6 +3283,8 @@ class Designer:
             sens_file = f'sensitivity_{self.n_c}_cand'
             if self._dynamic_system:
                 sens_file += f"_{self.n_spt}_spt"
+            if self._candidates_swapped:
+                sens_file += f"_go_{self.n_c_go}_cand"
             fp = self._generate_result_path(sens_file, "pkl")
             dump(self.sensitivities, open(fp, 'wb'))
 
@@ -3434,6 +3436,16 @@ class Designer:
                 for c, (eff, sen) in enumerate(zip(self.efforts, self.sensitivities)):
                     for spt, (e, s) in enumerate(zip(eff, sen)):
                         add_candidates(s, e, self.error_fim)
+            if self._save_atomics and not self._pseudo_bayesian:
+                sens_file = f"atomics_{self.n_c}_cand"
+                if self._dynamic_system:
+                    sens_file += f"_{self.n_spt}_spt"
+                if self._pseudo_bayesian:
+                    sens_file += f"_{self.n_scr}_scr"
+                if self._candidates_swapped:
+                    sens_file += f"_go_{self.n_c_go}_cand"
+                fp = self._generate_result_path(sens_file, "pkl")
+                dump(self.atomic_fims, open(fp, 'wb'))
         # if atomic is given
         else:
             self.fim = 0
@@ -3476,15 +3488,6 @@ class Designer:
         """ set current mp as completed to prevent recomputation of atomics """
         self._model_parameters_changed = False
         self._candidates_changed = False
-
-        if self._save_atomics and not self._pseudo_bayesian:
-            sens_file = f"atomics_{self.n_c}_cand"
-            if self._dynamic_system:
-                sens_file += f"_{self.n_spt}_spt"
-            if self._pseudo_bayesian:
-                sens_file += f"_{self.n_scr}_scr"
-            fp = self._generate_result_path(sens_file, "pkl")
-            dump(self.atomic_fims, open(fp, 'wb'))
 
         return self.fim
 
