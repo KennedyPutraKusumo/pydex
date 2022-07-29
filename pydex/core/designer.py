@@ -1711,7 +1711,7 @@ class Designer:
 
         return oed_result
 
-    def plot_criterion_cdf(self, write=False, iteration=None, dpi=360, figsize=(4.5, 3.5), annotate=True, minor_ticks=False, legend=False, grid=False):
+    def plot_criterion_cdf(self, write=False, iteration=None, dpi=360, figsize=(4.5, 3.5), annotate=False, minor_ticks=False, legend=False, grid=False):
         if not self._pseudo_bayesian or not self._cvar_problem:
             raise SyntaxError(
                 "Plotting cumulative distribution function only valid for pseudo-"
