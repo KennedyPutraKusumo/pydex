@@ -236,6 +236,7 @@ class Designer:
         # current oed result
         self.run_no = 1
         self.oed_result = None
+        self.result_dir_daily = None
         self.result_dir = None
 
         """ plotting attributes """
@@ -3251,17 +3252,17 @@ class Designer:
         self._model_parameters_changed = False
 
     def create_result_dir(self):
-        if self.result_dir is None:
+        if self.result_dir_daily is None:
             now = datetime.now()
-            self.result_dir = getcwd() + "/"
-            self.result_dir += path.splitext(path.basename(main.__file__))[0] + "_result/"
-            self.result_dir += f'date_{now.year:d}-{now.month:d}-{now.day:d}/'
+            self.result_dir_daily = getcwd() + "/"
+            self.result_dir_daily += path.splitext(path.basename(main.__file__))[0] + "_result/"
+            self.result_dir_daily += f'date_{now.year:d}-{now.month:d}-{now.day:d}/'
             self.create_result_dir()
         else:
-            if path.exists(self.result_dir):
+            if path.exists(self.result_dir_daily):
                 return
             else:
-                makedirs(self.result_dir)
+                makedirs(self.result_dir_daily)
 
     def write_oed_result(self):
         fn = f"{self.oed_result['optimality_criterion']:s}_oed_result"
@@ -4470,25 +4471,16 @@ class Designer:
         self.create_result_dir()
 
         while True:
-            fp = self.result_dir + f"run_{self.run_no}/"
-            if path.exists(fp):
-                fn = f"run_{self.run_no}_{name}.{extension}"
-                if iteration is not None:
-                    fn = f"iter_{iteration:d}_" + fn
-                fp += fn
-                if path.isfile(fp):
-                    self.run_no += 1
-                else:
-                    self.run_no = 1
-                    return fp
-            else:
-                makedirs(fp)
-                fn = f"run_{self.run_no}_{name}.{extension}"
-                if iteration is not None:
-                    fn = f"iter_{iteration:d}_" + fn
-                fp += fn
-                self.run_no = 1
-                return fp
+            now = datetime.now()
+            if not self.result_dir:
+                self.result_dir = self.result_dir_daily + f"time_{now.hour:d}-{now.minute:d}-{now.second}/"
+                if not path.exists(self.result_dir):
+                    makedirs(self.result_dir)
+            fn = f"{name}.{extension}"
+            if iteration is not None:
+                fn = f"iter_{iteration:d}_" + fn
+            fp = self.result_dir + fn
+            return fp
 
     def _plot_optimal_sensitivities(self, absolute=False, legend=None,
                                    markersize=10, colour_map="jet",
