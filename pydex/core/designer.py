@@ -1706,11 +1706,10 @@ class Designer:
             "regularized": self._regularize_fim,
             "n_spt_spec": self._n_spt_spec,
         }
-        self.oed_result = oed_result
         if write:
             self.write_oed_result()
 
-        return oed_result
+        return self.oed_result
 
     def plot_criterion_cdf(self, write=False, iteration=None, dpi=360, figsize=(4.5, 3.5), annotate=False, minor_ticks=False, legend=False, grid=False):
         if not self._pseudo_bayesian or not self._cvar_problem:
