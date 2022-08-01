@@ -1687,7 +1687,7 @@ class Designer:
 
         """ storing and writing result """
         self._criterion_value = opt_fun
-        oed_result = {
+        self.oed_result = {
             "solution_time": finish - start,
             "optimization_time": self._optimization_time,
             "sensitivity_analysis_time": self._sensitivity_analysis_time,
