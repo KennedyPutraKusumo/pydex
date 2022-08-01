@@ -664,7 +664,7 @@ class Designer:
 
         return pe_result
 
-    def insilico_bayesian_inference(self, n_walkers, n_steps, burn_in, verbose=True, prior_pdf=None, bounds=None, seed=123456, write=True, dpi=160):
+    def insilico_bayesian_inference(self, n_walkers, n_steps, burn_in, verbose=True, prior_pdf=None, bounds=None, seed=123456, write=True):
         if self._verbose >= 1:
             print(f"".center(100, "="))
         np.random.seed(seed)
