@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="pydex",
-    version="0.0.8",
+    version="0.0.9",
     author="Kennedy Putra Kusumo",
     author_email="kennedy.putra.kusumo@gmail.com",
     description="A Python package for optimal experiment design.",
