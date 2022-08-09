@@ -800,5 +800,5 @@ if __name__ == '__main__':
 
     """ Plot Function """
     fig = dyn_plotter.plot()
-    fig.savefig(f"{exp_name}.png", dpi=180)
+    # fig.savefig(f"{exp_name}.png", dpi=180)
     plt.show()
