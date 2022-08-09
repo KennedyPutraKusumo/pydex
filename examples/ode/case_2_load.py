@@ -5,21 +5,19 @@ import numpy as np
 
 
 """ loading only saves states and results, need to redeclare the model, simulate function, and simulator """
-model, simulator = create_model()
 
 designer_1 = Designer()
-designer_1.model = model
 designer_1.simulate = simulate
-designer_1.simulator = simulator
 
 """ loading state (experimental candidates, nominal model parameter values  """
-designer_1.load_state('/case_2_result/date_2020-4-16/state_1_10x10x10x10.pkl')
-
-""" loading sensitivity values from previous run """
-designer_1.load_sensitivity('/case_2_result/date_2020-4-16/sensitivity_1_3x3x3x3.pkl')
+designer_1.load_state('/case_2_save_result/date_2022-8-9/time_15-11-1/state.pkl')
 
 """" re-initialize the designer """
 designer_1.initialize(verbose=2)
+
+""" loading sensitivity values from previous run """
+designer_1.load_sensitivity('/case_2_save_result/date_2022-8-9/time_15-11-1/sensitivity_25_cand_11_spt.pkl')
+
 designer_1.simulate_candidates()
 designer_1.plot_predictions()
 
