@@ -27,5 +27,6 @@ setuptools.setup(
         'pickle',
         'dill',
         'numpy',
+        'corner',
     ],
 )

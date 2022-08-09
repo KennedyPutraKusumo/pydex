@@ -31,6 +31,8 @@ An open-source Python package for optimal experiment design, essential to a mode
 6. dill: for saving objects with weak-references.
 7. python 3.x: a core package.
 8. numpy: a core package for basic array manipulations.
+9. corner: a package for visualizing high-dimensional data points in a corner plot
+10. emcee: a package for Bayesian Inference using a Markov Chain Monte Carlo (MCMC) method
 
 ## Examples
 In this repository, you will find examples of designing optimal experiments for a wide range of models, defined explicitly, and implicitly through the solution of a system of ordinary differential equations. Currently, there are examples for using scipy and pyomo for integrating the ODE models. Syntax for solution, visualization, and saving & loading progress are shown in the examples.
