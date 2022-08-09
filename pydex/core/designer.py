@@ -1894,7 +1894,6 @@ class Designer:
             self.eval_sensitivities(
                 base_step=base_step,
                 step_ratio=step_ratio,
-                num_steps=num_steps
             )
         if normalize:
             self.normalize_sensitivities()
@@ -3516,7 +3515,6 @@ class Designer:
     def eval_sensitivities(self, method='forward', base_step=2, step_ratio=2,
                            store_predictions=True,
                            plot_analysis_times=False, save_sensitivities=None,
-                           num_steps=None,
                            reporting_frequency=None):
         """
         Main evaluator for computing numerical sensitivities of the responses with
