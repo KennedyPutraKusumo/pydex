@@ -3559,8 +3559,7 @@ class Designer:
 
         candidate_sens_times = []
         if self.use_finite_difference:
-            jacob_fun = nd.Jacobian(fun=self._sensitivity_sim_wrapper,
-                                    step=step_generator, method=method)
+            jacob_fun = nd.Jacobian(fun=self._sensitivity_sim_wrapper, step=step_generator, method=method, full_output=False)
         """ main loop over experimental candidates """
         main_loop_start = time()
         for i, exp_candidate in enumerate(
@@ -3837,8 +3836,20 @@ class Designer:
 
         finish = time()
 
-        if self.fim is 0:
-            return np.array([0])
+        try:
+            if isinstance(self.fim, cp.Expression):
+                if np.all(self.fim.value == 0):
+                    return np.array([0])
+            else:
+                if np.all(self.fim == 0):
+                    return np.array([0])
+        except AttributeError:
+            if isinstance(self.fim, cp.expressions.expression.Expression):
+                if np.all(self.fim.value == 0):
+                    return np.array([0])
+            else:
+                if np.all(self.fim == 0):
+                    return np.array([0])
 
         self.evaluate_estimability_index()
 
@@ -4049,8 +4060,20 @@ class Designer:
                 fim_value = self.fim
         else:
             fim_value = self.fim
-        if fim_value is 0:
-            return
+        try:
+            if isinstance(self.fim, cp.Expression):
+                if np.all(self.fim.value == 0):
+                    return
+            else:
+                if np.all(self.fim == 0):
+                    return
+        except AttributeError:
+            if isinstance(self.fim, cp.expressions.expression.Expression):
+                if np.all(self.fim.value == 0):
+                    return
+            else:
+                if np.all(self.fim == 0):
+                    return
 
         for i, row in enumerate(fim_value):
             if not np.allclose(row, 0.0):
@@ -4821,7 +4844,10 @@ class Designer:
             self._current_res = response
             self._store_current_response()
         if self.use_finite_difference:
-            return response
+            if self.n_m_r == 1 and self.n_spt == 1:
+                return response[0]
+            else:
+                return response
         else:
             return response, sens
 
