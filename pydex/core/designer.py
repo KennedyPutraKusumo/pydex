@@ -319,7 +319,7 @@ class Designer:
         while frame:
             if "numdifftools" in frame.f_code.co_filename:
                 return False
-            elif frame.f_code.co_name is "eval_sensitivities":
+            elif frame.f_code.co_name == "eval_sensitivities":
                 return True
             frame = frame.f_back
         return False
@@ -1496,23 +1496,23 @@ class Designer:
             self._fd_jac = True
 
         """ setting default optimizers, and its options """
-        if self._optimization_package is "scipy":
+        if self._optimization_package == "scipy":
             if optimizer is None:
                 self._optimizer = "SLSQP"
             if opt_options is None:
                 opt_options = {"disp": opt_verbose}
-        if self._optimization_package is "cvxpy":
+        if self._optimization_package == "cvxpy":
             if optimizer is None:
                 self._optimizer = "MOSEK"
 
         """ deal with unconstrained form """
-        if self._optimization_package is "scipy":
+        if self._optimization_package == "scipy":
             if self._optimizer not in ["COBYLA", "SLSQP", "trust-constr"]:
                 if self._verbose >= 2:
                     print(f"Note: {self._optimization_package}'s optimizer "
                           f"{self._optimizer} requires unconstrained form.")
                 self._unconstrained_form = True
-        if self._optimization_package is "cvxpy":
+        if self._optimization_package == "cvxpy":
             if self._unconstrained_form:
                 self._unconstrained_form = False
                 print("Warning: unconstrained form is not supported by cvxpy; "
@@ -2749,7 +2749,7 @@ class Designer:
         if not self._dynamic_system:
             raise SyntaxError("Prediction plots are only for dynamic systems.")
 
-        if self._status is not 'ready':
+        if self._status != 'ready':
             raise SyntaxError(
                 'Initialize the designer first.'
             )
@@ -2768,7 +2768,7 @@ class Designer:
 
         if self.optimal_candidates is None:
             self.get_optimal_candidates()
-        if self.n_opt_c is 0:
+        if self.n_opt_c == 0:
             print(
                 f"[Warning]: empty optimal candidates, skipping plotting of optimal "
                 f"predictions."
@@ -4061,7 +4061,7 @@ class Designer:
         self.estimable_model_parameters = self.estimable_model_parameters.astype(int)
 
         if self._trim_fim:
-            if len(self.estimable_model_parameters) is 0:
+            if len(self.estimable_model_parameters) == 0:
                 self.fim = np.array([0])
             else:
                 self.fim = self.fim[
