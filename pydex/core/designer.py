@@ -808,14 +808,24 @@ class Designer:
             )
         np.random.seed(seed)
         tic, tvc, spt = self._get_apportioned_candidates()
-        self.insilico_data = np.empty((self.n_exp, self._n_spt_spec, self.n_m_r))
-        for c, (ti, tv, sp) in enumerate(zip(tic, tvc, spt)):
-            self.insilico_data[c] = self._simulate_internal(ti, tv, self.model_parameters, sp)
-        self.insilico_data += np.random.multivariate_normal(
-            np.zeros(self.n_m_r),
-            cov=self.error_cov,
-            size=(self.n_exp, self._n_spt_spec),
-        )
+        if self._opt_sampling_times:
+            self.insilico_data = np.empty((self.n_exp, self._n_spt_spec, self.n_m_r))
+            for c, (ti, tv, sp) in enumerate(zip(tic, tvc, spt)):
+                self.insilico_data[c] = self._simulate_internal(ti, tv, self.model_parameters, sp)
+            self.insilico_data += np.random.multivariate_normal(
+                np.zeros(self.n_m_r),
+                cov=self.error_cov,
+                size=(self.n_exp, self._n_spt_spec),
+            )
+        else:
+            self.insilico_data = np.empty((self.n_exp, self.n_spt, self.n_m_r))
+            for c, (ti, tv, sp) in enumerate(zip(tic, tvc, spt)):
+                self.insilico_data[c] = self._simulate_internal(ti, tv, self.model_parameters, sp)
+            self.insilico_data += np.random.multivariate_normal(
+                np.zeros(self.n_m_r),
+                cov=self.error_cov,
+                size=(self.n_exp, self.n_spt),
+            )
         return self.insilico_data
 
     def _get_apportioned_candidates(self):
