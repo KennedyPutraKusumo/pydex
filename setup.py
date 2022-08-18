@@ -24,7 +24,6 @@ setuptools.setup(
         'numdifftools',
         'scipy',
         'cvxpy',
-        'pickle',
         'dill',
         'numpy',
         'corner',
