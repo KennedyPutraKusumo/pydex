@@ -83,6 +83,7 @@ result = designer_1.design_experiment(
 )
 designer_1.measurable_responses = [0, 1]
 designer_1.print_optimal_candidates()
+designer_1.plot_optimal_predictions()
 designer_1.plot_optimal_efforts()
 designer_1.apportion(2)
 mp_bounds = np.array([
@@ -102,7 +103,6 @@ designer_1.insilico_bayesian_inference(
 designer_1.plot_bayesian_inference_samples(
     bounds=mp_bounds,
 )
-designer_1.show_plots()
 
 designer_1._optimization_package = "scipy"
 designer_1.compute_criterion_value(designer_1.a_opt_criterion)
