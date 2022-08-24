@@ -27,5 +27,6 @@ setuptools.setup(
         'dill',
         'numpy',
         'corner',
+        'emcee',
     ],
 )
