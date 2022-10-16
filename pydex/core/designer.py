@@ -55,7 +55,7 @@ class Designer:
         The designer comes with various built-in plotting capabilities through
         matplotlib's plotting features.
         """
-        self.__version__ = "0.0.8"
+        self.__version__ = "0.0.9"
 
         """ In Silico Experiments """
         self._bayes_pe_time = None
@@ -664,12 +664,10 @@ class Designer:
 
         return pe_result
 
-    def insilico_bayesian_inference(self, n_walkers, n_steps, burn_in, verbose=True, prior_pdf=None, bounds=None, seed=123456, write=True):
+    def bayesian_inference(self, tic, tvc, spt, data, n_walkers, n_steps, burn_in, verbose=True, prior_pdf=None, bounds=None, seed=123456, write=True):
         if self._verbose >= 1:
             print(f"".center(100, "="))
         np.random.seed(seed)
-        self.insilico_data = self.generate_insilico_data(seed)
-        tic, tvc, spt = self._get_apportioned_candidates()
 
         if prior_pdf is None:
             if bounds is None:
@@ -677,7 +675,6 @@ class Designer:
                     "Please provide either the prior_pdf function or bounds, Pydex "
                     "assumes uniform distribution between the given bounds."
                 )
-                return
             else:
                 prior_pdf = self.uniform_prior_pdf(bounds)
 
@@ -685,7 +682,7 @@ class Designer:
             lkhd = 0
             for c, (ti, tv, sp) in enumerate(zip(tic, tvc, spt)):
                 y_pred = self._simulate_internal(ti, tv, p, sp)
-                delta = y_pred - self.insilico_data[c]
+                delta = y_pred - data[c]
                 for j in range(self._n_spt_spec):
                     lkhd += np.log(1 / np.sqrt((2 * np.pi) ** self.n_mp * np.linalg.det(self.error_cov)) * np.exp(-1/2 * delta[j] @ self.error_fim @ delta[j].T))
             return lkhd
@@ -732,6 +729,11 @@ class Designer:
             dump(self.bayesian_pe_samples, open(fp, 'wb'))
 
         return self.bayesian_pe_samples
+
+    def insilico_bayesian_inference(self, n_walkers, n_steps, burn_in, verbose=True, prior_pdf=None, bounds=None, seed=123456, write=True):
+        self.insilico_data = self.generate_insilico_data(seed)
+        tic, tvc, spt = self._get_apportioned_candidates()
+        return self.bayesian_inference(tic, tvc, spt, self.insilico_data, n_walkers, n_steps, burn_in, verbose, prior_pdf, bounds, seed, write)
 
     def plot_bayesian_inference_samples(self, bounds=None, title=None, contours=True, density=False, reso=201j, plot_fim_confidence=True, figsize=None, write=True, dpi=160):
         fig = corner.corner(
