@@ -3822,6 +3822,7 @@ class Designer:
                 for c, (eff, sen) in enumerate(zip(self.efforts, self.sensitivities)):
                     for spt, (e, s) in enumerate(zip(eff, sen)):
                         add_candidates(s, e, self.error_fim)
+            self.atomic_fims = np.array(self.atomic_fims)
             if self._save_atomics and not self._pseudo_bayesian:
                 sens_file = f"atomics_{self.n_c}_cand"
                 if self._dynamic_system:
