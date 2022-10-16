@@ -1620,7 +1620,7 @@ class Designer:
                     )
                 opt_result = minimize(
                     fun=criterion,
-                    x0=e0,
+                    x0=e0.flatten(),
                     method=optimizer,
                     options=opt_options,
                     constraints=constraint,
