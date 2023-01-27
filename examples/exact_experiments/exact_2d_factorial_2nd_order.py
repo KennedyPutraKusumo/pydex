@@ -8,7 +8,9 @@ Problem: design optimal experiment for a order 2 polynomial, with complete inter
 Solution: a full 3^2 factorial design (3 level)
 """
 def simulate(ti_controls, model_parameters):
-    return np.array([
+    inner_designer = Designer()
+    return_sensitivities = inner_designer.detect_sensitivity_analysis_function()
+    res = np.array([
         # constant term
         model_parameters[0] +
         # linear term
@@ -20,8 +22,18 @@ def simulate(ti_controls, model_parameters):
         model_parameters[4] * ti_controls[0] ** 2               +
         model_parameters[5] * ti_controls[1] ** 2
     ])
+    if return_sensitivities:
+        sens = np.array([
+            [
+                [1, ti_controls[0], ti_controls[1], ti_controls[0] * ti_controls[1], ti_controls[0] ** 2 , ti_controls[1] ** 2],
+            ],
+        ])
+        return res, sens
+    else:
+        return res
 
 designer_1 = Designer()
+designer_1.use_finite_difference = False
 designer_1.simulate = simulate
 
 reso = 11
@@ -35,7 +47,8 @@ designer_1.model_parameters = np.ones(6)  # values won't affect design, but stil
 
 designer_1.initialize(verbose=2)  # 0: silent, 1: overview, 2: detailed, 3: very detailed
 
-designer_1.design_experiment(designer_1.d_opt_criterion, n_exp=7, write=False)
+# designer_1.design_experiment(designer_1.d_opt_criterion, write=False)
+designer_1.design_experiment(designer_1.d_opt_criterion, n_exp=6, write=False, discrete_design_solver="OA")
 designer_1.print_optimal_candidates()
 designer_1.plot_optimal_controls(alpha=0.3, non_opt_candidates=True)
 designer_1.show_plots()

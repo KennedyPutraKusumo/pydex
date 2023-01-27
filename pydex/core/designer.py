@@ -21,6 +21,9 @@ from scipy.stats import chi2
 from pydex.utils.trellis_plotter import TrellisPlotter
 from pydex.core.bnb.tree import Tree
 from pydex.core.bnb.node import Node
+from pydex.core.oa.manager import OAManager
+from pydex.core.oa.primal import OAPrimalProblem
+from pydex.core.oa.master import OAMasterProblem
 from pydex.core.logger import Logger
 import matplotlib
 import cvxpy as cp
@@ -269,6 +272,7 @@ class Designer:
 
         # store current criterion value
         self._criterion_value = None
+        self.rounded_criterion_value = None
 
         """ user saving options """
         self._save_sensitivities = False
@@ -1409,6 +1413,7 @@ class Designer:
                           unconstrained_form=False, trim_fim=False,
                           pseudo_bayesian_type=None, regularize_fim=False, beta=0.90,
                           min_expected_value=None, fix_effort=None, save_atomics=False,
+                          discrete_design_solver="OA",
                           **kwargs):
         # storing user choices
         self._regularize_fim = regularize_fim
@@ -1643,7 +1648,7 @@ class Designer:
                 self.efforts = cp.Variable((self.n_c, self.n_spt), nonneg=True)
             self.efforts.value = e0
             # constraints and objective
-            if self._discrete_design:
+            if self._discrete_design and discrete_design_solver == "B&B":
                 p_cons = [cp.sum(self.efforts) == n_exp]
             else:
                 p_cons = [cp.sum(self.efforts) <= 1]
@@ -1661,13 +1666,35 @@ class Designer:
                 p_cons += [self.efforts == fix_effort / fix_effort.sum()]
             problem = cp.Problem(obj, p_cons)
             # solution
-            if self._discrete_design:
+            if self._discrete_design and discrete_design_solver == "B&B":
                 root = Node(self.efforts, problem)
                 tree = Tree(root)
                 tree._verbose = self._verbose
                 opt_node = tree.solve()
                 self.efforts = opt_node.int_var_val
                 opt_fun = opt_node.ub
+            elif self._discrete_design and discrete_design_solver == "OA":
+                opt_fun = problem.solve(
+                    verbose=opt_verbose,
+                    solver=self._optimizer,
+                    **kwargs
+                )
+                self._criterion_value = opt_fun
+                self.efforts, ced_efforts = self.efforts.value, self.efforts.value
+                self.apportion(n_exp)
+                self.optimal_candidates = None  # clean optimal candidates after apportionment
+                apportioned_obj = criterion(self.non_trimmed_apportionments).value
+                oasolver = OAManager(criterion, self.eval_fim)
+                oasolver.sensitivities = self.sensitivities
+                opt_fun = oasolver.solve(
+                    n_exp=n_exp,
+                    y0=self.non_trimmed_apportionments,
+                    ced_efforts=ced_efforts,
+                    ced_obj=opt_fun,
+                    apportioned_effort=self.non_trimmed_apportionments,
+                    apportioned_obj_val=apportioned_obj,
+                )
+                self.efforts = oasolver.yk[oasolver.iteration_no]
             else:
                 opt_fun = problem.solve(
                     verbose=opt_verbose,
@@ -1884,13 +1911,15 @@ class Designer:
 
         return fig
 
-    def compute_criterion_value(self, criterion, decimal_places=3):
-        crit_val = criterion(self.efforts)
+    def compute_criterion_value(self, criterion, effort=None, decimal_places=3):
+        if effort is None:
+            effort = self.efforts
+        crit_val = criterion(effort)
         try:
             crit_val = crit_val.value
         except AttributeError:
             pass
-        if self._verbose >= 1:
+        if self._verbose >= 2:
             print(f"{criterion.__name__}: {crit_val:.{decimal_places}E}")
         return crit_val
 
@@ -2089,15 +2118,15 @@ class Designer:
             if compute_actual_efficiency:
                 _original_efforts = np.copy(self.efforts)
                 try:
-                    rounded_criterion_value = getattr(self, self._current_criterion)(non_trimmed_rounded_efforts).value
+                    self.rounded_criterion_value = getattr(self, self._current_criterion)(non_trimmed_rounded_efforts).value
                 except AttributeError:
-                    rounded_criterion_value = getattr(self, self._current_criterion)(non_trimmed_rounded_efforts)
+                    self.rounded_criterion_value = getattr(self, self._current_criterion)(non_trimmed_rounded_efforts)
                 if self._current_criterion == "d_opt_criterion":
-                    efficiency = np.exp(1 / self.n_mp * (-rounded_criterion_value - self._criterion_value))
+                    efficiency = np.exp(1 / self.n_mp * (-self.rounded_criterion_value - self._criterion_value))
                 elif self._current_criterion == "a_opt_criterion":
-                    efficiency = -self._criterion_value / rounded_criterion_value
+                    efficiency = -self._criterion_value / self.rounded_criterion_value
                 elif self._current_criterion == "e_opt_criterion":
-                    efficiency = -rounded_criterion_value / self._criterion_value
+                    efficiency = -self.rounded_criterion_value / self._criterion_value
                 self.efforts = _original_efforts
 
             if not trimmed:
@@ -4057,7 +4086,11 @@ class Designer:
                 self.n_factor_sups += len(opt_cand[4])
             else:
                 self.n_factor_sups += 1
-            self.max_n_opt_spt = max(self.max_n_opt_spt, len(opt_cand[4]))
+            try:
+                self.max_n_opt_spt = max(self.max_n_opt_spt, len(opt_cand[4]))
+            # catch error when opt_cand[4] is a float
+            except TypeError:
+                self.max_n_opt_spt = max(self.max_n_opt_spt, 1)
 
         return self.optimal_candidates
 

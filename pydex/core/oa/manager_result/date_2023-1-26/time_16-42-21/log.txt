@@ -1,0 +1,3071 @@
+[WARNING]: because the error_cov is not given, Pydex defaults to the identity matrix of size 1x1.
+====================================================================================================
+Initialization complete: designer ready.
+----------------------------------------------------------------------------------------------------
+Number of model parameters              : 6
+Number of candidates                    : 121
+Number of responses                     : 1
+Number of measured responses            : 1
+Number of time-invariant controls       : 2
+Covariance of measured responses        : 
+ [[1.]]
+====================================================================================================
+############################### Computing Optimal Experiment Design ################################
+Started on                              : 2023-01-26 16:42:21.263505
+Criterion                               : d_opt_criterion
+Pseudo-bayesian                         : False
+Dynamic                                 : False
+Time-invariant Controls                 : True
+Time-varying Controls                   : False
+Number of Candidates                    : 121
+---------------------------------------[Sensitivity Analysis]---------------------------------------
+Use Finite Difference                   : True
+Richardson Extrapolation Steps          : 5
+Normalized by Parameter Values          : True
+----------------------------------------------------------------------------------------------------
+[Candidate     13/121]: time elapsed            0.10 seconds.
+[Candidate     26/121]: time elapsed            0.18 seconds.
+[Candidate     39/121]: time elapsed            0.27 seconds.
+[Candidate     52/121]: time elapsed            0.36 seconds.
+[Candidate     65/121]: time elapsed            0.45 seconds.
+[Candidate     78/121]: time elapsed            0.54 seconds.
+[Candidate     91/121]: time elapsed            0.63 seconds.
+[Candidate    104/121]: time elapsed            0.72 seconds.
+[Candidate    117/121]: time elapsed            0.80 seconds.
+[Candidate    121/121]: time elapsed            0.83 seconds.
+----------------------------------------------------------------------------------------------------
+
+
+Problem
+  Name                   :                 
+  Objective sense        : min             
+  Type                   : CONIC (conic optimization problem)
+  Constraints            : 570             
+  Cones                  : 6               
+  Scalar variables       : 265             
+  Matrix variables       : 2               
+  Integer variables      : 0               
+
+Optimizer started.
+Problem
+  Name                   :                 
+  Objective sense        : min             
+  Type                   : CONIC (conic optimization problem)
+  Constraints            : 570             
+  Cones                  : 6               
+  Scalar variables       : 265             
+  Matrix variables       : 2               
+  Integer variables      : 0               
+
+Optimizer  - threads                : 6               
+Optimizer  - solved problem         : the primal      
+Optimizer  - Constraints            : 202
+Optimizer  - Cones                  : 7
+Optimizer  - Scalar variables       : 177               conic                  : 55              
+Optimizer  - Semi-definite variables: 2                 scalarized             : 99              
+Factor     - setup time             : 0.00              dense det. time        : 0.00            
+Factor     - ML order time          : 0.00              GP order time          : 0.00            
+Factor     - nonzeros before factor : 1.35e+04          after factor           : 1.35e+04        
+Factor     - dense dim.             : 0                 flops                  : 1.61e+06        
+ITE PFEAS    DFEAS    GFEAS    PRSTATUS   POBJ              DOBJ              MU       TIME  
+0   1.3e+00  1.3e+00  1.1e+01  0.00e+00   4.967030394e+00   -4.830612010e+00  1.0e+00  0.01  
+1   4.9e-01  4.9e-01  3.4e+00  3.30e-01   3.023424211e+00   -1.916136311e+00  3.8e-01  0.01  
+2   1.9e-01  1.9e-01  9.2e-01  5.30e-01   1.552890133e+00   -6.812200624e-01  1.5e-01  0.01  
+3   6.6e-02  6.6e-02  2.0e-01  7.84e-01   2.267589492e+00   1.437351794e+00   5.1e-02  0.01  
+4   3.1e-02  3.1e-02  7.5e-02  7.47e-01   3.208060714e+00   2.766992770e+00   2.4e-02  0.01  
+5   8.8e-03  8.8e-03  9.0e-03  1.29e+00   4.097014795e+00   3.987815571e+00   6.8e-03  0.03  
+6   2.6e-03  2.6e-03  1.5e-03  1.14e+00   4.415760769e+00   4.385603857e+00   2.0e-03  0.03  
+7   1.2e-03  1.2e-03  4.6e-04  1.12e+00   4.448323079e+00   4.435118818e+00   9.2e-04  0.03  
+8   1.6e-04  1.6e-04  2.3e-05  1.02e+00   4.465546510e+00   4.463812550e+00   1.2e-04  0.03  
+9   3.3e-06  3.3e-06  6.6e-08  1.01e+00   4.471660263e+00   4.471624901e+00   2.5e-06  0.03  
+10  2.2e-07  2.2e-07  1.2e-09  1.00e+00   4.471768338e+00   4.471765905e+00   1.7e-07  0.03  
+11  2.8e-08  2.7e-08  5.0e-11  1.00e+00   4.471775446e+00   4.471775152e+00   2.1e-08  0.03  
+12  1.1e-08  8.4e-09  2.9e-12  1.00e+00   4.471776276e+00   4.471776232e+00   3.1e-09  0.03  
+Optimizer terminated. Time: 0.03    
+
+
+Interior-point solution summary
+  Problem status  : PRIMAL_AND_DUAL_FEASIBLE
+  Solution status : OPTIMAL
+  Primal.  obj: 4.4717762757e+00    nrm: 2e+00    Viol.  con: 2e-08    var: 0e+00    barvar: 0e+00    cones: 2e-09  
+  Dual.    obj: 4.4717762315e+00    nrm: 1e+01    Viol.  con: 0e+00    var: 5e-15    barvar: 1e-08    cones: 0e+00  
+################################## Optimal Experiment for 6 Runs ###################################
+Obtained on                             : 2023-01-26 16:42:22.810853
+Criterion                               : d_opt_criterion
+Criterion Value                         : -4.471776275717128
+Pseudo-bayesian                         : False
+CVaR Problem                            : False
+Dynamic                                 : False
+Time-invariant Controls                 : True
+Time-varying Controls                   : False
+Number of Candidates                    : 121
+Number of Optimal Candidates            : 9
+-------------------------------------------[Candidate 1]--------------------------------------------
+                           Recommended Apportionment: Run 1/6 Experiments                           
+Time-invariant Controls:
+[-1. -1.]
+-------------------------------------------[Candidate 6]--------------------------------------------
+                           Recommended Apportionment: Run 0/6 Experiments                           
+Time-invariant Controls:
+[-1.  0.]
+-------------------------------------------[Candidate 11]-------------------------------------------
+                           Recommended Apportionment: Run 1/6 Experiments                           
+Time-invariant Controls:
+[-1.  1.]
+-------------------------------------------[Candidate 56]-------------------------------------------
+                           Recommended Apportionment: Run 0/6 Experiments                           
+Time-invariant Controls:
+[ 0. -1.]
+-------------------------------------------[Candidate 61]-------------------------------------------
+                           Recommended Apportionment: Run 1/6 Experiments                           
+Time-invariant Controls:
+[0. 0.]
+-------------------------------------------[Candidate 66]-------------------------------------------
+                           Recommended Apportionment: Run 0/6 Experiments                           
+Time-invariant Controls:
+[0. 1.]
+------------------------------------------[Candidate 111]-------------------------------------------
+                           Recommended Apportionment: Run 1/6 Experiments                           
+Time-invariant Controls:
+[ 1. -1.]
+------------------------------------------[Candidate 116]-------------------------------------------
+                           Recommended Apportionment: Run 1/6 Experiments                           
+Time-invariant Controls:
+[1. 0.]
+------------------------------------------[Candidate 121]-------------------------------------------
+                           Recommended Apportionment: Run 1/6 Experiments                           
+Time-invariant Controls:
+[1. 1.]
+----------------------------------------------------------------------------------------------------
+The rounded design for 6 runs is guaranteed to be at least 0.00% as good as the continuous design.
+The actual criterion value of the rounded design is 88.49% as informative as the continuous design.
+####################################################################################################
+==========================================Iteration 0 Done==========================================
+Iteration 0 Upper bound: -5.5451774444795525
+Iteration 0 Tightest Upper bound: -5.5451774444795525
+Iteration 0 Lower bound: -inf
+Iteration 0 Tightest Lower bound: -inf
+Academic license - for non-commercial use only - expires 2023-09-29
+Using license file C:\Users\kenne\gurobi.lic
+Parameter OutputFlag unchanged
+   Value: 1  Min: 0  Max: 1  Default: 1
+Changed value of parameter QCPDual to 1
+   Prev: 0  Min: 0  Max: 1  Default: 0
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (win64)
+Thread count: 6 physical cores, 12 logical processors, using up to 12 threads
+Optimize a model with 124 rows, 122 columns and 486 nonzeros
+Model fingerprint: 0x3a99fe90
+Variable types: 1 continuous, 121 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 6e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e-01, 6e+00]
+Found heuristic solution: objective 1.5282238
+Found heuristic solution: objective 1.5282237
+Presolve removed 124 rows and 122 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+
+Explored 0 nodes (0 simplex iterations) in 0.00 seconds
+Thread count was 1 (of 12 available processors)
+
+Solution count 3: -16.0452 
+No other solutions better than -16.0452
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective -1.604517744448e+01, best bound -1.604517744448e+01, gap 0.0000%
+Backend Qt5Agg is interactive backend. Turning interactive mode on.
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+==========================================Iteration 1 Done==========================================
+Iteration 1 Upper bound: inf
+Iteration 1 Tightest Upper bound: -5.5451774444795525
+Iteration 1 Lower bound: -16.045177444479553
+Iteration 1 Tightest Lower bound: -16.045177444479553
+Parameter OutputFlag unchanged
+   Value: 1  Min: 0  Max: 1  Default: 1
+Changed value of parameter QCPDual to 1
+   Prev: 0  Min: 0  Max: 1  Default: 0
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (win64)
+Thread count: 6 physical cores, 12 logical processors, using up to 12 threads
+Optimize a model with 125 rows, 122 columns and 607 nonzeros
+Model fingerprint: 0xadc3205a
+Variable types: 1 continuous, 121 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 6e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e-01, 6e+00]
+Found heuristic solution: objective 1.5282238
+Found heuristic solution: objective 1.5282237
+Presolve removed 125 rows and 122 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+
+Explored 0 nodes (0 simplex iterations) in 0.00 seconds
+Thread count was 1 (of 12 available processors)
+
+Solution count 3: -16.0452 
+No other solutions better than -16.0452
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective -1.604517744448e+01, best bound -1.604517744448e+01, gap 0.0000%
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+==========================================Iteration 2 Done==========================================
+Iteration 2 Upper bound: inf
+Iteration 2 Tightest Upper bound: -5.5451774444795525
+Iteration 2 Lower bound: -16.045177444479553
+Iteration 2 Tightest Lower bound: -16.045177444479553
+Parameter OutputFlag unchanged
+   Value: 1  Min: 0  Max: 1  Default: 1
+Changed value of parameter QCPDual to 1
+   Prev: 0  Min: 0  Max: 1  Default: 0
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (win64)
+Thread count: 6 physical cores, 12 logical processors, using up to 12 threads
+Optimize a model with 126 rows, 122 columns and 728 nonzeros
+Model fingerprint: 0xb4c443f7
+Variable types: 1 continuous, 121 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 6e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e-01, 6e+00]
+Found heuristic solution: objective 1.5282238
+Found heuristic solution: objective 1.5282237
+Presolve removed 126 rows and 122 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+
+Explored 0 nodes (0 simplex iterations) in 0.00 seconds
+Thread count was 1 (of 12 available processors)
+
+Solution count 3: -16.0452 
+No other solutions better than -16.0452
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective -1.604517744448e+01, best bound -1.604517744448e+01, gap 0.0000%
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+==========================================Iteration 3 Done==========================================
+Iteration 3 Upper bound: inf
+Iteration 3 Tightest Upper bound: -5.5451774444795525
+Iteration 3 Lower bound: -16.045177444479553
+Iteration 3 Tightest Lower bound: -16.045177444479553
+Parameter OutputFlag unchanged
+   Value: 1  Min: 0  Max: 1  Default: 1
+Changed value of parameter QCPDual to 1
+   Prev: 0  Min: 0  Max: 1  Default: 0
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (win64)
+Thread count: 6 physical cores, 12 logical processors, using up to 12 threads
+Optimize a model with 127 rows, 122 columns and 847 nonzeros
+Model fingerprint: 0x25a0abcf
+Variable types: 1 continuous, 121 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 6e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e-01, 6e+00]
+Found heuristic solution: objective -0.7707775
+Presolve removed 127 rows and 122 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+
+Explored 0 nodes (0 simplex iterations) in 0.00 seconds
+Thread count was 1 (of 12 available processors)
+
+Solution count 2: -15.9848 
+No other solutions better than -15.9848
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective -1.598477744448e+01, best bound -1.598477744448e+01, gap 0.0000%
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+==========================================Iteration 4 Done==========================================
+Iteration 4 Upper bound: inf
+Iteration 4 Tightest Upper bound: -5.5451774444795525
+Iteration 4 Lower bound: -15.984777444479574
+Iteration 4 Tightest Lower bound: -15.984777444479574
+Parameter OutputFlag unchanged
+   Value: 1  Min: 0  Max: 1  Default: 1
+Changed value of parameter QCPDual to 1
+   Prev: 0  Min: 0  Max: 1  Default: 0
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (win64)
+Thread count: 6 physical cores, 12 logical processors, using up to 12 threads
+Optimize a model with 128 rows, 122 columns and 966 nonzeros
+Model fingerprint: 0x93916e9e
+Variable types: 1 continuous, 121 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 6e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e-01, 6e+00]
+Found heuristic solution: objective -0.7707775
+Presolve removed 128 rows and 122 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+
+Explored 0 nodes (0 simplex iterations) in 0.00 seconds
+Thread count was 1 (of 12 available processors)
+
+Solution count 2: -15.9848 
+No other solutions better than -15.9848
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective -1.598477744448e+01, best bound -1.598477744448e+01, gap 0.0000%
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+==========================================Iteration 5 Done==========================================
+Iteration 5 Upper bound: inf
+Iteration 5 Tightest Upper bound: -5.5451774444795525
+Iteration 5 Lower bound: -15.984777444479539
+Iteration 5 Tightest Lower bound: -15.984777444479539
+Parameter OutputFlag unchanged
+   Value: 1  Min: 0  Max: 1  Default: 1
+Changed value of parameter QCPDual to 1
+   Prev: 0  Min: 0  Max: 1  Default: 0
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (win64)
+Thread count: 6 physical cores, 12 logical processors, using up to 12 threads
+Optimize a model with 129 rows, 122 columns and 1085 nonzeros
+Model fingerprint: 0xbcdb0f26
+Variable types: 1 continuous, 121 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 6e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e-01, 6e+00]
+Found heuristic solution: objective -0.7707775
+Presolve removed 124 rows and 116 columns
+Presolve time: 0.00s
+Presolved: 5 rows, 6 columns, 19 nonzeros
+Found heuristic solution: objective -14.5307774
+Variable types: 1 continuous, 5 integer (0 binary)
+
+Root relaxation: objective -1.598478e+01, 5 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+*    0     0               0     -15.9847774  -15.98478  0.00%     -    0s
+
+Explored 0 nodes (5 simplex iterations) in 0.01 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 3: -15.9848 -14.5308 -0.770777 
+No other solutions better than -15.9848
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective -1.598477744448e+01, best bound -1.598477744448e+01, gap 0.0000%
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+==========================================Iteration 6 Done==========================================
+Iteration 6 Upper bound: inf
+Iteration 6 Tightest Upper bound: -5.5451774444795525
+Iteration 6 Lower bound: -15.984777444479574
+Iteration 6 Tightest Lower bound: -15.984777444479539
+Parameter OutputFlag unchanged
+   Value: 1  Min: 0  Max: 1  Default: 1
+Changed value of parameter QCPDual to 1
+   Prev: 0  Min: 0  Max: 1  Default: 0
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (win64)
+Thread count: 6 physical cores, 12 logical processors, using up to 12 threads
+Optimize a model with 130 rows, 122 columns and 1203 nonzeros
+Model fingerprint: 0x72d6dc38
+Variable types: 1 continuous, 121 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 6e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e-01, 6e+00]
+Found heuristic solution: objective -0.7707775
+Presolve removed 126 rows and 116 columns
+Presolve time: 0.00s
+Presolved: 4 rows, 6 columns, 15 nonzeros
+Found heuristic solution: objective -14.5307774
+Variable types: 1 continuous, 5 integer (0 binary)
+
+Root relaxation: objective -1.598478e+01, 5 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+*    0     0               0     -15.9847774  -15.98478  0.00%     -    0s
+
+Explored 0 nodes (5 simplex iterations) in 0.00 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 3: -15.9848 -14.5308 -0.770777 
+No other solutions better than -15.9848
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective -1.598477744448e+01, best bound -1.598477744448e+01, gap 0.0000%
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+==========================================Iteration 7 Done==========================================
+Iteration 7 Upper bound: inf
+Iteration 7 Tightest Upper bound: -5.5451774444795525
+Iteration 7 Lower bound: -15.98477744447954
+Iteration 7 Tightest Lower bound: -15.984777444479539
+Parameter OutputFlag unchanged
+   Value: 1  Min: 0  Max: 1  Default: 1
+Changed value of parameter QCPDual to 1
+   Prev: 0  Min: 0  Max: 1  Default: 0
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (win64)
+Thread count: 6 physical cores, 12 logical processors, using up to 12 threads
+Optimize a model with 131 rows, 122 columns and 1321 nonzeros
+Model fingerprint: 0xedbdf5d7
+Variable types: 1 continuous, 121 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 6e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e-01, 6e+00]
+Found heuristic solution: objective -0.7707775
+Presolve removed 127 rows and 117 columns
+Presolve time: 0.00s
+Presolved: 4 rows, 5 columns, 12 nonzeros
+Found heuristic solution: objective -14.5307774
+Variable types: 1 continuous, 4 integer (0 binary)
+
+Root relaxation: objective -1.592438e+01, 5 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+*    0     0               0     -15.9243774  -15.92438  0.00%     -    0s
+
+Explored 0 nodes (5 simplex iterations) in 0.00 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 3: -15.9244 -14.5308 -0.770777 
+No other solutions better than -15.9244
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective -1.592437744448e+01, best bound -1.592437744448e+01, gap 0.0000%
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+==========================================Iteration 8 Done==========================================
+Iteration 8 Upper bound: inf
+Iteration 8 Tightest Upper bound: -5.5451774444795525
+Iteration 8 Lower bound: -15.92437744447956
+Iteration 8 Tightest Lower bound: -15.92437744447956
+Parameter OutputFlag unchanged
+   Value: 1  Min: 0  Max: 1  Default: 1
+Changed value of parameter QCPDual to 1
+   Prev: 0  Min: 0  Max: 1  Default: 0
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (win64)
+Thread count: 6 physical cores, 12 logical processors, using up to 12 threads
+Optimize a model with 132 rows, 122 columns and 1439 nonzeros
+Model fingerprint: 0x50e62fbb
+Variable types: 1 continuous, 121 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 6e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e-01, 6e+00]
+Found heuristic solution: objective -0.7707775
+Presolve removed 127 rows and 116 columns
+Presolve time: 0.00s
+Presolved: 5 rows, 6 columns, 16 nonzeros
+Found heuristic solution: objective -14.5307774
+Variable types: 1 continuous, 5 integer (0 binary)
+
+Root relaxation: objective -1.592438e+01, 6 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+*    0     0               0     -15.9243774  -15.92438  0.00%     -    0s
+
+Explored 0 nodes (6 simplex iterations) in 0.00 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 3: -15.9244 -14.5308 -0.770777 
+No other solutions better than -15.9244
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective -1.592437744448e+01, best bound -1.592437744448e+01, gap 0.0000%
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+==========================================Iteration 9 Done==========================================
+Iteration 9 Upper bound: inf
+Iteration 9 Tightest Upper bound: -5.5451774444795525
+Iteration 9 Lower bound: -15.92437744447956
+Iteration 9 Tightest Lower bound: -15.92437744447956
+Parameter OutputFlag unchanged
+   Value: 1  Min: 0  Max: 1  Default: 1
+Changed value of parameter QCPDual to 1
+   Prev: 0  Min: 0  Max: 1  Default: 0
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (win64)
+Thread count: 6 physical cores, 12 logical processors, using up to 12 threads
+Optimize a model with 133 rows, 122 columns and 1557 nonzeros
+Model fingerprint: 0x8072e822
+Variable types: 1 continuous, 121 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 6e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e-01, 6e+00]
+Found heuristic solution: objective -0.7707775
+Presolve removed 127 rows and 116 columns
+Presolve time: 0.00s
+Presolved: 6 rows, 6 columns, 18 nonzeros
+Found heuristic solution: objective -14.5307774
+Variable types: 1 continuous, 5 integer (0 binary)
+
+Root relaxation: objective -1.592438e+01, 7 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+*    0     0               0     -15.9243774  -15.92438  0.00%     -    0s
+
+Explored 0 nodes (7 simplex iterations) in 0.00 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 3: -15.9244 -14.5308 -0.770777 
+No other solutions better than -15.9244
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective -1.592437744448e+01, best bound -1.592437744448e+01, gap 0.0000%
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 10 Done==========================================
+Iteration 10 Upper bound: inf
+Iteration 10 Tightest Upper bound: -5.5451774444795525
+Iteration 10 Lower bound: -15.92437744447956
+Iteration 10 Tightest Lower bound: -15.92437744447956
+Parameter OutputFlag unchanged
+   Value: 1  Min: 0  Max: 1  Default: 1
+Changed value of parameter QCPDual to 1
+   Prev: 0  Min: 0  Max: 1  Default: 0
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (win64)
+Thread count: 6 physical cores, 12 logical processors, using up to 12 threads
+Optimize a model with 134 rows, 122 columns and 1674 nonzeros
+Model fingerprint: 0x6312f996
+Variable types: 1 continuous, 121 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 6e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e-01, 6e+00]
+Found heuristic solution: objective -0.7707775
+Presolve removed 134 rows and 122 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+
+Explored 0 nodes (0 simplex iterations) in 0.00 seconds
+Thread count was 1 (of 12 available processors)
+
+Solution count 2: -15.7928 
+No other solutions better than -15.7928
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective -1.579277744448e+01, best bound -1.579277744448e+01, gap 0.0000%
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 11 Done==========================================
+Iteration 11 Upper bound: inf
+Iteration 11 Tightest Upper bound: -5.5451774444795525
+Iteration 11 Lower bound: -15.792777444479562
+Iteration 11 Tightest Lower bound: -15.792777444479562
+Parameter OutputFlag unchanged
+   Value: 1  Min: 0  Max: 1  Default: 1
+Changed value of parameter QCPDual to 1
+   Prev: 0  Min: 0  Max: 1  Default: 0
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (win64)
+Thread count: 6 physical cores, 12 logical processors, using up to 12 threads
+Optimize a model with 135 rows, 122 columns and 1793 nonzeros
+Model fingerprint: 0x43615dc9
+Variable types: 1 continuous, 121 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 6e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e-01, 6e+00]
+Found heuristic solution: objective -0.7707775
+Presolve removed 135 rows and 122 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+
+Explored 0 nodes (0 simplex iterations) in 0.00 seconds
+Thread count was 1 (of 12 available processors)
+
+Solution count 2: -15.7928 
+No other solutions better than -15.7928
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective -1.579277744448e+01, best bound -1.579277744448e+01, gap 0.0000%
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 12 Done==========================================
+Iteration 12 Upper bound: inf
+Iteration 12 Tightest Upper bound: -5.5451774444795525
+Iteration 12 Lower bound: -15.792777444479595
+Iteration 12 Tightest Lower bound: -15.792777444479562
+Parameter OutputFlag unchanged
+   Value: 1  Min: 0  Max: 1  Default: 1
+Changed value of parameter QCPDual to 1
+   Prev: 0  Min: 0  Max: 1  Default: 0
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (win64)
+Thread count: 6 physical cores, 12 logical processors, using up to 12 threads
+Optimize a model with 136 rows, 122 columns and 1912 nonzeros
+Model fingerprint: 0xe5b4c879
+Variable types: 1 continuous, 121 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 6e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e-01, 6e+00]
+Found heuristic solution: objective -0.7707775
+Presolve removed 131 rows and 115 columns
+Presolve time: 0.00s
+Presolved: 5 rows, 7 columns, 23 nonzeros
+Found heuristic solution: objective -13.5587774
+Variable types: 1 continuous, 6 integer (0 binary)
+
+Root relaxation: objective -1.579278e+01, 5 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+*    0     0               0     -15.7927774  -15.79278  0.00%     -    0s
+
+Explored 0 nodes (5 simplex iterations) in 0.01 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 3: -15.7928 -13.5588 -0.770777 
+No other solutions better than -15.7928
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective -1.579277744448e+01, best bound -1.579277744448e+01, gap 0.0000%
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 13 Done==========================================
+Iteration 13 Upper bound: inf
+Iteration 13 Tightest Upper bound: -5.5451774444795525
+Iteration 13 Lower bound: -15.792777444479597
+Iteration 13 Tightest Lower bound: -15.792777444479562
+Parameter OutputFlag unchanged
+   Value: 1  Min: 0  Max: 1  Default: 1
+Changed value of parameter QCPDual to 1
+   Prev: 0  Min: 0  Max: 1  Default: 0
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (win64)
+Thread count: 6 physical cores, 12 logical processors, using up to 12 threads
+Optimize a model with 137 rows, 122 columns and 2030 nonzeros
+Model fingerprint: 0xeaff2768
+Variable types: 1 continuous, 121 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 6e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e-01, 6e+00]
+Found heuristic solution: objective -0.7707775
+Presolve removed 132 rows and 115 columns
+Presolve time: 0.00s
+Presolved: 5 rows, 7 columns, 22 nonzeros
+Found heuristic solution: objective -13.5587774
+Variable types: 1 continuous, 6 integer (0 binary)
+
+Root relaxation: objective -1.579278e+01, 6 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+*    0     0               0     -15.7927774  -15.79278  0.00%     -    0s
+
+Explored 0 nodes (6 simplex iterations) in 0.01 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 3: -15.7928 -13.5588 -0.770777 
+No other solutions better than -15.7928
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective -1.579277744448e+01, best bound -1.579277744448e+01, gap 0.0000%
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 14 Done==========================================
+Iteration 14 Upper bound: inf
+Iteration 14 Tightest Upper bound: -5.5451774444795525
+Iteration 14 Lower bound: -15.792777444479562
+Iteration 14 Tightest Lower bound: -15.792777444479562
+Parameter OutputFlag unchanged
+   Value: 1  Min: 0  Max: 1  Default: 1
+Changed value of parameter QCPDual to 1
+   Prev: 0  Min: 0  Max: 1  Default: 0
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (win64)
+Thread count: 6 physical cores, 12 logical processors, using up to 12 threads
+Optimize a model with 138 rows, 122 columns and 2148 nonzeros
+Model fingerprint: 0x85e2dc7d
+Variable types: 1 continuous, 121 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 6e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e-01, 6e+00]
+Found heuristic solution: objective -0.7707775
+Presolve removed 133 rows and 116 columns
+Presolve time: 0.00s
+Presolved: 5 rows, 6 columns, 19 nonzeros
+Found heuristic solution: objective -13.5587774
+Variable types: 1 continuous, 5 integer (0 binary)
+
+Root relaxation: objective -1.576258e+01, 7 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  -15.76258    0    4  -13.55878  -15.76258  16.3%     -    0s
+H    0     0                     -15.4799774  -15.76258  1.83%     -    0s
+H    0     0                     -15.5403774  -15.76258  1.43%     -    0s
+H    0     0                     -15.7323774  -15.76258  0.19%     -    0s
+     0     0     cutoff    0       -15.73238  -15.73238  0.00%     -    0s
+
+Cutting planes:
+  Zero half: 1
+
+Explored 1 nodes (7 simplex iterations) in 0.01 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 5: -15.7324 -15.5404 -15.48 ... -0.770777
+No other solutions better than -15.7324
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective -1.573237744448e+01, best bound -1.573237744448e+01, gap 0.0000%
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 15 Done==========================================
+Iteration 15 Upper bound: inf
+Iteration 15 Tightest Upper bound: -5.5451774444795525
+Iteration 15 Lower bound: -15.732377444479582
+Iteration 15 Tightest Lower bound: -15.732377444479582
+Parameter OutputFlag unchanged
+   Value: 1  Min: 0  Max: 1  Default: 1
+Changed value of parameter QCPDual to 1
+   Prev: 0  Min: 0  Max: 1  Default: 0
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (win64)
+Thread count: 6 physical cores, 12 logical processors, using up to 12 threads
+Optimize a model with 139 rows, 122 columns and 2266 nonzeros
+Model fingerprint: 0xa972ed4c
+Variable types: 1 continuous, 121 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 6e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e-01, 6e+00]
+Found heuristic solution: objective -0.7707775
+Presolve removed 133 rows and 114 columns
+Presolve time: 0.00s
+Presolved: 6 rows, 8 columns, 29 nonzeros
+Found heuristic solution: objective -13.5587774
+Variable types: 1 continuous, 7 integer (0 binary)
+
+Root relaxation: objective -1.576258e+01, 8 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  -15.76258    0    4  -13.55878  -15.76258  16.3%     -    0s
+H    0     0                     -15.5403774  -15.76258  1.43%     -    0s
+H    0     0                     -15.7323774  -15.76258  0.19%     -    0s
+     0     0     cutoff    0       -15.73238  -15.73238  0.00%     -    0s
+
+Cutting planes:
+  Gomory: 1
+
+Explored 1 nodes (9 simplex iterations) in 0.01 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 4: -15.7324 -15.5404 -13.5588 -0.770777 
+No other solutions better than -15.7324
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective -1.573237744448e+01, best bound -1.573237744448e+01, gap 0.0000%
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 16 Done==========================================
+Iteration 16 Upper bound: inf
+Iteration 16 Tightest Upper bound: -5.5451774444795525
+Iteration 16 Lower bound: -15.732377444479617
+Iteration 16 Tightest Lower bound: -15.732377444479582
+Parameter OutputFlag unchanged
+   Value: 1  Min: 0  Max: 1  Default: 1
+Changed value of parameter QCPDual to 1
+   Prev: 0  Min: 0  Max: 1  Default: 0
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (win64)
+Thread count: 6 physical cores, 12 logical processors, using up to 12 threads
+Optimize a model with 140 rows, 122 columns and 2384 nonzeros
+Model fingerprint: 0x3b5ac4fc
+Variable types: 1 continuous, 121 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 6e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e-01, 6e+00]
+Found heuristic solution: objective -0.7707775
+Presolve removed 133 rows and 114 columns
+Presolve time: 0.00s
+Presolved: 7 rows, 8 columns, 33 nonzeros
+Found heuristic solution: objective -13.5587774
+Variable types: 1 continuous, 7 integer (0 binary)
+
+Root relaxation: objective -1.576258e+01, 6 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  -15.76258    0    4  -13.55878  -15.76258  16.3%     -    0s
+H    0     0                     -15.7323774  -15.76258  0.19%     -    0s
+
+Explored 1 nodes (6 simplex iterations) in 0.01 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 3: -15.7324 -13.5588 -0.770777 
+No other solutions better than -15.7324
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective -1.573237744448e+01, best bound -1.573237744448e+01, gap 0.0000%
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 17 Done==========================================
+Iteration 17 Upper bound: inf
+Iteration 17 Tightest Upper bound: -5.5451774444795525
+Iteration 17 Lower bound: -15.73237744447955
+Iteration 17 Tightest Lower bound: -15.73237744447955
+Parameter OutputFlag unchanged
+   Value: 1  Min: 0  Max: 1  Default: 1
+Changed value of parameter QCPDual to 1
+   Prev: 0  Min: 0  Max: 1  Default: 0
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (win64)
+Thread count: 6 physical cores, 12 logical processors, using up to 12 threads
+Optimize a model with 141 rows, 122 columns and 2502 nonzeros
+Model fingerprint: 0x78f9c302
+Variable types: 1 continuous, 121 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 6e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e-01, 6e+00]
+Found heuristic solution: objective -0.7707775
+Presolve removed 133 rows and 114 columns
+Presolve time: 0.00s
+Presolved: 8 rows, 8 columns, 37 nonzeros
+Found heuristic solution: objective -13.5587774
+Variable types: 1 continuous, 7 integer (0 binary)
+
+Root relaxation: objective -1.576258e+01, 6 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  -15.76258    0    4  -13.55878  -15.76258  16.3%     -    0s
+H    0     0                     -15.4799774  -15.76258  1.83%     -    0s
+H    0     0                     -15.5403774  -15.76258  1.43%     -    0s
+H    0     0                     -15.7323774  -15.76258  0.19%     -    0s
+
+Cutting planes:
+  MIR: 2
+
+Explored 1 nodes (6 simplex iterations) in 0.01 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 5: -15.7324 -15.5404 -15.48 ... -0.770777
+No other solutions better than -15.7324
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective -1.573237744448e+01, best bound -1.573237744448e+01, gap 0.0000%
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 18 Done==========================================
+Iteration 18 Upper bound: inf
+Iteration 18 Tightest Upper bound: -5.5451774444795525
+Iteration 18 Lower bound: -15.73237744447955
+Iteration 18 Tightest Lower bound: -15.73237744447955
+Parameter OutputFlag unchanged
+   Value: 1  Min: 0  Max: 1  Default: 1
+Changed value of parameter QCPDual to 1
+   Prev: 0  Min: 0  Max: 1  Default: 0
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (win64)
+Thread count: 6 physical cores, 12 logical processors, using up to 12 threads
+Optimize a model with 142 rows, 122 columns and 2619 nonzeros
+Model fingerprint: 0x2d8fbf06
+Variable types: 1 continuous, 121 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 6e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e-01, 6e+00]
+Found heuristic solution: objective -0.7707775
+Presolve removed 135 rows and 114 columns
+Presolve time: 0.00s
+Presolved: 7 rows, 8 columns, 32 nonzeros
+Found heuristic solution: objective -13.5587774
+Variable types: 1 continuous, 7 integer (0 binary)
+
+Root relaxation: objective -1.576258e+01, 10 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  -15.76258    0    4  -13.55878  -15.76258  16.3%     -    0s
+H    0     0                     -15.4799774  -15.76258  1.83%     -    0s
+H    0     0                     -15.5403774  -15.76258  1.43%     -    0s
+H    0     0                     -15.7323774  -15.76258  0.19%     -    0s
+     0     0     cutoff    0       -15.73238  -15.73238  0.00%     -    0s
+
+Cutting planes:
+  MIR: 1
+
+Explored 1 nodes (10 simplex iterations) in 0.01 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 5: -15.7324 -15.5404 -15.48 ... -0.770777
+No other solutions better than -15.7324
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective -1.573237744448e+01, best bound -1.573237744448e+01, gap 0.0000%
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 19 Done==========================================
+Iteration 19 Upper bound: inf
+Iteration 19 Tightest Upper bound: -5.5451774444795525
+Iteration 19 Lower bound: -15.732377444479617
+Iteration 19 Tightest Lower bound: -15.73237744447955
+Parameter OutputFlag unchanged
+   Value: 1  Min: 0  Max: 1  Default: 1
+Changed value of parameter QCPDual to 1
+   Prev: 0  Min: 0  Max: 1  Default: 0
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (win64)
+Thread count: 6 physical cores, 12 logical processors, using up to 12 threads
+Optimize a model with 143 rows, 122 columns and 2736 nonzeros
+Model fingerprint: 0x2766b662
+Variable types: 1 continuous, 121 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 6e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e-01, 6e+00]
+Found heuristic solution: objective -0.7707775
+Presolve removed 137 rows and 114 columns
+Presolve time: 0.00s
+Presolved: 6 rows, 8 columns, 27 nonzeros
+Found heuristic solution: objective -13.5587774
+Variable types: 1 continuous, 7 integer (0 binary)
+
+Root relaxation: objective -1.573238e+01, 13 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  -15.73238    0    4  -13.55878  -15.73238  16.0%     -    0s
+H    0     0                     -15.4195774  -15.73238  2.03%     -    0s
+H    0     0                     -15.5403774  -15.73238  1.24%     -    0s
+H    0     0                     -15.7323774  -15.73238  0.00%     -    0s
+
+Cutting planes:
+  MIR: 1
+
+Explored 1 nodes (13 simplex iterations) in 0.01 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 5: -15.7324 -15.5404 -15.4196 ... -0.770777
+No other solutions better than -15.7324
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective -1.573237744448e+01, best bound -1.573237744448e+01, gap 0.0000%
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 20 Done==========================================
+Iteration 20 Upper bound: inf
+Iteration 20 Tightest Upper bound: -5.5451774444795525
+Iteration 20 Lower bound: -15.732377444479585
+Iteration 20 Tightest Lower bound: -15.73237744447955
+Parameter OutputFlag unchanged
+   Value: 1  Min: 0  Max: 1  Default: 1
+Changed value of parameter QCPDual to 1
+   Prev: 0  Min: 0  Max: 1  Default: 0
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (win64)
+Thread count: 6 physical cores, 12 logical processors, using up to 12 threads
+Optimize a model with 144 rows, 122 columns and 2854 nonzeros
+Model fingerprint: 0x79ad4a2e
+Variable types: 1 continuous, 121 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 6e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e-01, 6e+00]
+Found heuristic solution: objective -0.7707775
+Presolve removed 137 rows and 114 columns
+Presolve time: 0.00s
+Presolved: 7 rows, 8 columns, 31 nonzeros
+Found heuristic solution: objective -13.5587774
+Variable types: 1 continuous, 7 integer (0 binary)
+
+Root relaxation: objective -1.573238e+01, 11 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+*    0     0               0     -15.7323774  -15.73238  0.00%     -    0s
+
+Explored 0 nodes (11 simplex iterations) in 0.00 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 3: -15.7324 -13.5588 -0.770777 
+No other solutions better than -15.7324
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective -1.573237744448e+01, best bound -1.573237744448e+01, gap 0.0000%
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 21 Done==========================================
+Iteration 21 Upper bound: inf
+Iteration 21 Tightest Upper bound: -5.5451774444795525
+Iteration 21 Lower bound: -15.732377444479585
+Iteration 21 Tightest Lower bound: -15.73237744447955
+Parameter OutputFlag unchanged
+   Value: 1  Min: 0  Max: 1  Default: 1
+Changed value of parameter QCPDual to 1
+   Prev: 0  Min: 0  Max: 1  Default: 0
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (win64)
+Thread count: 6 physical cores, 12 logical processors, using up to 12 threads
+Optimize a model with 145 rows, 122 columns and 2971 nonzeros
+Model fingerprint: 0x321a3b30
+Variable types: 1 continuous, 121 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 6e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e-01, 6e+00]
+Found heuristic solution: objective -0.7707775
+Presolve removed 138 rows and 114 columns
+Presolve time: 0.00s
+Presolved: 7 rows, 8 columns, 30 nonzeros
+Found heuristic solution: objective -13.5587774
+Variable types: 1 continuous, 7 integer (0 binary)
+
+Root relaxation: objective -1.573238e+01, 10 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  -15.73238    0    4  -13.55878  -15.73238  16.0%     -    0s
+H    0     0                     -15.4195774  -15.73238  2.03%     -    0s
+H    0     0                     -15.5403774  -15.73238  1.24%     -    0s
+H    0     0                     -15.6115774  -15.73238  0.77%     -    0s
+H    0     0                     -15.6719774  -15.73238  0.39%     -    0s
+H    0     0                     -15.7323774  -15.73238  0.00%     -    0s
+
+Cutting planes:
+  MIR: 2
+
+Explored 1 nodes (10 simplex iterations) in 0.01 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 7: -15.7324 -15.672 -15.6116 ... -0.770777
+No other solutions better than -15.7324
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective -1.573237744448e+01, best bound -1.573237744448e+01, gap 0.0000%
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 22 Done==========================================
+Iteration 22 Upper bound: inf
+Iteration 22 Tightest Upper bound: -5.5451774444795525
+Iteration 22 Lower bound: -15.732377444479583
+Iteration 22 Tightest Lower bound: -15.73237744447955
+Parameter OutputFlag unchanged
+   Value: 1  Min: 0  Max: 1  Default: 1
+Changed value of parameter QCPDual to 1
+   Prev: 0  Min: 0  Max: 1  Default: 0
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (win64)
+Thread count: 6 physical cores, 12 logical processors, using up to 12 threads
+Optimize a model with 146 rows, 122 columns and 3088 nonzeros
+Model fingerprint: 0xf8233908
+Variable types: 1 continuous, 121 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 6e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e-01, 6e+00]
+Found heuristic solution: objective -0.7707775
+Presolve removed 139 rows and 115 columns
+Presolve time: 0.00s
+Presolved: 7 rows, 7 columns, 27 nonzeros
+Found heuristic solution: objective -13.5587774
+Variable types: 1 continuous, 6 integer (0 binary)
+
+Root relaxation: objective -1.573238e+01, 6 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  -15.73238    0    4  -13.55878  -15.73238  16.0%     -    0s
+H    0     0                     -15.6719774  -15.73238  0.39%     -    0s
+
+Explored 1 nodes (6 simplex iterations) in 0.01 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 3: -15.672 -13.5588 -0.770777 
+No other solutions better than -15.672
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective -1.567197744448e+01, best bound -1.567197744448e+01, gap 0.0000%
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 23 Done==========================================
+Iteration 23 Upper bound: inf
+Iteration 23 Tightest Upper bound: -5.5451774444795525
+Iteration 23 Lower bound: -15.671977444479605
+Iteration 23 Tightest Lower bound: -15.671977444479605
+Parameter OutputFlag unchanged
+   Value: 1  Min: 0  Max: 1  Default: 1
+Changed value of parameter QCPDual to 1
+   Prev: 0  Min: 0  Max: 1  Default: 0
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (win64)
+Thread count: 6 physical cores, 12 logical processors, using up to 12 threads
+Optimize a model with 147 rows, 122 columns and 3205 nonzeros
+Model fingerprint: 0xd296d5c8
+Variable types: 1 continuous, 121 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 6e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e-01, 6e+00]
+Found heuristic solution: objective -0.7707775
+Presolve removed 139 rows and 114 columns
+Presolve time: 0.00s
+Presolved: 8 rows, 8 columns, 32 nonzeros
+Found heuristic solution: objective -13.5587774
+Variable types: 1 continuous, 7 integer (0 binary)
+
+Root relaxation: objective -1.573238e+01, 10 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  -15.73238    0    6  -13.55878  -15.73238  16.0%     -    0s
+H    0     0                     -15.4195774  -15.73238  2.03%     -    0s
+H    0     0                     -15.5403774  -15.73238  1.24%     -    0s
+H    0     0                     -15.6719774  -15.73238  0.39%     -    0s
+     0     0     cutoff    0       -15.67198  -15.67198  0.00%     -    0s
+
+Cutting planes:
+  MIR: 2
+
+Explored 1 nodes (11 simplex iterations) in 0.01 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 5: -15.672 -15.5404 -15.4196 ... -0.770777
+No other solutions better than -15.672
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective -1.567197744448e+01, best bound -1.567197744448e+01, gap 0.0000%
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 24 Done==========================================
+Iteration 24 Upper bound: inf
+Iteration 24 Tightest Upper bound: -5.5451774444795525
+Iteration 24 Lower bound: -15.671977444479603
+Iteration 24 Tightest Lower bound: -15.671977444479603
+Parameter OutputFlag unchanged
+   Value: 1  Min: 0  Max: 1  Default: 1
+Changed value of parameter QCPDual to 1
+   Prev: 0  Min: 0  Max: 1  Default: 0
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (win64)
+Thread count: 6 physical cores, 12 logical processors, using up to 12 threads
+Optimize a model with 148 rows, 122 columns and 3321 nonzeros
+Model fingerprint: 0xd6f0156a
+Variable types: 1 continuous, 121 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 6e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e-01, 6e+00]
+Found heuristic solution: objective -0.7707775
+Presolve removed 143 rows and 115 columns
+Presolve time: 0.00s
+Presolved: 5 rows, 7 columns, 20 nonzeros
+Found heuristic solution: objective -13.5587774
+Variable types: 1 continuous, 6 integer (0 binary)
+
+Root relaxation: objective -1.567198e+01, 7 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+*    0     0               0     -15.6719774  -15.67198  0.00%     -    0s
+
+Explored 0 nodes (7 simplex iterations) in 0.00 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 3: -15.672 -13.5588 -0.770777 
+No other solutions better than -15.672
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective -1.567197744448e+01, best bound -1.567197744448e+01, gap 0.0000%
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 25 Done==========================================
+Iteration 25 Upper bound: inf
+Iteration 25 Tightest Upper bound: -5.5451774444795525
+Iteration 25 Lower bound: -15.671977444479573
+Iteration 25 Tightest Lower bound: -15.671977444479573
+Parameter OutputFlag unchanged
+   Value: 1  Min: 0  Max: 1  Default: 1
+Changed value of parameter QCPDual to 1
+   Prev: 0  Min: 0  Max: 1  Default: 0
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (win64)
+Thread count: 6 physical cores, 12 logical processors, using up to 12 threads
+Optimize a model with 149 rows, 122 columns and 3438 nonzeros
+Model fingerprint: 0x583b2f8c
+Variable types: 1 continuous, 121 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 6e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e-01, 6e+00]
+Found heuristic solution: objective -0.7707775
+Presolve removed 143 rows and 114 columns
+Presolve time: 0.00s
+Presolved: 6 rows, 8 columns, 25 nonzeros
+Found heuristic solution: objective -13.5587774
+Variable types: 1 continuous, 7 integer (0 binary)
+
+Root relaxation: objective -1.567198e+01, 8 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+*    0     0               0     -15.6719774  -15.67198  0.00%     -    0s
+
+Explored 0 nodes (8 simplex iterations) in 0.01 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 3: -15.672 -13.5588 -0.770777 
+No other solutions better than -15.672
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective -1.567197744448e+01, best bound -1.567197744448e+01, gap 0.0000%
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 26 Done==========================================
+Iteration 26 Upper bound: inf
+Iteration 26 Tightest Upper bound: -5.5451774444795525
+Iteration 26 Lower bound: -15.671977444479571
+Iteration 26 Tightest Lower bound: -15.671977444479571
+Parameter OutputFlag unchanged
+   Value: 1  Min: 0  Max: 1  Default: 1
+Changed value of parameter QCPDual to 1
+   Prev: 0  Min: 0  Max: 1  Default: 0
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (win64)
+Thread count: 6 physical cores, 12 logical processors, using up to 12 threads
+Optimize a model with 150 rows, 122 columns and 3554 nonzeros
+Model fingerprint: 0x81042f23
+Variable types: 1 continuous, 121 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 6e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e-01, 6e+00]
+Found heuristic solution: objective -0.7707775
+Presolve removed 146 rows and 117 columns
+Presolve time: 0.00s
+Presolved: 4 rows, 5 columns, 12 nonzeros
+Found heuristic solution: objective -13.5587774
+Variable types: 1 continuous, 4 integer (0 binary)
+
+Root relaxation: objective -1.563078e+01, 4 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+*    0     0               0     -15.6307774  -15.63078  0.00%     -    0s
+
+Explored 0 nodes (4 simplex iterations) in 0.00 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 3: -15.6308 -13.5588 -0.770777 
+No other solutions better than -15.6308
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective -1.563077744448e+01, best bound -1.563077744448e+01, gap 0.0000%
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 27 Done==========================================
+Iteration 27 Upper bound: inf
+Iteration 27 Tightest Upper bound: -5.5451774444795525
+Iteration 27 Lower bound: -15.630777444479595
+Iteration 27 Tightest Lower bound: -15.630777444479595
+Parameter OutputFlag unchanged
+   Value: 1  Min: 0  Max: 1  Default: 1
+Changed value of parameter QCPDual to 1
+   Prev: 0  Min: 0  Max: 1  Default: 0
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (win64)
+Thread count: 6 physical cores, 12 logical processors, using up to 12 threads
+Optimize a model with 151 rows, 122 columns and 3673 nonzeros
+Model fingerprint: 0x2bc87b37
+Variable types: 1 continuous, 121 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 6e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e-01, 6e+00]
+Found heuristic solution: objective -0.7707775
+Presolve removed 147 rows and 117 columns
+Presolve time: 0.00s
+Presolved: 4 rows, 5 columns, 12 nonzeros
+Found heuristic solution: objective -13.5587774
+Variable types: 1 continuous, 4 integer (0 binary)
+
+Root relaxation: objective -1.563078e+01, 4 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+*    0     0               0     -15.6307774  -15.63078  0.00%     -    0s
+
+Explored 0 nodes (4 simplex iterations) in 0.00 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 3: -15.6308 -13.5588 -0.770777 
+No other solutions better than -15.6308
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective -1.563077744448e+01, best bound -1.563077744448e+01, gap 0.0000%
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 28 Done==========================================
+Iteration 28 Upper bound: inf
+Iteration 28 Tightest Upper bound: -5.5451774444795525
+Iteration 28 Lower bound: -15.630777444479554
+Iteration 28 Tightest Lower bound: -15.630777444479554
+Parameter OutputFlag unchanged
+   Value: 1  Min: 0  Max: 1  Default: 1
+Changed value of parameter QCPDual to 1
+   Prev: 0  Min: 0  Max: 1  Default: 0
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (win64)
+Thread count: 6 physical cores, 12 logical processors, using up to 12 threads
+Optimize a model with 152 rows, 122 columns and 3792 nonzeros
+Model fingerprint: 0xaf7c52bb
+Variable types: 1 continuous, 121 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 6e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e-01, 6e+00]
+Found heuristic solution: objective -0.7707775
+Presolve removed 146 rows and 113 columns
+Presolve time: 0.00s
+Presolved: 6 rows, 9 columns, 36 nonzeros
+Found heuristic solution: objective -11.5451774
+Variable types: 1 continuous, 8 integer (0 binary)
+
+Root relaxation: objective -1.563078e+01, 4 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+*    0     0               0     -15.6307774  -15.63078  0.00%     -    0s
+
+Explored 0 nodes (4 simplex iterations) in 0.01 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 3: -15.6308 -11.5452 -0.770777 
+No other solutions better than -15.6308
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective -1.563077744448e+01, best bound -1.563077744448e+01, gap 0.0000%
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 29 Done==========================================
+Iteration 29 Upper bound: inf
+Iteration 29 Tightest Upper bound: -5.5451774444795525
+Iteration 29 Lower bound: -15.630777444479595
+Iteration 29 Tightest Lower bound: -15.630777444479554
+Parameter OutputFlag unchanged
+   Value: 1  Min: 0  Max: 1  Default: 1
+Changed value of parameter QCPDual to 1
+   Prev: 0  Min: 0  Max: 1  Default: 0
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (win64)
+Thread count: 6 physical cores, 12 logical processors, using up to 12 threads
+Optimize a model with 153 rows, 122 columns and 3910 nonzeros
+Model fingerprint: 0x93aedef0
+Variable types: 1 continuous, 121 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 6e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e-01, 6e+00]
+Found heuristic solution: objective -0.7707775
+Presolve removed 147 rows and 113 columns
+Presolve time: 0.00s
+Presolved: 6 rows, 9 columns, 35 nonzeros
+Found heuristic solution: objective -11.5451774
+Variable types: 1 continuous, 8 integer (0 binary)
+
+Root relaxation: objective -1.563078e+01, 7 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+*    0     0               0     -15.6307774  -15.63078  0.00%     -    0s
+
+Explored 0 nodes (7 simplex iterations) in 0.00 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 3: -15.6308 -11.5452 -0.770777 
+No other solutions better than -15.6308
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective -1.563077744448e+01, best bound -1.563077744448e+01, gap 0.0000%
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 30 Done==========================================
+Iteration 30 Upper bound: inf
+Iteration 30 Tightest Upper bound: -5.5451774444795525
+Iteration 30 Lower bound: -15.630777444479554
+Iteration 30 Tightest Lower bound: -15.630777444479554
+Parameter OutputFlag unchanged
+   Value: 1  Min: 0  Max: 1  Default: 1
+Changed value of parameter QCPDual to 1
+   Prev: 0  Min: 0  Max: 1  Default: 0
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (win64)
+Thread count: 6 physical cores, 12 logical processors, using up to 12 threads
+Optimize a model with 154 rows, 122 columns and 4028 nonzeros
+Model fingerprint: 0x8cff9ba8
+Variable types: 1 continuous, 121 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 6e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e-01, 6e+00]
+Found heuristic solution: objective -0.7707775
+Presolve removed 148 rows and 114 columns
+Presolve time: 0.00s
+Presolved: 6 rows, 8 columns, 32 nonzeros
+Found heuristic solution: objective -11.5451774
+Variable types: 1 continuous, 7 integer (0 binary)
+
+Root relaxation: objective -1.560064e+01, 7 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  -15.60064    0    5  -11.54518  -15.60064  35.1%     -    0s
+H    0     0                     -15.3783774  -15.60064  1.45%     -    0s
+H    0     0                     -15.5703774  -15.60064  0.19%     -    0s
+     0     0     cutoff    0       -15.57038  -15.57038  0.00%     -    0s
+
+Cutting planes:
+  Gomory: 1
+
+Explored 1 nodes (8 simplex iterations) in 0.01 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 4: -15.5704 -15.3784 -11.5452 -0.770777 
+No other solutions better than -15.5704
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective -1.557037744448e+01, best bound -1.557037744448e+01, gap 0.0000%
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 31 Done==========================================
+Iteration 31 Upper bound: inf
+Iteration 31 Tightest Upper bound: -5.5451774444795525
+Iteration 31 Lower bound: -15.570377444479579
+Iteration 31 Tightest Lower bound: -15.570377444479579
+Parameter OutputFlag unchanged
+   Value: 1  Min: 0  Max: 1  Default: 1
+Changed value of parameter QCPDual to 1
+   Prev: 0  Min: 0  Max: 1  Default: 0
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (win64)
+Thread count: 6 physical cores, 12 logical processors, using up to 12 threads
+Optimize a model with 155 rows, 122 columns and 4146 nonzeros
+Model fingerprint: 0x01c26a0a
+Variable types: 1 continuous, 121 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 6e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e-01, 6e+00]
+Found heuristic solution: objective -0.7707775
+Presolve removed 148 rows and 112 columns
+Presolve time: 0.00s
+Presolved: 7 rows, 10 columns, 44 nonzeros
+Found heuristic solution: objective -11.5451774
+Variable types: 1 continuous, 9 integer (0 binary)
+
+Root relaxation: objective -1.560064e+01, 11 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  -15.60064    0    5  -11.54518  -15.60064  35.1%     -    0s
+H    0     0                     -15.5403774  -15.60064  0.39%     -    0s
+H    0     0                     -15.5703774  -15.60064  0.19%     -    0s
+     0     0     cutoff    0       -15.57038  -15.57038  0.00%     -    0s
+
+Cutting planes:
+  Gomory: 1
+
+Explored 1 nodes (12 simplex iterations) in 0.01 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 4: -15.5704 -15.5404 -11.5452 -0.770777 
+No other solutions better than -15.5704
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective -1.557037744448e+01, best bound -1.557037744448e+01, gap 0.0000%
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 32 Done==========================================
+Iteration 32 Upper bound: inf
+Iteration 32 Tightest Upper bound: -5.5451774444795525
+Iteration 32 Lower bound: -15.570377444479615
+Iteration 32 Tightest Lower bound: -15.570377444479579
+Parameter OutputFlag unchanged
+   Value: 1  Min: 0  Max: 1  Default: 1
+Changed value of parameter QCPDual to 1
+   Prev: 0  Min: 0  Max: 1  Default: 0
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (win64)
+Thread count: 6 physical cores, 12 logical processors, using up to 12 threads
+Optimize a model with 156 rows, 122 columns and 4264 nonzeros
+Model fingerprint: 0x1366878e
+Variable types: 1 continuous, 121 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 6e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e-01, 6e+00]
+Found heuristic solution: objective -0.7707775
+Presolve removed 148 rows and 112 columns
+Presolve time: 0.00s
+Presolved: 8 rows, 10 columns, 50 nonzeros
+Found heuristic solution: objective -11.5451774
+Variable types: 1 continuous, 9 integer (0 binary)
+
+Root relaxation: objective -1.560064e+01, 11 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  -15.60064    0    5  -11.54518  -15.60064  35.1%     -    0s
+H    0     0                     -15.3179774  -15.60064  1.85%     -    0s
+H    0     0                     -15.3783774  -15.60064  1.45%     -    0s
+*    0     0               0     -15.5703774  -15.57038  0.00%     -    0s
+
+Cutting planes:
+  Gomory: 1
+
+Explored 1 nodes (14 simplex iterations) in 0.01 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 5: -15.5704 -15.3784 -15.318 ... -0.770777
+No other solutions better than -15.5704
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective -1.557037744448e+01, best bound -1.557037744448e+01, gap 0.0000%
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 33 Done==========================================
+Iteration 33 Upper bound: inf
+Iteration 33 Tightest Upper bound: -5.5451774444795525
+Iteration 33 Lower bound: -15.570377444479616
+Iteration 33 Tightest Lower bound: -15.570377444479579
+Parameter OutputFlag unchanged
+   Value: 1  Min: 0  Max: 1  Default: 1
+Changed value of parameter QCPDual to 1
+   Prev: 0  Min: 0  Max: 1  Default: 0
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (win64)
+Thread count: 6 physical cores, 12 logical processors, using up to 12 threads
+Optimize a model with 157 rows, 122 columns and 4381 nonzeros
+Model fingerprint: 0xb3a1062b
+Variable types: 1 continuous, 121 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 6e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e-01, 6e+00]
+Found heuristic solution: objective -0.7707775
+Presolve removed 123 rows and 111 columns
+Presolve time: 0.00s
+Presolved: 34 rows, 11 columns, 243 nonzeros
+Variable types: 1 continuous, 10 integer (0 binary)
+
+Root relaxation: objective -1.560064e+01, 17 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  -15.60064    0    5   -0.77078  -15.60064  1924%     -    0s
+H    0     0                     -14.2951774  -15.60064  9.13%     -    0s
+H    0     0                     -15.5403774  -15.60064  0.39%     -    0s
+H    0     0                     -15.5703774  -15.60064  0.19%     -    0s
+
+Cutting planes:
+  Gomory: 1
+  MIR: 1
+
+Explored 1 nodes (17 simplex iterations) in 0.01 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 4: -15.5704 -15.5404 -14.2952 -0.770777 
+No other solutions better than -15.5704
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective -1.557037744448e+01, best bound -1.557037744448e+01, gap 0.0000%
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 34 Done==========================================
+Iteration 34 Upper bound: inf
+Iteration 34 Tightest Upper bound: -5.5451774444795525
+Iteration 34 Lower bound: -15.570377444479545
+Iteration 34 Tightest Lower bound: -15.570377444479545
+Parameter OutputFlag unchanged
+   Value: 1  Min: 0  Max: 1  Default: 1
+Changed value of parameter QCPDual to 1
+   Prev: 0  Min: 0  Max: 1  Default: 0
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (win64)
+Thread count: 6 physical cores, 12 logical processors, using up to 12 threads
+Optimize a model with 158 rows, 122 columns and 4499 nonzeros
+Model fingerprint: 0x9e520320
+Variable types: 1 continuous, 121 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 6e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e-01, 6e+00]
+Found heuristic solution: objective -0.7707775
+Presolve removed 123 rows and 111 columns
+Presolve time: 0.00s
+Presolved: 35 rows, 11 columns, 250 nonzeros
+Variable types: 1 continuous, 10 integer (0 binary)
+
+Root relaxation: objective -1.560064e+01, 16 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  -15.60064    0    5   -0.77078  -15.60064  1924%     -    0s
+H    0     0                     -15.2163774  -15.60064  2.53%     -    0s
+H    0     0                     -15.2951774  -15.60064  2.00%     -    0s
+H    0     0                     -15.5403774  -15.60064  0.39%     -    0s
+H    0     0                     -15.5703774  -15.60064  0.19%     -    0s
+
+Cutting planes:
+  Gomory: 1
+  MIR: 1
+
+Explored 1 nodes (16 simplex iterations) in 0.01 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 5: -15.5704 -15.5404 -15.2952 ... -0.770777
+No other solutions better than -15.5704
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective -1.557037744448e+01, best bound -1.557037744448e+01, gap 0.0000%
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 35 Done==========================================
+Iteration 35 Upper bound: inf
+Iteration 35 Tightest Upper bound: -5.5451774444795525
+Iteration 35 Lower bound: -15.570377444479544
+Iteration 35 Tightest Lower bound: -15.570377444479544
+Parameter OutputFlag unchanged
+   Value: 1  Min: 0  Max: 1  Default: 1
+Changed value of parameter QCPDual to 1
+   Prev: 0  Min: 0  Max: 1  Default: 0
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (win64)
+Thread count: 6 physical cores, 12 logical processors, using up to 12 threads
+Optimize a model with 159 rows, 122 columns and 4616 nonzeros
+Model fingerprint: 0x7d1dfa1c
+Variable types: 1 continuous, 121 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 6e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e-01, 6e+00]
+Found heuristic solution: objective -0.7707775
+Presolve removed 123 rows and 111 columns
+Presolve time: 0.00s
+Presolved: 36 rows, 11 columns, 256 nonzeros
+Variable types: 1 continuous, 10 integer (0 binary)
+
+Root relaxation: objective -1.560064e+01, 17 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  -15.60064    0    5   -0.77078  -15.60064  1924%     -    0s
+H    0     0                     -14.2347774  -15.60064  9.60%     -    0s
+H    0     0                     -14.2951774  -15.60064  9.13%     -    0s
+H    0     0                     -15.5403774  -15.60064  0.39%     -    0s
+H    0     0                     -15.5703774  -15.60064  0.19%     -    0s
+
+Cutting planes:
+  Gomory: 1
+  MIR: 1
+
+Explored 1 nodes (17 simplex iterations) in 0.01 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 5: -15.5704 -15.5404 -14.2952 ... -0.770777
+No other solutions better than -15.5704
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective -1.557037744448e+01, best bound -1.557037744448e+01, gap 0.0000%
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 36 Done==========================================
+Iteration 36 Upper bound: inf
+Iteration 36 Tightest Upper bound: -5.5451774444795525
+Iteration 36 Lower bound: -15.570377444479579
+Iteration 36 Tightest Lower bound: -15.570377444479544
+Parameter OutputFlag unchanged
+   Value: 1  Min: 0  Max: 1  Default: 1
+Changed value of parameter QCPDual to 1
+   Prev: 0  Min: 0  Max: 1  Default: 0
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (win64)
+Thread count: 6 physical cores, 12 logical processors, using up to 12 threads
+Optimize a model with 160 rows, 122 columns and 4733 nonzeros
+Model fingerprint: 0xcf29bf80
+Variable types: 1 continuous, 121 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 6e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e-01, 6e+00]
+Found heuristic solution: objective -0.7707775
+Presolve removed 123 rows and 111 columns
+Presolve time: 0.00s
+Presolved: 37 rows, 11 columns, 262 nonzeros
+Variable types: 1 continuous, 10 integer (0 binary)
+
+Root relaxation: objective -1.560064e+01, 17 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  -15.60064    0    5   -0.77078  -15.60064  1924%     -    0s
+H    0     0                     -15.2951774  -15.60064  2.00%     -    0s
+H    0     0                     -15.5403774  -15.60064  0.39%     -    0s
+H    0     0                     -15.5703774  -15.60064  0.19%     -    0s
+
+Cutting planes:
+  Gomory: 1
+  MIR: 1
+
+Explored 1 nodes (17 simplex iterations) in 0.01 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 4: -15.5704 -15.5404 -15.2952 -0.770777 
+No other solutions better than -15.5704
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective -1.557037744448e+01, best bound -1.557037744448e+01, gap 0.0000%
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 37 Done==========================================
+Iteration 37 Upper bound: inf
+Iteration 37 Tightest Upper bound: -5.5451774444795525
+Iteration 37 Lower bound: -15.57037744447958
+Iteration 37 Tightest Lower bound: -15.570377444479544
+Parameter OutputFlag unchanged
+   Value: 1  Min: 0  Max: 1  Default: 1
+Changed value of parameter QCPDual to 1
+   Prev: 0  Min: 0  Max: 1  Default: 0
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (win64)
+Thread count: 6 physical cores, 12 logical processors, using up to 12 threads
+Optimize a model with 161 rows, 122 columns and 4851 nonzeros
+Model fingerprint: 0xf145108d
+Variable types: 1 continuous, 121 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 6e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e-01, 6e+00]
+Found heuristic solution: objective -0.7707775
+Presolve removed 123 rows and 111 columns
+Presolve time: 0.00s
+Presolved: 38 rows, 11 columns, 269 nonzeros
+Variable types: 1 continuous, 10 integer (0 binary)
+
+Root relaxation: objective -1.560064e+01, 17 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  -15.60064    0    5   -0.77078  -15.60064  1924%     -    0s
+H    0     0                     -15.3783774  -15.60064  1.45%     -    0s
+H    0     0                     -15.5403774  -15.60064  0.39%     -    0s
+H    0     0                     -15.5703774  -15.60064  0.19%     -    0s
+
+Cutting planes:
+  MIR: 1
+  Zero half: 1
+
+Explored 1 nodes (17 simplex iterations) in 0.01 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 4: -15.5704 -15.5404 -15.3784 -0.770777 
+No other solutions better than -15.5704
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective -1.557037744448e+01, best bound -1.557037744448e+01, gap 0.0000%
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 38 Done==========================================
+Iteration 38 Upper bound: inf
+Iteration 38 Tightest Upper bound: -5.5451774444795525
+Iteration 38 Lower bound: -15.570377444479576
+Iteration 38 Tightest Lower bound: -15.570377444479544
+Parameter OutputFlag unchanged
+   Value: 1  Min: 0  Max: 1  Default: 1
+Changed value of parameter QCPDual to 1
+   Prev: 0  Min: 0  Max: 1  Default: 0
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (win64)
+Thread count: 6 physical cores, 12 logical processors, using up to 12 threads
+Optimize a model with 162 rows, 122 columns and 4968 nonzeros
+Model fingerprint: 0xa0a3560b
+Variable types: 1 continuous, 121 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 6e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e-01, 6e+00]
+Found heuristic solution: objective -0.7707775
+Presolve removed 123 rows and 111 columns
+Presolve time: 0.00s
+Presolved: 39 rows, 11 columns, 275 nonzeros
+Variable types: 1 continuous, 10 integer (0 binary)
+
+Root relaxation: objective -1.560064e+01, 17 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  -15.60064    0    5   -0.77078  -15.60064  1924%     -    0s
+H    0     0                     -14.8807774  -15.60064  4.84%     -    0s
+H    0     0                     -15.2951774  -15.60064  2.00%     -    0s
+H    0     0                     -15.5403774  -15.60064  0.39%     -    0s
+     0     0  -15.54038    0    4  -15.54038  -15.54038  0.00%     -    0s
+
+Cutting planes:
+  MIR: 1
+  Zero half: 1
+
+Explored 1 nodes (21 simplex iterations) in 0.01 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 4: -15.5404 -15.2952 -14.8808 -0.770777 
+No other solutions better than -15.5404
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective -1.554037744448e+01, best bound -1.554037744448e+01, gap 0.0000%
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 39 Done==========================================
+Iteration 39 Upper bound: inf
+Iteration 39 Tightest Upper bound: -5.5451774444795525
+Iteration 39 Lower bound: -15.540377444480022
+Iteration 39 Tightest Lower bound: -15.540377444480022
+Parameter OutputFlag unchanged
+   Value: 1  Min: 0  Max: 1  Default: 1
+Changed value of parameter QCPDual to 1
+   Prev: 0  Min: 0  Max: 1  Default: 0
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (win64)
+Thread count: 6 physical cores, 12 logical processors, using up to 12 threads
+Optimize a model with 163 rows, 122 columns and 5086 nonzeros
+Model fingerprint: 0x8a23df63
+Variable types: 1 continuous, 121 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 6e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e-01, 6e+00]
+Found heuristic solution: objective -0.7707775
+Presolve removed 123 rows and 111 columns
+Presolve time: 0.00s
+Presolved: 40 rows, 11 columns, 282 nonzeros
+Variable types: 1 continuous, 10 integer (0 binary)
+
+Root relaxation: objective -1.560064e+01, 18 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  -15.60064    0    6   -0.77078  -15.60064  1924%     -    0s
+H    0     0                     -14.8019774  -15.60064  5.40%     -    0s
+H    0     0                     -15.2347774  -15.60064  2.40%     -    0s
+H    0     0                     -15.3783774  -15.60064  1.45%     -    0s
+H    0     0                     -15.5099774  -15.60064  0.58%     -    0s
+H    0     0                     -15.5403774  -15.60064  0.39%     -    0s
+     0     0  -15.54038    0    4  -15.54038  -15.54038  0.00%     -    0s
+
+Cutting planes:
+  Gomory: 1
+
+Explored 1 nodes (22 simplex iterations) in 0.01 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 6: -15.5404 -15.51 -15.3784 ... -0.770777
+No other solutions better than -15.5404
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective -1.554037744448e+01, best bound -1.554037744448e+01, gap 0.0000%
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 40 Done==========================================
+Iteration 40 Upper bound: inf
+Iteration 40 Tightest Upper bound: -5.5451774444795525
+Iteration 40 Lower bound: -15.540377444479606
+Iteration 40 Tightest Lower bound: -15.540377444479606
+Parameter OutputFlag unchanged
+   Value: 1  Min: 0  Max: 1  Default: 1
+Changed value of parameter QCPDual to 1
+   Prev: 0  Min: 0  Max: 1  Default: 0
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (win64)
+Thread count: 6 physical cores, 12 logical processors, using up to 12 threads
+Optimize a model with 164 rows, 122 columns and 5203 nonzeros
+Model fingerprint: 0xb0ac4ad2
+Variable types: 1 continuous, 121 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 6e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e-01, 6e+00]
+Found heuristic solution: objective -0.7707775
+Presolve removed 123 rows and 111 columns
+Presolve time: 0.00s
+Presolved: 41 rows, 11 columns, 288 nonzeros
+Variable types: 1 continuous, 10 integer (0 binary)
+
+Root relaxation: objective -1.559308e+01, 20 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  -15.59308    0    7   -0.77078  -15.59308  1923%     -    0s
+H    0     0                     -14.8203774  -15.59308  5.21%     -    0s
+H    0     0                     -15.2951774  -15.59308  1.95%     -    0s
+H    0     0                     -15.3783774  -15.59308  1.40%     -    0s
+H    0     0                     -15.5099774  -15.59308  0.54%     -    0s
+     0     0  -15.56038    0    5  -15.50998  -15.56038  0.32%     -    0s
+     0     0  -15.55746    0    7  -15.50998  -15.55746  0.31%     -    0s
+     0     0  -15.52508    0    5  -15.50998  -15.52508  0.10%     -    0s
+     0     0  -15.51861    0    6  -15.50998  -15.51861  0.06%     -    0s
+
+Cutting planes:
+  Gomory: 2
+  MIR: 1
+  Zero half: 1
+
+Explored 1 nodes (33 simplex iterations) in 0.01 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 5: -15.51 -15.3784 -15.2952 ... -0.770777
+No other solutions better than -15.51
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective -1.550997744448e+01, best bound -1.550997744448e+01, gap 0.0000%
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 41 Done==========================================
+Iteration 41 Upper bound: inf
+Iteration 41 Tightest Upper bound: -5.5451774444795525
+Iteration 41 Lower bound: -15.509977444479562
+Iteration 41 Tightest Lower bound: -15.509977444479562
+Parameter OutputFlag unchanged
+   Value: 1  Min: 0  Max: 1  Default: 1
+Changed value of parameter QCPDual to 1
+   Prev: 0  Min: 0  Max: 1  Default: 0
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (win64)
+Thread count: 6 physical cores, 12 logical processors, using up to 12 threads
+Optimize a model with 165 rows, 122 columns and 5319 nonzeros
+Model fingerprint: 0x18247df9
+Variable types: 1 continuous, 121 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 6e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e-01, 6e+00]
+Found heuristic solution: objective -0.7707775
+Presolve removed 123 rows and 111 columns
+Presolve time: 0.00s
+Presolved: 42 rows, 11 columns, 293 nonzeros
+Variable types: 1 continuous, 10 integer (0 binary)
+
+Root relaxation: objective -1.558769e+01, 23 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  -15.58769    0    7   -0.77078  -15.58769  1922%     -    0s
+H    0     0                     -15.3783774  -15.58769  1.36%     -    0s
+H    0     0                     -15.5099774  -15.58769  0.50%     -    0s
+     0     0     cutoff    0       -15.50998  -15.50998  0.00%     -    0s
+
+Cutting planes:
+  Gomory: 1
+
+Explored 1 nodes (24 simplex iterations) in 0.01 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 3: -15.51 -15.3784 -0.770777 
+No other solutions better than -15.51
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective -1.550997744448e+01, best bound -1.550997744448e+01, gap 0.0000%
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 42 Done==========================================
+Iteration 42 Upper bound: inf
+Iteration 42 Tightest Upper bound: -5.5451774444795525
+Iteration 42 Lower bound: -15.509977444479603
+Iteration 42 Tightest Lower bound: -15.509977444479562
+Parameter OutputFlag unchanged
+   Value: 1  Min: 0  Max: 1  Default: 1
+Changed value of parameter QCPDual to 1
+   Prev: 0  Min: 0  Max: 1  Default: 0
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (win64)
+Thread count: 6 physical cores, 12 logical processors, using up to 12 threads
+Optimize a model with 166 rows, 122 columns and 5436 nonzeros
+Model fingerprint: 0xace4c54d
+Variable types: 1 continuous, 121 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 6e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e-01, 6e+00]
+Found heuristic solution: objective -0.7707775
+Presolve removed 123 rows and 111 columns
+Presolve time: 0.00s
+Presolved: 43 rows, 11 columns, 299 nonzeros
+Variable types: 1 continuous, 10 integer (0 binary)
+
+Root relaxation: objective -1.558769e+01, 18 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  -15.58769    0    8   -0.77078  -15.58769  1922%     -    0s
+H    0     0                     -14.5451774  -15.58769  7.17%     -    0s
+H    0     0                     -15.2951774  -15.58769  1.91%     -    0s
+H    0     0                     -15.3783774  -15.58769  1.36%     -    0s
+H    0     0                     -15.5099774  -15.58769  0.50%     -    0s
+
+Cutting planes:
+  Gomory: 1
+
+Explored 1 nodes (18 simplex iterations) in 0.01 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 5: -15.51 -15.3784 -15.2952 ... -0.770777
+No other solutions better than -15.51
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective -1.550997744448e+01, best bound -1.550997744448e+01, gap 0.0000%
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 43 Done==========================================
+Iteration 43 Upper bound: inf
+Iteration 43 Tightest Upper bound: -5.5451774444795525
+Iteration 43 Lower bound: -15.5099774444796
+Iteration 43 Tightest Lower bound: -15.509977444479562
+Parameter OutputFlag unchanged
+   Value: 1  Min: 0  Max: 1  Default: 1
+Changed value of parameter QCPDual to 1
+   Prev: 0  Min: 0  Max: 1  Default: 0
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (win64)
+Thread count: 6 physical cores, 12 logical processors, using up to 12 threads
+Optimize a model with 167 rows, 122 columns and 5552 nonzeros
+Model fingerprint: 0xda7c3aba
+Variable types: 1 continuous, 121 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 6e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e-01, 6e+00]
+Found heuristic solution: objective -0.7707775
+Presolve removed 123 rows and 111 columns
+Presolve time: 0.00s
+Presolved: 44 rows, 11 columns, 304 nonzeros
+Variable types: 1 continuous, 10 integer (0 binary)
+
+Root relaxation: objective -1.558051e+01, 17 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  -15.58051    0    6   -0.77078  -15.58051  1921%     -    0s
+H    0     0                     -14.9639774  -15.58051  4.12%     -    0s
+H    0     0                     -15.2951774  -15.58051  1.87%     -    0s
+H    0     0                     -15.3783774  -15.58051  1.31%     -    0s
+H    0     0                     -15.4799774  -15.58051  0.65%     -    0s
+     0     0          -    0       -15.47998  -15.47998  0.00%     -    0s
+
+Cutting planes:
+  Gomory: 1
+
+Explored 1 nodes (20 simplex iterations) in 0.01 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 5: -15.48 -15.3784 -15.2952 ... -0.770777
+No other solutions better than -15.48
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective -1.547997744448e+01, best bound -1.547997744448e+01, gap 0.0000%
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 44 Done==========================================
+Iteration 44 Upper bound: inf
+Iteration 44 Tightest Upper bound: -5.5451774444795525
+Iteration 44 Lower bound: -15.47997744447959
+Iteration 44 Tightest Lower bound: -15.47997744447959
+Parameter OutputFlag unchanged
+   Value: 1  Min: 0  Max: 1  Default: 1
+Changed value of parameter QCPDual to 1
+   Prev: 0  Min: 0  Max: 1  Default: 0
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (win64)
+Thread count: 6 physical cores, 12 logical processors, using up to 12 threads
+Optimize a model with 168 rows, 122 columns and 5669 nonzeros
+Model fingerprint: 0x93b0a340
+Variable types: 1 continuous, 121 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 6e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e-01, 6e+00]
+Found heuristic solution: objective -0.7707775
+Presolve removed 123 rows and 111 columns
+Presolve time: 0.00s
+Presolved: 45 rows, 11 columns, 310 nonzeros
+Variable types: 1 continuous, 10 integer (0 binary)
+
+Root relaxation: objective -1.558051e+01, 19 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  -15.58051    0    6   -0.77078  -15.58051  1921%     -    0s
+H    0     0                     -13.7903774  -15.58051  13.0%     -    0s
+H    0     0                     -15.2951774  -15.58051  1.87%     -    0s
+H    0     0                     -15.3783774  -15.58051  1.31%     -    0s
+H    0     0                     -15.4799774  -15.58051  0.65%     -    0s
+     0     0          -    0       -15.47998  -15.47998  0.00%     -    0s
+
+Cutting planes:
+  Gomory: 1
+
+Explored 1 nodes (22 simplex iterations) in 0.01 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 5: -15.48 -15.3784 -15.2952 ... -0.770777
+No other solutions better than -15.48
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective -1.547997744448e+01, best bound -1.547997744448e+01, gap 0.0000%
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 45 Done==========================================
+Iteration 45 Upper bound: inf
+Iteration 45 Tightest Upper bound: -5.5451774444795525
+Iteration 45 Lower bound: -15.479977444479662
+Iteration 45 Tightest Lower bound: -15.47997744447959
+Parameter OutputFlag unchanged
+   Value: 1  Min: 0  Max: 1  Default: 1
+Changed value of parameter QCPDual to 1
+   Prev: 0  Min: 0  Max: 1  Default: 0
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (win64)
+Thread count: 6 physical cores, 12 logical processors, using up to 12 threads
+Optimize a model with 169 rows, 122 columns and 5786 nonzeros
+Model fingerprint: 0x45bba862
+Variable types: 1 continuous, 121 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 6e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e-01, 6e+00]
+Found heuristic solution: objective -0.7707775
+Presolve removed 123 rows and 111 columns
+Presolve time: 0.00s
+Presolved: 46 rows, 11 columns, 316 nonzeros
+Variable types: 1 continuous, 10 integer (0 binary)
+
+Root relaxation: objective -1.558051e+01, 20 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  -15.58051    0    8   -0.77078  -15.58051  1921%     -    0s
+H    0     0                     -15.3783774  -15.58051  1.31%     -    0s
+H    0     0                     -15.4799774  -15.58051  0.65%     -    0s
+
+Cutting planes:
+  Zero half: 1
+
+Explored 1 nodes (20 simplex iterations) in 0.01 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 3: -15.48 -15.3784 -0.770777 
+No other solutions better than -15.48
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective -1.547997744448e+01, best bound -1.547997744448e+01, gap 0.0000%
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 46 Done==========================================
+Iteration 46 Upper bound: inf
+Iteration 46 Tightest Upper bound: -5.5451774444795525
+Iteration 46 Lower bound: -15.479977444479609
+Iteration 46 Tightest Lower bound: -15.47997744447959
+Parameter OutputFlag unchanged
+   Value: 1  Min: 0  Max: 1  Default: 1
+Changed value of parameter QCPDual to 1
+   Prev: 0  Min: 0  Max: 1  Default: 0
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (win64)
+Thread count: 6 physical cores, 12 logical processors, using up to 12 threads
+Optimize a model with 170 rows, 122 columns and 5902 nonzeros
+Model fingerprint: 0x4446d71e
+Variable types: 1 continuous, 121 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 6e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e-01, 6e+00]
+Found heuristic solution: objective -0.7707775
+Presolve removed 123 rows and 111 columns
+Presolve time: 0.00s
+Presolved: 47 rows, 11 columns, 321 nonzeros
+Variable types: 1 continuous, 10 integer (0 binary)
+
+Root relaxation: objective -1.558051e+01, 22 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  -15.58051    0    6   -0.77078  -15.58051  1921%     -    0s
+H    0     0                     -15.1139774  -15.58051  3.09%     -    0s
+H    0     0                     -15.2951774  -15.58051  1.87%     -    0s
+H    0     0                     -15.3783774  -15.58051  1.31%     -    0s
+*    0     0               0     -15.4799774  -15.47998  0.00%     -    0s
+
+Cutting planes:
+  Gomory: 1
+
+Explored 1 nodes (24 simplex iterations) in 0.01 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 5: -15.48 -15.3784 -15.2952 ... -0.770777
+No other solutions better than -15.48
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective -1.547997744448e+01, best bound -1.547997744448e+01, gap 0.0000%
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 47 Done==========================================
+Iteration 47 Upper bound: inf
+Iteration 47 Tightest Upper bound: -5.5451774444795525
+Iteration 47 Lower bound: -15.479977444479628
+Iteration 47 Tightest Lower bound: -15.47997744447959
+Parameter OutputFlag unchanged
+   Value: 1  Min: 0  Max: 1  Default: 1
+Changed value of parameter QCPDual to 1
+   Prev: 0  Min: 0  Max: 1  Default: 0
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (win64)
+Thread count: 6 physical cores, 12 logical processors, using up to 12 threads
+Optimize a model with 171 rows, 122 columns and 6018 nonzeros
+Model fingerprint: 0x4be8f6aa
+Variable types: 1 continuous, 121 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 6e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e-01, 6e+00]
+Found heuristic solution: objective -0.7707775
+Presolve removed 123 rows and 111 columns
+Presolve time: 0.00s
+Presolved: 48 rows, 11 columns, 326 nonzeros
+Variable types: 1 continuous, 10 integer (0 binary)
+
+Root relaxation: objective -1.556038e+01, 20 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  -15.56038    0    6   -0.77078  -15.56038  1919%     -    0s
+H    0     0                     -14.9639774  -15.56038  3.99%     -    0s
+H    0     0                     -15.2951774  -15.56038  1.73%     -    0s
+H    0     0                     -15.3783774  -15.56038  1.18%     -    0s
+H    0     0                     -15.4195774  -15.56038  0.91%     -    0s
+     0     0     cutoff    0       -15.41958  -15.41958  0.00%     -    0s
+
+Cutting planes:
+  Zero half: 1
+
+Explored 1 nodes (20 simplex iterations) in 0.01 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 5: -15.4196 -15.3784 -15.2952 ... -0.770777
+No other solutions better than -15.4196
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective -1.541957744448e+01, best bound -1.541957744448e+01, gap 0.0000%
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 48 Done==========================================
+Iteration 48 Upper bound: inf
+Iteration 48 Tightest Upper bound: -5.5451774444795525
+Iteration 48 Lower bound: -15.419577444479614
+Iteration 48 Tightest Lower bound: -15.419577444479614
+Parameter OutputFlag unchanged
+   Value: 1  Min: 0  Max: 1  Default: 1
+Changed value of parameter QCPDual to 1
+   Prev: 0  Min: 0  Max: 1  Default: 0
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (win64)
+Thread count: 6 physical cores, 12 logical processors, using up to 12 threads
+Optimize a model with 172 rows, 122 columns and 6133 nonzeros
+Model fingerprint: 0x3648b1eb
+Variable types: 1 continuous, 121 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 6e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e-01, 6e+00]
+Found heuristic solution: objective -0.7707775
+Presolve removed 123 rows and 111 columns
+Presolve time: 0.00s
+Presolved: 49 rows, 11 columns, 330 nonzeros
+Variable types: 1 continuous, 10 integer (0 binary)
+
+Root relaxation: objective -1.550458e+01, 13 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  -15.50458    0    4   -0.77078  -15.50458  1912%     -    0s
+H    0     0                     -15.2163774  -15.50458  1.89%     -    0s
+H    0     0                     -15.3783774  -15.50458  0.82%     -    0s
+
+Cutting planes:
+  Gomory: 1
+
+Explored 1 nodes (13 simplex iterations) in 0.01 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 3: -15.3784 -15.2164 -0.770777 
+No other solutions better than -15.3784
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective -1.537837744448e+01, best bound -1.537837744448e+01, gap 0.0000%
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 49 Done==========================================
+Iteration 49 Upper bound: inf
+Iteration 49 Tightest Upper bound: -5.5451774444795525
+Iteration 49 Lower bound: -15.37837744448013
+Iteration 49 Tightest Lower bound: -15.37837744448013
+Parameter OutputFlag unchanged
+   Value: 1  Min: 0  Max: 1  Default: 1
+Changed value of parameter QCPDual to 1
+   Prev: 0  Min: 0  Max: 1  Default: 0
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (win64)
+Thread count: 6 physical cores, 12 logical processors, using up to 12 threads
+Optimize a model with 173 rows, 122 columns and 6251 nonzeros
+Model fingerprint: 0x56946d49
+Variable types: 1 continuous, 121 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 6e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e-01, 6e+00]
+Found heuristic solution: objective -0.7707775
+Presolve removed 123 rows and 111 columns
+Presolve time: 0.00s
+Presolved: 50 rows, 11 columns, 337 nonzeros
+Variable types: 1 continuous, 10 integer (0 binary)
+
+Root relaxation: objective -1.550458e+01, 15 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  -15.50458    0    4   -0.77078  -15.50458  1912%     -    0s
+H    0     0                     -14.9639774  -15.50458  3.61%     -    0s
+H    0     0                     -15.3783774  -15.50458  0.82%     -    0s
+
+Cutting planes:
+  Gomory: 1
+
+Explored 1 nodes (15 simplex iterations) in 0.01 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 3: -15.3784 -14.964 -0.770777 
+No other solutions better than -15.3784
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective -1.537837744448e+01, best bound -1.537837744448e+01, gap 0.0000%
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 50 Done==========================================
+Iteration 50 Upper bound: inf
+Iteration 50 Tightest Upper bound: -5.5451774444795525
+Iteration 50 Lower bound: -15.37837744448015
+Iteration 50 Tightest Lower bound: -15.37837744448013
+Parameter OutputFlag unchanged
+   Value: 1  Min: 0  Max: 1  Default: 1
+Changed value of parameter QCPDual to 1
+   Prev: 0  Min: 0  Max: 1  Default: 0
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (win64)
+Thread count: 6 physical cores, 12 logical processors, using up to 12 threads
+Optimize a model with 174 rows, 122 columns and 6369 nonzeros
+Model fingerprint: 0x81a03c62
+Variable types: 1 continuous, 121 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 6e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e-01, 6e+00]
+Found heuristic solution: objective -0.7707775
+Presolve removed 123 rows and 111 columns
+Presolve time: 0.00s
+Presolved: 51 rows, 11 columns, 344 nonzeros
+Variable types: 1 continuous, 10 integer (0 binary)
+
+Root relaxation: objective -1.550458e+01, 16 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  -15.50458    0    6   -0.77078  -15.50458  1912%     -    0s
+H    0     0                     -15.2163774  -15.50458  1.89%     -    0s
+H    0     0                     -15.3783774  -15.50458  0.82%     -    0s
+     0     0     cutoff    0       -15.37838  -15.37838  0.00%     -    0s
+
+Cutting planes:
+  Gomory: 1
+
+Explored 1 nodes (17 simplex iterations) in 0.01 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 3: -15.3784 -15.2164 -0.770777 
+No other solutions better than -15.3784
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective -1.537837744448e+01, best bound -1.537837744448e+01, gap 0.0000%
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 51 Done==========================================
+Iteration 51 Upper bound: inf
+Iteration 51 Tightest Upper bound: -5.5451774444795525
+Iteration 51 Lower bound: -15.378377444479636
+Iteration 51 Tightest Lower bound: -15.378377444479636
+Parameter OutputFlag unchanged
+   Value: 1  Min: 0  Max: 1  Default: 1
+Changed value of parameter QCPDual to 1
+   Prev: 0  Min: 0  Max: 1  Default: 0
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (win64)
+Thread count: 6 physical cores, 12 logical processors, using up to 12 threads
+Optimize a model with 175 rows, 122 columns and 6487 nonzeros
+Model fingerprint: 0x05210188
+Variable types: 1 continuous, 121 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 6e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e-01, 6e+00]
+Found heuristic solution: objective -0.7707775
+Presolve removed 123 rows and 111 columns
+Presolve time: 0.00s
+Presolved: 52 rows, 11 columns, 351 nonzeros
+Variable types: 1 continuous, 10 integer (0 binary)
+
+Root relaxation: objective -1.550458e+01, 16 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  -15.50458    0    6   -0.77078  -15.50458  1912%     -    0s
+H    0     0                     -15.2163774  -15.50458  1.89%     -    0s
+H    0     0                     -15.3783774  -15.50458  0.82%     -    0s
+
+Cutting planes:
+  Gomory: 1
+  Zero half: 1
+
+Explored 1 nodes (16 simplex iterations) in 0.01 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 3: -15.3784 -15.2164 -0.770777 
+No other solutions better than -15.3784
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective -1.537837744448e+01, best bound -1.537837744448e+01, gap 0.0000%
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 52 Done==========================================
+Iteration 52 Upper bound: inf
+Iteration 52 Tightest Upper bound: -5.5451774444795525
+Iteration 52 Lower bound: -15.378377444479618
+Iteration 52 Tightest Lower bound: -15.378377444479618
+Parameter OutputFlag unchanged
+   Value: 1  Min: 0  Max: 1  Default: 1
+Changed value of parameter QCPDual to 1
+   Prev: 0  Min: 0  Max: 1  Default: 0
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (win64)
+Thread count: 6 physical cores, 12 logical processors, using up to 12 threads
+Optimize a model with 176 rows, 122 columns and 6605 nonzeros
+Model fingerprint: 0x8e5eb18f
+Variable types: 1 continuous, 121 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 6e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e-01, 6e+00]
+Found heuristic solution: objective -0.7707775
+Presolve removed 123 rows and 111 columns
+Presolve time: 0.00s
+Presolved: 53 rows, 11 columns, 358 nonzeros
+Variable types: 1 continuous, 10 integer (0 binary)
+
+Root relaxation: objective -1.550458e+01, 16 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  -15.50458    0    6   -0.77078  -15.50458  1912%     -    0s
+H    0     0                     -15.2163774  -15.50458  1.89%     -    0s
+H    0     0                     -15.3783774  -15.43878  0.39%     -    0s
+     0     0  -15.37838    0    4  -15.37838  -15.37838  0.00%     -    0s
+
+Cutting planes:
+  Gomory: 1
+
+Explored 1 nodes (18 simplex iterations) in 0.01 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 3: -15.3784 -15.2164 -0.770777 
+No other solutions better than -15.3784
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective -1.537837744448e+01, best bound -1.537837744448e+01, gap 0.0000%
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 53 Done==========================================
+Iteration 53 Upper bound: inf
+Iteration 53 Tightest Upper bound: -5.5451774444795525
+Iteration 53 Lower bound: -15.37837744447962
+Iteration 53 Tightest Lower bound: -15.378377444479618
+Parameter OutputFlag unchanged
+   Value: 1  Min: 0  Max: 1  Default: 1
+Changed value of parameter QCPDual to 1
+   Prev: 0  Min: 0  Max: 1  Default: 0
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (win64)
+Thread count: 6 physical cores, 12 logical processors, using up to 12 threads
+Optimize a model with 177 rows, 122 columns and 6722 nonzeros
+Model fingerprint: 0x776ef86f
+Variable types: 1 continuous, 121 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 6e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e-01, 6e+00]
+Found heuristic solution: objective -0.7707775
+Presolve removed 123 rows and 111 columns
+Presolve time: 0.00s
+Presolved: 54 rows, 11 columns, 364 nonzeros
+Variable types: 1 continuous, 10 integer (0 binary)
+
+Root relaxation: objective -1.550458e+01, 22 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  -15.50458    0    4   -0.77078  -15.50458  1912%     -    0s
+H    0     0                     -15.3783774  -15.50458  0.82%     -    0s
+     0     0     cutoff    0       -15.37838  -15.37838  0.00%     -    0s
+
+Cutting planes:
+  Gomory: 1
+
+Explored 1 nodes (25 simplex iterations) in 0.01 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 2: -15.3784 -0.770777 
+No other solutions better than -15.3784
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective -1.537837744448e+01, best bound -1.537837744448e+01, gap 0.0000%
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 54 Done==========================================
+Iteration 54 Upper bound: inf
+Iteration 54 Tightest Upper bound: -5.5451774444795525
+Iteration 54 Lower bound: -15.378377444479636
+Iteration 54 Tightest Lower bound: -15.378377444479618
+Parameter OutputFlag unchanged
+   Value: 1  Min: 0  Max: 1  Default: 1
+Changed value of parameter QCPDual to 1
+   Prev: 0  Min: 0  Max: 1  Default: 0
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (win64)
+Thread count: 6 physical cores, 12 logical processors, using up to 12 threads
+Optimize a model with 178 rows, 122 columns and 6839 nonzeros
+Model fingerprint: 0x929e5415
+Variable types: 1 continuous, 121 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 6e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e-01, 6e+00]
+Found heuristic solution: objective -0.7707775
+Presolve removed 123 rows and 111 columns
+Presolve time: 0.00s
+Presolved: 55 rows, 11 columns, 370 nonzeros
+Variable types: 1 continuous, 10 integer (0 binary)
+
+Root relaxation: objective -1.548948e+01, 15 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  -15.48948    0    6   -0.77078  -15.48948  1910%     -    0s
+H    0     0                     -15.2163774  -15.48948  1.79%     -    0s
+H    0     0                     -15.3783774  -15.40858  0.20%     -    0s
+     0     0  -15.37838    0    6  -15.37838  -15.37838  0.00%     -    0s
+
+Cutting planes:
+  Gomory: 1
+  Zero half: 1
+
+Explored 1 nodes (19 simplex iterations) in 0.01 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 3: -15.3784 -15.2164 -0.770777 
+No other solutions better than -15.3784
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective -1.537837744448e+01, best bound -1.537837744448e+01, gap 0.0000%
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 55 Done==========================================
+Iteration 55 Upper bound: inf
+Iteration 55 Tightest Upper bound: -5.5451774444795525
+Iteration 55 Lower bound: -15.378377444479597
+Iteration 55 Tightest Lower bound: -15.378377444479597
+Parameter OutputFlag unchanged
+   Value: 1  Min: 0  Max: 1  Default: 1
+Changed value of parameter QCPDual to 1
+   Prev: 0  Min: 0  Max: 1  Default: 0
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (win64)
+Thread count: 6 physical cores, 12 logical processors, using up to 12 threads
+Optimize a model with 179 rows, 122 columns and 6956 nonzeros
+Model fingerprint: 0x074d0d49
+Variable types: 1 continuous, 121 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 6e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e-01, 6e+00]
+Found heuristic solution: objective -0.7707775
+Presolve removed 123 rows and 111 columns
+Presolve time: 0.00s
+Presolved: 56 rows, 11 columns, 376 nonzeros
+Variable types: 1 continuous, 10 integer (0 binary)
+
+Root relaxation: objective -1.548948e+01, 15 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  -15.48948    0    6   -0.77078  -15.48948  1910%     -    0s
+H    0     0                     -15.2163774  -15.48948  1.79%     -    0s
+H    0     0                     -15.3783774  -15.48948  0.72%     -    0s
+
+Cutting planes:
+  Gomory: 2
+
+Explored 1 nodes (15 simplex iterations) in 0.01 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 3: -15.3784 -15.2164 -0.770777 
+No other solutions better than -15.3784
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective -1.537837744448e+01, best bound -1.537837744448e+01, gap 0.0000%
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 56 Done==========================================
+Iteration 56 Upper bound: inf
+Iteration 56 Tightest Upper bound: -5.5451774444795525
+Iteration 56 Lower bound: -15.378377444479565
+Iteration 56 Tightest Lower bound: -15.378377444479565
+Parameter OutputFlag unchanged
+   Value: 1  Min: 0  Max: 1  Default: 1
+Changed value of parameter QCPDual to 1
+   Prev: 0  Min: 0  Max: 1  Default: 0
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (win64)
+Thread count: 6 physical cores, 12 logical processors, using up to 12 threads
+Optimize a model with 180 rows, 122 columns and 7073 nonzeros
+Model fingerprint: 0xb06176ba
+Variable types: 1 continuous, 121 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 6e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e-01, 6e+00]
+Found heuristic solution: objective -0.7707775
+Presolve removed 123 rows and 111 columns
+Presolve time: 0.00s
+Presolved: 57 rows, 11 columns, 382 nonzeros
+Variable types: 1 continuous, 10 integer (0 binary)
+
+Root relaxation: objective -1.548948e+01, 15 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  -15.48948    0    6   -0.77078  -15.48948  1910%     -    0s
+H    0     0                     -15.2163774  -15.48948  1.79%     -    0s
+H    0     0                     -15.3179774  -15.40858  0.59%     -    0s
+     0     0  -15.31798    0    6  -15.31798  -15.31798  0.00%     -    0s
+
+Cutting planes:
+  Gomory: 1
+  Zero half: 1
+
+Explored 1 nodes (19 simplex iterations) in 0.01 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 3: -15.318 -15.2164 -0.770777 
+No other solutions better than -15.318
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective -1.531797744448e+01, best bound -1.531797744448e+01, gap 0.0000%
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 57 Done==========================================
+Iteration 57 Upper bound: inf
+Iteration 57 Tightest Upper bound: -5.5451774444795525
+Iteration 57 Lower bound: -15.317977444479624
+Iteration 57 Tightest Lower bound: -15.317977444479624
+Parameter OutputFlag unchanged
+   Value: 1  Min: 0  Max: 1  Default: 1
+Changed value of parameter QCPDual to 1
+   Prev: 0  Min: 0  Max: 1  Default: 0
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (win64)
+Thread count: 6 physical cores, 12 logical processors, using up to 12 threads
+Optimize a model with 181 rows, 122 columns and 7190 nonzeros
+Model fingerprint: 0xc64f3109
+Variable types: 1 continuous, 121 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 6e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e-01, 6e+00]
+Found heuristic solution: objective -0.7707775
+Presolve removed 123 rows and 111 columns
+Presolve time: 0.00s
+Presolved: 58 rows, 11 columns, 388 nonzeros
+Variable types: 1 continuous, 10 integer (0 binary)
+
+Root relaxation: objective -1.548948e+01, 16 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  -15.48948    0    6   -0.77078  -15.48948  1910%     -    0s
+H    0     0                     -15.2163774  -15.48948  1.79%     -    0s
+H    0     0                     -15.3179774  -15.48948  1.12%     -    0s
+
+Cutting planes:
+  Gomory: 2
+
+Explored 1 nodes (16 simplex iterations) in 0.01 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 3: -15.318 -15.2164 -0.770777 
+No other solutions better than -15.318
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective -1.531797744448e+01, best bound -1.531797744448e+01, gap 0.0000%
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 58 Done==========================================
+Iteration 58 Upper bound: inf
+Iteration 58 Tightest Upper bound: -5.5451774444795525
+Iteration 58 Lower bound: -15.317977444479624
+Iteration 58 Tightest Lower bound: -15.317977444479624
+Parameter OutputFlag unchanged
+   Value: 1  Min: 0  Max: 1  Default: 1
+Changed value of parameter QCPDual to 1
+   Prev: 0  Min: 0  Max: 1  Default: 0
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (win64)
+Thread count: 6 physical cores, 12 logical processors, using up to 12 threads
+Optimize a model with 182 rows, 122 columns and 7306 nonzeros
+Model fingerprint: 0xd941c637
+Variable types: 1 continuous, 121 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 6e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e-01, 6e+00]
+Found heuristic solution: objective -0.7707775
+Presolve removed 123 rows and 111 columns
+Presolve time: 0.00s
+Presolved: 59 rows, 11 columns, 393 nonzeros
+Variable types: 1 continuous, 10 integer (0 binary)
+
+Root relaxation: objective -1.548948e+01, 17 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  -15.48948    0    6   -0.77078  -15.48948  1910%     -    0s
+H    0     0                     -15.2163774  -15.48948  1.79%     -    0s
+H    0     0                     -15.3179774  -15.40858  0.59%     -    0s
+     0     0  -15.31798    0    6  -15.31798  -15.31798  0.00%     -    0s
+
+Cutting planes:
+  Gomory: 1
+  Zero half: 1
+
+Explored 1 nodes (20 simplex iterations) in 0.01 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 3: -15.318 -15.2164 -0.770777 
+No other solutions better than -15.318
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective -1.531797744448e+01, best bound -1.531797744448e+01, gap 0.0000%
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 59 Done==========================================
+Iteration 59 Upper bound: inf
+Iteration 59 Tightest Upper bound: -5.5451774444795525
+Iteration 59 Lower bound: -15.31797744447966
+Iteration 59 Tightest Lower bound: -15.317977444479624
+Parameter OutputFlag unchanged
+   Value: 1  Min: 0  Max: 1  Default: 1
+Changed value of parameter QCPDual to 1
+   Prev: 0  Min: 0  Max: 1  Default: 0
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (win64)
+Thread count: 6 physical cores, 12 logical processors, using up to 12 threads
+Optimize a model with 183 rows, 122 columns and 7423 nonzeros
+Model fingerprint: 0xfeb5611d
+Variable types: 1 continuous, 121 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 6e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e-01, 6e+00]
+Found heuristic solution: objective -0.7707775
+Presolve removed 123 rows and 111 columns
+Presolve time: 0.00s
+Presolved: 60 rows, 11 columns, 399 nonzeros
+Variable types: 1 continuous, 10 integer (0 binary)
+
+Root relaxation: objective -1.548948e+01, 19 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  -15.48948    0    6   -0.77078  -15.48948  1910%     -    0s
+H    0     0                     -15.2163774  -15.48948  1.79%     -    0s
+H    0     0                     -15.3179774  -15.48948  1.12%     -    0s
+
+Cutting planes:
+  Gomory: 2
+
+Explored 1 nodes (19 simplex iterations) in 0.01 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 3: -15.318 -15.2164 -0.770777 
+No other solutions better than -15.318
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective -1.531797744448e+01, best bound -1.531797744448e+01, gap 0.0000%
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 60 Done==========================================
+Iteration 60 Upper bound: inf
+Iteration 60 Tightest Upper bound: -5.5451774444795525
+Iteration 60 Lower bound: -15.31797744447966
+Iteration 60 Tightest Lower bound: -15.317977444479624
+Parameter OutputFlag unchanged
+   Value: 1  Min: 0  Max: 1  Default: 1
+Changed value of parameter QCPDual to 1
+   Prev: 0  Min: 0  Max: 1  Default: 0
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (win64)
+Thread count: 6 physical cores, 12 logical processors, using up to 12 threads
+Optimize a model with 184 rows, 122 columns and 7539 nonzeros
+Model fingerprint: 0x5614b57c
+Variable types: 1 continuous, 121 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 6e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e-01, 6e+00]
+Found heuristic solution: objective -0.7707775
+Presolve removed 123 rows and 111 columns
+Presolve time: 0.00s
+Presolved: 61 rows, 11 columns, 404 nonzeros
+Variable types: 1 continuous, 10 integer (0 binary)
+
+Root relaxation: objective -1.548444e+01, 17 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  -15.48444    0    7   -0.77078  -15.48444  1909%     -    0s
+H    0     0                     -15.2163774  -15.48444  1.76%     -    0s
+H    0     0                     -15.3179774  -15.33811  0.13%     -    0s
+     0     0  -15.31798    0    4  -15.31798  -15.31798  0.00%     -    0s
+
+Cutting planes:
+  Zero half: 1
+
+Explored 1 nodes (20 simplex iterations) in 0.01 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 3: -15.318 -15.2164 -0.770777 
+No other solutions better than -15.318
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective -1.531797744448e+01, best bound -1.531797744448e+01, gap 0.0000%
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 61 Done==========================================
+Iteration 61 Upper bound: inf
+Iteration 61 Tightest Upper bound: -5.5451774444795525
+Iteration 61 Lower bound: -15.317977444479618
+Iteration 61 Tightest Lower bound: -15.317977444479618
+Parameter OutputFlag unchanged
+   Value: 1  Min: 0  Max: 1  Default: 1
+Changed value of parameter QCPDual to 1
+   Prev: 0  Min: 0  Max: 1  Default: 0
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (win64)
+Thread count: 6 physical cores, 12 logical processors, using up to 12 threads
+Optimize a model with 185 rows, 122 columns and 7656 nonzeros
+Model fingerprint: 0x99713cd3
+Variable types: 1 continuous, 121 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 6e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e-01, 6e+00]
+Found heuristic solution: objective -0.7707775
+Presolve removed 123 rows and 111 columns
+Presolve time: 0.00s
+Presolved: 62 rows, 11 columns, 410 nonzeros
+Variable types: 1 continuous, 10 integer (0 binary)
+
+Root relaxation: objective -1.548444e+01, 17 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  -15.48444    0    7   -0.77078  -15.48444  1909%     -    0s
+H    0     0                     -15.2163774  -15.48444  1.76%     -    0s
+H    0     0                     -15.3179774  -15.48444  1.09%     -    0s
+
+Cutting planes:
+  MIR: 1
+  Zero half: 2
+
+Explored 1 nodes (17 simplex iterations) in 0.01 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 3: -15.318 -15.2164 -0.770777 
+No other solutions better than -15.318
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective -1.531797744448e+01, best bound -1.531797744448e+01, gap 0.0000%
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 62 Done==========================================
+Iteration 62 Upper bound: inf
+Iteration 62 Tightest Upper bound: -5.5451774444795525
+Iteration 62 Lower bound: -15.317977444479618
+Iteration 62 Tightest Lower bound: -15.317977444479618
+Parameter OutputFlag unchanged
+   Value: 1  Min: 0  Max: 1  Default: 1
+Changed value of parameter QCPDual to 1
+   Prev: 0  Min: 0  Max: 1  Default: 0
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (win64)
+Thread count: 6 physical cores, 12 logical processors, using up to 12 threads
+Optimize a model with 186 rows, 122 columns and 7772 nonzeros
+Model fingerprint: 0x82b7bb89
+Variable types: 1 continuous, 121 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 6e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e-01, 6e+00]
+Found heuristic solution: objective -0.7707775
+Presolve removed 123 rows and 111 columns
+Presolve time: 0.00s
+Presolved: 63 rows, 11 columns, 415 nonzeros
+Variable types: 1 continuous, 10 integer (0 binary)
+
+Root relaxation: objective -1.548444e+01, 17 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  -15.48444    0    7   -0.77078  -15.48444  1909%     -    0s
+H    0     0                     -15.2163774  -15.48444  1.76%     -    0s
+H    0     0                     -15.3179774  -15.48444  1.09%     -    0s
+
+Cutting planes:
+  Gomory: 1
+  MIR: 1
+  Zero half: 1
+
+Explored 1 nodes (17 simplex iterations) in 0.01 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 3: -15.318 -15.2164 -0.770777 
+No other solutions better than -15.318
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective -1.531797744448e+01, best bound -1.531797744448e+01, gap 0.0000%
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 63 Done==========================================
+Iteration 63 Upper bound: inf
+Iteration 63 Tightest Upper bound: -5.5451774444795525
+Iteration 63 Lower bound: -15.317977444479626
+Iteration 63 Tightest Lower bound: -15.317977444479618
+Parameter OutputFlag unchanged
+   Value: 1  Min: 0  Max: 1  Default: 1
+Changed value of parameter QCPDual to 1
+   Prev: 0  Min: 0  Max: 1  Default: 0
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (win64)
+Thread count: 6 physical cores, 12 logical processors, using up to 12 threads
+Optimize a model with 187 rows, 122 columns and 7889 nonzeros
+Model fingerprint: 0xd4900f3f
+Variable types: 1 continuous, 121 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 6e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e-01, 6e+00]
+Found heuristic solution: objective -0.7707775
+Presolve removed 123 rows and 111 columns
+Presolve time: 0.00s
+Presolved: 64 rows, 11 columns, 421 nonzeros
+Variable types: 1 continuous, 10 integer (0 binary)
+
+Root relaxation: objective -1.548444e+01, 17 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  -15.48444    0    7   -0.77078  -15.48444  1909%     -    0s
+H    0     0                     -15.2163774  -15.48444  1.76%     -    0s
+H    0     0                     -15.3179774  -15.48444  1.09%     -    0s
+
+Cutting planes:
+  MIR: 1
+  Zero half: 3
+
+Explored 1 nodes (17 simplex iterations) in 0.01 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 3: -15.318 -15.2164 -0.770777 
+No other solutions better than -15.318
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective -1.531797744448e+01, best bound -1.531797744448e+01, gap 0.0000%
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 64 Done==========================================
+Iteration 64 Upper bound: inf
+Iteration 64 Tightest Upper bound: -5.5451774444795525
+Iteration 64 Lower bound: -15.317977444479627
+Iteration 64 Tightest Lower bound: -15.317977444479618
+Parameter OutputFlag unchanged
+   Value: 1  Min: 0  Max: 1  Default: 1
+Changed value of parameter QCPDual to 1
+   Prev: 0  Min: 0  Max: 1  Default: 0
+Gurobi Optimizer version 9.1.1 build v9.1.1rc0 (win64)
+Thread count: 6 physical cores, 12 logical processors, using up to 12 threads
+Optimize a model with 188 rows, 122 columns and 8005 nonzeros
+Model fingerprint: 0xc2463dc8
+Variable types: 1 continuous, 121 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [5e-01, 6e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [5e-01, 6e+00]
+Found heuristic solution: objective -0.7707775
+Presolve removed 123 rows and 111 columns
+Presolve time: 0.00s
+Presolved: 65 rows, 11 columns, 426 nonzeros
+Variable types: 1 continuous, 10 integer (0 binary)
+
+Root relaxation: objective -1.547438e+01, 17 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  -15.47438    0    6   -0.77078  -15.47438  1908%     -    0s
+H    0     0                     -15.2163774  -15.47438  1.70%     -    0s
+H    0     0                     -15.3179774  -15.31798  0.00%     -    0s
+     0     0  -15.31798    0    4  -15.31798  -15.31798  0.00%     -    0s
+
+Cutting planes:
+  Gomory: 1
+
+Explored 1 nodes (19 simplex iterations) in 0.01 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 3: -15.318 -15.2164 -0.770777 
+No other solutions better than -15.318
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective -1.531797744448e+01, best bound -1.531797744448e+01, gap 0.0000%
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 65 Done==========================================
+Iteration 65 Upper bound: inf
+Iteration 65 Tightest Upper bound: -5.5451774444795525
+Iteration 65 Lower bound: -15.317977444479551
+Iteration 65 Tightest Lower bound: -15.317977444479551

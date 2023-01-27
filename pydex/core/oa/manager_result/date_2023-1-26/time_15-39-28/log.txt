@@ -1,0 +1,135 @@
+[WARNING]: because the error_cov is not given, Pydex defaults to the identity matrix of size 1x1.
+====================================================================================================
+Initialization complete: designer ready.
+----------------------------------------------------------------------------------------------------
+Number of model parameters              : 6
+Number of candidates                    : 121
+Number of responses                     : 1
+Number of measured responses            : 1
+Number of time-invariant controls       : 2
+Covariance of measured responses        : 
+ [[1.]]
+====================================================================================================
+############################### Computing Optimal Experiment Design ################################
+Started on                              : 2023-01-26 15:39:28.407502
+Criterion                               : d_opt_criterion
+Pseudo-bayesian                         : False
+Dynamic                                 : False
+Time-invariant Controls                 : True
+Time-varying Controls                   : False
+Number of Candidates                    : 121
+---------------------------------------[Sensitivity Analysis]---------------------------------------
+Use Finite Difference                   : True
+Richardson Extrapolation Steps          : 5
+Normalized by Parameter Values          : True
+----------------------------------------------------------------------------------------------------
+[Candidate     13/121]: time elapsed            0.10 seconds.
+[Candidate     26/121]: time elapsed            0.19 seconds.
+[Candidate     39/121]: time elapsed            0.28 seconds.
+[Candidate     52/121]: time elapsed            0.37 seconds.
+[Candidate     65/121]: time elapsed            0.46 seconds.
+[Candidate     78/121]: time elapsed            0.55 seconds.
+[Candidate     91/121]: time elapsed            0.64 seconds.
+[Candidate    104/121]: time elapsed            0.73 seconds.
+[Candidate    117/121]: time elapsed            0.82 seconds.
+[Candidate    121/121]: time elapsed            0.85 seconds.
+----------------------------------------------------------------------------------------------------
+
+
+Problem
+  Name                   :                 
+  Objective sense        : min             
+  Type                   : CONIC (conic optimization problem)
+  Constraints            : 570             
+  Cones                  : 6               
+  Scalar variables       : 265             
+  Matrix variables       : 2               
+  Integer variables      : 0               
+
+Optimizer started.
+Problem
+  Name                   :                 
+  Objective sense        : min             
+  Type                   : CONIC (conic optimization problem)
+  Constraints            : 570             
+  Cones                  : 6               
+  Scalar variables       : 265             
+  Matrix variables       : 2               
+  Integer variables      : 0               
+
+Optimizer  - threads                : 6               
+Optimizer  - solved problem         : the primal      
+Optimizer  - Constraints            : 202
+Optimizer  - Cones                  : 7
+Optimizer  - Scalar variables       : 177               conic                  : 55              
+Optimizer  - Semi-definite variables: 2                 scalarized             : 99              
+Factor     - setup time             : 0.00              dense det. time        : 0.00            
+Factor     - ML order time          : 0.00              GP order time          : 0.00            
+Factor     - nonzeros before factor : 1.35e+04          after factor           : 1.35e+04        
+Factor     - dense dim.             : 0                 flops                  : 1.61e+06        
+ITE PFEAS    DFEAS    GFEAS    PRSTATUS   POBJ              DOBJ              MU       TIME  
+0   1.3e+00  1.3e+00  1.1e+01  0.00e+00   4.967030394e+00   -4.830612010e+00  1.0e+00  0.02  
+1   4.9e-01  4.9e-01  3.4e+00  3.30e-01   3.023424211e+00   -1.916136311e+00  3.8e-01  0.02  
+2   1.9e-01  1.9e-01  9.2e-01  5.30e-01   1.552890133e+00   -6.812200624e-01  1.5e-01  0.02  
+3   6.6e-02  6.6e-02  2.0e-01  7.84e-01   2.267589492e+00   1.437351794e+00   5.1e-02  0.02  
+4   3.1e-02  3.1e-02  7.5e-02  7.47e-01   3.208060714e+00   2.766992770e+00   2.4e-02  0.03  
+5   8.8e-03  8.8e-03  9.0e-03  1.29e+00   4.097014795e+00   3.987815571e+00   6.8e-03  0.03  
+6   2.6e-03  2.6e-03  1.5e-03  1.14e+00   4.415760769e+00   4.385603857e+00   2.0e-03  0.03  
+7   1.2e-03  1.2e-03  4.6e-04  1.12e+00   4.448323079e+00   4.435118818e+00   9.2e-04  0.03  
+8   1.6e-04  1.6e-04  2.3e-05  1.02e+00   4.465546510e+00   4.463812550e+00   1.2e-04  0.03  
+9   3.3e-06  3.3e-06  6.6e-08  1.01e+00   4.471660263e+00   4.471624901e+00   2.5e-06  0.03  
+10  2.2e-07  2.2e-07  1.2e-09  1.00e+00   4.471768338e+00   4.471765905e+00   1.7e-07  0.03  
+11  2.8e-08  2.7e-08  5.0e-11  1.00e+00   4.471775446e+00   4.471775152e+00   2.1e-08  0.03  
+12  1.1e-08  8.4e-09  2.9e-12  1.00e+00   4.471776276e+00   4.471776232e+00   3.1e-09  0.03  
+Optimizer terminated. Time: 0.03    
+
+
+Interior-point solution summary
+  Problem status  : PRIMAL_AND_DUAL_FEASIBLE
+  Solution status : OPTIMAL
+  Primal.  obj: 4.4717762757e+00    nrm: 2e+00    Viol.  con: 2e-08    var: 0e+00    barvar: 0e+00    cones: 2e-09  
+  Dual.    obj: 4.4717762315e+00    nrm: 1e+01    Viol.  con: 0e+00    var: 5e-15    barvar: 1e-08    cones: 0e+00  
+################################## Optimal Experiment for 6 Runs ###################################
+Obtained on                             : 2023-01-26 15:39:29.967588
+Criterion                               : d_opt_criterion
+Criterion Value                         : -4.471776275717128
+Pseudo-bayesian                         : False
+CVaR Problem                            : False
+Dynamic                                 : False
+Time-invariant Controls                 : True
+Time-varying Controls                   : False
+Number of Candidates                    : 121
+Number of Optimal Candidates            : 9
+-------------------------------------------[Candidate 1]--------------------------------------------
+                           Recommended Apportionment: Run 1/6 Experiments                           
+Time-invariant Controls:
+[-1. -1.]
+-------------------------------------------[Candidate 6]--------------------------------------------
+                           Recommended Apportionment: Run 0/6 Experiments                           
+Time-invariant Controls:
+[-1.  0.]
+-------------------------------------------[Candidate 11]-------------------------------------------
+                           Recommended Apportionment: Run 1/6 Experiments                           
+Time-invariant Controls:
+[-1.  1.]
+-------------------------------------------[Candidate 56]-------------------------------------------
+                           Recommended Apportionment: Run 0/6 Experiments                           
+Time-invariant Controls:
+[ 0. -1.]
+-------------------------------------------[Candidate 61]-------------------------------------------
+                           Recommended Apportionment: Run 1/6 Experiments                           
+Time-invariant Controls:
+[0. 0.]
+-------------------------------------------[Candidate 66]-------------------------------------------
+                           Recommended Apportionment: Run 0/6 Experiments                           
+Time-invariant Controls:
+[0. 1.]
+------------------------------------------[Candidate 111]-------------------------------------------
+                           Recommended Apportionment: Run 1/6 Experiments                           
+Time-invariant Controls:
+[ 1. -1.]
+------------------------------------------[Candidate 116]-------------------------------------------
+                           Recommended Apportionment: Run 1/6 Experiments                           
+Time-invariant Controls:
+[1. 0.]
+------------------------------------------[Candidate 121]-------------------------------------------

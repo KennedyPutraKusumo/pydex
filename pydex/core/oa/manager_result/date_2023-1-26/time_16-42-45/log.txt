@@ -1,0 +1,1020 @@
+[WARNING]: because the error_cov is not given, Pydex defaults to the identity matrix of size 1x1.
+====================================================================================================
+Initialization complete: designer ready.
+----------------------------------------------------------------------------------------------------
+Number of model parameters              : 6
+Number of candidates                    : 121
+Number of responses                     : 1
+Number of measured responses            : 1
+Number of time-invariant controls       : 2
+Covariance of measured responses        : 
+ [[1.]]
+====================================================================================================
+############################### Computing Optimal Experiment Design ################################
+Started on                              : 2023-01-26 16:42:45.451319
+Criterion                               : d_opt_criterion
+Pseudo-bayesian                         : False
+Dynamic                                 : False
+Time-invariant Controls                 : True
+Time-varying Controls                   : False
+Number of Candidates                    : 121
+---------------------------------------[Sensitivity Analysis]---------------------------------------
+Use Finite Difference                   : True
+Richardson Extrapolation Steps          : 5
+Normalized by Parameter Values          : True
+----------------------------------------------------------------------------------------------------
+[Candidate     13/121]: time elapsed            0.10 seconds.
+[Candidate     26/121]: time elapsed            0.19 seconds.
+[Candidate     39/121]: time elapsed            0.28 seconds.
+[Candidate     52/121]: time elapsed            0.38 seconds.
+[Candidate     65/121]: time elapsed            0.47 seconds.
+[Candidate     78/121]: time elapsed            0.56 seconds.
+[Candidate     91/121]: time elapsed            0.65 seconds.
+[Candidate    104/121]: time elapsed            0.74 seconds.
+[Candidate    117/121]: time elapsed            0.83 seconds.
+[Candidate    121/121]: time elapsed            0.86 seconds.
+----------------------------------------------------------------------------------------------------
+
+
+Problem
+  Name                   :                 
+  Objective sense        : min             
+  Type                   : CONIC (conic optimization problem)
+  Constraints            : 570             
+  Cones                  : 6               
+  Scalar variables       : 265             
+  Matrix variables       : 2               
+  Integer variables      : 0               
+
+Optimizer started.
+Problem
+  Name                   :                 
+  Objective sense        : min             
+  Type                   : CONIC (conic optimization problem)
+  Constraints            : 570             
+  Cones                  : 6               
+  Scalar variables       : 265             
+  Matrix variables       : 2               
+  Integer variables      : 0               
+
+Optimizer  - threads                : 6               
+Optimizer  - solved problem         : the primal      
+Optimizer  - Constraints            : 202
+Optimizer  - Cones                  : 7
+Optimizer  - Scalar variables       : 177               conic                  : 55              
+Optimizer  - Semi-definite variables: 2                 scalarized             : 99              
+Factor     - setup time             : 0.00              dense det. time        : 0.00            
+Factor     - ML order time          : 0.00              GP order time          : 0.00            
+Factor     - nonzeros before factor : 1.35e+04          after factor           : 1.35e+04        
+Factor     - dense dim.             : 0                 flops                  : 1.61e+06        
+ITE PFEAS    DFEAS    GFEAS    PRSTATUS   POBJ              DOBJ              MU       TIME  
+0   1.3e+00  1.3e+00  1.1e+01  0.00e+00   4.967030394e+00   -4.830612010e+00  1.0e+00  0.00  
+1   4.9e-01  4.9e-01  3.4e+00  3.30e-01   3.023424211e+00   -1.916136311e+00  3.8e-01  0.00  
+2   1.9e-01  1.9e-01  9.2e-01  5.30e-01   1.552890133e+00   -6.812200624e-01  1.5e-01  0.02  
+3   6.6e-02  6.6e-02  2.0e-01  7.84e-01   2.267589492e+00   1.437351794e+00   5.1e-02  0.02  
+4   3.1e-02  3.1e-02  7.5e-02  7.47e-01   3.208060714e+00   2.766992770e+00   2.4e-02  0.02  
+5   8.8e-03  8.8e-03  9.0e-03  1.29e+00   4.097014795e+00   3.987815571e+00   6.8e-03  0.02  
+6   2.6e-03  2.6e-03  1.5e-03  1.14e+00   4.415760769e+00   4.385603857e+00   2.0e-03  0.02  
+7   1.2e-03  1.2e-03  4.6e-04  1.12e+00   4.448323079e+00   4.435118818e+00   9.2e-04  0.02  
+8   1.6e-04  1.6e-04  2.3e-05  1.02e+00   4.465546510e+00   4.463812550e+00   1.2e-04  0.02  
+9   3.3e-06  3.3e-06  6.6e-08  1.01e+00   4.471660263e+00   4.471624901e+00   2.5e-06  0.02  
+10  2.2e-07  2.2e-07  1.2e-09  1.00e+00   4.471768338e+00   4.471765905e+00   1.7e-07  0.02  
+11  2.8e-08  2.7e-08  5.0e-11  1.00e+00   4.471775446e+00   4.471775152e+00   2.1e-08  0.02  
+12  1.1e-08  8.4e-09  2.9e-12  1.00e+00   4.471776276e+00   4.471776232e+00   3.1e-09  0.02  
+Optimizer terminated. Time: 0.03    
+
+
+Interior-point solution summary
+  Problem status  : PRIMAL_AND_DUAL_FEASIBLE
+  Solution status : OPTIMAL
+  Primal.  obj: 4.4717762757e+00    nrm: 2e+00    Viol.  con: 2e-08    var: 0e+00    barvar: 0e+00    cones: 2e-09  
+  Dual.    obj: 4.4717762315e+00    nrm: 1e+01    Viol.  con: 0e+00    var: 5e-15    barvar: 1e-08    cones: 0e+00  
+################################## Optimal Experiment for 6 Runs ###################################
+Obtained on                             : 2023-01-26 16:42:47.063570
+Criterion                               : d_opt_criterion
+Criterion Value                         : -4.471776275717128
+Pseudo-bayesian                         : False
+CVaR Problem                            : False
+Dynamic                                 : False
+Time-invariant Controls                 : True
+Time-varying Controls                   : False
+Number of Candidates                    : 121
+Number of Optimal Candidates            : 9
+-------------------------------------------[Candidate 1]--------------------------------------------
+                           Recommended Apportionment: Run 1/6 Experiments                           
+Time-invariant Controls:
+[-1. -1.]
+-------------------------------------------[Candidate 6]--------------------------------------------
+                           Recommended Apportionment: Run 0/6 Experiments                           
+Time-invariant Controls:
+[-1.  0.]
+-------------------------------------------[Candidate 11]-------------------------------------------
+                           Recommended Apportionment: Run 1/6 Experiments                           
+Time-invariant Controls:
+[-1.  1.]
+-------------------------------------------[Candidate 56]-------------------------------------------
+                           Recommended Apportionment: Run 0/6 Experiments                           
+Time-invariant Controls:
+[ 0. -1.]
+-------------------------------------------[Candidate 61]-------------------------------------------
+                           Recommended Apportionment: Run 1/6 Experiments                           
+Time-invariant Controls:
+[0. 0.]
+-------------------------------------------[Candidate 66]-------------------------------------------
+                           Recommended Apportionment: Run 0/6 Experiments                           
+Time-invariant Controls:
+[0. 1.]
+------------------------------------------[Candidate 111]-------------------------------------------
+                           Recommended Apportionment: Run 1/6 Experiments                           
+Time-invariant Controls:
+[ 1. -1.]
+------------------------------------------[Candidate 116]-------------------------------------------
+                           Recommended Apportionment: Run 1/6 Experiments                           
+Time-invariant Controls:
+[1. 0.]
+------------------------------------------[Candidate 121]-------------------------------------------
+                           Recommended Apportionment: Run 1/6 Experiments                           
+Time-invariant Controls:
+[1. 1.]
+----------------------------------------------------------------------------------------------------
+The rounded design for 6 runs is guaranteed to be at least 0.00% as good as the continuous design.
+The actual criterion value of the rounded design is 88.49% as informative as the continuous design.
+####################################################################################################
+==========================================Iteration 0 Done==========================================
+Iteration 0 Upper bound: -5.5451774444795525
+Iteration 0 Tightest Upper bound: -5.5451774444795525
+Iteration 0 Lower bound: -inf
+Iteration 0 Tightest Lower bound: -inf
+Academic license - for non-commercial use only - expires 2023-09-29
+Using license file C:\Users\kenne\gurobi.lic
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+==========================================Iteration 1 Done==========================================
+Iteration 1 Upper bound: inf
+Iteration 1 Tightest Upper bound: -5.5451774444795525
+Iteration 1 Lower bound: -16.045177444479553
+Iteration 1 Tightest Lower bound: -16.045177444479553
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+==========================================Iteration 2 Done==========================================
+Iteration 2 Upper bound: inf
+Iteration 2 Tightest Upper bound: -5.5451774444795525
+Iteration 2 Lower bound: -16.045177444479553
+Iteration 2 Tightest Lower bound: -16.045177444479553
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+==========================================Iteration 3 Done==========================================
+Iteration 3 Upper bound: inf
+Iteration 3 Tightest Upper bound: -5.5451774444795525
+Iteration 3 Lower bound: -16.045177444479553
+Iteration 3 Tightest Lower bound: -16.045177444479553
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+==========================================Iteration 4 Done==========================================
+Iteration 4 Upper bound: inf
+Iteration 4 Tightest Upper bound: -5.5451774444795525
+Iteration 4 Lower bound: -15.984777444479574
+Iteration 4 Tightest Lower bound: -15.984777444479574
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+==========================================Iteration 5 Done==========================================
+Iteration 5 Upper bound: inf
+Iteration 5 Tightest Upper bound: -5.5451774444795525
+Iteration 5 Lower bound: -15.984777444479539
+Iteration 5 Tightest Lower bound: -15.984777444479539
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+==========================================Iteration 6 Done==========================================
+Iteration 6 Upper bound: inf
+Iteration 6 Tightest Upper bound: -5.5451774444795525
+Iteration 6 Lower bound: -15.984777444479574
+Iteration 6 Tightest Lower bound: -15.984777444479539
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+==========================================Iteration 7 Done==========================================
+Iteration 7 Upper bound: inf
+Iteration 7 Tightest Upper bound: -5.5451774444795525
+Iteration 7 Lower bound: -15.98477744447954
+Iteration 7 Tightest Lower bound: -15.984777444479539
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+==========================================Iteration 8 Done==========================================
+Iteration 8 Upper bound: inf
+Iteration 8 Tightest Upper bound: -5.5451774444795525
+Iteration 8 Lower bound: -15.92437744447956
+Iteration 8 Tightest Lower bound: -15.92437744447956
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+==========================================Iteration 9 Done==========================================
+Iteration 9 Upper bound: inf
+Iteration 9 Tightest Upper bound: -5.5451774444795525
+Iteration 9 Lower bound: -15.92437744447956
+Iteration 9 Tightest Lower bound: -15.92437744447956
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 10 Done==========================================
+Iteration 10 Upper bound: inf
+Iteration 10 Tightest Upper bound: -5.5451774444795525
+Iteration 10 Lower bound: -15.92437744447956
+Iteration 10 Tightest Lower bound: -15.92437744447956
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 11 Done==========================================
+Iteration 11 Upper bound: inf
+Iteration 11 Tightest Upper bound: -5.5451774444795525
+Iteration 11 Lower bound: -15.792777444479562
+Iteration 11 Tightest Lower bound: -15.792777444479562
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 12 Done==========================================
+Iteration 12 Upper bound: inf
+Iteration 12 Tightest Upper bound: -5.5451774444795525
+Iteration 12 Lower bound: -15.792777444479595
+Iteration 12 Tightest Lower bound: -15.792777444479562
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 13 Done==========================================
+Iteration 13 Upper bound: inf
+Iteration 13 Tightest Upper bound: -5.5451774444795525
+Iteration 13 Lower bound: -15.792777444479597
+Iteration 13 Tightest Lower bound: -15.792777444479562
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 14 Done==========================================
+Iteration 14 Upper bound: inf
+Iteration 14 Tightest Upper bound: -5.5451774444795525
+Iteration 14 Lower bound: -15.792777444479562
+Iteration 14 Tightest Lower bound: -15.792777444479562
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 15 Done==========================================
+Iteration 15 Upper bound: inf
+Iteration 15 Tightest Upper bound: -5.5451774444795525
+Iteration 15 Lower bound: -15.732377444479582
+Iteration 15 Tightest Lower bound: -15.732377444479582
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 16 Done==========================================
+Iteration 16 Upper bound: inf
+Iteration 16 Tightest Upper bound: -5.5451774444795525
+Iteration 16 Lower bound: -15.732377444479617
+Iteration 16 Tightest Lower bound: -15.732377444479582
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 17 Done==========================================
+Iteration 17 Upper bound: inf
+Iteration 17 Tightest Upper bound: -5.5451774444795525
+Iteration 17 Lower bound: -15.73237744447955
+Iteration 17 Tightest Lower bound: -15.73237744447955
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 18 Done==========================================
+Iteration 18 Upper bound: inf
+Iteration 18 Tightest Upper bound: -5.5451774444795525
+Iteration 18 Lower bound: -15.73237744447955
+Iteration 18 Tightest Lower bound: -15.73237744447955
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 19 Done==========================================
+Iteration 19 Upper bound: inf
+Iteration 19 Tightest Upper bound: -5.5451774444795525
+Iteration 19 Lower bound: -15.732377444479617
+Iteration 19 Tightest Lower bound: -15.73237744447955
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 20 Done==========================================
+Iteration 20 Upper bound: inf
+Iteration 20 Tightest Upper bound: -5.5451774444795525
+Iteration 20 Lower bound: -15.732377444479585
+Iteration 20 Tightest Lower bound: -15.73237744447955
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 21 Done==========================================
+Iteration 21 Upper bound: inf
+Iteration 21 Tightest Upper bound: -5.5451774444795525
+Iteration 21 Lower bound: -15.732377444479585
+Iteration 21 Tightest Lower bound: -15.73237744447955
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 22 Done==========================================
+Iteration 22 Upper bound: inf
+Iteration 22 Tightest Upper bound: -5.5451774444795525
+Iteration 22 Lower bound: -15.732377444479583
+Iteration 22 Tightest Lower bound: -15.73237744447955
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 23 Done==========================================
+Iteration 23 Upper bound: inf
+Iteration 23 Tightest Upper bound: -5.5451774444795525
+Iteration 23 Lower bound: -15.671977444479605
+Iteration 23 Tightest Lower bound: -15.671977444479605
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 24 Done==========================================
+Iteration 24 Upper bound: inf
+Iteration 24 Tightest Upper bound: -5.5451774444795525
+Iteration 24 Lower bound: -15.671977444479603
+Iteration 24 Tightest Lower bound: -15.671977444479603
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 25 Done==========================================
+Iteration 25 Upper bound: inf
+Iteration 25 Tightest Upper bound: -5.5451774444795525
+Iteration 25 Lower bound: -15.671977444479573
+Iteration 25 Tightest Lower bound: -15.671977444479573
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 26 Done==========================================
+Iteration 26 Upper bound: inf
+Iteration 26 Tightest Upper bound: -5.5451774444795525
+Iteration 26 Lower bound: -15.671977444479571
+Iteration 26 Tightest Lower bound: -15.671977444479571
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 27 Done==========================================
+Iteration 27 Upper bound: inf
+Iteration 27 Tightest Upper bound: -5.5451774444795525
+Iteration 27 Lower bound: -15.630777444479595
+Iteration 27 Tightest Lower bound: -15.630777444479595
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 28 Done==========================================
+Iteration 28 Upper bound: inf
+Iteration 28 Tightest Upper bound: -5.5451774444795525
+Iteration 28 Lower bound: -15.630777444479554
+Iteration 28 Tightest Lower bound: -15.630777444479554
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 29 Done==========================================
+Iteration 29 Upper bound: inf
+Iteration 29 Tightest Upper bound: -5.5451774444795525
+Iteration 29 Lower bound: -15.630777444479595
+Iteration 29 Tightest Lower bound: -15.630777444479554
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 30 Done==========================================
+Iteration 30 Upper bound: inf
+Iteration 30 Tightest Upper bound: -5.5451774444795525
+Iteration 30 Lower bound: -15.630777444479554
+Iteration 30 Tightest Lower bound: -15.630777444479554
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 31 Done==========================================
+Iteration 31 Upper bound: inf
+Iteration 31 Tightest Upper bound: -5.5451774444795525
+Iteration 31 Lower bound: -15.570377444479579
+Iteration 31 Tightest Lower bound: -15.570377444479579
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 32 Done==========================================
+Iteration 32 Upper bound: inf
+Iteration 32 Tightest Upper bound: -5.5451774444795525
+Iteration 32 Lower bound: -15.570377444479615
+Iteration 32 Tightest Lower bound: -15.570377444479579
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 33 Done==========================================
+Iteration 33 Upper bound: inf
+Iteration 33 Tightest Upper bound: -5.5451774444795525
+Iteration 33 Lower bound: -15.570377444479616
+Iteration 33 Tightest Lower bound: -15.570377444479579
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 34 Done==========================================
+Iteration 34 Upper bound: inf
+Iteration 34 Tightest Upper bound: -5.5451774444795525
+Iteration 34 Lower bound: -15.570377444479545
+Iteration 34 Tightest Lower bound: -15.570377444479545
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 35 Done==========================================
+Iteration 35 Upper bound: inf
+Iteration 35 Tightest Upper bound: -5.5451774444795525
+Iteration 35 Lower bound: -15.570377444479544
+Iteration 35 Tightest Lower bound: -15.570377444479544
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 36 Done==========================================
+Iteration 36 Upper bound: inf
+Iteration 36 Tightest Upper bound: -5.5451774444795525
+Iteration 36 Lower bound: -15.570377444479579
+Iteration 36 Tightest Lower bound: -15.570377444479544
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 37 Done==========================================
+Iteration 37 Upper bound: inf
+Iteration 37 Tightest Upper bound: -5.5451774444795525
+Iteration 37 Lower bound: -15.57037744447958
+Iteration 37 Tightest Lower bound: -15.570377444479544
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 38 Done==========================================
+Iteration 38 Upper bound: inf
+Iteration 38 Tightest Upper bound: -5.5451774444795525
+Iteration 38 Lower bound: -15.570377444479576
+Iteration 38 Tightest Lower bound: -15.570377444479544
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 39 Done==========================================
+Iteration 39 Upper bound: inf
+Iteration 39 Tightest Upper bound: -5.5451774444795525
+Iteration 39 Lower bound: -15.540377444480022
+Iteration 39 Tightest Lower bound: -15.540377444480022
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 40 Done==========================================
+Iteration 40 Upper bound: inf
+Iteration 40 Tightest Upper bound: -5.5451774444795525
+Iteration 40 Lower bound: -15.540377444479606
+Iteration 40 Tightest Lower bound: -15.540377444479606
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 41 Done==========================================
+Iteration 41 Upper bound: inf
+Iteration 41 Tightest Upper bound: -5.5451774444795525
+Iteration 41 Lower bound: -15.509977444479562
+Iteration 41 Tightest Lower bound: -15.509977444479562
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 42 Done==========================================
+Iteration 42 Upper bound: inf
+Iteration 42 Tightest Upper bound: -5.5451774444795525
+Iteration 42 Lower bound: -15.509977444479603
+Iteration 42 Tightest Lower bound: -15.509977444479562
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 43 Done==========================================
+Iteration 43 Upper bound: inf
+Iteration 43 Tightest Upper bound: -5.5451774444795525
+Iteration 43 Lower bound: -15.5099774444796
+Iteration 43 Tightest Lower bound: -15.509977444479562
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 44 Done==========================================
+Iteration 44 Upper bound: inf
+Iteration 44 Tightest Upper bound: -5.5451774444795525
+Iteration 44 Lower bound: -15.47997744447959
+Iteration 44 Tightest Lower bound: -15.47997744447959
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 45 Done==========================================
+Iteration 45 Upper bound: inf
+Iteration 45 Tightest Upper bound: -5.5451774444795525
+Iteration 45 Lower bound: -15.479977444479662
+Iteration 45 Tightest Lower bound: -15.47997744447959
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 46 Done==========================================
+Iteration 46 Upper bound: inf
+Iteration 46 Tightest Upper bound: -5.5451774444795525
+Iteration 46 Lower bound: -15.479977444479609
+Iteration 46 Tightest Lower bound: -15.47997744447959
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 47 Done==========================================
+Iteration 47 Upper bound: inf
+Iteration 47 Tightest Upper bound: -5.5451774444795525
+Iteration 47 Lower bound: -15.479977444479628
+Iteration 47 Tightest Lower bound: -15.47997744447959
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 48 Done==========================================
+Iteration 48 Upper bound: inf
+Iteration 48 Tightest Upper bound: -5.5451774444795525
+Iteration 48 Lower bound: -15.419577444479614
+Iteration 48 Tightest Lower bound: -15.419577444479614
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 49 Done==========================================
+Iteration 49 Upper bound: inf
+Iteration 49 Tightest Upper bound: -5.5451774444795525
+Iteration 49 Lower bound: -15.37837744448013
+Iteration 49 Tightest Lower bound: -15.37837744448013
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 50 Done==========================================
+Iteration 50 Upper bound: inf
+Iteration 50 Tightest Upper bound: -5.5451774444795525
+Iteration 50 Lower bound: -15.37837744448015
+Iteration 50 Tightest Lower bound: -15.37837744448013
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 51 Done==========================================
+Iteration 51 Upper bound: inf
+Iteration 51 Tightest Upper bound: -5.5451774444795525
+Iteration 51 Lower bound: -15.378377444479636
+Iteration 51 Tightest Lower bound: -15.378377444479636
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 52 Done==========================================
+Iteration 52 Upper bound: inf
+Iteration 52 Tightest Upper bound: -5.5451774444795525
+Iteration 52 Lower bound: -15.378377444479618
+Iteration 52 Tightest Lower bound: -15.378377444479618
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 53 Done==========================================
+Iteration 53 Upper bound: inf
+Iteration 53 Tightest Upper bound: -5.5451774444795525
+Iteration 53 Lower bound: -15.37837744447962
+Iteration 53 Tightest Lower bound: -15.378377444479618
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 54 Done==========================================
+Iteration 54 Upper bound: inf
+Iteration 54 Tightest Upper bound: -5.5451774444795525
+Iteration 54 Lower bound: -15.378377444479636
+Iteration 54 Tightest Lower bound: -15.378377444479618
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 55 Done==========================================
+Iteration 55 Upper bound: inf
+Iteration 55 Tightest Upper bound: -5.5451774444795525
+Iteration 55 Lower bound: -15.378377444479597
+Iteration 55 Tightest Lower bound: -15.378377444479597
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 56 Done==========================================
+Iteration 56 Upper bound: inf
+Iteration 56 Tightest Upper bound: -5.5451774444795525
+Iteration 56 Lower bound: -15.378377444479565
+Iteration 56 Tightest Lower bound: -15.378377444479565
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 57 Done==========================================
+Iteration 57 Upper bound: inf
+Iteration 57 Tightest Upper bound: -5.5451774444795525
+Iteration 57 Lower bound: -15.317977444479624
+Iteration 57 Tightest Lower bound: -15.317977444479624
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 58 Done==========================================
+Iteration 58 Upper bound: inf
+Iteration 58 Tightest Upper bound: -5.5451774444795525
+Iteration 58 Lower bound: -15.317977444479624
+Iteration 58 Tightest Lower bound: -15.317977444479624
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 59 Done==========================================
+Iteration 59 Upper bound: inf
+Iteration 59 Tightest Upper bound: -5.5451774444795525
+Iteration 59 Lower bound: -15.31797744447966
+Iteration 59 Tightest Lower bound: -15.317977444479624
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 60 Done==========================================
+Iteration 60 Upper bound: inf
+Iteration 60 Tightest Upper bound: -5.5451774444795525
+Iteration 60 Lower bound: -15.31797744447966
+Iteration 60 Tightest Lower bound: -15.317977444479624
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 61 Done==========================================
+Iteration 61 Upper bound: inf
+Iteration 61 Tightest Upper bound: -5.5451774444795525
+Iteration 61 Lower bound: -15.317977444479618
+Iteration 61 Tightest Lower bound: -15.317977444479618
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 62 Done==========================================
+Iteration 62 Upper bound: inf
+Iteration 62 Tightest Upper bound: -5.5451774444795525
+Iteration 62 Lower bound: -15.317977444479618
+Iteration 62 Tightest Lower bound: -15.317977444479618
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 63 Done==========================================
+Iteration 63 Upper bound: inf
+Iteration 63 Tightest Upper bound: -5.5451774444795525
+Iteration 63 Lower bound: -15.317977444479626
+Iteration 63 Tightest Lower bound: -15.317977444479618
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 64 Done==========================================
+Iteration 64 Upper bound: inf
+Iteration 64 Tightest Upper bound: -5.5451774444795525
+Iteration 64 Lower bound: -15.317977444479627
+Iteration 64 Tightest Lower bound: -15.317977444479618
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 65 Done==========================================
+Iteration 65 Upper bound: inf
+Iteration 65 Tightest Upper bound: -5.5451774444795525
+Iteration 65 Lower bound: -15.317977444479551
+Iteration 65 Tightest Lower bound: -15.317977444479551
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 66 Done==========================================
+Iteration 66 Upper bound: inf
+Iteration 66 Tightest Upper bound: -5.5451774444795525
+Iteration 66 Lower bound: -15.317977444479551
+Iteration 66 Tightest Lower bound: -15.317977444479551
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 67 Done==========================================
+Iteration 67 Upper bound: inf
+Iteration 67 Tightest Upper bound: -5.5451774444795525
+Iteration 67 Lower bound: -15.317977444479585
+Iteration 67 Tightest Lower bound: -15.317977444479551
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 68 Done==========================================
+Iteration 68 Upper bound: inf
+Iteration 68 Tightest Upper bound: -5.5451774444795525
+Iteration 68 Lower bound: -15.317977444479585
+Iteration 68 Tightest Lower bound: -15.317977444479551
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 69 Done==========================================
+Iteration 69 Upper bound: inf
+Iteration 69 Tightest Upper bound: -5.5451774444795525
+Iteration 69 Lower bound: -15.317977444479624
+Iteration 69 Tightest Lower bound: -15.317977444479551
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 70 Done==========================================
+Iteration 70 Upper bound: inf
+Iteration 70 Tightest Upper bound: -5.5451774444795525
+Iteration 70 Lower bound: -15.317977444479624
+Iteration 70 Tightest Lower bound: -15.317977444479551
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 71 Done==========================================
+Iteration 71 Upper bound: inf
+Iteration 71 Tightest Upper bound: -5.5451774444795525
+Iteration 71 Lower bound: -15.317977444479583
+Iteration 71 Tightest Lower bound: -15.317977444479551
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 72 Done==========================================
+Iteration 72 Upper bound: inf
+Iteration 72 Tightest Upper bound: -5.5451774444795525
+Iteration 72 Lower bound: -15.317977444479583
+Iteration 72 Tightest Lower bound: -15.317977444479551
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 73 Done==========================================
+Iteration 73 Upper bound: inf
+Iteration 73 Tightest Upper bound: -5.5451774444795525
+Iteration 73 Lower bound: -15.295177444479553
+Iteration 73 Tightest Lower bound: -15.295177444479553
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 74 Done==========================================
+Iteration 74 Upper bound: inf
+Iteration 74 Tightest Upper bound: -5.5451774444795525
+Iteration 74 Lower bound: -15.295177444479553
+Iteration 74 Tightest Lower bound: -15.295177444479553
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 75 Done==========================================
+Iteration 75 Upper bound: inf
+Iteration 75 Tightest Upper bound: -5.5451774444795525
+Iteration 75 Lower bound: -15.294777444479553
+Iteration 75 Tightest Lower bound: -15.294777444479553
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 76 Done==========================================
+Iteration 76 Upper bound: inf
+Iteration 76 Tightest Upper bound: -5.5451774444795525
+Iteration 76 Lower bound: -15.294777444479513
+Iteration 76 Tightest Lower bound: -15.294777444479513
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 77 Done==========================================
+Iteration 77 Upper bound: inf
+Iteration 77 Tightest Upper bound: -5.5451774444795525
+Iteration 77 Lower bound: -15.294777444479553
+Iteration 77 Tightest Lower bound: -15.294777444479513
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 78 Done==========================================
+Iteration 78 Upper bound: inf
+Iteration 78 Tightest Upper bound: -5.5451774444795525
+Iteration 78 Lower bound: -15.294777444479552
+Iteration 78 Tightest Lower bound: -15.294777444479513
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 79 Done==========================================
+Iteration 79 Upper bound: inf
+Iteration 79 Tightest Upper bound: -5.5451774444795525
+Iteration 79 Lower bound: -15.257577444479612
+Iteration 79 Tightest Lower bound: -15.257577444479612
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 80 Done==========================================
+Iteration 80 Upper bound: inf
+Iteration 80 Tightest Upper bound: -5.5451774444795525
+Iteration 80 Lower bound: -15.257577444479644
+Iteration 80 Tightest Lower bound: -15.257577444479612
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 81 Done==========================================
+Iteration 81 Upper bound: inf
+Iteration 81 Tightest Upper bound: -5.5451774444795525
+Iteration 81 Lower bound: -15.257577444479573
+Iteration 81 Tightest Lower bound: -15.257577444479573
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 82 Done==========================================
+Iteration 82 Upper bound: inf
+Iteration 82 Tightest Upper bound: -5.5451774444795525
+Iteration 82 Lower bound: -15.257577444479645
+Iteration 82 Tightest Lower bound: -15.257577444479573
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 83 Done==========================================
+Iteration 83 Upper bound: inf
+Iteration 83 Tightest Upper bound: -5.5451774444795525
+Iteration 83 Lower bound: -15.257577444479605
+Iteration 83 Tightest Lower bound: -15.257577444479573
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 84 Done==========================================
+Iteration 84 Upper bound: inf
+Iteration 84 Tightest Upper bound: -5.5451774444795525
+Iteration 84 Lower bound: -15.257577444479924
+Iteration 84 Tightest Lower bound: -15.257577444479573
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 85 Done==========================================
+Iteration 85 Upper bound: inf
+Iteration 85 Tightest Upper bound: -5.5451774444795525
+Iteration 85 Lower bound: -15.257577444479644
+Iteration 85 Tightest Lower bound: -15.257577444479573
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 86 Done==========================================
+Iteration 86 Upper bound: inf
+Iteration 86 Tightest Upper bound: -5.5451774444795525
+Iteration 86 Lower bound: -15.257577444479967
+Iteration 86 Tightest Lower bound: -15.257577444479573
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 87 Done==========================================
+Iteration 87 Upper bound: inf
+Iteration 87 Tightest Upper bound: -5.5451774444795525
+Iteration 87 Lower bound: -15.234777444479539
+Iteration 87 Tightest Lower bound: -15.234777444479539
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 88 Done==========================================
+Iteration 88 Upper bound: inf
+Iteration 88 Tightest Upper bound: -5.5451774444795525
+Iteration 88 Lower bound: -15.234777444479539
+Iteration 88 Tightest Lower bound: -15.234777444479539
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 89 Done==========================================
+Iteration 89 Upper bound: inf
+Iteration 89 Tightest Upper bound: -5.5451774444795525
+Iteration 89 Lower bound: -15.234777444479574
+Iteration 89 Tightest Lower bound: -15.234777444479539
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 90 Done==========================================
+Iteration 90 Upper bound: inf
+Iteration 90 Tightest Upper bound: -5.5451774444795525
+Iteration 90 Lower bound: -15.234777444479574
+Iteration 90 Tightest Lower bound: -15.234777444479539
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 91 Done==========================================
+Iteration 91 Upper bound: inf
+Iteration 91 Tightest Upper bound: -5.5451774444795525
+Iteration 91 Lower bound: -15.234377444479534
+Iteration 91 Tightest Lower bound: -15.234377444479534
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 92 Done==========================================
+Iteration 92 Upper bound: inf
+Iteration 92 Tightest Upper bound: -5.5451774444795525
+Iteration 92 Lower bound: -15.234377444479534
+Iteration 92 Tightest Lower bound: -15.234377444479534
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 93 Done==========================================
+Iteration 93 Upper bound: inf
+Iteration 93 Tightest Upper bound: -5.5451774444795525
+Iteration 93 Lower bound: -15.234377444479575
+Iteration 93 Tightest Lower bound: -15.234377444479534
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 94 Done==========================================
+Iteration 94 Upper bound: inf
+Iteration 94 Tightest Upper bound: -5.5451774444795525
+Iteration 94 Lower bound: -15.234377444479575
+Iteration 94 Tightest Lower bound: -15.234377444479534
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 95 Done==========================================
+Iteration 95 Upper bound: inf
+Iteration 95 Tightest Upper bound: -5.5451774444795525
+Iteration 95 Lower bound: -15.23437744447954
+Iteration 95 Tightest Lower bound: -15.234377444479534
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 96 Done==========================================
+Iteration 96 Upper bound: inf
+Iteration 96 Tightest Upper bound: -5.5451774444795525
+Iteration 96 Lower bound: -15.23437744447954
+Iteration 96 Tightest Lower bound: -15.234377444479534
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 97 Done==========================================
+Iteration 97 Upper bound: inf
+Iteration 97 Tightest Upper bound: -5.5451774444795525
+Iteration 97 Lower bound: -15.234377444479504
+Iteration 97 Tightest Lower bound: -15.234377444479504
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 98 Done==========================================
+Iteration 98 Upper bound: inf
+Iteration 98 Tightest Upper bound: -5.5451774444795525
+Iteration 98 Lower bound: -15.234377444479499
+Iteration 98 Tightest Lower bound: -15.234377444479499
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 99 Done==========================================
+Iteration 99 Upper bound: inf
+Iteration 99 Tightest Upper bound: -5.5451774444795525
+Iteration 99 Lower bound: -15.216377444479594
+Iteration 99 Tightest Lower bound: -15.216377444479594
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 100 Done=========================================
+Iteration 100 Upper bound: inf
+Iteration 100 Tightest Upper bound: -5.5451774444795525
+Iteration 100 Lower bound: -15.216377444479594
+Iteration 100 Tightest Lower bound: -15.216377444479594
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 101 Done=========================================
+Iteration 101 Upper bound: inf
+Iteration 101 Tightest Upper bound: -5.5451774444795525
+Iteration 101 Lower bound: -15.197577444479544
+Iteration 101 Tightest Lower bound: -15.197577444479544
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 102 Done=========================================
+Iteration 102 Upper bound: inf
+Iteration 102 Tightest Upper bound: -5.5451774444795525
+Iteration 102 Lower bound: -15.197577444479554
+Iteration 102 Tightest Lower bound: -15.197577444479544
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 103 Done=========================================
+Iteration 103 Upper bound: inf
+Iteration 103 Tightest Upper bound: -5.5451774444795525
+Iteration 103 Lower bound: -15.197577444479554
+Iteration 103 Tightest Lower bound: -15.197577444479544
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 104 Done=========================================
+Iteration 104 Upper bound: inf
+Iteration 104 Tightest Upper bound: -5.5451774444795525
+Iteration 104 Lower bound: -15.197577444479544
+Iteration 104 Tightest Lower bound: -15.197577444479544
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 105 Done=========================================
+Iteration 105 Upper bound: inf
+Iteration 105 Tightest Upper bound: -5.5451774444795525
+Iteration 105 Lower bound: -15.197577444479554
+Iteration 105 Tightest Lower bound: -15.197577444479544
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 106 Done=========================================
+Iteration 106 Upper bound: inf
+Iteration 106 Tightest Upper bound: -5.5451774444795525
+Iteration 106 Lower bound: -15.174377444479562
+Iteration 106 Tightest Lower bound: -15.174377444479562
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 107 Done=========================================
+Iteration 107 Upper bound: inf
+Iteration 107 Tightest Upper bound: -5.5451774444795525
+Iteration 107 Lower bound: -15.174377444479559
+Iteration 107 Tightest Lower bound: -15.174377444479559
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 108 Done=========================================
+Iteration 108 Upper bound: inf
+Iteration 108 Tightest Upper bound: -5.5451774444795525
+Iteration 108 Lower bound: -15.173977444479563
+Iteration 108 Tightest Lower bound: -15.173977444479563
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 109 Done=========================================
+Iteration 109 Upper bound: inf
+Iteration 109 Tightest Upper bound: -5.5451774444795525
+Iteration 109 Lower bound: -15.173977444479522
+Iteration 109 Tightest Lower bound: -15.173977444479522
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 110 Done=========================================
+Iteration 110 Upper bound: inf
+Iteration 110 Tightest Upper bound: -5.5451774444795525
+Iteration 110 Lower bound: -15.173977444479522
+Iteration 110 Tightest Lower bound: -15.173977444479522
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 111 Done=========================================
+Iteration 111 Upper bound: inf
+Iteration 111 Tightest Upper bound: -5.5451774444795525
+Iteration 111 Lower bound: -15.173977444479565
+Iteration 111 Tightest Lower bound: -15.173977444479522
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 112 Done=========================================
+Iteration 112 Upper bound: inf
+Iteration 112 Tightest Upper bound: -5.5451774444795525
+Iteration 112 Lower bound: -15.155977444479616
+Iteration 112 Tightest Lower bound: -15.155977444479616
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 113 Done=========================================
+Iteration 113 Upper bound: inf
+Iteration 113 Tightest Upper bound: -5.5451774444795525
+Iteration 113 Lower bound: -15.155977444479616
+Iteration 113 Tightest Lower bound: -15.155977444479616
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 114 Done=========================================
+Iteration 114 Upper bound: inf
+Iteration 114 Tightest Upper bound: -5.5451774444795525
+Iteration 114 Lower bound: -15.155977444479616
+Iteration 114 Tightest Lower bound: -15.155977444479616
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 115 Done=========================================
+Iteration 115 Upper bound: inf
+Iteration 115 Tightest Upper bound: -5.5451774444795525
+Iteration 115 Lower bound: -15.155977444479616
+Iteration 115 Tightest Lower bound: -15.155977444479616
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 116 Done=========================================
+Iteration 116 Upper bound: inf
+Iteration 116 Tightest Upper bound: -5.5451774444795525
+Iteration 116 Lower bound: -15.137177444479576
+Iteration 116 Tightest Lower bound: -15.137177444479576
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 117 Done=========================================
+Iteration 117 Upper bound: inf
+Iteration 117 Tightest Upper bound: -5.5451774444795525
+Iteration 117 Lower bound: -15.13717744447953
+Iteration 117 Tightest Lower bound: -15.13717744447953
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 118 Done=========================================
+Iteration 118 Upper bound: inf
+Iteration 118 Tightest Upper bound: -5.5451774444795525
+Iteration 118 Lower bound: -15.13717744447954
+Iteration 118 Tightest Lower bound: -15.13717744447953
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 119 Done=========================================
+Iteration 119 Upper bound: inf
+Iteration 119 Tightest Upper bound: -5.5451774444795525
+Iteration 119 Lower bound: -15.137177444479532
+Iteration 119 Tightest Lower bound: -15.13717744447953
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 120 Done=========================================
+Iteration 120 Upper bound: inf
+Iteration 120 Tightest Upper bound: -5.5451774444795525
+Iteration 120 Lower bound: -15.13717744447957
+Iteration 120 Tightest Lower bound: -15.13717744447953
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 121 Done=========================================
+Iteration 121 Upper bound: inf
+Iteration 121 Tightest Upper bound: -5.5451774444795525
+Iteration 121 Lower bound: -15.137177444479565
+Iteration 121 Tightest Lower bound: -15.13717744447953
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 122 Done=========================================
+Iteration 122 Upper bound: inf
+Iteration 122 Tightest Upper bound: -5.5451774444795525
+Iteration 122 Lower bound: -15.137177444479565
+Iteration 122 Tightest Lower bound: -15.13717744447953
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 123 Done=========================================
+Iteration 123 Upper bound: inf
+Iteration 123 Tightest Upper bound: -5.5451774444795525
+Iteration 123 Lower bound: -15.13717744447954
+Iteration 123 Tightest Lower bound: -15.13717744447953
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 124 Done=========================================
+Iteration 124 Upper bound: inf
+Iteration 124 Tightest Upper bound: -5.5451774444795525
+Iteration 124 Lower bound: -15.125977444480075
+Iteration 124 Tightest Lower bound: -15.125977444480075
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 125 Done=========================================
+Iteration 125 Upper bound: inf
+Iteration 125 Tightest Upper bound: -5.5451774444795525
+Iteration 125 Lower bound: -15.125977444479606
+Iteration 125 Tightest Lower bound: -15.125977444479606
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 126 Done=========================================
+Iteration 126 Upper bound: inf
+Iteration 126 Tightest Upper bound: -5.5451774444795525
+Iteration 126 Lower bound: -15.125977444479648
+Iteration 126 Tightest Lower bound: -15.125977444479606
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 127 Done=========================================
+Iteration 127 Upper bound: inf
+Iteration 127 Tightest Upper bound: -5.5451774444795525
+Iteration 127 Lower bound: -15.125977444479648
+Iteration 127 Tightest Lower bound: -15.125977444479606
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 128 Done=========================================
+Iteration 128 Upper bound: inf
+Iteration 128 Tightest Upper bound: -5.5451774444795525
+Iteration 128 Lower bound: -15.095577444479602
+Iteration 128 Tightest Lower bound: -15.095577444479602
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 129 Done=========================================
+Iteration 129 Upper bound: inf
+Iteration 129 Tightest Upper bound: -5.5451774444795525
+Iteration 129 Lower bound: -15.095577444479604
+Iteration 129 Tightest Lower bound: -15.095577444479602
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 130 Done=========================================
+Iteration 130 Upper bound: inf
+Iteration 130 Tightest Upper bound: -5.5451774444795525
+Iteration 130 Lower bound: -15.088777444479538
+Iteration 130 Tightest Lower bound: -15.088777444479538
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 131 Done=========================================
+Iteration 131 Upper bound: inf
+Iteration 131 Tightest Upper bound: -5.5451774444795525
+Iteration 131 Lower bound: -15.08877744447953
+Iteration 131 Tightest Lower bound: -15.08877744447953
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 132 Done=========================================
+Iteration 132 Upper bound: inf
+Iteration 132 Tightest Upper bound: -5.5451774444795525
+Iteration 132 Lower bound: -15.088777444479529
+Iteration 132 Tightest Lower bound: -15.088777444479529
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 133 Done=========================================
+Iteration 133 Upper bound: inf
+Iteration 133 Tightest Upper bound: -5.5451774444795525
+Iteration 133 Lower bound: -15.088777444479538
+Iteration 133 Tightest Lower bound: -15.088777444479529
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 134 Done=========================================
+Iteration 134 Upper bound: inf
+Iteration 134 Tightest Upper bound: -5.5451774444795525
+Iteration 134 Lower bound: -15.07677744447956
+Iteration 134 Tightest Lower bound: -15.07677744447956
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 135 Done=========================================
+Iteration 135 Upper bound: inf
+Iteration 135 Tightest Upper bound: -5.5451774444795525
+Iteration 135 Lower bound: -15.076777444479562
+Iteration 135 Tightest Lower bound: -15.07677744447956
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 136 Done=========================================
+Iteration 136 Upper bound: inf
+Iteration 136 Tightest Upper bound: -5.5451774444795525
+Iteration 136 Lower bound: -15.07677744447955
+Iteration 136 Tightest Lower bound: -15.07677744447955
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 137 Done=========================================
+Iteration 137 Upper bound: inf
+Iteration 137 Tightest Upper bound: -5.5451774444795525
+Iteration 137 Lower bound: -15.076777444479548
+Iteration 137 Tightest Lower bound: -15.076777444479548
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 138 Done=========================================
+Iteration 138 Upper bound: inf
+Iteration 138 Tightest Upper bound: -5.5451774444795525
+Iteration 138 Lower bound: -15.069577444479558
+Iteration 138 Tightest Lower bound: -15.069577444479558
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 139 Done=========================================
+Iteration 139 Upper bound: inf
+Iteration 139 Tightest Upper bound: -5.5451774444795525
+Iteration 139 Lower bound: -15.069577444479568
+Iteration 139 Tightest Lower bound: -15.069577444479558
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 140 Done=========================================
+Iteration 140 Upper bound: inf
+Iteration 140 Tightest Upper bound: -5.5451774444795525
+Iteration 140 Lower bound: -15.069577444479558
+Iteration 140 Tightest Lower bound: -15.069577444479558
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 141 Done=========================================
+Iteration 141 Upper bound: inf
+Iteration 141 Tightest Upper bound: -5.5451774444795525
+Iteration 141 Lower bound: -15.069577444479568
+Iteration 141 Tightest Lower bound: -15.069577444479558
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 142 Done=========================================
+Iteration 142 Upper bound: inf
+Iteration 142 Tightest Upper bound: -5.5451774444795525
+Iteration 142 Lower bound: -15.0655774444804
+Iteration 142 Tightest Lower bound: -15.0655774444804
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 143 Done=========================================
+Iteration 143 Upper bound: inf
+Iteration 143 Tightest Upper bound: -5.5451774444795525
+Iteration 143 Lower bound: -15.065577444480436
+Iteration 143 Tightest Lower bound: -15.0655774444804
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 144 Done=========================================
+Iteration 144 Upper bound: inf
+Iteration 144 Tightest Upper bound: -5.5451774444795525
+Iteration 144 Lower bound: -15.065577444480407
+Iteration 144 Tightest Lower bound: -15.0655774444804
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=========================================Iteration 145 Done=========================================
+Iteration 145 Upper bound: inf
+Iteration 145 Tightest Upper bound: -5.5451774444795525
+Iteration 145 Lower bound: -15.065577444479633
+Iteration 145 Tightest Lower bound: -15.065577444479633
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
