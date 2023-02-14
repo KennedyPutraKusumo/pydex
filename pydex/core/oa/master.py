@@ -9,6 +9,7 @@ class OAMasterProblem:
         self.objective = None
         self.efforts = None
         self.constraints = None
+        self.solver = None
 
         self.n_gomory_cuts = None
         self.gomory_cuts = None
@@ -49,4 +50,4 @@ class OAMasterProblem:
 
     def solve(self):
         self.cvxpy_problem = cp.Problem(self.objective, self.constraints)
-        self.cvxpy_problem.solve(verbose=False, solver=cp.GUROBI)
+        self.cvxpy_problem.solve(verbose=False, solver=self.solver)

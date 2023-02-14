@@ -281,6 +281,10 @@ class Designer:
         self._save_txt_fmt = '% 7.3e'
         self._save_atomics = False
 
+        """ discrete design options """
+        self._discrete_design_solver = None
+        self._MIP_solver = None
+
     @property
     def model_parameters(self):
         return self._model_parameters
@@ -1413,8 +1417,9 @@ class Designer:
                           unconstrained_form=False, trim_fim=False,
                           pseudo_bayesian_type=None, regularize_fim=False, beta=0.90,
                           min_expected_value=None, fix_effort=None, save_atomics=False,
-                          discrete_design_solver="OA",
-                          **kwargs):
+                          discrete_design_solver=None, assess_potential_gain=False,
+                          atol=None, rtol=1e-3, draw_progress=True, singular_tol=None,
+                          max_iters=1e5, MIP_solver=None, **kwargs):
         # storing user choices
         self._regularize_fim = regularize_fim
         self._optimization_package = package
@@ -1534,6 +1539,12 @@ class Designer:
                 self._unconstrained_form = False
                 print("Warning: unconstrained form is not supported by cvxpy; "
                       "continuing normally with constrained form.")
+
+        """ Settings for discrete designs """
+        if self._discrete_design:
+            if discrete_design_solver is None:
+                self._discrete_design_solver = "OA"
+                self._MIP_solver = "GUROBI"
 
         """ main codes """
         if self._verbose >= 1:
@@ -1679,22 +1690,34 @@ class Designer:
                     solver=self._optimizer,
                     **kwargs
                 )
+                self.efforts, ced_efforts = self.efforts.value, self.efforts.value * n_exp
+                ced_obj = self.compute_criterion_value(criterion, ced_efforts)
                 self._criterion_value = opt_fun
-                self.efforts, ced_efforts = self.efforts.value, self.efforts.value
                 self.apportion(n_exp)
+                # old_verbosity = np.copy(self._verbose)
+                # self._verbose = 0
+                # self._verbose = old_verbosity
                 self.optimal_candidates = None  # clean optimal candidates after apportionment
                 apportioned_obj = criterion(self.non_trimmed_apportionments).value
                 oasolver = OAManager(criterion, self.eval_fim)
                 oasolver.sensitivities = self.sensitivities
-                opt_fun = oasolver.solve(
+                oasolver.atomics = self.atomic_fims
+                opt_fun = -oasolver.solve(
                     n_exp=n_exp,
                     y0=self.non_trimmed_apportionments,
                     ced_efforts=ced_efforts,
-                    ced_obj=opt_fun,
+                    ced_obj=ced_obj,
                     apportioned_effort=self.non_trimmed_apportionments,
                     apportioned_obj_val=apportioned_obj,
+                    rtol=rtol,
+                    atol=atol,
+                    assess_potential_oa_gain=assess_potential_gain,
+                    draw_progress=draw_progress,
+                    max_iters=max_iters,
+                    singular_tol=singular_tol,
+                    MIP_solver=MIP_solver,
                 )
-                self.efforts = oasolver.yk[oasolver.iteration_no]
+                self.efforts = oasolver.final_effort
             else:
                 opt_fun = problem.solve(
                     verbose=opt_verbose,
@@ -2030,12 +2053,61 @@ class Designer:
                 "methods used in electoral college apportionments."
             )
 
+        """ Computing and Reporting Rounding Efficiency """
+        self.epsilon = self._eval_efficiency_bound(
+            self.apportionments / n_exp,
+            self.opt_eff,
+        )
+
+        """ 
+        =============================================================================
+        Computing actual efficiency 
+        =============================================================================
+        the rounding efficiency above is computed using efforts that excludes
+        experimental candidates with non-zero efforts i.e., only supports
+        to compute actual efficiency, non_trimmed_apportionment is required
+        i.e., need candidates with zero efforts too.
+        """
+        # initialize the non_trimmed_apportionments
+        self.non_trimmed_apportionments = np.zeros_like(self.efforts)
+        for opt_c, app_c in zip(self.optimal_candidates, self.apportionments):
+            opt_idx = opt_c[0]
+            opt_spt = opt_c[5]
+            if isinstance(app_c, float):
+                self.non_trimmed_apportionments[opt_idx, opt_spt] = app_c
+            else:
+                for spt, app in zip(opt_spt, app_c):
+                    self.non_trimmed_apportionments[opt_idx, spt] = app
+        # # normalized to non_trimmed_rounded_efforts
+        # non_trimmed_rounded_efforts = self.non_trimmed_apportionments / np.sum(self.non_trimmed_apportionments)
+        non_trimmed_rounded_efforts = self.non_trimmed_apportionments
+        self._criterion_value = -getattr(self, self._current_criterion)(self.efforts * n_exp).value
+        if compute_actual_efficiency:
+            _original_efforts = np.copy(self.efforts)
+            try:
+                self.rounded_criterion_value = getattr(self, self._current_criterion)(non_trimmed_rounded_efforts).value
+            except AttributeError:
+                self.rounded_criterion_value = getattr(self, self._current_criterion)(non_trimmed_rounded_efforts)
+            if self._current_criterion == "d_opt_criterion":
+                efficiency = np.exp(1 / self.n_mp * (-self.rounded_criterion_value - self._criterion_value))
+            elif self._current_criterion == "a_opt_criterion":
+                efficiency = -self._criterion_value / self.rounded_criterion_value
+            elif self._current_criterion == "e_opt_criterion":
+                efficiency = -self.rounded_criterion_value / self._criterion_value
+            self.efforts = _original_efforts
+            efficiency = np.squeeze(efficiency)
+            print(f"{'':#^100}")
+        if not trimmed:
+            self.apportionments = self.non_trimmed_apportionments
+        self._save_atomics = _original_save_atomics
+
         """ Report the obtained apportionment """
         if self._verbose >= 1:
             print(f" Optimal Experiment for {n_exp:d} Runs ".center(100, "#"))
             print(f"{'Obtained on':<40}: {datetime.now()}")
-            print(f"{'Criterion':<40}: {self._current_criterion}")
-            print(f"{'Criterion Value':<40}: {self._criterion_value}")
+            print(f"{'Criterion (higher is better)':<40}: {self._current_criterion}")
+            print(f"{f'Criterion Value with sum(efforts) = {self.n_exp:d}':<40}: {self._criterion_value}")
+            print(f"{f'Rounded Criterion with sum(efforts) = {self.n_exp:d}':<40}: {-self.rounded_criterion_value}")
             print(f"{'Pseudo-bayesian':<40}: {self._pseudo_bayesian}")
             if self._pseudo_bayesian:
                 print(f"{'Pseudo-bayesian Criterion Type':<40}: {self._pseudo_bayesian_type}")
@@ -2087,65 +2159,15 @@ class Designer:
                     else:
                         print("Sampling Times:")
                         print(self.sampling_times_candidates[i])
-
-            """ Computing and Reporting Rounding Efficiency """
-            self.epsilon = self._eval_efficiency_bound(
-                self.apportionments / n_exp,
-                self.opt_eff,
-            )
-
-            """ 
-            =============================================================================
-            Computing actual efficiency 
-            =============================================================================
-            the rounding efficiency above is computed using efforts that excludes
-            experimental candidates with non-zero efforts i.e., only supports
-            to compute actual efficiency, non_trimmed_apportionment is required
-            i.e., need candidates with zero efforts too.
-            """
-            # initialize the non_trimmed_apportionments
-            self.non_trimmed_apportionments = np.zeros_like(self.efforts)
-            for opt_c, app_c in zip(self.optimal_candidates, self.apportionments):
-                opt_idx = opt_c[0]
-                opt_spt = opt_c[5]
-                if isinstance(app_c, float):
-                    self.non_trimmed_apportionments[opt_idx, opt_spt] = app_c
-                else:
-                    for spt, app in zip(opt_spt, app_c):
-                        self.non_trimmed_apportionments[opt_idx, spt] = app
-            # normalized to non_trimmed_rounded_efforts
-            non_trimmed_rounded_efforts = self.non_trimmed_apportionments / np.sum(self.non_trimmed_apportionments)
-            if compute_actual_efficiency:
-                _original_efforts = np.copy(self.efforts)
-                try:
-                    self.rounded_criterion_value = getattr(self, self._current_criterion)(non_trimmed_rounded_efforts).value
-                except AttributeError:
-                    self.rounded_criterion_value = getattr(self, self._current_criterion)(non_trimmed_rounded_efforts)
-                if self._current_criterion == "d_opt_criterion":
-                    efficiency = np.exp(1 / self.n_mp * (-self.rounded_criterion_value - self._criterion_value))
-                elif self._current_criterion == "a_opt_criterion":
-                    efficiency = -self._criterion_value / self.rounded_criterion_value
-                elif self._current_criterion == "e_opt_criterion":
-                    efficiency = -self.rounded_criterion_value / self._criterion_value
-                self.efforts = _original_efforts
-
-            if not trimmed:
-                self.apportionments = self.non_trimmed_apportionments
-
             print(f"".center(100, "-"))
+            print(
+                f"The actual criterion value of the rounded design is "
+                f"{efficiency * 100:.2f}% as informative as the continuous design."
+            )
             print(
                 f"The rounded design for {n_exp} runs is guaranteed to be at least "
                 f"{self.epsilon * 100:.2f}% as good as the continuous design."
             )
-            if compute_actual_efficiency:
-                efficiency = np.squeeze(efficiency)
-                print(
-                    f"The actual criterion value of the rounded design is "
-                    f"{efficiency * 100:.2f}% as informative as the continuous design."
-                )
-            print(f"{'':#^100}")
-        self._save_atomics = _original_save_atomics
-
         return self.apportionments.astype(int)
 
     def _adams_apportionment(self, efforts, n_exp):
@@ -3015,8 +3037,8 @@ class Designer:
         print("")
         print(f"{' Optimal Candidates ':#^100}")
         print(f"{'Obtained on':<40}: {datetime.now()}")
-        print(f"{'Criterion':<40}: {self._current_criterion}")
-        print(f"{'Criterion Value':<40}: {self._criterion_value}")
+        print(f"{'Criterion (higher is better)':<40}: {self._current_criterion}")
+        print(f"{f'Criterion Value (efforts sum to {self.n_exp})':<40}: {self._criterion_value}")
         print(f"{'Pseudo-bayesian':<40}: {self._pseudo_bayesian}")
         if self._pseudo_bayesian:
             print(f"{'Pseudo-bayesian Criterion Type':<40}: {self._pseudo_bayesian_type}")

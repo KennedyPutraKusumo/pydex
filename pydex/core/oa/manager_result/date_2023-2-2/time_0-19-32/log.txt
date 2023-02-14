@@ -1,0 +1,38 @@
+[WARNING]: because the error_cov is not given, Pydex defaults to the identity matrix of size 1x1.
+====================================================================================================
+Initialization complete: designer ready.
+----------------------------------------------------------------------------------------------------
+Number of model parameters              : 6
+Number of candidates                    : 121
+Number of responses                     : 1
+Number of measured responses            : 1
+Number of time-invariant controls       : 2
+Covariance of measured responses        : 
+ [[1.]]
+====================================================================================================
+############################### Computing Optimal Experiment Design ################################
+Started on                              : 2023-02-02 00:19:32.783926
+Criterion                               : d_opt_criterion
+Pseudo-bayesian                         : False
+Dynamic                                 : False
+Time-invariant Controls                 : True
+Time-varying Controls                   : False
+Number of Candidates                    : 121
+---------------------------------------[Sensitivity Analysis]---------------------------------------
+Use Finite Difference                   : True
+Richardson Extrapolation Steps          : 5
+Normalized by Parameter Values          : True
+----------------------------------------------------------------------------------------------------
+[Candidate     13/121]: time elapsed            0.10 seconds.
+[Candidate     26/121]: time elapsed            0.20 seconds.
+[Candidate     39/121]: time elapsed            0.30 seconds.
+[Candidate     52/121]: time elapsed            0.39 seconds.
+[Candidate     65/121]: time elapsed            0.48 seconds.
+[Candidate     78/121]: time elapsed            0.57 seconds.
+[Candidate     91/121]: time elapsed            0.66 seconds.
+[Candidate    104/121]: time elapsed            0.76 seconds.
+[Candidate    117/121]: time elapsed            0.85 seconds.
+[Candidate    121/121]: time elapsed            0.88 seconds.
+----------------------------------------------------------------------------------------------------
+
+
