@@ -35,14 +35,14 @@ designer.ti_controls_candidates = designer.enumerate_candidates(
 designer.error_cov = np.diag([0.20])
 designer._num_steps = 5
 designer.initialize(verbose=2)  # 0: silent, 1: overview, 2: detailed, 3: very detailed
-designer._norm_sens_by_params = False
+designer._norm_sens_by_params = True
 designer.design_experiment(
     designer.d_opt_criterion,
 )
 designer.print_optimal_candidates()
 designer.plot_optimal_efforts()
 designer.plot_optimal_controls(non_opt_candidates=True, write=False, markersize=3)
-n_exps = [3, 4, 5, 6, 7, 8, 9, 10]
+n_exps = [3]
 seed = 123
 for n_exp in n_exps:
     designer.apportion(n_exp=n_exp)

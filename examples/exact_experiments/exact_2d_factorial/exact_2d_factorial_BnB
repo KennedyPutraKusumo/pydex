@@ -1,0 +1,2916 @@
+C:\ProgramData\Anaconda3\pythonw.exe C:/Users/kenne/Documents/GitHub/pydex/examples/exact_experiments/exact_2d_factorial.py
+[WARNING]: because the error_cov is not given, Pydex defaults to the identity matrix of size 1x1.
+====================================================================================================
+Initialization complete: designer ready.
+----------------------------------------------------------------------------------------------------
+Number of model parameters              : 3
+Number of candidates                    : 121
+Number of responses                     : 1
+Number of measured responses            : 1
+Number of time-invariant controls       : 2
+Covariance of measured responses        :
+ [[1.]]
+====================================================================================================
+############################### Computing Optimal Experiment Design ################################
+Started on                              : 2023-02-02 11:50:04.827470
+Criterion                               : d_opt_criterion
+Pseudo-bayesian                         : False
+Dynamic                                 : False
+Time-invariant Controls                 : True
+Time-varying Controls                   : False
+Number of Candidates                    : 121
+---------------------------------------[Sensitivity Analysis]---------------------------------------
+Use Finite Difference                   : False
+Normalized by Parameter Values          : True
+----------------------------------------------------------------------------------------------------
+[Candidate     13/121]: time elapsed            0.00 seconds.
+[Candidate     26/121]: time elapsed            0.00 seconds.
+[Candidate     39/121]: time elapsed            0.00 seconds.
+[Candidate     52/121]: time elapsed            0.00 seconds.
+[Candidate     65/121]: time elapsed            0.01 seconds.
+[Candidate     78/121]: time elapsed            0.01 seconds.
+[Candidate     91/121]: time elapsed            0.01 seconds.
+[Candidate    104/121]: time elapsed            0.01 seconds.
+[Candidate    117/121]: time elapsed            0.01 seconds.
+[Candidate    121/121]: time elapsed            0.01 seconds.
+----------------------------------------------------------------------------------------------------
+=========================================[Branch and Bound]=========================================
+# of integer variables  : 121
+------------------------------------[Iteration 1: 0.00 seconds]-------------------------------------
+Solving unsolved active nodes...
+Complete in 0.39 CPU seconds.
+....................................................................................................
+# of active nodes       : 1
+# of integral nodes     : 0
+# of infeasible nodes   : 0
+Tightest upper bound    : 3.2958368842722523
+Branching most promising node...
+------------------------------------[Iteration 2: 0.40 seconds]-------------------------------------
+Solving unsolved active nodes...
+Complete in 0.54 CPU seconds.
+....................................................................................................
+# of active nodes       : 2
+# of integral nodes     : 0
+# of infeasible nodes   : 0
+Tightest upper bound    : 3.260941465894569
+Branching most promising node...
+------------------------------------[Iteration 3: 0.93 seconds]-------------------------------------
+Solving unsolved active nodes...
+Complete in 0.56 CPU seconds.
+....................................................................................................
+# of active nodes       : 3
+# of integral nodes     : 0
+# of infeasible nodes   : 0
+Tightest upper bound    : 3.2007595286073567
+Branching most promising node...
+------------------------------------[Iteration 4: 1.49 seconds]-------------------------------------
+Solving unsolved active nodes...
+Complete in 0.70 CPU seconds.
+....................................................................................................
+# of active nodes       : 4
+# of integral nodes     : 0
+# of infeasible nodes   : 0
+Tightest upper bound    : 3.198752467034875
+Branching most promising node...
+------------------------------------[Iteration 5: 2.19 seconds]-------------------------------------
+Solving unsolved active nodes...
+Complete in 0.57 CPU seconds.
+....................................................................................................
+# of active nodes       : 5
+# of integral nodes     : 0
+# of infeasible nodes   : 0
+Tightest upper bound    : 3.1780538111431724
+Branching most promising node...
+------------------------------------[Iteration 6: 2.76 seconds]-------------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.772588714417788
+Complete in 0.45 CPU seconds.
+....................................................................................................
+# of active nodes       : 5
+# of integral nodes     : 1
+# of infeasible nodes   : 0
+Tightest upper bound    : 3.1728767893480296
+Best integer solution   : 2.772588714417788
+Branching most promising node...
+------------------------------------[Iteration 7: 3.21 seconds]-------------------------------------
+Solving unsolved active nodes...
+Complete in 0.37 CPU seconds.
+....................................................................................................
+# of active nodes       : 6
+# of integral nodes     : 1
+# of infeasible nodes   : 0
+Tightest upper bound    : 3.154084230581585
+Best integer solution   : 2.772588714417788
+Branching most promising node...
+------------------------------------[Iteration 8: 3.58 seconds]-------------------------------------
+Solving unsolved active nodes...
+Complete in 0.45 CPU seconds.
+....................................................................................................
+# of active nodes       : 7
+# of integral nodes     : 1
+# of infeasible nodes   : 0
+Tightest upper bound    : 3.1540841110785873
+Best integer solution   : 2.772588714417788
+Branching most promising node...
+------------------------------------[Iteration 9: 4.03 seconds]-------------------------------------
+Solving unsolved active nodes...
+Complete in 0.38 CPU seconds.
+....................................................................................................
+# of active nodes       : 8
+# of integral nodes     : 1
+# of infeasible nodes   : 0
+Tightest upper bound    : 3.112625873469929
+Best integer solution   : 2.772588714417788
+Branching most promising node...
+------------------------------------[Iteration 10: 4.41 seconds]------------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.7725887061031558
+Complete in 0.28 CPU seconds.
+....................................................................................................
+# of active nodes       : 8
+# of integral nodes     : 2
+# of infeasible nodes   : 0
+Tightest upper bound    : 3.1099892789533206
+Best integer solution   : 2.772588714417788
+Branching most promising node...
+------------------------------------[Iteration 11: 4.69 seconds]------------------------------------
+Solving unsolved active nodes...
+Complete in 0.52 CPU seconds.
+....................................................................................................
+# of active nodes       : 9
+# of integral nodes     : 2
+# of infeasible nodes   : 0
+Tightest upper bound    : 3.107305075307232
+Best integer solution   : 2.772588714417788
+Branching most promising node...
+------------------------------------[Iteration 12: 5.20 seconds]------------------------------------
+Solving unsolved active nodes...
+Complete in 0.38 CPU seconds.
+....................................................................................................
+# of active nodes       : 10
+# of integral nodes     : 2
+# of infeasible nodes   : 0
+Tightest upper bound    : 3.091648846907953
+Best integer solution   : 2.772588714417788
+Branching most promising node...
+------------------------------------[Iteration 13: 5.59 seconds]------------------------------------
+Solving unsolved active nodes...
+Complete in 0.36 CPU seconds.
+....................................................................................................
+# of active nodes       : 11
+# of integral nodes     : 2
+# of infeasible nodes   : 0
+Tightest upper bound    : 3.0914493386523105
+Best integer solution   : 2.772588714417788
+Branching most promising node...
+------------------------------------[Iteration 14: 5.95 seconds]------------------------------------
+Solving unsolved active nodes...
+Complete in 0.48 CPU seconds.
+....................................................................................................
+# of active nodes       : 12
+# of integral nodes     : 2
+# of infeasible nodes   : 0
+Tightest upper bound    : 3.088068434120929
+Best integer solution   : 2.772588714417788
+Branching most promising node...
+------------------------------------[Iteration 15: 6.43 seconds]------------------------------------
+Solving unsolved active nodes...
+Complete in 0.37 CPU seconds.
+....................................................................................................
+# of active nodes       : 13
+# of integral nodes     : 2
+# of infeasible nodes   : 0
+Tightest upper bound    : 3.0832309991166578
+Best integer solution   : 2.772588714417788
+Branching most promising node...
+------------------------------------[Iteration 16: 6.80 seconds]------------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.7725887144765844
+Complete in 0.28 CPU seconds.
+....................................................................................................
+# of active nodes       : 13
+# of integral nodes     : 3
+# of infeasible nodes   : 0
+Tightest upper bound    : 3.081899797336078
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+------------------------------------[Iteration 17: 7.08 seconds]------------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.772588714417788
+Complete in 0.28 CPU seconds.
+....................................................................................................
+# of active nodes       : 13
+# of integral nodes     : 4
+# of infeasible nodes   : 0
+Tightest upper bound    : 3.075522823195116
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+------------------------------------[Iteration 18: 7.35 seconds]------------------------------------
+Solving unsolved active nodes...
+Complete in 0.50 CPU seconds.
+....................................................................................................
+# of active nodes       : 14
+# of integral nodes     : 4
+# of infeasible nodes   : 0
+Tightest upper bound    : 3.0541848899594033
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+------------------------------------[Iteration 19: 7.85 seconds]------------------------------------
+Solving unsolved active nodes...
+Complete in 0.38 CPU seconds.
+....................................................................................................
+# of active nodes       : 15
+# of integral nodes     : 4
+# of infeasible nodes   : 0
+Tightest upper bound    : 3.054184876730053
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+------------------------------------[Iteration 20: 8.23 seconds]------------------------------------
+Solving unsolved active nodes...
+Complete in 0.37 CPU seconds.
+....................................................................................................
+# of active nodes       : 16
+# of integral nodes     : 4
+# of infeasible nodes   : 0
+Tightest upper bound    : 3.0491229378363363
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+------------------------------------[Iteration 21: 8.60 seconds]------------------------------------
+Solving unsolved active nodes...
+Complete in 0.50 CPU seconds.
+....................................................................................................
+# of active nodes       : 17
+# of integral nodes     : 4
+# of infeasible nodes   : 0
+Tightest upper bound    : 3.042615828759339
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+------------------------------------[Iteration 22: 9.10 seconds]------------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.561867683881621
+Complete in 0.27 CPU seconds.
+....................................................................................................
+# of active nodes       : 17
+# of integral nodes     : 5
+# of infeasible nodes   : 0
+Tightest upper bound    : 3.042615724028884
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+------------------------------------[Iteration 23: 9.37 seconds]------------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.561867684188117
+Complete in 0.27 CPU seconds.
+....................................................................................................
+# of active nodes       : 17
+# of integral nodes     : 6
+# of infeasible nodes   : 0
+Tightest upper bound    : 3.0320579706795403
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+------------------------------------[Iteration 24: 9.65 seconds]------------------------------------
+Solving unsolved active nodes...
+Complete in 0.38 CPU seconds.
+....................................................................................................
+# of active nodes       : 18
+# of integral nodes     : 6
+# of infeasible nodes   : 0
+Tightest upper bound    : 3.025199355229778
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 25: 10.03 seconds]------------------------------------
+Solving unsolved active nodes...
+Complete in 0.38 CPU seconds.
+....................................................................................................
+# of active nodes       : 19
+# of integral nodes     : 6
+# of infeasible nodes   : 0
+Tightest upper bound    : 3.021111935056556
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 26: 10.41 seconds]------------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.7725887061031558
+Complete in 0.43 CPU seconds.
+....................................................................................................
+# of active nodes       : 19
+# of integral nodes     : 7
+# of infeasible nodes   : 0
+Tightest upper bound    : 3.0196252905526126
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 27: 10.83 seconds]------------------------------------
+Solving unsolved active nodes...
+Complete in 0.39 CPU seconds.
+....................................................................................................
+# of active nodes       : 20
+# of integral nodes     : 7
+# of infeasible nodes   : 0
+Tightest upper bound    : 3.0179163468541894
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 28: 11.22 seconds]------------------------------------
+Solving unsolved active nodes...
+Complete in 0.37 CPU seconds.
+....................................................................................................
+# of active nodes       : 21
+# of integral nodes     : 7
+# of infeasible nodes   : 0
+Tightest upper bound    : 3.0140357102645647
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 29: 11.59 seconds]------------------------------------
+Solving unsolved active nodes...
+Complete in 0.43 CPU seconds.
+....................................................................................................
+# of active nodes       : 22
+# of integral nodes     : 7
+# of infeasible nodes   : 0
+Tightest upper bound    : 3.0122349560661044
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 30: 12.02 seconds]------------------------------------
+Solving unsolved active nodes...
+Complete in 0.37 CPU seconds.
+....................................................................................................
+# of active nodes       : 23
+# of integral nodes     : 7
+# of infeasible nodes   : 0
+Tightest upper bound    : 3.004423873988328
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 31: 12.39 seconds]------------------------------------
+Solving unsolved active nodes...
+Complete in 0.55 CPU seconds.
+....................................................................................................
+# of active nodes       : 24
+# of integral nodes     : 7
+# of infeasible nodes   : 0
+Tightest upper bound    : 3.004423813630962
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 32: 12.95 seconds]------------------------------------
+Solving unsolved active nodes...
+Complete in 0.38 CPU seconds.
+....................................................................................................
+# of active nodes       : 25
+# of integral nodes     : 7
+# of infeasible nodes   : 0
+Tightest upper bound    : 3.0016111497281224
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 33: 13.32 seconds]------------------------------------
+Solving unsolved active nodes...
+Complete in 0.39 CPU seconds.
+....................................................................................................
+# of active nodes       : 26
+# of integral nodes     : 7
+# of infeasible nodes   : 0
+Tightest upper bound    : 3.000221670642074
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 34: 13.71 seconds]------------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.772588704926576
+Complete in 0.32 CPU seconds.
+....................................................................................................
+# of active nodes       : 26
+# of integral nodes     : 8
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.9995474430947455
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 35: 14.03 seconds]------------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.7725887144765844
+Complete in 0.28 CPU seconds.
+....................................................................................................
+# of active nodes       : 26
+# of integral nodes     : 9
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.991615369742542
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 36: 14.30 seconds]------------------------------------
+Solving unsolved active nodes...
+Complete in 0.57 CPU seconds.
+....................................................................................................
+# of active nodes       : 27
+# of integral nodes     : 9
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.9841678170635713
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 37: 14.87 seconds]------------------------------------
+Solving unsolved active nodes...
+Complete in 0.41 CPU seconds.
+....................................................................................................
+# of active nodes       : 28
+# of integral nodes     : 9
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.9821396895051437
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 38: 15.29 seconds]------------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.5839673593377643
+Complete in 0.29 CPU seconds.
+....................................................................................................
+# of active nodes       : 28
+# of integral nodes     : 10
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.9767354119675185
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 39: 15.58 seconds]------------------------------------
+Solving unsolved active nodes...
+Complete in 0.45 CPU seconds.
+....................................................................................................
+# of active nodes       : 29
+# of integral nodes     : 10
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.976735384108622
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 40: 16.03 seconds]------------------------------------
+Solving unsolved active nodes...
+Complete in 0.44 CPU seconds.
+....................................................................................................
+# of active nodes       : 30
+# of integral nodes     : 10
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.972320253730134
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 41: 16.47 seconds]------------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.5618676852501094
+Complete in 0.27 CPU seconds.
+....................................................................................................
+# of active nodes       : 30
+# of integral nodes     : 11
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.9710783448139813
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 42: 16.74 seconds]------------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.5618676830367635
+Complete in 0.29 CPU seconds.
+....................................................................................................
+# of active nodes       : 30
+# of integral nodes     : 12
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.9706094951664634
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 43: 17.03 seconds]------------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.5618676803780907
+Complete in 0.51 CPU seconds.
+....................................................................................................
+# of active nodes       : 30
+# of integral nodes     : 13
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.967332795084971
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 44: 17.53 seconds]------------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.5618676867434513
+Complete in 0.28 CPU seconds.
+....................................................................................................
+# of active nodes       : 30
+# of integral nodes     : 14
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.9673327070356024
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 45: 17.82 seconds]------------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.561867676199846
+Complete in 0.29 CPU seconds.
+....................................................................................................
+# of active nodes       : 30
+# of integral nodes     : 15
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.967332661409216
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 46: 18.11 seconds]------------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.561867677198659
+Complete in 0.28 CPU seconds.
+....................................................................................................
+# of active nodes       : 30
+# of integral nodes     : 16
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.965665315023058
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 47: 18.39 seconds]------------------------------------
+Solving unsolved active nodes...
+Complete in 0.38 CPU seconds.
+....................................................................................................
+# of active nodes       : 31
+# of integral nodes     : 16
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.9656652974739908
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 48: 18.78 seconds]------------------------------------
+Solving unsolved active nodes...
+Complete in 0.38 CPU seconds.
+....................................................................................................
+# of active nodes       : 32
+# of integral nodes     : 16
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.965480189402771
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 49: 19.16 seconds]------------------------------------
+Solving unsolved active nodes...
+Complete in 0.38 CPU seconds.
+....................................................................................................
+# of active nodes       : 33
+# of integral nodes     : 16
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.9645379268756833
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 50: 19.54 seconds]------------------------------------
+Solving unsolved active nodes...
+Complete in 0.38 CPU seconds.
+....................................................................................................
+# of active nodes       : 34
+# of integral nodes     : 16
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.9634395604316603
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 51: 19.92 seconds]------------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.77258870924684
+Complete in 0.53 CPU seconds.
+....................................................................................................
+# of active nodes       : 34
+# of integral nodes     : 17
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.956741719244576
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 52: 20.45 seconds]------------------------------------
+Solving unsolved active nodes...
+Complete in 0.39 CPU seconds.
+....................................................................................................
+# of active nodes       : 35
+# of integral nodes     : 17
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.9565065745477996
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 53: 20.84 seconds]------------------------------------
+Solving unsolved active nodes...
+Complete in 0.38 CPU seconds.
+....................................................................................................
+# of active nodes       : 36
+# of integral nodes     : 17
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.954281116574232
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 54: 21.22 seconds]------------------------------------
+Solving unsolved active nodes...
+Complete in 0.39 CPU seconds.
+....................................................................................................
+# of active nodes       : 37
+# of integral nodes     : 17
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.9538147033214384
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 55: 21.61 seconds]------------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.5839673575300344
+Complete in 0.28 CPU seconds.
+....................................................................................................
+# of active nodes       : 37
+# of integral nodes     : 18
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.953249878211646
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 56: 21.89 seconds]------------------------------------
+Solving unsolved active nodes...
+Complete in 0.44 CPU seconds.
+....................................................................................................
+# of active nodes       : 38
+# of integral nodes     : 18
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.9524515821591257
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 57: 22.32 seconds]------------------------------------
+Solving unsolved active nodes...
+Complete in 0.37 CPU seconds.
+....................................................................................................
+# of active nodes       : 39
+# of integral nodes     : 18
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.949323026371361
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 58: 22.70 seconds]------------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.5618676803780907
+Complete in 0.33 CPU seconds.
+....................................................................................................
+# of active nodes       : 39
+# of integral nodes     : 19
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.9493230133413992
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 59: 23.03 seconds]------------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.5618676803780907
+Complete in 0.29 CPU seconds.
+....................................................................................................
+# of active nodes       : 39
+# of integral nodes     : 20
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.9464260644386617
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 60: 23.31 seconds]------------------------------------
+Solving unsolved active nodes...
+Complete in 0.71 CPU seconds.
+....................................................................................................
+# of active nodes       : 40
+# of integral nodes     : 20
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.945278658307537
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 61: 24.03 seconds]------------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.7725886922491725
+Complete in 0.28 CPU seconds.
+....................................................................................................
+# of active nodes       : 40
+# of integral nodes     : 21
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.9419443559497584
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 62: 24.30 seconds]------------------------------------
+Solving unsolved active nodes...
+Complete in 0.38 CPU seconds.
+....................................................................................................
+# of active nodes       : 41
+# of integral nodes     : 21
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.941944349727101
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 63: 24.69 seconds]------------------------------------
+Solving unsolved active nodes...
+Complete in 0.49 CPU seconds.
+....................................................................................................
+# of active nodes       : 42
+# of integral nodes     : 21
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.941388205393735
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 64: 25.18 seconds]------------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.5618676852501094
+Complete in 0.28 CPU seconds.
+....................................................................................................
+# of active nodes       : 42
+# of integral nodes     : 22
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.9397491905886217
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 65: 25.46 seconds]------------------------------------
+Solving unsolved active nodes...
+Complete in 0.39 CPU seconds.
+....................................................................................................
+# of active nodes       : 43
+# of integral nodes     : 22
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.938006036988948
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 66: 25.85 seconds]------------------------------------
+Solving unsolved active nodes...
+Complete in 0.39 CPU seconds.
+....................................................................................................
+# of active nodes       : 44
+# of integral nodes     : 22
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.9324262221492265
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 67: 26.24 seconds]------------------------------------
+Solving unsolved active nodes...
+Complete in 0.39 CPU seconds.
+....................................................................................................
+# of active nodes       : 45
+# of integral nodes     : 22
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.9310955450255283
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 68: 26.63 seconds]------------------------------------
+Solving unsolved active nodes...
+Complete in 0.70 CPU seconds.
+....................................................................................................
+# of active nodes       : 46
+# of integral nodes     : 22
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.928664932555576
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 69: 27.33 seconds]------------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.7725886932013464
+Complete in 0.28 CPU seconds.
+....................................................................................................
+# of active nodes       : 46
+# of integral nodes     : 23
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.926197600298325
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 70: 27.62 seconds]------------------------------------
+Solving unsolved active nodes...
+Complete in 0.41 CPU seconds.
+....................................................................................................
+# of active nodes       : 47
+# of integral nodes     : 23
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.925252253430815
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 71: 28.03 seconds]------------------------------------
+Solving unsolved active nodes...
+Complete in 0.41 CPU seconds.
+....................................................................................................
+# of active nodes       : 48
+# of integral nodes     : 23
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.923588332571964
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 72: 28.44 seconds]------------------------------------
+Solving unsolved active nodes...
+Complete in 0.40 CPU seconds.
+....................................................................................................
+# of active nodes       : 49
+# of integral nodes     : 23
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.919245442610688
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 73: 28.83 seconds]------------------------------------
+Solving unsolved active nodes...
+Complete in 0.39 CPU seconds.
+....................................................................................................
+# of active nodes       : 50
+# of integral nodes     : 23
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.914210346631709
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 74: 29.23 seconds]------------------------------------
+Solving unsolved active nodes...
+Complete in 0.40 CPU seconds.
+....................................................................................................
+# of active nodes       : 51
+# of integral nodes     : 23
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.9115471303049305
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 75: 29.62 seconds]------------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.772588705434533
+Complete in 0.28 CPU seconds.
+....................................................................................................
+# of active nodes       : 51
+# of integral nodes     : 24
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.908485373432679
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 76: 29.90 seconds]------------------------------------
+Solving unsolved active nodes...
+Complete in 0.42 CPU seconds.
+....................................................................................................
+# of active nodes       : 52
+# of integral nodes     : 24
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.9084853538971975
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 77: 30.32 seconds]------------------------------------
+Solving unsolved active nodes...
+Complete in 0.39 CPU seconds.
+....................................................................................................
+# of active nodes       : 53
+# of integral nodes     : 24
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.90826433398278
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 78: 30.72 seconds]------------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.56186767169231
+Complete in 0.65 CPU seconds.
+....................................................................................................
+# of active nodes       : 53
+# of integral nodes     : 25
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.9071128645894104
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 79: 31.37 seconds]------------------------------------
+Solving unsolved active nodes...
+Complete in 0.41 CPU seconds.
+....................................................................................................
+# of active nodes       : 54
+# of integral nodes     : 25
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.9036169781863457
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 80: 31.78 seconds]------------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.3263016135578605
+Complete in 0.28 CPU seconds.
+....................................................................................................
+# of active nodes       : 54
+# of integral nodes     : 26
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.9036169781786074
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 81: 32.06 seconds]------------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.3263016150599363
+Complete in 0.28 CPU seconds.
+....................................................................................................
+# of active nodes       : 54
+# of integral nodes     : 27
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.902705036107669
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 82: 32.34 seconds]------------------------------------
+Solving unsolved active nodes...
+Complete in 0.40 CPU seconds.
+....................................................................................................
+# of active nodes       : 55
+# of integral nodes     : 27
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.900807711333746
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 83: 32.75 seconds]------------------------------------
+Solving unsolved active nodes...
+Complete in 0.39 CPU seconds.
+....................................................................................................
+# of active nodes       : 56
+# of integral nodes     : 27
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.900577257657329
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 84: 33.14 seconds]------------------------------------
+Solving unsolved active nodes...
+Complete in 0.40 CPU seconds.
+....................................................................................................
+# of active nodes       : 57
+# of integral nodes     : 27
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.9005771740733426
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 85: 33.54 seconds]------------------------------------
+Solving unsolved active nodes...
+Complete in 0.40 CPU seconds.
+....................................................................................................
+# of active nodes       : 58
+# of integral nodes     : 27
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.8954563620559117
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 86: 33.94 seconds]------------------------------------
+Solving unsolved active nodes...
+Complete in 0.41 CPU seconds.
+....................................................................................................
+# of active nodes       : 59
+# of integral nodes     : 27
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.894641805137447
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 87: 34.34 seconds]------------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.605825505521548
+Complete in 0.28 CPU seconds.
+....................................................................................................
+# of active nodes       : 59
+# of integral nodes     : 28
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.8929045047177744
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 88: 34.62 seconds]------------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.7725887089846384
+Complete in 0.29 CPU seconds.
+....................................................................................................
+# of active nodes       : 59
+# of integral nodes     : 29
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.8924184908055257
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 89: 34.91 seconds]------------------------------------
+Solving unsolved active nodes...
+Complete in 0.84 CPU seconds.
+....................................................................................................
+# of active nodes       : 60
+# of integral nodes     : 29
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.8922408636124186
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 90: 35.75 seconds]------------------------------------
+Solving unsolved active nodes...
+Complete in 0.40 CPU seconds.
+....................................................................................................
+# of active nodes       : 61
+# of integral nodes     : 29
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.891231219469267
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 91: 36.15 seconds]------------------------------------
+Solving unsolved active nodes...
+Complete in 0.40 CPU seconds.
+....................................................................................................
+# of active nodes       : 62
+# of integral nodes     : 29
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.8894089445698774
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 92: 36.55 seconds]------------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.5618676845175385
+Complete in 0.29 CPU seconds.
+....................................................................................................
+# of active nodes       : 62
+# of integral nodes     : 30
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.8842162807614518
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 93: 36.84 seconds]------------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.5839673575300344
+Complete in 0.29 CPU seconds.
+....................................................................................................
+# of active nodes       : 62
+# of integral nodes     : 31
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.8823406409341095
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 94: 37.13 seconds]------------------------------------
+Solving unsolved active nodes...
+Complete in 0.41 CPU seconds.
+....................................................................................................
+# of active nodes       : 63
+# of integral nodes     : 31
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.879979957287472
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 95: 37.54 seconds]------------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.7725886996156097
+Complete in 0.30 CPU seconds.
+....................................................................................................
+# of active nodes       : 63
+# of integral nodes     : 32
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.8796583591386775
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 96: 37.84 seconds]------------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.5618676717803996
+Complete in 0.30 CPU seconds.
+....................................................................................................
+# of active nodes       : 63
+# of integral nodes     : 33
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.878857849185926
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 97: 38.14 seconds]------------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.5618676679791514
+Complete in 0.29 CPU seconds.
+....................................................................................................
+# of active nodes       : 63
+# of integral nodes     : 34
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.878857840524153
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 98: 38.42 seconds]------------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.5618676679791514
+Complete in 0.29 CPU seconds.
+....................................................................................................
+# of active nodes       : 63
+# of integral nodes     : 35
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.8782557411526497
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 99: 38.71 seconds]------------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.5618676803780907
+Complete in 0.33 CPU seconds.
+....................................................................................................
+# of active nodes       : 63
+# of integral nodes     : 36
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.8758670144046006
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 100: 39.04 seconds]-----------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.6058254925767157
+Complete in 0.28 CPU seconds.
+....................................................................................................
+# of active nodes       : 63
+# of integral nodes     : 37
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.8758669756891315
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 101: 39.32 seconds]-----------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.6058254947592165
+Complete in 0.30 CPU seconds.
+....................................................................................................
+# of active nodes       : 63
+# of integral nodes     : 38
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.875731412517244
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 102: 39.62 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.42 CPU seconds.
+....................................................................................................
+# of active nodes       : 64
+# of integral nodes     : 38
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.8719566765563433
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 103: 40.05 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.88 CPU seconds.
+....................................................................................................
+# of active nodes       : 65
+# of integral nodes     : 38
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.8717901336098732
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 104: 40.93 seconds]-----------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.772588704598751
+Complete in 0.32 CPU seconds.
+....................................................................................................
+# of active nodes       : 65
+# of integral nodes     : 39
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.8715047120918333
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 105: 41.25 seconds]-----------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.5618676854472415
+Complete in 0.32 CPU seconds.
+....................................................................................................
+# of active nodes       : 65
+# of integral nodes     : 40
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.8715045755108184
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 106: 41.57 seconds]-----------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.5618676854472415
+Complete in 0.28 CPU seconds.
+....................................................................................................
+# of active nodes       : 65
+# of integral nodes     : 41
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.8713972515893893
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 107: 41.85 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.50 CPU seconds.
+....................................................................................................
+# of active nodes       : 66
+# of integral nodes     : 41
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.8711787768913055
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 108: 42.36 seconds]-----------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.5618676717803996
+Complete in 0.28 CPU seconds.
+....................................................................................................
+# of active nodes       : 66
+# of integral nodes     : 42
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.8711787694247315
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 109: 42.64 seconds]-----------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.561867680801103
+Complete in 0.29 CPU seconds.
+....................................................................................................
+# of active nodes       : 66
+# of integral nodes     : 43
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.8711787660894035
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 110: 42.93 seconds]-----------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.561867676199846
+Complete in 0.31 CPU seconds.
+....................................................................................................
+# of active nodes       : 66
+# of integral nodes     : 44
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.8711787569420153
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 111: 43.24 seconds]-----------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.5618676867434513
+Complete in 0.29 CPU seconds.
+....................................................................................................
+# of active nodes       : 66
+# of integral nodes     : 45
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.869988102817871
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 112: 43.53 seconds]-----------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.5618676830367635
+Complete in 0.28 CPU seconds.
+....................................................................................................
+# of active nodes       : 66
+# of integral nodes     : 46
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.8699880973615923
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 113: 43.81 seconds]-----------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.5618676830367635
+Complete in 0.32 CPU seconds.
+....................................................................................................
+# of active nodes       : 66
+# of integral nodes     : 47
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.8696141434807014
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 114: 44.13 seconds]-----------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.772588700092002
+Complete in 0.29 CPU seconds.
+....................................................................................................
+# of active nodes       : 66
+# of integral nodes     : 48
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.8686436676187266
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 115: 44.42 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.40 CPU seconds.
+....................................................................................................
+# of active nodes       : 67
+# of integral nodes     : 48
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.866585377595215
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 116: 44.81 seconds]-----------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.73218328646663
+Complete in 0.32 CPU seconds.
+....................................................................................................
+# of active nodes       : 67
+# of integral nodes     : 49
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.8649021636070806
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 117: 45.13 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.41 CPU seconds.
+....................................................................................................
+# of active nodes       : 68
+# of integral nodes     : 49
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.8638923715711506
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 118: 45.54 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.50 CPU seconds.
+....................................................................................................
+# of active nodes       : 69
+# of integral nodes     : 49
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.863611559395485
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 119: 46.04 seconds]-----------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.7725887061031558
+Complete in 0.30 CPU seconds.
+....................................................................................................
+# of active nodes       : 69
+# of integral nodes     : 50
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.8636115214158986
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 120: 46.33 seconds]-----------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.772588704926576
+Complete in 0.90 CPU seconds.
+....................................................................................................
+# of active nodes       : 69
+# of integral nodes     : 51
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.8631891702700405
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 121: 47.24 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.39 CPU seconds.
+....................................................................................................
+# of active nodes       : 70
+# of integral nodes     : 51
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.861302875946532
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 122: 47.63 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.42 CPU seconds.
+....................................................................................................
+# of active nodes       : 71
+# of integral nodes     : 51
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.861041549194953
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 123: 48.06 seconds]-----------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.561867664850624
+Complete in 0.29 CPU seconds.
+....................................................................................................
+# of active nodes       : 71
+# of integral nodes     : 52
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.8608183237675546
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 124: 48.35 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.40 CPU seconds.
+....................................................................................................
+# of active nodes       : 72
+# of integral nodes     : 52
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.860581885712447
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 125: 48.75 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.42 CPU seconds.
+....................................................................................................
+# of active nodes       : 73
+# of integral nodes     : 52
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.8605375944521603
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 126: 49.17 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.40 CPU seconds.
+....................................................................................................
+# of active nodes       : 74
+# of integral nodes     : 52
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.8596335842826095
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 127: 49.57 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.48 CPU seconds.
+....................................................................................................
+# of active nodes       : 75
+# of integral nodes     : 52
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.8574835483736214
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 128: 50.04 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.43 CPU seconds.
+....................................................................................................
+# of active nodes       : 76
+# of integral nodes     : 52
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.853945176047386
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 129: 50.47 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.40 CPU seconds.
+....................................................................................................
+# of active nodes       : 77
+# of integral nodes     : 52
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.8536773037415775
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 130: 50.87 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.43 CPU seconds.
+....................................................................................................
+# of active nodes       : 78
+# of integral nodes     : 52
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.8487973703564005
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 131: 51.30 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.43 CPU seconds.
+....................................................................................................
+# of active nodes       : 79
+# of integral nodes     : 52
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.8487674286045777
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 132: 51.73 seconds]-----------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.7725887061264323
+Complete in 0.32 CPU seconds.
+....................................................................................................
+# of active nodes       : 79
+# of integral nodes     : 53
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.847849009713629
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 133: 52.04 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.41 CPU seconds.
+....................................................................................................
+# of active nodes       : 80
+# of integral nodes     : 53
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.8471716140741608
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 134: 52.46 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.40 CPU seconds.
+....................................................................................................
+# of active nodes       : 81
+# of integral nodes     : 53
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.846957898887545
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 135: 52.86 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 1.03 CPU seconds.
+....................................................................................................
+# of active nodes       : 82
+# of integral nodes     : 53
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.843806940538129
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 136: 53.89 seconds]-----------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.375686828388459
+Complete in 0.30 CPU seconds.
+....................................................................................................
+# of active nodes       : 82
+# of integral nodes     : 54
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.843806927908384
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 137: 54.19 seconds]-----------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.375686828388459
+Complete in 0.29 CPU seconds.
+....................................................................................................
+# of active nodes       : 82
+# of integral nodes     : 55
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.8434639281828873
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 138: 54.48 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.40 CPU seconds.
+....................................................................................................
+# of active nodes       : 83
+# of integral nodes     : 55
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.8427112746371987
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 139: 54.88 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.40 CPU seconds.
+....................................................................................................
+# of active nodes       : 84
+# of integral nodes     : 55
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.841328525014336
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 140: 55.28 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.42 CPU seconds.
+....................................................................................................
+# of active nodes       : 85
+# of integral nodes     : 55
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.8398986622829137
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 141: 55.70 seconds]-----------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.772588704926576
+Complete in 0.34 CPU seconds.
+....................................................................................................
+# of active nodes       : 85
+# of integral nodes     : 56
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.8392417312438334
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 142: 56.04 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.40 CPU seconds.
+....................................................................................................
+# of active nodes       : 86
+# of integral nodes     : 56
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.837707549365053
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 143: 56.44 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.41 CPU seconds.
+....................................................................................................
+# of active nodes       : 87
+# of integral nodes     : 56
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.8377075374497744
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 144: 56.85 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.41 CPU seconds.
+....................................................................................................
+# of active nodes       : 88
+# of integral nodes     : 56
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.837522570794765
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 145: 57.27 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.41 CPU seconds.
+....................................................................................................
+# of active nodes       : 89
+# of integral nodes     : 56
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.837522564328032
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 146: 57.67 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.41 CPU seconds.
+....................................................................................................
+# of active nodes       : 90
+# of integral nodes     : 56
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.836884212236314
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 147: 58.09 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.40 CPU seconds.
+....................................................................................................
+# of active nodes       : 91
+# of integral nodes     : 56
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.831904739361632
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 148: 58.49 seconds]-----------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.3511466560691807
+Complete in 0.29 CPU seconds.
+....................................................................................................
+# of active nodes       : 91
+# of integral nodes     : 57
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.831904736442116
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 149: 58.78 seconds]-----------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.3511466556453198
+Complete in 0.28 CPU seconds.
+....................................................................................................
+# of active nodes       : 91
+# of integral nodes     : 58
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.8319046051611894
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 150: 59.06 seconds]-----------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.351146656838393
+Complete in 0.29 CPU seconds.
+....................................................................................................
+# of active nodes       : 91
+# of integral nodes     : 59
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.8308503427763863
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 151: 59.35 seconds]-----------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.7725886932013464
+Complete in 0.31 CPU seconds.
+....................................................................................................
+# of active nodes       : 91
+# of integral nodes     : 60
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.829410711447926
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 152: 59.67 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.41 CPU seconds.
+....................................................................................................
+# of active nodes       : 92
+# of integral nodes     : 60
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.826876771310061
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 153: 60.08 seconds]-----------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.7725886936812785
+Complete in 0.30 CPU seconds.
+....................................................................................................
+# of active nodes       : 92
+# of integral nodes     : 61
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.826411940057309
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 154: 60.38 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 1.13 CPU seconds.
+....................................................................................................
+# of active nodes       : 93
+# of integral nodes     : 61
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.825962684382422
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 155: 61.51 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.42 CPU seconds.
+....................................................................................................
+# of active nodes       : 94
+# of integral nodes     : 61
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.824770999141491
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 156: 61.94 seconds]-----------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.772588691487092
+Complete in 0.33 CPU seconds.
+....................................................................................................
+# of active nodes       : 94
+# of integral nodes     : 62
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.824540405815782
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 157: 62.27 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.42 CPU seconds.
+....................................................................................................
+# of active nodes       : 95
+# of integral nodes     : 62
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.8232560720270223
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 158: 62.69 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.45 CPU seconds.
+....................................................................................................
+# of active nodes       : 96
+# of integral nodes     : 62
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.823119283221094
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 159: 63.15 seconds]-----------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.059238829629676
+Complete in 0.29 CPU seconds.
+....................................................................................................
+# of active nodes       : 96
+# of integral nodes     : 63
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.8221240000070873
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 160: 63.44 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.42 CPU seconds.
+....................................................................................................
+# of active nodes       : 97
+# of integral nodes     : 63
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.821935664264818
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 161: 63.86 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.42 CPU seconds.
+....................................................................................................
+# of active nodes       : 98
+# of integral nodes     : 63
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.8214095186182173
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 162: 64.28 seconds]-----------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.7725886944893823
+Complete in 0.31 CPU seconds.
+....................................................................................................
+# of active nodes       : 98
+# of integral nodes     : 64
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.821378841874699
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 163: 64.59 seconds]-----------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.7725887094101247
+Complete in 0.30 CPU seconds.
+....................................................................................................
+# of active nodes       : 98
+# of integral nodes     : 65
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.818188813215698
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 164: 64.89 seconds]-----------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.3263016161862606
+Complete in 0.29 CPU seconds.
+....................................................................................................
+# of active nodes       : 98
+# of integral nodes     : 66
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.81792906336859
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 165: 65.18 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.42 CPU seconds.
+....................................................................................................
+# of active nodes       : 99
+# of integral nodes     : 66
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.817577678043807
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 166: 65.60 seconds]-----------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.772588695710156
+Complete in 0.34 CPU seconds.
+....................................................................................................
+# of active nodes       : 99
+# of integral nodes     : 67
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.816605596266859
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 167: 65.94 seconds]-----------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.3263016150599363
+Complete in 0.29 CPU seconds.
+....................................................................................................
+# of active nodes       : 99
+# of integral nodes     : 68
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.8166055919742865
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 168: 66.23 seconds]-----------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.3263016135578605
+Complete in 0.28 CPU seconds.
+....................................................................................................
+# of active nodes       : 99
+# of integral nodes     : 69
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.815627969864506
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 169: 66.51 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.44 CPU seconds.
+....................................................................................................
+# of active nodes       : 100
+# of integral nodes     : 69
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.814500045058264
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 170: 66.95 seconds]-----------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.3263016075124976
+Complete in 0.29 CPU seconds.
+....................................................................................................
+# of active nodes       : 100
+# of integral nodes     : 70
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.8141440437609027
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 171: 67.24 seconds]-----------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.5618676692084787
+Complete in 0.29 CPU seconds.
+....................................................................................................
+# of active nodes       : 100
+# of integral nodes     : 71
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.8133575843178105
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 172: 67.52 seconds]-----------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.605825493149011
+Complete in 0.29 CPU seconds.
+....................................................................................................
+# of active nodes       : 100
+# of integral nodes     : 72
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.8128712529112105
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 173: 67.81 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.45 CPU seconds.
+....................................................................................................
+# of active nodes       : 101
+# of integral nodes     : 72
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.812193778371146
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 174: 68.26 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 1.26 CPU seconds.
+....................................................................................................
+# of active nodes       : 102
+# of integral nodes     : 72
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.8119526544976132
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 175: 69.52 seconds]-----------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.627447324045713
+Complete in 0.29 CPU seconds.
+....................................................................................................
+# of active nodes       : 102
+# of integral nodes     : 73
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.8119526382381226
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 176: 69.82 seconds]-----------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.627447316720577
+Complete in 0.32 CPU seconds.
+....................................................................................................
+# of active nodes       : 102
+# of integral nodes     : 74
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.8115218777538216
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 177: 70.14 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.43 CPU seconds.
+....................................................................................................
+# of active nodes       : 103
+# of integral nodes     : 74
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.8106781229654283
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 178: 70.57 seconds]-----------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.75248803490609
+Complete in 0.30 CPU seconds.
+....................................................................................................
+# of active nodes       : 103
+# of integral nodes     : 75
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.8106781012642306
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 179: 70.86 seconds]-----------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.75248803490609
+Complete in 0.30 CPU seconds.
+....................................................................................................
+# of active nodes       : 103
+# of integral nodes     : 76
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.8077542614350355
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 180: 71.17 seconds]-----------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.351146654642191
+Complete in 0.29 CPU seconds.
+....................................................................................................
+# of active nodes       : 103
+# of integral nodes     : 77
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.807754232521013
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 181: 71.46 seconds]-----------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.351146654642191
+Complete in 0.29 CPU seconds.
+....................................................................................................
+# of active nodes       : 103
+# of integral nodes     : 78
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.807754198103883
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 182: 71.74 seconds]-----------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.351146669304225
+Complete in 0.32 CPU seconds.
+....................................................................................................
+# of active nodes       : 103
+# of integral nodes     : 79
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.806647414792944
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 183: 72.06 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.45 CPU seconds.
+....................................................................................................
+# of active nodes       : 104
+# of integral nodes     : 79
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.8054655575114413
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 184: 72.51 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.44 CPU seconds.
+....................................................................................................
+# of active nodes       : 105
+# of integral nodes     : 79
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.8053408104685094
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 185: 72.95 seconds]-----------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.3263016161270613
+Complete in 0.31 CPU seconds.
+....................................................................................................
+# of active nodes       : 105
+# of integral nodes     : 80
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.803812606556697
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 186: 73.27 seconds]-----------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.561867684998644
+Complete in 0.29 CPU seconds.
+....................................................................................................
+# of active nodes       : 105
+# of integral nodes     : 81
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.803812587547118
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 187: 73.55 seconds]-----------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.561867665527304
+Complete in 0.29 CPU seconds.
+....................................................................................................
+# of active nodes       : 105
+# of integral nodes     : 82
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.8038125852375333
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 188: 73.84 seconds]-----------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.561867665527304
+Complete in 0.30 CPU seconds.
+....................................................................................................
+# of active nodes       : 105
+# of integral nodes     : 83
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.803621117102365
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 189: 74.15 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.42 CPU seconds.
+....................................................................................................
+# of active nodes       : 106
+# of integral nodes     : 83
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.8026305748248843
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 190: 74.57 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.41 CPU seconds.
+....................................................................................................
+# of active nodes       : 107
+# of integral nodes     : 83
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.8023111925308046
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 191: 74.98 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.41 CPU seconds.
+....................................................................................................
+# of active nodes       : 108
+# of integral nodes     : 83
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.801829137084265
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 192: 75.39 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.53 CPU seconds.
+....................................................................................................
+# of active nodes       : 109
+# of integral nodes     : 83
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.8018214415985616
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 193: 75.92 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.48 CPU seconds.
+....................................................................................................
+# of active nodes       : 110
+# of integral nodes     : 83
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.8010080545135922
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 194: 76.40 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.41 CPU seconds.
+....................................................................................................
+# of active nodes       : 111
+# of integral nodes     : 83
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.800949961691705
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 195: 76.81 seconds]-----------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.56186767169231
+Complete in 0.35 CPU seconds.
+....................................................................................................
+# of active nodes       : 111
+# of integral nodes     : 84
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.8008251415040624
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 196: 77.16 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.42 CPU seconds.
+....................................................................................................
+# of active nodes       : 112
+# of integral nodes     : 84
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.800351960438814
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 197: 77.58 seconds]-----------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.772588700092002
+Complete in 1.28 CPU seconds.
+....................................................................................................
+# of active nodes       : 112
+# of integral nodes     : 85
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.8001125514879313
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 198: 78.86 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.40 CPU seconds.
+....................................................................................................
+# of active nodes       : 113
+# of integral nodes     : 85
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.7982784129787754
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 199: 79.25 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.42 CPU seconds.
+....................................................................................................
+# of active nodes       : 114
+# of integral nodes     : 85
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.798220593940866
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 200: 79.68 seconds]-----------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.4238819460179517
+Complete in 0.29 CPU seconds.
+....................................................................................................
+# of active nodes       : 114
+# of integral nodes     : 86
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.798037817023464
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 201: 79.97 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.44 CPU seconds.
+....................................................................................................
+# of active nodes       : 115
+# of integral nodes     : 86
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.7976122221051876
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 202: 80.42 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.44 CPU seconds.
+....................................................................................................
+# of active nodes       : 116
+# of integral nodes     : 86
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.79580008092406
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 203: 80.86 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.40 CPU seconds.
+....................................................................................................
+# of active nodes       : 117
+# of integral nodes     : 86
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.795491329395262
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 204: 81.26 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.40 CPU seconds.
+....................................................................................................
+# of active nodes       : 118
+# of integral nodes     : 86
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.7954912983223736
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 205: 81.66 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.41 CPU seconds.
+....................................................................................................
+# of active nodes       : 119
+# of integral nodes     : 86
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.794794501251136
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 206: 82.07 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.46 CPU seconds.
+....................................................................................................
+# of active nodes       : 120
+# of integral nodes     : 86
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.7937531522918277
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 207: 82.53 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.41 CPU seconds.
+....................................................................................................
+# of active nodes       : 121
+# of integral nodes     : 86
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.7926463163605035
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 208: 82.95 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.44 CPU seconds.
+....................................................................................................
+# of active nodes       : 122
+# of integral nodes     : 86
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.791352489467994
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 209: 83.39 seconds]-----------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.711670289968152
+Complete in 0.29 CPU seconds.
+....................................................................................................
+# of active nodes       : 122
+# of integral nodes     : 87
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.7913106805473986
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 210: 83.68 seconds]-----------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.75248803490609
+Complete in 0.32 CPU seconds.
+....................................................................................................
+# of active nodes       : 122
+# of integral nodes     : 88
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.7901257062692695
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 211: 84.00 seconds]-----------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.5395210698330652
+Complete in 0.29 CPU seconds.
+....................................................................................................
+# of active nodes       : 122
+# of integral nodes     : 89
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.7901256444456806
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 212: 84.29 seconds]-----------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.5395210708157534
+Complete in 0.29 CPU seconds.
+....................................................................................................
+# of active nodes       : 122
+# of integral nodes     : 90
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.7901256247111625
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 213: 84.58 seconds]-----------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.5395210670615618
+Complete in 0.30 CPU seconds.
+....................................................................................................
+# of active nodes       : 122
+# of integral nodes     : 91
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.789959411897178
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 214: 84.88 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.47 CPU seconds.
+....................................................................................................
+# of active nodes       : 123
+# of integral nodes     : 91
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.7898703583523883
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 215: 85.34 seconds]-----------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.7725887061264323
+Complete in 0.31 CPU seconds.
+....................................................................................................
+# of active nodes       : 123
+# of integral nodes     : 92
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.7896616456821395
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 216: 85.66 seconds]-----------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.69094471345974
+Complete in 0.29 CPU seconds.
+....................................................................................................
+# of active nodes       : 123
+# of integral nodes     : 93
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.7895903062673293
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 217: 85.94 seconds]-----------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.561867655640388
+Complete in 0.32 CPU seconds.
+....................................................................................................
+# of active nodes       : 123
+# of integral nodes     : 94
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.7882968484737893
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 218: 86.27 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.42 CPU seconds.
+....................................................................................................
+# of active nodes       : 124
+# of integral nodes     : 94
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.7878074825409866
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 219: 86.69 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.40 CPU seconds.
+....................................................................................................
+# of active nodes       : 125
+# of integral nodes     : 94
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.7877924929137583
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 220: 87.09 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.42 CPU seconds.
+....................................................................................................
+# of active nodes       : 126
+# of integral nodes     : 94
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.7856611000265925
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 221: 87.52 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 1.54 CPU seconds.
+....................................................................................................
+# of active nodes       : 127
+# of integral nodes     : 94
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.7853190706127973
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 222: 89.06 seconds]-----------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.7725886914754416
+Complete in 0.31 CPU seconds.
+....................................................................................................
+# of active nodes       : 127
+# of integral nodes     : 95
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.785124336065529
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 223: 89.37 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.44 CPU seconds.
+....................................................................................................
+# of active nodes       : 128
+# of integral nodes     : 95
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.784816071274109
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 224: 89.81 seconds]-----------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.5618676774834475
+Complete in 0.34 CPU seconds.
+....................................................................................................
+# of active nodes       : 128
+# of integral nodes     : 96
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.7848160590537905
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 225: 90.15 seconds]-----------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.561867676554911
+Complete in 0.28 CPU seconds.
+....................................................................................................
+# of active nodes       : 128
+# of integral nodes     : 97
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.784816010741605
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 226: 90.44 seconds]-----------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.5618676560401314
+Complete in 0.30 CPU seconds.
+....................................................................................................
+# of active nodes       : 128
+# of integral nodes     : 98
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.7831960130255164
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 227: 90.73 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.44 CPU seconds.
+....................................................................................................
+# of active nodes       : 129
+# of integral nodes     : 98
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.7825140686304133
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 228: 91.17 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.44 CPU seconds.
+....................................................................................................
+# of active nodes       : 130
+# of integral nodes     : 98
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.7825140588431263
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 229: 91.61 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.45 CPU seconds.
+....................................................................................................
+# of active nodes       : 131
+# of integral nodes     : 98
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.7825140110988933
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 230: 92.06 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.43 CPU seconds.
+....................................................................................................
+# of active nodes       : 132
+# of integral nodes     : 98
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.7815881474110085
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 231: 92.49 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.42 CPU seconds.
+....................................................................................................
+# of active nodes       : 133
+# of integral nodes     : 98
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.7815880317656427
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 232: 92.91 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.46 CPU seconds.
+....................................................................................................
+# of active nodes       : 134
+# of integral nodes     : 98
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.7814994593176947
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 233: 93.37 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.41 CPU seconds.
+....................................................................................................
+# of active nodes       : 135
+# of integral nodes     : 98
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.7814431018222985
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 234: 93.78 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.49 CPU seconds.
+....................................................................................................
+# of active nodes       : 136
+# of integral nodes     : 98
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.7810030503756664
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 235: 94.28 seconds]-----------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.56186766479746
+Complete in 0.28 CPU seconds.
+....................................................................................................
+# of active nodes       : 136
+# of integral nodes     : 99
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.7806888147814433
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 236: 94.56 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.50 CPU seconds.
+....................................................................................................
+# of active nodes       : 137
+# of integral nodes     : 99
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.78031804072243
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 237: 95.06 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.46 CPU seconds.
+....................................................................................................
+# of active nodes       : 138
+# of integral nodes     : 99
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.779992351671881
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 238: 95.53 seconds]-----------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.7725886953443455
+Complete in 0.32 CPU seconds.
+....................................................................................................
+# of active nodes       : 138
+# of integral nodes     : 100
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.7790636381245015
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 239: 95.85 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.45 CPU seconds.
+....................................................................................................
+# of active nodes       : 139
+# of integral nodes     : 100
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.778692054114388
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 240: 96.30 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.46 CPU seconds.
+....................................................................................................
+# of active nodes       : 140
+# of integral nodes     : 100
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.7785937609644398
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 241: 96.75 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.42 CPU seconds.
+....................................................................................................
+# of active nodes       : 141
+# of integral nodes     : 100
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.778073960151594
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 242: 97.18 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.46 CPU seconds.
+....................................................................................................
+# of active nodes       : 142
+# of integral nodes     : 100
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.7776814061142128
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 243: 97.64 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.43 CPU seconds.
+....................................................................................................
+# of active nodes       : 143
+# of integral nodes     : 100
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.7775902586866588
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 244: 98.07 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.44 CPU seconds.
+....................................................................................................
+# of active nodes       : 144
+# of integral nodes     : 100
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.777590110488419
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 245: 98.51 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.44 CPU seconds.
+....................................................................................................
+# of active nodes       : 145
+# of integral nodes     : 100
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.776560678716969
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 246: 98.95 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.41 CPU seconds.
+....................................................................................................
+# of active nodes       : 146
+# of integral nodes     : 100
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.776421005059799
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+-----------------------------------[Iteration 247: 99.36 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 1.72 CPU seconds.
+....................................................................................................
+# of active nodes       : 147
+# of integral nodes     : 100
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.7755259911688253
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+----------------------------------[Iteration 248: 101.09 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.45 CPU seconds.
+....................................................................................................
+# of active nodes       : 148
+# of integral nodes     : 100
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.7750751869591466
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+----------------------------------[Iteration 249: 101.54 seconds]-----------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.375686834226954
+Complete in 0.30 CPU seconds.
+....................................................................................................
+# of active nodes       : 148
+# of integral nodes     : 101
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.7748330677892747
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+----------------------------------[Iteration 250: 101.84 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.45 CPU seconds.
+....................................................................................................
+# of active nodes       : 149
+# of integral nodes     : 101
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.774645605431468
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+----------------------------------[Iteration 251: 102.29 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.44 CPU seconds.
+....................................................................................................
+# of active nodes       : 150
+# of integral nodes     : 101
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.7746455704577713
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+----------------------------------[Iteration 252: 102.73 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.45 CPU seconds.
+....................................................................................................
+# of active nodes       : 151
+# of integral nodes     : 101
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.774645565123074
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+----------------------------------[Iteration 253: 103.17 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.44 CPU seconds.
+....................................................................................................
+# of active nodes       : 152
+# of integral nodes     : 101
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.7746454129483613
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+----------------------------------[Iteration 254: 103.61 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.45 CPU seconds.
+....................................................................................................
+# of active nodes       : 153
+# of integral nodes     : 101
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.7745274178788697
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+----------------------------------[Iteration 255: 104.06 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.41 CPU seconds.
+....................................................................................................
+# of active nodes       : 154
+# of integral nodes     : 101
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.7744991400802776
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+----------------------------------[Iteration 256: 104.47 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.47 CPU seconds.
+....................................................................................................
+# of active nodes       : 155
+# of integral nodes     : 101
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.7741258375782376
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+----------------------------------[Iteration 257: 104.94 seconds]-----------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.7725886914754416
+Complete in 0.34 CPU seconds.
+....................................................................................................
+# of active nodes       : 155
+# of integral nodes     : 102
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.7739554961165176
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+----------------------------------[Iteration 258: 105.28 seconds]-----------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.7725886922491725
+Complete in 0.35 CPU seconds.
+....................................................................................................
+# of active nodes       : 155
+# of integral nodes     : 103
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.773848822795973
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+----------------------------------[Iteration 259: 105.63 seconds]-----------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.375686841529653
+Complete in 0.35 CPU seconds.
+....................................................................................................
+# of active nodes       : 155
+# of integral nodes     : 104
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.773848705369936
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+----------------------------------[Iteration 260: 105.98 seconds]-----------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.3756868257148507
+Complete in 0.31 CPU seconds.
+....................................................................................................
+# of active nodes       : 155
+# of integral nodes     : 105
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.7737919932932313
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+----------------------------------[Iteration 261: 106.29 seconds]-----------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.772588691487092
+Complete in 0.32 CPU seconds.
+....................................................................................................
+# of active nodes       : 155
+# of integral nodes     : 106
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.7735277776840506
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+----------------------------------[Iteration 262: 106.61 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.45 CPU seconds.
+....................................................................................................
+# of active nodes       : 156
+# of integral nodes     : 106
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.7732185247884784
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+----------------------------------[Iteration 263: 107.06 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.44 CPU seconds.
+....................................................................................................
+# of active nodes       : 157
+# of integral nodes     : 106
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.7730367291108164
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+----------------------------------[Iteration 264: 107.50 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.47 CPU seconds.
+....................................................................................................
+# of active nodes       : 158
+# of integral nodes     : 106
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.7729386049599616
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+----------------------------------[Iteration 265: 107.97 seconds]-----------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.3511466566367534
+Complete in 0.28 CPU seconds.
+....................................................................................................
+# of active nodes       : 158
+# of integral nodes     : 107
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.7727429882841843
+Best integer solution   : 2.7725887144765844
+Branching most promising node...
+----------------------------------[Iteration 266: 108.26 seconds]-----------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.772588747713094
+Complete in 0.35 CPU seconds.
+....................................................................................................
+# of active nodes       : 158
+# of integral nodes     : 108
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.772720847386118
+Best integer solution   : 2.772588747713094
+Branching most promising node...
+----------------------------------[Iteration 267: 108.61 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.45 CPU seconds.
+....................................................................................................
+# of active nodes       : 159
+# of integral nodes     : 108
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.772720796571505
+Best integer solution   : 2.772588747713094
+Branching most promising node...
+----------------------------------[Iteration 268: 109.06 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.47 CPU seconds.
+....................................................................................................
+# of active nodes       : 160
+# of integral nodes     : 108
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.772720745158017
+Best integer solution   : 2.772588747713094
+Branching most promising node...
+----------------------------------[Iteration 269: 109.54 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.44 CPU seconds.
+....................................................................................................
+# of active nodes       : 161
+# of integral nodes     : 108
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.7727206789346557
+Best integer solution   : 2.772588747713094
+Branching most promising node...
+----------------------------------[Iteration 270: 109.98 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.47 CPU seconds.
+....................................................................................................
+# of active nodes       : 162
+# of integral nodes     : 108
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.7727206700613727
+Best integer solution   : 2.772588747713094
+Branching most promising node...
+----------------------------------[Iteration 271: 110.45 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.45 CPU seconds.
+....................................................................................................
+# of active nodes       : 163
+# of integral nodes     : 108
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.772687690146894
+Best integer solution   : 2.772588747713094
+Branching most promising node...
+----------------------------------[Iteration 272: 110.90 seconds]-----------------------------------
+Solving unsolved active nodes...
+Found integral node     : 2.7725886996156097
+Complete in 0.39 CPU seconds.
+....................................................................................................
+# of active nodes       : 163
+# of integral nodes     : 109
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.7726606667555265
+Best integer solution   : 2.772588747713094
+Branching most promising node...
+----------------------------------[Iteration 273: 111.29 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.44 CPU seconds.
+....................................................................................................
+# of active nodes       : 164
+# of integral nodes     : 109
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.7726084217050913
+Best integer solution   : 2.772588747713094
+Branching most promising node...
+----------------------------------[Iteration 274: 111.73 seconds]-----------------------------------
+Solving unsolved active nodes...
+Complete in 0.45 CPU seconds.
+....................................................................................................
+# of active nodes       : 165
+# of integral nodes     : 109
+# of infeasible nodes   : 0
+Tightest upper bound    : 2.7725886016709396
+Best integer solution   : 2.772588747713094
+----------------------------------------------------------------------------------------------------
+              Best integer solution better than tightest upper bound, solution found.
+===================================[Finished: 112.17 CPU seconds]===================================
+--------------------------------[Optimization Complete in 112.22 s]---------------------------------
+Complete:
+ ~ sensitivity analysis took 0.01 CPU seconds.
+ ~ optimization with MOSEK via cvxpy took 112.22 CPU seconds.
+####################################################################################################
+
+######################################## Optimal Candidates ########################################
+Obtained on                             : 2023-02-02 11:51:57.413843
+Criterion (higher is better)            : d_opt_criterion
+Criterion Value (efforts sum to None)   : 2.772588714417788
+Pseudo-bayesian                         : False
+CVaR Problem                            : False
+Dynamic                                 : False
+Time-invariant Controls                 : True
+Time-varying Controls                   : False
+Number of Candidates                    : 121
+Number of Optimal Candidates            : 3
+Information Matrix Regularized          : False
+Minimum Effort Threshold                : 0.0001
+-------------------------------------------[Candidate 11]-------------------------------------------
+                             Recommended Effort: 33.33% of experiments
+Time-invariant Controls:
+[-1.  1.]
+------------------------------------------[Candidate 111]-------------------------------------------
+                             Recommended Effort: 33.33% of experiments
+Time-invariant Controls:
+[ 1. -1.]
+------------------------------------------[Candidate 121]-------------------------------------------
+                             Recommended Effort: 33.33% of experiments
+Time-invariant Controls:
+[1. 1.]
+####################################################################################################

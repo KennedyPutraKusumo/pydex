@@ -32,7 +32,7 @@ designer_1 = Designer()
 designer_1.use_finite_difference = False
 designer_1.simulate = simulate
 
-reso = 21
+reso = 11
 tic = designer_1.create_grid(
     bounds=[(-1, 1), (-1, 1)],
     levels=[reso, reso]
@@ -43,7 +43,13 @@ designer_1.model_parameters = np.ones(3)  # values won't affect design, but stil
 
 designer_1.initialize(verbose=2)  # 0: silent, 1: overview, 2: detailed, 3: very detailed
 
-designer_1.design_experiment(designer_1.d_opt_criterion, n_exp=7, write=False, discrete_design_solver="OA")
+designer_1.design_experiment(
+    designer_1.d_opt_criterion,
+    write=False,
+    n_exp=3,
+    discrete_design_solver="OA",
+    assess_potential_gain=True,
+)
 designer_1.print_optimal_candidates()
 designer_1.plot_optimal_controls(alpha=0.3, non_opt_candidates=True)
 designer_1.show_plots()

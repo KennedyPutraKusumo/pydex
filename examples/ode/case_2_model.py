@@ -146,18 +146,17 @@ def create_model_tvc(spt):
 
 
 if __name__ == '__main__':
-    tic = [1, 323.15]
+    tic = [5, 400.15]
 
     pre_exp_constant = 0.1
     activ_energy = 5000
     theta_0 = np.log(pre_exp_constant) - activ_energy / (8.314159 * 273.15)
     theta_1 = activ_energy / (8.314159 * 273.15)
     theta_nom = np.array(
-        [theta_0, theta_1, 1, 0.1]
+        [theta_0, theta_1, 1, 0.5]
     )
-    theta_nom = [0.,  1.,  1.1, 0.1]
 
-    spt = np.linspace(0, 200, 11)
+    spt = np.linspace(0, 100, 11)
 
     y = simulate(tic, spt, theta_nom)
 
@@ -181,30 +180,30 @@ if __name__ == '__main__':
     fig.tight_layout()
     plt.show()
 
-    mp_bounds = np.array([
-        [-15, 0],
-        [0, 5],
-        [1, 2],
-        [0, 1],
-    ])
-    reso = 11j
-    mp1, mp2, mp3, mp4 = np.mgrid[
-        mp_bounds[0][0]:mp_bounds[0][1]:reso,
-        mp_bounds[1][0]:mp_bounds[1][1]:reso,
-        mp_bounds[2][0]:mp_bounds[2][1]:reso,
-        mp_bounds[3][0]:mp_bounds[3][1]:reso,
-    ]
-    mp1 = mp1.flatten()
-    mp2 = mp2.flatten()
-    mp3 = mp3.flatten()
-    mp4 = mp4.flatten()
-
-    for mp in np.array([mp1, mp2, mp3, mp4]).T:
-        try:
-            print(f"Model parameters: {mp}")
-            y = simulate(tic, spt, mp)
-        except RuntimeError:
-            print(f"Simulation error at model parameters:")
-            print(mp)
-
-    plt.show()
+    # mp_bounds = np.array([
+    #     [-15, 0],
+    #     [0, 5],
+    #     [1, 2],
+    #     [0, 1],
+    # ])
+    # reso = 11j
+    # mp1, mp2, mp3, mp4 = np.mgrid[
+    #     mp_bounds[0][0]:mp_bounds[0][1]:reso,
+    #     mp_bounds[1][0]:mp_bounds[1][1]:reso,
+    #     mp_bounds[2][0]:mp_bounds[2][1]:reso,
+    #     mp_bounds[3][0]:mp_bounds[3][1]:reso,
+    # ]
+    # mp1 = mp1.flatten()
+    # mp2 = mp2.flatten()
+    # mp3 = mp3.flatten()
+    # mp4 = mp4.flatten()
+    #
+    # for mp in np.array([mp1, mp2, mp3, mp4]).T:
+    #     try:
+    #         print(f"Model parameters: {mp}")
+    #         y = simulate(tic, spt, mp)
+    #     except RuntimeError:
+    #         print(f"Simulation error at model parameters:")
+    #         print(mp)
+    #
+    # plt.show()

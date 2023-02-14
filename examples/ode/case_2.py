@@ -76,67 +76,68 @@ package, optimizer = ("cvxpy", "MOSEK")
 # package, optimizer = ("scipy", "SLSQP")
 result = designer_1.design_experiment(
     criterion=criterion,
-    optimize_sampling_times=False,  # ignoring sampling times
+    optimize_sampling_times=True,  # ignoring sampling times
+    n_spt=2,
     write=False,
     package=package,
     optimizer=optimizer,
 )
-designer_1.measurable_responses = [0, 1]
+
 designer_1.print_optimal_candidates()
 designer_1.plot_optimal_predictions()
 designer_1.plot_optimal_efforts()
+designer_1.plot_optimal_sensitivities()
+designer_1.show_plots()
 designer_1.apportion(2)
-mp_bounds = np.array([
-    [-15, 0],
-    [0, 5],
-    [1, 2],
-    [0, 1],
-])
-designer_1.plot_optimal_predictions()
-designer_1.plot_optimal_sensitivities(interactive=False)
-designer_1.insilico_bayesian_inference(
-    bounds=mp_bounds,
-    n_walkers=32,
-    n_steps=7000,
-    burn_in=150,
-)
-designer_1.plot_bayesian_inference_samples(
-    bounds=mp_bounds,
-)
-
-designer_1._optimization_package = "scipy"
-designer_1.compute_criterion_value(designer_1.a_opt_criterion)
-designer_1.compute_criterion_value(designer_1.e_opt_criterion)
-designer_1.compute_criterion_value(designer_1.dg_opt_criterion)
-
-redesign_result_2 = designer_1.design_experiment(
-    criterion=criterion,
-    optimize_sampling_times=True,   # sampling times as experimental variables
-    write=False,
-    package=package,
-    optimizer=optimizer,
-)
-designer_1.print_optimal_candidates()
-designer_1.plot_optimal_efforts()
-designer_1.apportion(12)
-designer_1.plot_optimal_predictions()
-designer_1.plot_optimal_sensitivities()
-designer_1.compute_criterion_value(designer_1.a_opt_criterion)
-designer_1.compute_criterion_value(designer_1.e_opt_criterion)
-
-redesign_result_2 = designer_1.design_experiment(
-    criterion=criterion,
-    optimize_sampling_times=True,   # sampling times as experimental variables
-    n_spt=2,                        # two sampling times
-    write=False,
-    package=package,
-    optimizer=optimizer,
-)
-designer_1.print_optimal_candidates()
-designer_1.apportion(12)
-designer_1.plot_optimal_predictions()
-designer_1.plot_optimal_sensitivities()
-designer_1.compute_criterion_value(designer_1.a_opt_criterion)
-designer_1.compute_criterion_value(designer_1.e_opt_criterion)
+# mp_bounds = np.array([
+#     [-15, 0],
+#     [0, 5],
+#     [1, 2],
+#     [0, 1],
+# ])
+# designer_1.insilico_bayesian_inference(
+#     bounds=mp_bounds,
+#     n_walkers=32,
+#     n_steps=7000,
+#     burn_in=150,
+# )
+# designer_1.plot_bayesian_inference_samples(
+#     bounds=mp_bounds,
+# )
+#
+# designer_1._optimization_package = "scipy"
+# designer_1.compute_criterion_value(designer_1.a_opt_criterion)
+# designer_1.compute_criterion_value(designer_1.e_opt_criterion)
+# designer_1.compute_criterion_value(designer_1.dg_opt_criterion)
+#
+# redesign_result_2 = designer_1.design_experiment(
+#     criterion=criterion,
+#     optimize_sampling_times=True,   # sampling times as experimental variables
+#     write=False,
+#     package=package,
+#     optimizer=optimizer,
+# )
+# designer_1.print_optimal_candidates()
+# designer_1.plot_optimal_efforts()
+# designer_1.apportion(12)
+# designer_1.plot_optimal_predictions()
+# designer_1.plot_optimal_sensitivities()
+# designer_1.compute_criterion_value(designer_1.a_opt_criterion)
+# designer_1.compute_criterion_value(designer_1.e_opt_criterion)
+#
+# redesign_result_2 = designer_1.design_experiment(
+#     criterion=criterion,
+#     optimize_sampling_times=True,   # sampling times as experimental variables
+#     n_spt=2,                        # two sampling times
+#     write=False,
+#     package=package,
+#     optimizer=optimizer,
+# )
+# designer_1.print_optimal_candidates()
+# designer_1.apportion(12)
+# designer_1.plot_optimal_predictions()
+# designer_1.plot_optimal_sensitivities()
+# designer_1.compute_criterion_value(designer_1.a_opt_criterion)
+# designer_1.compute_criterion_value(designer_1.e_opt_criterion)
 
 designer_1.show_plots()
