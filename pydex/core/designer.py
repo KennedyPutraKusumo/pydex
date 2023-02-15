@@ -1659,7 +1659,7 @@ class Designer:
                 self.efforts = cp.Variable((self.n_c, self.n_spt), nonneg=True)
             self.efforts.value = e0
             # constraints and objective
-            if self._discrete_design and discrete_design_solver == "B&B":
+            if self._discrete_design and self._discrete_design_solver == "B&B":
                 p_cons = [cp.sum(self.efforts) == n_exp]
             else:
                 p_cons = [cp.sum(self.efforts) <= 1]
@@ -1677,14 +1677,14 @@ class Designer:
                 p_cons += [self.efforts == fix_effort / fix_effort.sum()]
             problem = cp.Problem(obj, p_cons)
             # solution
-            if self._discrete_design and discrete_design_solver == "B&B":
+            if self._discrete_design and self._discrete_design_solver == "B&B":
                 root = Node(self.efforts, problem)
                 tree = Tree(root)
                 tree._verbose = self._verbose
                 opt_node = tree.solve()
                 self.efforts = opt_node.int_var_val
                 opt_fun = opt_node.ub
-            elif self._discrete_design and discrete_design_solver == "OA":
+            elif self._discrete_design and self._discrete_design_solver == "OA":
                 opt_fun = problem.solve(
                     verbose=opt_verbose,
                     solver=self._optimizer,
