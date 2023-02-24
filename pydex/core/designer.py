@@ -1431,6 +1431,7 @@ class Designer:
         self._unconstrained_form = unconstrained_form
         self._trim_fim = trim_fim
         self._save_atomics = save_atomics
+        self._discrete_design_solver = discrete_design_solver
 
         """ checking if CVaR problem """
         if "cvar" in self._current_criterion:
@@ -1684,7 +1685,7 @@ class Designer:
                 opt_node = tree.solve()
                 self.efforts = opt_node.int_var_val
                 opt_fun = opt_node.ub
-            elif self._discrete_design and self._discrete_design_solver == "OA":
+            if self._discrete_design and self._discrete_design_solver == "OA":
                 opt_fun = problem.solve(
                     verbose=opt_verbose,
                     solver=self._optimizer,
