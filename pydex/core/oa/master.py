@@ -29,7 +29,7 @@ class OAMasterProblem:
         ]
 
     def add_gomorys_cut(self, yk, lb, ub):
-        # from Appendix 1 of https: // doi.org / 10.1080 / 10556788.2019.1641498
+        # from Appendix 1 of https://doi.org/10.1080/10556788.2019.1641498
         if self.gomory_cuts is None:
             self.gomory_cuts = {}
             self.n_gomory_cuts = 1
