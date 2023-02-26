@@ -49,11 +49,11 @@ class OAManager:
         self.iteration_start_time = None
 
     def compute_analytical_gradient(self, efforts):
-        M = np.sum(efforts[:, None, None, None] * self.atomics, axis=0)[0]
+        H = np.sum(efforts[:, None, None, None] * self.atomics, axis=0)[0]
         gradient = np.empty(efforts.shape[0])
-        for i, (Ai, pi, qi) in enumerate(zip(self.atomics, efforts, self.sensitivities[:, 0, 0, :])):
-            Ni = np.linalg.solve(M, Ai[0])
-            gradient[i] = np.trace(Ni)
+        for ii in range(efforts.shape[0]):
+            Ai = np.linalg.solve(H, self.atomics[ii, 0, :, :])
+            gradient[ii] = np.trace(Ai)
         return -gradient
 
     def solve(self, n_exp, y0, atol=None, rtol=1e-3, assess_potential_oa_gain=False, ced_efforts=None, ced_obj=None, apportioned_effort=None, apportioned_obj_val=None, draw_progress=True, singular_tol=None, max_iters=1e5, MIP_solver=None):
