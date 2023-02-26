@@ -48,13 +48,13 @@ class OAManager:
         self.overall_time = None
         self.iteration_start_time = None
 
-    def analytic_d_logdetfim(self, efforts):
+    def compute_analytical_gradient(self, efforts):
         M = np.sum(efforts[:, None, None, None] * self.atomics, axis=0)[0]
-        d_detfim = np.empty(efforts.shape[0])
+        gradient = np.empty(efforts.shape[0])
         for i, (Ai, pi, qi) in enumerate(zip(self.atomics, efforts, self.sensitivities[:, 0, 0, :])):
             Ni = np.linalg.solve(M, Ai[0])
-            d_detfim[i] = np.trace(Ni)
-        return -d_detfim
+            gradient[i] = np.trace(Ni)
+        return -gradient
 
     def solve(self, n_exp, y0, atol=None, rtol=1e-3, assess_potential_oa_gain=False, ced_efforts=None, ced_obj=None, apportioned_effort=None, apportioned_obj_val=None, draw_progress=True, singular_tol=None, max_iters=1e5, MIP_solver=None):
         # TODO: MIP pool solution
@@ -192,7 +192,7 @@ class OAManager:
             if self.iteration_no == 0:
                 self.master_problem.create_cvxpy_problem(y0, self.N_exp)
                 if ced_efforts is not None and ced_obj is not None:
-                    self.ced_obj_grad = self.analytic_d_logdetfim(
+                    self.ced_obj_grad = self.compute_analytical_gradient(
                         ced_efforts[:, 0],
                     )
                     self.master_problem.add_linearized_obj_cut(
@@ -207,7 +207,7 @@ class OAManager:
             else:
                 # add linearized cut(s)
                 self.f_yk[self.iteration_no] = self.UBDk[self.iteration_no]
-                self.gradf_yk[self.iteration_no] = self.analytic_d_logdetfim(
+                self.gradf_yk[self.iteration_no] = self.compute_analytical_gradient(
                     self.yk[self.iteration_no][:, 0],
                 )
                 self.master_problem.add_linearized_obj_cut(
