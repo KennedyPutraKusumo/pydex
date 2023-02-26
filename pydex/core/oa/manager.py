@@ -82,9 +82,9 @@ class OAManager:
         while not self.converged:
             """ Primal problem: log_det evaluation only """
             if self.iteration_no == 0:
-                self.primal_problem.efforts = y0
+                self.primal_problem.efforts = self.y0
                 f0 = self.primal_problem.compute_criterion_value()
-                self.yk = {0: y0}
+                self.yk = {0: self.y0}
                 self.UBDk = {0: f0}
                 self.LBDk = {0: -np.inf}
             else:
@@ -123,7 +123,7 @@ class OAManager:
                     self.master_problem.add_gomorys_cut(
                         self.yk[self.iteration_no],
                         lb=0,
-                        ub=n_exp,
+                        ub=self.N_exp,
                     )
                     # yk for iteration with singular matrix is taken as previous
                     self.yk[self.iteration_no] = self.yk[self.iteration_no - 1]
@@ -190,10 +190,10 @@ class OAManager:
             # add CED solutions as a linear cut in the first iteration, both apportioned and continuous-effort are used
             self.iteration_start_time = time()
             if self.iteration_no == 0:
-                self.master_problem.create_cvxpy_problem(y0, self.N_exp)
-                if ced_efforts is not None and ced_obj is not None:
+                self.master_problem.create_cvxpy_problem(self.y0, self.N_exp)
+                if self.ced_efforts is not None and self.ced_obj is not None:
                     self.ced_obj_grad = self.analytic_d_logdetfim(
-                        ced_efforts[:, 0],
+                        self.ced_efforts[:, 0],
                     )
                     self.master_problem.add_linearized_obj_cut(
                         yk=self.ced_efforts,
