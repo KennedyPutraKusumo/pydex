@@ -1,0 +1,440 @@
+[WARNING]: because the error_cov is not given, Pydex defaults to the identity matrix of size 1x1.
+====================================================================================================
+Initialization complete: designer ready.
+----------------------------------------------------------------------------------------------------
+Number of model parameters              : 3
+Number of candidates                    : 121
+Number of responses                     : 1
+Number of measured responses            : 1
+Number of time-invariant controls       : 2
+Covariance of measured responses        : 
+ [[1.]]
+====================================================================================================
+############################### Computing Optimal Experiment Design ################################
+Started on                              : 2023-02-24 18:41:38.517874
+Criterion                               : d_opt_criterion
+Pseudo-bayesian                         : False
+Dynamic                                 : False
+Time-invariant Controls                 : True
+Time-varying Controls                   : False
+Number of Candidates                    : 121
+---------------------------------------[Sensitivity Analysis]---------------------------------------
+Use Finite Difference                   : True
+Richardson Extrapolation Steps          : 5
+Normalized by Parameter Values          : True
+----------------------------------------------------------------------------------------------------
+[Candidate     13/121]: time elapsed            0.05 seconds.
+[Candidate     26/121]: time elapsed            0.09 seconds.
+[Candidate     39/121]: time elapsed            0.12 seconds.
+[Candidate     52/121]: time elapsed            0.15 seconds.
+[Candidate     65/121]: time elapsed            0.19 seconds.
+[Candidate     78/121]: time elapsed            0.23 seconds.
+[Candidate     91/121]: time elapsed            0.26 seconds.
+[Candidate    104/121]: time elapsed            0.29 seconds.
+[Candidate    117/121]: time elapsed            0.33 seconds.
+[Candidate    121/121]: time elapsed            0.34 seconds.
+----------------------------------------------------------------------------------------------------
+
+
+Problem
+  Name                   :                 
+  Objective sense        : min             
+  Type                   : CONIC (conic optimization problem)
+  Constraints            : 330             
+  Cones                  : 3               
+  Scalar variables       : 166             
+  Matrix variables       : 2               
+  Integer variables      : 0               
+
+Optimizer started.
+Problem
+  Name                   :                 
+  Objective sense        : min             
+  Type                   : CONIC (conic optimization problem)
+  Constraints            : 330             
+  Cones                  : 3               
+  Scalar variables       : 166             
+  Matrix variables       : 2               
+  Integer variables      : 0               
+
+Optimizer  - threads                : 6               
+Optimizer  - solved problem         : the primal      
+Optimizer  - Constraints            : 52
+Optimizer  - Cones                  : 4
+Optimizer  - Scalar variables       : 141               conic                  : 19              
+Optimizer  - Semi-definite variables: 2                 scalarized             : 27              
+Factor     - setup time             : 0.00              dense det. time        : 0.00            
+Factor     - ML order time          : 0.00              GP order time          : 0.00            
+Factor     - nonzeros before factor : 892               after factor           : 892             
+Factor     - dense dim.             : 0                 flops                  : 5.32e+04        
+ITE PFEAS    DFEAS    GFEAS    PRSTATUS   POBJ              DOBJ              MU       TIME  
+0   1.3e+00  1.3e+00  5.9e+00  0.00e+00   2.483515197e+00   -2.415306005e+00  1.0e+00  0.02  
+1   3.0e-01  3.0e-01  9.1e-01  4.29e-01   7.954265506e-01   -6.351501792e-01  2.3e-01  0.02  
+2   4.4e-02  4.4e-02  5.3e-02  7.81e-01   -7.621157560e-01  -9.927131707e-01  3.4e-02  0.02  
+3   1.6e-02  1.6e-02  9.8e-03  1.22e+00   -1.063200553e-01  -1.818928917e-01  1.2e-02  0.02  
+4   3.6e-03  3.6e-03  1.1e-03  1.10e+00   2.697055364e-03   -1.370382598e-02  2.8e-03  0.03  
+5   7.4e-05  7.4e-05  3.0e-06  1.02e+00   6.489083636e-05   -2.823751344e-04  5.7e-05  0.03  
+6   9.8e-07  9.8e-07  4.4e-09  1.01e+00   1.776534846e-06   -2.936345685e-06  7.6e-07  0.03  
+7   1.4e-07  1.4e-07  2.2e-10  1.00e+00   1.315059102e-07   -5.168164923e-07  1.0e-07  0.03  
+8   6.1e-09  6.1e-09  2.1e-12  1.00e+00   3.244957651e-09   -2.575544223e-08  4.7e-09  0.03  
+9   4.8e-09  4.9e-09  7.4e-14  1.00e+00   -1.676295208e-10  -3.243019515e-09  5.0e-10  0.03  
+Optimizer terminated. Time: 0.03    
+
+
+Interior-point solution summary
+  Problem status  : PRIMAL_AND_DUAL_FEASIBLE
+  Solution status : OPTIMAL
+  Primal.  obj: -1.6762952081e-10   nrm: 1e+00    Viol.  con: 6e-09    var: 0e+00    barvar: 0e+00    cones: 3e-09  
+  Dual.    obj: -3.2430194086e-09   nrm: 3e+00    Viol.  con: 9e-16    var: 1e-15    barvar: 6e-09    cones: 0e+00  
+d_opt_criterion: -3.296E+00
+####################################################################################################
+################################## Optimal Experiment for 3 Runs ###################################
+Obtained on                             : 2023-02-24 18:41:39.288900
+Criterion (higher is better)            : d_opt_criterion
+Criterion Value with sum(efforts) = 3   : 3.2958368660043256
+Rounded Criterion with sum(efforts) = 3 : 2.7725887222397776
+Pseudo-bayesian                         : False
+CVaR Problem                            : False
+Dynamic                                 : False
+Time-invariant Controls                 : True
+Time-varying Controls                   : False
+Number of Candidates                    : 121
+Number of Optimal Candidates            : 4
+-------------------------------------------[Candidate 1]--------------------------------------------
+                           Recommended Apportionment: Run 0/3 Experiments                           
+Time-invariant Controls:
+[-1. -1.]
+-------------------------------------------[Candidate 11]-------------------------------------------
+                           Recommended Apportionment: Run 1/3 Experiments                           
+Time-invariant Controls:
+[-1.  1.]
+------------------------------------------[Candidate 111]-------------------------------------------
+                           Recommended Apportionment: Run 1/3 Experiments                           
+Time-invariant Controls:
+[ 1. -1.]
+------------------------------------------[Candidate 121]-------------------------------------------
+                           Recommended Apportionment: Run 1/3 Experiments                           
+Time-invariant Controls:
+[1. 1.]
+----------------------------------------------------------------------------------------------------
+The actual criterion value of the rounded design is 83.99% as informative as the continuous design.
+The rounded design for 3 runs is guaranteed to be at least 0.00% as good as the continuous design.
+=====================================[0.16 s: Iteration 0 Done]=====================================
+Iteration 0 Upper bound: -2.7725887222397776
+Iteration 0 Tightest Upper bound: -2.7725887222397776
+Iteration 0 Lower bound: -inf
+Iteration 0 Tightest Lower bound: -inf
+Iteration 0 Completed in 0.1572 s
+Academic license - for non-commercial use only - expires 2023-09-29
+Using license file C:\Users\kenne\gurobi.lic
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=====================================[0.19 s: Iteration 1 Done]=====================================
+Iteration 1 Upper bound: inf
+Iteration 1 Tightest Upper bound: -2.7725887222397776
+Iteration 1 Lower bound: -3.2958369413281727
+Iteration 1 Tightest Lower bound: -3.2958369413281727
+Iteration 1 Completed in 0.0268 s
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=====================================[0.22 s: Iteration 2 Done]=====================================
+Iteration 2 Upper bound: inf
+Iteration 2 Tightest Upper bound: -2.7725887222397776
+Iteration 2 Lower bound: -3.2958369413281727
+Iteration 2 Tightest Lower bound: -3.2958369413281727
+Iteration 2 Completed in 0.0240 s
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=====================================[0.29 s: Iteration 3 Done]=====================================
+Iteration 3 Upper bound: inf
+Iteration 3 Tightest Upper bound: -2.7725887222397776
+Iteration 3 Lower bound: -3.2958369413281727
+Iteration 3 Tightest Lower bound: -3.2958369413281727
+Iteration 3 Completed in 0.0570 s
+Singular master solution found, reusing previous iteration to linearize master (no valid option)
+=====================================[0.36 s: Iteration 4 Done]=====================================
+Iteration 4 Upper bound: inf
+Iteration 4 Tightest Upper bound: -2.7725887222397776
+Iteration 4 Lower bound: -3.2958369413281727
+Iteration 4 Tightest Lower bound: -3.2958369413281727
+Iteration 4 Completed in 0.0588 s
+=====================================[0.44 s: Iteration 5 Done]=====================================
+Iteration 5 Upper bound: -2.7725887222397776
+Iteration 5 Tightest Upper bound: -2.7725887222397776
+Iteration 5 Lower bound: -3.2958369413250095
+Iteration 5 Tightest Lower bound: -3.2958369413250095
+Iteration 5 Completed in 0.0699 s
+=====================================[0.51 s: Iteration 6 Done]=====================================
+Iteration 6 Upper bound: -2.7725887222397776
+Iteration 6 Tightest Upper bound: -2.7725887222397776
+Iteration 6 Lower bound: -3.295836941328173
+Iteration 6 Tightest Lower bound: -3.2958369413250095
+Iteration 6 Completed in 0.0699 s
+=====================================[0.60 s: Iteration 7 Done]=====================================
+Iteration 7 Upper bound: -2.7725887222397776
+Iteration 7 Tightest Upper bound: -2.7725887222397776
+Iteration 7 Lower bound: -3.2958369413281727
+Iteration 7 Tightest Lower bound: -3.2958369413250095
+Iteration 7 Completed in 0.0749 s
+=====================================[0.71 s: Iteration 8 Done]=====================================
+Iteration 8 Upper bound: -2.7725887222397776
+Iteration 8 Tightest Upper bound: -2.7725887222397776
+Iteration 8 Lower bound: -2.975837163114023
+Iteration 8 Tightest Lower bound: -2.975837163114023
+Iteration 8 Completed in 0.1041 s
+=====================================[0.83 s: Iteration 9 Done]=====================================
+Iteration 9 Upper bound: -2.7725887222397776
+Iteration 9 Tightest Upper bound: -2.7725887222397776
+Iteration 9 Lower bound: -2.9758371631131126
+Iteration 9 Tightest Lower bound: -2.9758371631131126
+Iteration 9 Completed in 0.1081 s
+====================================[0.95 s: Iteration 10 Done]=====================================
+Iteration 10 Upper bound: -2.772588722239777
+Iteration 10 Tightest Upper bound: -2.7725887222397776
+Iteration 10 Lower bound: -2.9758371631141443
+Iteration 10 Tightest Lower bound: -2.9758371631131126
+Iteration 10 Completed in 0.1133 s
+====================================[1.08 s: Iteration 11 Done]=====================================
+Iteration 11 Upper bound: -2.772588722239782
+Iteration 11 Tightest Upper bound: -2.772588722239782
+Iteration 11 Lower bound: -2.9758371631138223
+Iteration 11 Tightest Lower bound: -2.9758371631131126
+Iteration 11 Completed in 0.1218 s
+====================================[1.21 s: Iteration 12 Done]=====================================
+Iteration 12 Upper bound: -2.7725887222397776
+Iteration 12 Tightest Upper bound: -2.772588722239782
+Iteration 12 Lower bound: -2.9525887222397778
+Iteration 12 Tightest Lower bound: -2.9525887222397778
+Iteration 12 Completed in 0.1243 s
+====================================[1.35 s: Iteration 13 Done]=====================================
+Iteration 13 Upper bound: -2.7725887222397776
+Iteration 13 Tightest Upper bound: -2.772588722239782
+Iteration 13 Lower bound: -2.9525887222398457
+Iteration 13 Tightest Lower bound: -2.9525887222397778
+Iteration 13 Completed in 0.1316 s
+====================================[1.55 s: Iteration 14 Done]=====================================
+Iteration 14 Upper bound: -2.7725887222397776
+Iteration 14 Tightest Upper bound: -2.772588722239782
+Iteration 14 Lower bound: -2.9525887222397778
+Iteration 14 Tightest Lower bound: -2.9525887222397778
+Iteration 14 Completed in 0.1821 s
+====================================[1.76 s: Iteration 15 Done]=====================================
+Iteration 15 Upper bound: -2.772588722239777
+Iteration 15 Tightest Upper bound: -2.772588722239782
+Iteration 15 Lower bound: -2.914788722239778
+Iteration 15 Tightest Lower bound: -2.914788722239778
+Iteration 15 Completed in 0.2040 s
+====================================[1.96 s: Iteration 16 Done]=====================================
+Iteration 16 Upper bound: -2.7725887222397776
+Iteration 16 Tightest Upper bound: -2.772588722239782
+Iteration 16 Lower bound: -2.85258872223978
+Iteration 16 Tightest Lower bound: -2.85258872223978
+Iteration 16 Completed in 0.1834 s
+====================================[2.18 s: Iteration 17 Done]=====================================
+Iteration 17 Upper bound: -2.7725887222397776
+Iteration 17 Tightest Upper bound: -2.772588722239782
+Iteration 17 Lower bound: -2.8525887222419932
+Iteration 17 Tightest Lower bound: -2.85258872223978
+Iteration 17 Completed in 0.2138 s
+====================================[2.39 s: Iteration 18 Done]=====================================
+Iteration 18 Upper bound: -2.7725887222397776
+Iteration 18 Tightest Upper bound: -2.772588722239782
+Iteration 18 Lower bound: -2.8525887222397786
+Iteration 18 Tightest Lower bound: -2.8525887222397786
+Iteration 18 Completed in 0.1968 s
+====================================[2.60 s: Iteration 19 Done]=====================================
+Iteration 19 Upper bound: -2.7725887222397776
+Iteration 19 Tightest Upper bound: -2.772588722239782
+Iteration 19 Lower bound: -2.8397887222397795
+Iteration 19 Tightest Lower bound: -2.8397887222397795
+Iteration 19 Completed in 0.1985 s
+====================================[2.78 s: Iteration 20 Done]=====================================
+Iteration 20 Upper bound: -2.752488050532775
+Iteration 20 Tightest Upper bound: -2.772588722239782
+Iteration 20 Lower bound: -2.8083887222397776
+Iteration 20 Tightest Lower bound: -2.8083887222397776
+Iteration 20 Completed in 0.1757 s
+====================================[3.01 s: Iteration 21 Done]=====================================
+Iteration 21 Upper bound: -2.7725887222397776
+Iteration 21 Tightest Upper bound: -2.772588722239782
+Iteration 21 Lower bound: -2.7925889598586573
+Iteration 21 Tightest Lower bound: -2.7925889598586573
+Iteration 21 Completed in 0.2181 s
+====================================[3.18 s: Iteration 22 Done]=====================================
+Iteration 22 Upper bound: -2.772588722239777
+Iteration 22 Tightest Upper bound: -2.772588722239782
+Iteration 22 Lower bound: -2.792588722240484
+Iteration 22 Tightest Lower bound: -2.792588722240484
+Iteration 22 Completed in 0.1699 s
+====================================[3.42 s: Iteration 23 Done]=====================================
+Iteration 23 Upper bound: -2.7725887222397776
+Iteration 23 Tightest Upper bound: -2.772588722239782
+Iteration 23 Lower bound: -2.7925888164448933
+Iteration 23 Tightest Lower bound: -2.792588722240484
+Iteration 23 Completed in 0.2211 s
+====================================[3.61 s: Iteration 24 Done]=====================================
+Iteration 24 Upper bound: -2.772588722239777
+Iteration 24 Tightest Upper bound: -2.772588722239782
+Iteration 24 Lower bound: -2.7925887222397763
+Iteration 24 Tightest Lower bound: -2.7925887222397763
+Iteration 24 Completed in 0.1869 s
+====================================[3.86 s: Iteration 25 Done]=====================================
+Iteration 25 Upper bound: -2.77258872223978
+Iteration 25 Tightest Upper bound: -2.772588722239782
+Iteration 25 Lower bound: -2.7925887222397807
+Iteration 25 Tightest Lower bound: -2.7925887222397763
+Iteration 25 Completed in 0.2399 s
+====================================[4.08 s: Iteration 26 Done]=====================================
+Iteration 26 Upper bound: -2.772588722239777
+Iteration 26 Tightest Upper bound: -2.772588722239782
+Iteration 26 Lower bound: -2.7925887222407475
+Iteration 26 Tightest Lower bound: -2.7925887222397763
+Iteration 26 Completed in 0.2046 s
+====================================[4.31 s: Iteration 27 Done]=====================================
+Iteration 27 Upper bound: -2.7725887222397776
+Iteration 27 Tightest Upper bound: -2.772588722239782
+Iteration 27 Lower bound: -2.792588722244764
+Iteration 27 Tightest Lower bound: -2.7925887222397763
+Iteration 27 Completed in 0.2206 s
+====================================[4.50 s: Iteration 28 Done]=====================================
+Iteration 28 Upper bound: -2.7725887222397816
+Iteration 28 Tightest Upper bound: -2.772588722239782
+Iteration 28 Lower bound: -2.7925887222440657
+Iteration 28 Tightest Lower bound: -2.7925887222397763
+Iteration 28 Completed in 0.1808 s
+====================================[4.81 s: Iteration 29 Done]=====================================
+Iteration 29 Upper bound: -2.7725887222397776
+Iteration 29 Tightest Upper bound: -2.772588722239782
+Iteration 29 Lower bound: -2.7925887222432753
+Iteration 29 Tightest Lower bound: -2.7925887222397763
+Iteration 29 Completed in 0.2999 s
+====================================[5.01 s: Iteration 30 Done]=====================================
+Iteration 30 Upper bound: -2.772588722239777
+Iteration 30 Tightest Upper bound: -2.772588722239782
+Iteration 30 Lower bound: -2.7925891894116353
+Iteration 30 Tightest Lower bound: -2.7925887222397763
+Iteration 30 Completed in 0.1899 s
+====================================[5.23 s: Iteration 31 Done]=====================================
+Iteration 31 Upper bound: -2.7725887222397776
+Iteration 31 Tightest Upper bound: -2.772588722239782
+Iteration 31 Lower bound: -2.792588722239778
+Iteration 31 Tightest Lower bound: -2.7925887222397763
+Iteration 31 Completed in 0.2130 s
+====================================[5.47 s: Iteration 32 Done]=====================================
+Iteration 32 Upper bound: -2.7725887222397776
+Iteration 32 Tightest Upper bound: -2.772588722239782
+Iteration 32 Lower bound: -2.7925887222416694
+Iteration 32 Tightest Lower bound: -2.7925887222397763
+Iteration 32 Completed in 0.2307 s
+====================================[5.76 s: Iteration 33 Done]=====================================
+Iteration 33 Upper bound: -2.772588722239777
+Iteration 33 Tightest Upper bound: -2.772588722239782
+Iteration 33 Lower bound: -2.7925887222397767
+Iteration 33 Tightest Lower bound: -2.7925887222397763
+Iteration 33 Completed in 0.2803 s
+====================================[6.07 s: Iteration 34 Done]=====================================
+Iteration 34 Upper bound: -2.772588722239777
+Iteration 34 Tightest Upper bound: -2.772588722239782
+Iteration 34 Lower bound: -2.7925887222399637
+Iteration 34 Tightest Lower bound: -2.7925887222397763
+Iteration 34 Completed in 0.2965 s
+====================================[6.32 s: Iteration 35 Done]=====================================
+Iteration 35 Upper bound: -2.7725887222397776
+Iteration 35 Tightest Upper bound: -2.772588722239782
+Iteration 35 Lower bound: -2.792588722239835
+Iteration 35 Tightest Lower bound: -2.7925887222397763
+Iteration 35 Completed in 0.2433 s
+====================================[6.60 s: Iteration 36 Done]=====================================
+Iteration 36 Upper bound: -2.7725887222397776
+Iteration 36 Tightest Upper bound: -2.772588722239782
+Iteration 36 Lower bound: -2.7925887222400343
+Iteration 36 Tightest Lower bound: -2.7925887222397763
+Iteration 36 Completed in 0.2632 s
+====================================[6.92 s: Iteration 37 Done]=====================================
+Iteration 37 Upper bound: -2.7725887222397776
+Iteration 37 Tightest Upper bound: -2.772588722239782
+Iteration 37 Lower bound: -2.7925887222397776
+Iteration 37 Tightest Lower bound: -2.7925887222397763
+Iteration 37 Completed in 0.3189 s
+====================================[7.14 s: Iteration 38 Done]=====================================
+Iteration 38 Upper bound: -2.7725887222397776
+Iteration 38 Tightest Upper bound: -2.772588722239782
+Iteration 38 Lower bound: -2.7912596044558438
+Iteration 38 Tightest Lower bound: -2.7912596044558438
+Iteration 38 Completed in 0.2026 s
+====================================[7.39 s: Iteration 39 Done]=====================================
+Iteration 39 Upper bound: -2.7725887222397776
+Iteration 39 Tightest Upper bound: -2.772588722239782
+Iteration 39 Lower bound: -2.7907887222434042
+Iteration 39 Tightest Lower bound: -2.7907887222434042
+Iteration 39 Completed in 0.2494 s
+====================================[7.63 s: Iteration 40 Done]=====================================
+Iteration 40 Upper bound: -2.7725887222397776
+Iteration 40 Tightest Upper bound: -2.772588722239782
+Iteration 40 Lower bound: -2.7907887222402596
+Iteration 40 Tightest Lower bound: -2.7907887222402596
+Iteration 40 Completed in 0.2252 s
+====================================[7.85 s: Iteration 41 Done]=====================================
+Iteration 41 Upper bound: -2.7725887222397776
+Iteration 41 Tightest Upper bound: -2.772588722239782
+Iteration 41 Lower bound: -2.7907887222402747
+Iteration 41 Tightest Lower bound: -2.7907887222402596
+Iteration 41 Completed in 0.2106 s
+====================================[8.08 s: Iteration 42 Done]=====================================
+Iteration 42 Upper bound: -2.7725887222397776
+Iteration 42 Tightest Upper bound: -2.772588722239782
+Iteration 42 Lower bound: -2.7907887222398013
+Iteration 42 Tightest Lower bound: -2.7907887222398013
+Iteration 42 Completed in 0.2200 s
+====================================[8.32 s: Iteration 43 Done]=====================================
+Iteration 43 Upper bound: -2.7725887222397776
+Iteration 43 Tightest Upper bound: -2.772588722239782
+Iteration 43 Lower bound: -2.7896271179748737
+Iteration 43 Tightest Lower bound: -2.7896271179748737
+Iteration 43 Completed in 0.2280 s
+====================================[8.57 s: Iteration 44 Done]=====================================
+Iteration 44 Upper bound: -2.772588722239777
+Iteration 44 Tightest Upper bound: -2.772588722239782
+Iteration 44 Lower bound: -2.789627117974873
+Iteration 44 Tightest Lower bound: -2.789627117974873
+Iteration 44 Completed in 0.2402 s
+====================================[8.82 s: Iteration 45 Done]=====================================
+Iteration 45 Upper bound: -2.7725887222397776
+Iteration 45 Tightest Upper bound: -2.772588722239782
+Iteration 45 Lower bound: -2.7725887298583984
+Iteration 45 Tightest Lower bound: -2.7725887298583984
+Iteration 45 Completed in 0.2418 s
+======================Convergence achieved, with LBD: -2.7726 and UBD -2.7726=======================
+Objective function (smaller the better): -2.7726
+Total number of iterations: 45
+Total number of singular masters: 4
+====================================================================================================
+---------------------------------[Optimization Complete in 9.33 s]----------------------------------
+Complete: 
+ ~ sensitivity analysis took 0.34 CPU seconds.
+ ~ optimization with MOSEK via cvxpy took 9.33 CPU seconds.
+####################################################################################################
+
+######################################## Optimal Candidates ########################################
+Obtained on                             : 2023-02-24 18:41:48.195649
+Criterion (higher is better)            : d_opt_criterion
+Criterion Value (efforts sum to 3)      : 2.772588722239782
+Pseudo-bayesian                         : False
+CVaR Problem                            : False
+Dynamic                                 : False
+Time-invariant Controls                 : True
+Time-varying Controls                   : False
+Number of Candidates                    : 121
+Number of Optimal Candidates            : 3
+Information Matrix Regularized          : False
+Minimum Effort Threshold                : 0.0001
+-------------------------------------------[Candidate 1]--------------------------------------------
+                             Recommended Effort: 33.33% of experiments                              
+Time-invariant Controls:
+[-1. -1.]
+-------------------------------------------[Candidate 55]-------------------------------------------
+                             Recommended Effort: 33.33% of experiments                              
+Time-invariant Controls:
+[-0.2  1. ]
+------------------------------------------[Candidate 111]-------------------------------------------
+                             Recommended Effort: 33.33% of experiments                              
+Time-invariant Controls:
+[ 1. -1.]
+####################################################################################################
