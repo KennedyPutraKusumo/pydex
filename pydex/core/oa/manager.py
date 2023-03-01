@@ -171,7 +171,7 @@ class OAManager:
             if atol is not None:
                 self.converged = self.converged or np.isclose(np.max(list(self.LBDk.values())), np.min(list(self.UBDk.values())), atol=atol)
             self.converged = self.converged or self.iteration_no >= max_iters
-            if self.converged or np.max(list(self.LBDk.values())) > np.min(list(self.UBDk.values())):  # TODO: add maximum number of iterations # TODO: add relative and absolute termination option
+            if self.converged or np.max(list(self.LBDk.values())) > np.min(list(self.UBDk.values())):
                 print(f"Convergence achieved, with LBD: {np.max(list(self.LBDk.values())):.4f} and UBD {np.min(list(self.UBDk.values())):.4f}".center(100, "="))
                 print(f"Objective function (smaller the better): {self.UBDk[self.iteration_no]:.4f}")
                 print(f"Total number of iterations: {self.iteration_no}")
@@ -215,7 +215,7 @@ class OAManager:
                     f_yk=self.f_yk[self.iteration_no],
                     gradf_yk=self.gradf_yk[self.iteration_no],
                 )
-            self.master_problem.solve()
+            self.master_problem.solve()  # TODO: set tolerance for MIP's solver
             if not self.oa_gain_assessed and self.LBDk[self.iteration_no] != -np.inf and assess_potential_oa_gain:
                 confirmation = input(
                     f"The upper limit on the improvement in information criterion "
