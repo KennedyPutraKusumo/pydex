@@ -1,0 +1,1235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<gMB:GpromsProject xmlns:gMB="http://www.psenterprise.com/gMB" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.psenterprise.com/gMB http://www.psenterprise.com/gPJ.xsd" version="14" gMB_Version="2021.1.5" Product_Version="7.1.1" Product_Name="gPROMS ModelBuilder" gMB_Build="55238">
+  <Properties>
+    <BooleanProperty name="LibraryProject">false</BooleanProperty>
+    <BooleanProperty name="GrainTimestamps">true</BooleanProperty>
+    <BooleanProperty name="DisplayEmptyGroups">true</BooleanProperty>
+    <StringProperty name="ModifiedBy">Monica</StringProperty>
+    <DateProperty name="ModifiedDate">2023-03-28T12:08:53Z</DateProperty>
+  </Properties>
+  <ImageCache>
+    <Image res="defaultModelIcon"/>
+  </ImageCache>
+  <ModelReferenceCache>
+    <ModelReference model="Linear_Isotherm" icon="-199773695">
+    </ModelReference>
+  </ModelReferenceCache>
+  <Group name="Variable Types">
+    <VariableTypeEntity name="ads_constant_L_per_g" version="2">
+      <Properties>
+        <StringProperty name="CreatedBy">Monica</StringProperty>
+        <DateProperty name="CreatedDate">2022-02-11T15:57:22Z</DateProperty>
+        <StringProperty name="ModifiedBy">Monica</StringProperty>
+        <DateProperty name="ModifiedDate">2022-02-11T18:24:33Z</DateProperty>
+      </Properties>
+      <DefaultValue>0.5</DefaultValue>
+      <MinValue>-1.0E10</MinValue>
+      <MaxValue>1.0E10</MaxValue>
+      <UomRef name="no_unit"/>
+    </VariableTypeEntity>
+    <VariableTypeEntity name="area" version="2">
+      <Properties>
+        <StringProperty name="CreatedBy">Monica</StringProperty>
+        <DateProperty name="CreatedDate">2022-01-25T13:59:56Z</DateProperty>
+        <StringProperty name="ModifiedBy">Monica</StringProperty>
+        <DateProperty name="ModifiedDate">2022-05-16T13:05:18Z</DateProperty>
+      </Properties>
+      <DefaultValue>0.2</DefaultValue>
+      <MinValue>0.0</MinValue>
+      <MaxValue>1.0E10</MaxValue>
+      <UomRef name="square_centimetre"/>
+    </VariableTypeEntity>
+    <VariableTypeEntity name="concentration_g_per_L" version="2">
+      <Properties>
+        <StringProperty name="CreatedBy">Monica</StringProperty>
+        <DateProperty name="CreatedDate">2022-01-25T13:59:56Z</DateProperty>
+        <StringProperty name="ModifiedBy">Monica</StringProperty>
+        <DateProperty name="ModifiedDate">2022-01-17T17:20:47Z</DateProperty>
+      </Properties>
+      <DefaultValue>0.5</DefaultValue>
+      <MinValue>-1.0E10</MinValue>
+      <MaxValue>1.0E10</MaxValue>
+      <UomRef name="gram_per_litre"/>
+    </VariableTypeEntity>
+    <VariableTypeEntity name="concentration_mol_per_L" version="2">
+      <Properties>
+        <StringProperty name="CreatedBy">Monica</StringProperty>
+        <DateProperty name="CreatedDate">2022-03-16T14:43:03Z</DateProperty>
+        <StringProperty name="ModifiedBy">Monica</StringProperty>
+        <DateProperty name="ModifiedDate">2022-05-18T08:53:05Z</DateProperty>
+      </Properties>
+      <DefaultValue>0.5</DefaultValue>
+      <MinValue>-0.01</MinValue>
+      <MaxValue>1.0E100</MaxValue>
+      <UomRef name="mole_per_litre"/>
+    </VariableTypeEntity>
+    <VariableTypeEntity name="density_g_per_cm3" version="2">
+      <Properties>
+        <StringProperty name="CreatedBy">Monica</StringProperty>
+        <DateProperty name="CreatedDate">2022-02-11T14:35:45Z</DateProperty>
+        <StringProperty name="ModifiedBy">Monica</StringProperty>
+        <DateProperty name="ModifiedDate">2022-02-11T14:35:54Z</DateProperty>
+      </Properties>
+      <DefaultValue>0.5</DefaultValue>
+      <MinValue>0.0</MinValue>
+      <MaxValue>1.0E10</MaxValue>
+      <UomRef name="no_unit"/>
+    </VariableTypeEntity>
+    <VariableTypeEntity name="diffusion_coefficient_cm2_per_min" version="2">
+      <Properties>
+        <StringProperty name="CreatedBy">Monica</StringProperty>
+        <DateProperty name="CreatedDate">2022-01-25T13:59:56Z</DateProperty>
+        <StringProperty name="ModifiedBy">Monica</StringProperty>
+        <DateProperty name="ModifiedDate">2022-01-25T14:29:53Z</DateProperty>
+      </Properties>
+      <DefaultValue>0.5</DefaultValue>
+      <MinValue>-1.0E10</MinValue>
+      <MaxValue>1.0E10</MaxValue>
+      <UomRef name="no_unit"/>
+    </VariableTypeEntity>
+    <VariableTypeEntity name="dynamic_viscosity_cP" version="2">
+      <Properties>
+        <StringProperty name="CreatedBy">Monica</StringProperty>
+        <DateProperty name="CreatedDate">2022-02-11T14:36:50Z</DateProperty>
+        <StringProperty name="ModifiedBy">Monica</StringProperty>
+        <DateProperty name="ModifiedDate">2022-02-11T14:40:44Z</DateProperty>
+      </Properties>
+      <DefaultValue>0.5</DefaultValue>
+      <MinValue>0.0</MinValue>
+      <MaxValue>1.0E10</MaxValue>
+      <UomRef name="centipoise"/>
+    </VariableTypeEntity>
+    <VariableTypeEntity name="film_mass_transfer_coeff" version="2">
+      <Properties>
+        <StringProperty name="CreatedBy">Monica</StringProperty>
+        <DateProperty name="CreatedDate">2022-02-15T09:46:09Z</DateProperty>
+        <StringProperty name="ModifiedBy">Monica</StringProperty>
+        <DateProperty name="ModifiedDate">2022-02-15T09:46:41Z</DateProperty>
+      </Properties>
+      <DefaultValue>0.5</DefaultValue>
+      <MinValue>0.0</MinValue>
+      <MaxValue>1.0E10</MaxValue>
+      <UomRef name="centimetre_per_minute"/>
+    </VariableTypeEntity>
+    <VariableTypeEntity name="length_cm" version="2">
+      <Properties>
+        <StringProperty name="CreatedBy">Monica</StringProperty>
+        <DateProperty name="CreatedDate">2022-02-03T12:28:23Z</DateProperty>
+        <StringProperty name="ModifiedBy">Monica</StringProperty>
+        <DateProperty name="ModifiedDate">2022-02-03T13:57:51Z</DateProperty>
+      </Properties>
+      <DefaultValue>0.5</DefaultValue>
+      <MinValue>0.0</MinValue>
+      <MaxValue>1.0E10</MaxValue>
+      <UomRef name="centimetre"/>
+    </VariableTypeEntity>
+    <VariableTypeEntity name="mass" version="2">
+      <Properties>
+        <StringProperty name="CreatedBy">Monica</StringProperty>
+        <DateProperty name="CreatedDate">2022-01-25T13:59:56Z</DateProperty>
+        <StringProperty name="ModifiedBy">Monica</StringProperty>
+        <DateProperty name="ModifiedDate">2022-01-25T09:23:31Z</DateProperty>
+      </Properties>
+      <DefaultValue>0.5</DefaultValue>
+      <MinValue>0.0</MinValue>
+      <MaxValue>1.0E10</MaxValue>
+      <UomRef name="gram"/>
+    </VariableTypeEntity>
+    <VariableTypeEntity name="mass_transfer_coeff" version="2">
+      <Properties>
+        <StringProperty name="CreatedBy">Monica</StringProperty>
+        <DateProperty name="CreatedDate">2022-02-03T13:55:05Z</DateProperty>
+        <StringProperty name="ModifiedBy">Monica</StringProperty>
+        <DateProperty name="ModifiedDate">2022-03-23T11:03:08Z</DateProperty>
+      </Properties>
+      <DefaultValue>0.0</DefaultValue>
+      <MinValue>-1.0E10</MinValue>
+      <MaxValue>1.0E100</MaxValue>
+      <UomRef name="rate_constant_inverse_minute"/>
+    </VariableTypeEntity>
+    <VariableTypeEntity name="mol" version="2">
+      <Properties>
+        <StringProperty name="CreatedBy">Monica</StringProperty>
+        <DateProperty name="CreatedDate">2022-05-16T13:12:12Z</DateProperty>
+        <StringProperty name="ModifiedBy">Monica</StringProperty>
+        <DateProperty name="ModifiedDate">2022-05-16T13:12:12Z</DateProperty>
+      </Properties>
+      <DefaultValue>0.5</DefaultValue>
+      <MinValue>-0.01</MinValue>
+      <MaxValue>1.0E30</MaxValue>
+      <UomRef name="mole"/>
+    </VariableTypeEntity>
+    <VariableTypeEntity name="no_unit" version="2">
+      <Properties>
+        <StringProperty name="CreatedBy">Monica</StringProperty>
+        <DateProperty name="CreatedDate">2022-01-25T13:59:56Z</DateProperty>
+        <StringProperty name="ModifiedBy">Monica</StringProperty>
+        <DateProperty name="ModifiedDate">2022-03-23T11:08:39Z</DateProperty>
+      </Properties>
+      <DefaultValue>1.0</DefaultValue>
+      <MinValue>-1.0E20</MinValue>
+      <MaxValue>1.0E100</MaxValue>
+      <UomRef name="no_unit"/>
+    </VariableTypeEntity>
+    <VariableTypeEntity name="peak_area_g_per_L_per_min" version="2">
+      <Properties>
+        <StringProperty name="CreatedBy">Monica</StringProperty>
+        <DateProperty name="CreatedDate">2022-02-08T15:14:43Z</DateProperty>
+        <StringProperty name="ModifiedBy">Monica</StringProperty>
+        <DateProperty name="ModifiedDate">2022-02-08T15:17:35Z</DateProperty>
+      </Properties>
+      <DefaultValue>1.0</DefaultValue>
+      <MinValue>0.0</MinValue>
+      <MaxValue>1.0E10</MaxValue>
+      <UomRef name="no_unit"/>
+    </VariableTypeEntity>
+    <VariableTypeEntity name="percent" version="2">
+      <Properties>
+        <StringProperty name="CreatedBy">Monica</StringProperty>
+        <DateProperty name="CreatedDate">2022-05-16T13:04:56Z</DateProperty>
+        <StringProperty name="ModifiedBy">Monica</StringProperty>
+        <DateProperty name="ModifiedDate">2022-05-16T13:04:56Z</DateProperty>
+      </Properties>
+      <DefaultValue>10.0</DefaultValue>
+      <MinValue>0.0</MinValue>
+      <MaxValue>100.0</MaxValue>
+      <UomRef name="percent"/>
+    </VariableTypeEntity>
+    <VariableTypeEntity name="phase_ratio" version="2">
+      <Properties>
+        <StringProperty name="CreatedBy">Monica</StringProperty>
+        <DateProperty name="CreatedDate">2022-05-16T13:07:29Z</DateProperty>
+        <StringProperty name="ModifiedBy">Monica</StringProperty>
+        <DateProperty name="ModifiedDate">2022-05-16T13:16:25Z</DateProperty>
+      </Properties>
+      <DefaultValue>0.5</DefaultValue>
+      <MinValue>0.0</MinValue>
+      <MaxValue>1.0E10</MaxValue>
+      <UomRef name="fraction"/>
+    </VariableTypeEntity>
+    <VariableTypeEntity name="rate" version="2">
+      <Properties>
+        <StringProperty name="CreatedBy">Monica</StringProperty>
+        <DateProperty name="CreatedDate">2022-05-16T13:10:37Z</DateProperty>
+        <StringProperty name="ModifiedBy">Monica</StringProperty>
+        <DateProperty name="ModifiedDate">2022-05-16T13:10:37Z</DateProperty>
+      </Properties>
+      <DefaultValue>0.0</DefaultValue>
+      <MinValue>0.0</MinValue>
+      <MaxValue>1.0E10</MaxValue>
+      <UomRef name="inverse_minute_of_space_velocity"/>
+    </VariableTypeEntity>
+    <VariableTypeEntity name="temperature_C_gML" version="2">
+      <Properties>
+        <StringProperty name="CreatedBy">Monica</StringProperty>
+        <DateProperty name="CreatedDate">2022-02-08T16:34:34Z</DateProperty>
+        <BooleanProperty name="Win32LineSeparation">false</BooleanProperty>
+      </Properties>
+      <DefaultValue>25.0</DefaultValue>
+      <MinValue>-250.0</MinValue>
+      <MaxValue>50000.0</MaxValue>
+      <UomRef name="degree_celsius"/>
+    </VariableTypeEntity>
+    <VariableTypeEntity name="temperature_K_gML" version="2">
+      <Properties>
+        <StringProperty name="CreatedBy">Monica</StringProperty>
+        <DateProperty name="CreatedDate">2022-03-21T16:18:12Z</DateProperty>
+        <StringProperty name="ModifiedBy">Monica</StringProperty>
+        <DateProperty name="ModifiedDate">2023-01-25T14:30:08Z</DateProperty>
+      </Properties>
+      <DefaultValue>298.0</DefaultValue>
+      <MinValue>-5000.0</MinValue>
+      <MaxValue>50000.0</MaxValue>
+      <UomRef name="kelvin"/>
+    </VariableTypeEntity>
+    <VariableTypeEntity name="time_min" version="2">
+      <Properties>
+        <StringProperty name="CreatedBy">Monica</StringProperty>
+        <DateProperty name="CreatedDate">2022-01-25T13:59:56Z</DateProperty>
+        <StringProperty name="ModifiedBy">Monica</StringProperty>
+        <DateProperty name="ModifiedDate">2022-01-17T13:33:56Z</DateProperty>
+      </Properties>
+      <DefaultValue>0.5</DefaultValue>
+      <MinValue>0.0</MinValue>
+      <MaxValue>1.0E10</MaxValue>
+      <UomRef name="minute"/>
+    </VariableTypeEntity>
+    <VariableTypeEntity name="time_s" version="2">
+      <Properties>
+        <StringProperty name="CreatedBy">Monica</StringProperty>
+        <DateProperty name="CreatedDate">2022-01-25T13:59:56Z</DateProperty>
+        <StringProperty name="ModifiedBy">Monica</StringProperty>
+        <DateProperty name="ModifiedDate">2022-01-17T13:57:29Z</DateProperty>
+      </Properties>
+      <DefaultValue>0.5</DefaultValue>
+      <MinValue>0.0</MinValue>
+      <MaxValue>1.0E30</MaxValue>
+      <UomRef name="second"/>
+    </VariableTypeEntity>
+    <VariableTypeEntity name="velocity" version="2">
+      <Properties>
+        <StringProperty name="CreatedBy">Monica</StringProperty>
+        <DateProperty name="CreatedDate">2022-01-25T13:59:56Z</DateProperty>
+        <StringProperty name="ModifiedBy">Monica</StringProperty>
+        <DateProperty name="ModifiedDate">2022-01-17T13:28:04Z</DateProperty>
+      </Properties>
+      <DefaultValue>0.5</DefaultValue>
+      <MinValue>0.0</MinValue>
+      <MaxValue>1.0E10</MaxValue>
+      <UomRef name="centimetre_per_minute"/>
+    </VariableTypeEntity>
+    <VariableTypeEntity name="viscosity_cP" version="2">
+      <Properties>
+        <StringProperty name="CreatedBy">Monica</StringProperty>
+        <DateProperty name="CreatedDate">2022-03-01T09:27:32Z</DateProperty>
+        <StringProperty name="ModifiedBy">Monica</StringProperty>
+        <DateProperty name="ModifiedDate">2022-03-01T09:28:08Z</DateProperty>
+      </Properties>
+      <DefaultValue>0.0</DefaultValue>
+      <MinValue>0.0</MinValue>
+      <MaxValue>100.0</MaxValue>
+      <UomRef name="centipoise"/>
+    </VariableTypeEntity>
+    <VariableTypeEntity name="volumetric_flow_rate" version="2">
+      <Properties>
+        <StringProperty name="CreatedBy">Monica</StringProperty>
+        <DateProperty name="CreatedDate">2022-01-25T13:59:56Z</DateProperty>
+        <StringProperty name="ModifiedBy">Monica</StringProperty>
+        <DateProperty name="ModifiedDate">2022-02-09T17:26:20Z</DateProperty>
+      </Properties>
+      <DefaultValue>0.5</DefaultValue>
+      <MinValue>0.0</MinValue>
+      <MaxValue>1.0E10</MaxValue>
+      <UomRef name="millilitre_per_minute"/>
+    </VariableTypeEntity>
+    <VariableTypeEntity name="volume_fraction" version="2">
+      <Properties>
+        <StringProperty name="CreatedBy">Monica</StringProperty>
+        <DateProperty name="CreatedDate">2022-01-25T13:59:56Z</DateProperty>
+        <StringProperty name="ModifiedBy">Monica</StringProperty>
+        <DateProperty name="ModifiedDate">2022-01-17T14:55:18Z</DateProperty>
+      </Properties>
+      <DefaultValue>0.5</DefaultValue>
+      <MinValue>0.0</MinValue>
+      <MaxValue>1.0</MaxValue>
+      <UomRef name="fraction"/>
+    </VariableTypeEntity>
+    <VariableTypeEntity name="volume_mL" version="2">
+      <Properties>
+        <StringProperty name="CreatedBy">Monica</StringProperty>
+        <DateProperty name="CreatedDate">2022-02-09T17:09:08Z</DateProperty>
+        <StringProperty name="ModifiedBy">Monica</StringProperty>
+        <DateProperty name="ModifiedDate">2022-02-09T17:14:48Z</DateProperty>
+      </Properties>
+      <DefaultValue>1.0</DefaultValue>
+      <MinValue>0.0</MinValue>
+      <MaxValue>1.0E10</MaxValue>
+      <UomRef name="millilitre"/>
+    </VariableTypeEntity>
+  </Group>
+  <Group name="Models">
+    <ModelEntity name="Linear_Isotherm" version="8" UnitNameShown="true" UnitModelShown="false" AutoRouteConnections="true">
+      <Properties>
+        <StringProperty name="CreatedBy">Monica</StringProperty>
+        <DateProperty name="CreatedDate">2022-05-18T08:21:52Z</DateProperty>
+        <StringProperty name="ModifiedBy">Monica</StringProperty>
+        <DateProperty name="ModifiedDate">2023-01-23T09:26:52Z</DateProperty>
+        <StringProperty name="DefaultTab">topology</StringProperty>
+        <StringProperty name="DefaultCaseTab">reports</StringProperty>
+        <BooleanProperty name="DisplayedInPalette">false</BooleanProperty>
+        <BooleanProperty name="RecycleBreaker">false</BooleanProperty>
+        <BooleanProperty name="IncludeInitialisationProcedure">true</BooleanProperty>
+      </Properties>
+      <Icon>-199773695</Icon>
+      <FlowsheetLayers DefaultLayer="Layer 1">
+        <Layer name="Layer 1" visible="true" printed="true"/>
+      </FlowsheetLayers>
+      <UMS><![CDATA[]]></UMS>
+      <Body><![CDATA[PARAMETER
+ColumnLength                AS REAL         # Column length defined via upper level model
+Sample_number_components    AS INTEGER      # Number of components defined via the upper level model
+
+DISTRIBUTION_DOMAIN
+Axial           AS [ 0 : ColumnLength ]     # Must be equal to the domain in the upper level model
+
+VARIABLE
+# PARAMETER of the Linear Isotherm considering the LSS retention model
+a0              AS ARRAY(Sample_number_components) OF  no_unit                  # Adsorbtion slope 
+S               AS ARRAY(Sample_number_components) OF  no_unit                  # Coefficient characteristic of the system solute-mobile phase 
+Ct              AS ARRAY(Sample_number_components) OF  temperature_K_gML        # Coefficient characteristic the influence of Temperature
+qs              AS ARRAY(Sample_number_components) OF  concentration_g_per_L    # Saturation capacity
+
+# Operative condition
+phi_acn         AS DISTRIBUTION(Axial)             OF no_unit   # Volumetric fraction ACN at TIME t
+T_K             AS temperature_K_gML
+
+# Henry's constant of Equilibrium
+a               AS DISTRIBUTION(Sample_number_components, Axial) OF no_unit                 # Henry's constant of adsorption
+C               AS DISTRIBUTION(Sample_number_components, Axial) OF concentration_mol_per_L # concentraiton of molecules in mobile phase       # needs to be the same as in higher-level model
+C_adsorbed      AS DISTRIBUTION(Sample_number_components, Axial) OF concentration_mol_per_L # concentraiton of molecules on stationary phase   # needs to be the same as in higher-level model
+
+EQUATION
+FOR i := 1 TO Sample_number_components DO 
+    FOR z := 0 TO ColumnLength DO
+        a(i,z) = EXP( LOG(a0(i)) + Ct(i)*(1/T_K-1/273.15) -S(i)*phi_acn(z)) ;  
+        C_adsorbed(i,z)= a(i,z) * C(i,z) ;
+    END
+END]]></Body>
+    </ModelEntity>
+    <ModelEntity name="Model_EDM" version="8" UnitNameShown="true" UnitModelShown="true" AutoRouteConnections="true">
+      <Properties>
+        <StringProperty name="CreatedBy">Monica</StringProperty>
+        <DateProperty name="CreatedDate">2022-05-16T12:57:08Z</DateProperty>
+        <StringProperty name="ModifiedBy">Monica</StringProperty>
+        <DateProperty name="ModifiedDate">2023-03-28T11:37:18Z</DateProperty>
+        <StringProperty name="DefaultTab">topology</StringProperty>
+        <StringProperty name="DefaultCaseTab">reports</StringProperty>
+        <BooleanProperty name="DisplayedInPalette">false</BooleanProperty>
+        <IntegerProperty name="SortPriority">2147483647</IntegerProperty>
+        <BooleanProperty name="RecycleBreaker">false</BooleanProperty>
+        <BooleanProperty name="IncludeInitialisationProcedure">true</BooleanProperty>
+        <BooleanProperty name="Win32LineSeparation">false</BooleanProperty>
+      </Properties>
+      <Icon>-199773695</Icon>
+      <FlowsheetLayers DefaultLayer="Layer 1">
+        <Layer name="Layer 1" visible="true" printed="true"/>
+      </FlowsheetLayers>
+      <Unit version="5" name="EqDiMo_Isotherm" model="Linear_Isotherm" layer="Layer 1" zorder="-2" icon="-199773695">
+        <Transform ScaleX="64.0" ScaleY="64.0" ShearX="0.0" ShearY="0.0" TranslateX="0.0" TranslateY="0.0"/>
+        <Labels version="1">
+          <Label LabelClass="name" Identifier="EqDiMo_Isotherm">
+            <Transform ScaleX="1.0" ScaleY="1.0" ShearX="0.0" ShearY="0.0" TranslateX="0.0" TranslateY="68.0"/>
+          </Label>
+          <Label LabelClass="type" Identifier="Linear_Isotherm">
+            <Transform ScaleX="1.0" ScaleY="1.0" ShearX="0.0" ShearY="0.0" TranslateX="0.0" TranslateY="83.0"/>
+          </Label>
+        </Labels>
+      </Unit>
+      <PlotNode PlotLabel="Chromatogram" XAxisLabel="time [min]" YAxisLabel="concentration [mol/l]" Y2AxisLabel="" showY2Axis="false" legend="false" symbols="false" layer="Layer 1" zorder="-1">
+        <Transform ScaleX="1136.0" ScaleY="566.0" ShearX="0.0" ShearY="0.0" TranslateX="254.4264090494842" TranslateY="128.94112723958722"/>
+        <Variable path="C_column_exit" label="" axis="y"/>
+      </PlotNode>
+      <UMS><![CDATA[]]></UMS>
+      <Body><![CDATA[#-------------------------------------------------------------------------------
+# Model description of a HPLC
+# 
+# Chromatographic model:    Equilibrium Dispersive Model
+# Retention model:          Linear Solvent Srength for mobile phase composition 
+#                           Van't Hoff EQUATION for temperature dependance
+# Date:                     16/05/22
+# Author:                   Maximilian Besenhard
+#-------------------------------------------------------------------------------
+
+PARAMETER
+##-- column parameters: parameters defining the HPLC column dimensions (Note: values for pososities etc. are set as variables) 
+ColumnLength                                 AS REAL
+column_diameter                              AS REAL
+    
+##-- Model selector parameters: defining sub models and sample injecttion algorithm used
+Sample_injection_method                      AS INTEGER
+
+##-- Sample parameters: parameters defining the sample composition
+Sample_number_components                     AS INTEGER
+
+##-- Sample parameters: parameters defining the sample composition
+Sample_conc_analyte_inlet_parameter_number   AS INTEGER
+
+##-- algebraic constants   
+pi                                           AS REAL DEFAULT 3.14159265359
+
+n_parameters                                 AS INTEGER
+
+DISTRIBUTION_DOMAIN
+Axial                                        AS  [0 : ColumnLength ]
+
+UNIT
+##-- Selecting the transport model to be used 
+
+##-- Linear adsoption isotherm- -##
+EqDiMo_Isotherm                              AS Linear_Isotherm
+
+VARIABLE
+apparent_disp_const                   AS diffusion_coefficient_cm2_per_min          # Apparent diffusion coefficient 
+NETP                                  AS no_unit                                    # N. OF EQUIVALENT THEORETICAL PLATES
+
+##-- Concentration and vol fraction arrays
+C                                     AS DISTRIBUTION(Sample_number_components,Axial) OF concentration_mol_per_L # concentraiton of molecules in mobile phase
+C_adsorbed                            AS DISTRIBUTION(Sample_number_components,Axial) OF concentration_mol_per_L # concentraiton of molecules on stationary phase
+C_adsorbed_norm                       AS DISTRIBUTION(Sample_number_components,Axial) OF concentration_mol_per_L # concentraiton of molecules on stationary phase in relation to volume of mobile phase
+mob_phase_volfraction_org             AS DISTRIBUTION(Axial) OF volume_fraction                                  # vol fraction of more polar phase in mobile phase
+
+##-- sample injection relevant variables: variables defining the sample volume and composition
+Sample_vol                            AS volume_mL                                                               # [ml]
+Sample_conc_analyte                   AS ARRAY(Sample_number_components) OF concentration_mol_per_L              # [mol/l]
+Sample_conc_analyte_inlet             AS ARRAY(Sample_number_components) OF concentration_mol_per_L              # [mol/l]
+Sample_conc_analyte_inlet_parameter   AS ARRAY(Sample_conc_analyte_inlet_parameter_number) OF no_unit            # [-]
+Sample2Column_vol                     AS volume_mL                                                               # [ml] volume between sample injection and column inlet
+
+t_prior_sample                        AS time_min       # [min] time before sample reaches column
+t_feeding_sample                      AS time_min       # [min]
+t_feeding_sample_fade                 AS time_min       # [min]
+percent_t_feeding_sample_fade         AS percent        # [%]
+
+##-- HPLC column and operation variables: variables defining the sample volume and composition
+## column relevant parameters
+column_crosssection                   AS area
+column_external_porosity              AS volume_fraction    # [-] The volume fraction of the column that is available to the mobile phase percolating through the bed.
+column_total_porosity                 AS volume_fraction    # [-] The volume fraction of the column that is available to the mobile phase.
+vol_phase_ratio                       AS phase_ratio        # [-] = ((1-column_total_porosity )/column_total_porosity );
+d_p                                   AS length_cm          # [cm] Column particle size
+
+## mobile phase veleocity increase
+mob_phase_flowrate                    AS volumetric_flow_rate       # [ml/min]
+mob_phase_flowrate_init               AS volumetric_flow_rate       # [ml/min]
+mob_phase_flowrate_grad               AS rate                       # [1/min]
+mob_phase_vel                         AS velocity                   # [cm/min]
+mob_phase_vel_init                    AS velocity                   # [cm/min]
+
+## mobile phase composition & variables defining gradient
+Gradient2Column_vol                   AS volume_mL          # [ml] volume between gradient generation and column inlet
+t_prior_gradient                      AS time_min           # [min] time before new mobile phase composition reaches column
+mob_phase_volfration_org_inlet        AS phase_ratio        # vol fraction of organic solvent at column inlet
+mob_phase_volfraction_org_inlet_init  AS volume_fraction    # vol fraction of organic solvent at column inlet at the beginning (of gradient HPLC run)
+mob_phase_volfraction_org_inlet_final AS volume_fraction    # vol fraction of organic solvent at column inlet at the end (of gradient HPLC run)
+gradient_initial_hold_time            AS time_min       # time it takes till initial vol fraction of organic solvent is changed
+#gradient_final_hold_time             AS time_min       # not needed in current model
+gradient_increase_time                AS time_min       # time over which initial vol fraction of organic solvent reached final vol fraction of organic solvent
+mob_phase_volfraction_org_inlet_grad  AS rate           # rate (1/s) at which initial vol fraction of organic solvent reached final vol fraction of organic solvent
+
+Temperature_K                         AS temperature_K_gML
+Temperature_C                         AS temperature_C_gML
+
+##-- Simulation monitoring variables
+amount_tot_column                     AS ARRAY(Sample_number_components) OF mol      # mol per vol mobile phase
+amount_tot_mobile_phase               AS ARRAY(Sample_number_components) OF mol      # mol per vol mobile phase
+amount_tot_stat_phase                 AS ARRAY(Sample_number_components) OF mol      # mol per vol mobile phase
+time_control_vel_change               AS time_min # [min]
+
+## simulation output (for Matlab)
+C_column_exit                         AS ARRAY(Sample_number_components) OF concentration_mol_per_L # [mol/L]
+
+## the time (needed to be defined for simulation)
+time_t                                AS time_min      # [min]
+
+a                                     AS DISTRIBUTION(Sample_number_components, Axial) OF no_unit    # Henry's constant of adsorption
+C_inlet_cum                           AS no_unit
+C_outlet_cum                          AS no_unit
+
+# Sensitivity equations
+Q_sens                                AS DISTRIBUTION(Sample_number_components, Axial, n_parameters) OF no_unit
+Q_sens_exit                           AS DISTRIBUTION(Sample_number_components, n_parameters) OF no_unit
+
+SELECTOR
+mob_phase_volfration_org_inlet_Max_selector    AS (FullOrg, NonFullOrg)                                         DEFAULT NonFullOrg  # used for CASE condition to constrict mob_phase_volfration_org_inlet < 0.999
+SampleFeedingStage_selector                    AS (NoFeed,Feed,FeedFadeIn,FeedFadeOut)                          DEFAULT NoFeed
+
+BOUNDARY
+## column inlet boundary condition: @x=0
+FOR i := 1 TO Sample_number_components DO
+    C(i,0)*mob_phase_vel-apparent_disp_const * PARTIAL(C(i,0),Axial)= mob_phase_vel*(Sample_conc_analyte_inlet(i));
+    FOR params := 1 TO n_parameters DO
+        #Q_sens(i,0,params)=0;
+        mob_phase_vel *Q_sens(i,0,params)-apparent_disp_const *  PARTIAL(Q_sens(i,0,params),Axial)=0;
+    END
+END
+mob_phase_volfraction_org(0)*mob_phase_vel-apparent_disp_const * PARTIAL(mob_phase_volfraction_org(0),Axial)= mob_phase_vel* (mob_phase_volfration_org_inlet);
+
+## column outlet boundary condition: @x=col_lenght
+FOR i := 1 TO Sample_number_components DO
+    PARTIAL(C(i,ColumnLength),Axial)=0 ;
+    FOR params := 1 TO n_parameters DO
+        PARTIAL(Q_sens(i,ColumnLength,params),Axial)=0;
+    END
+END
+PARTIAL(mob_phase_volfraction_org(ColumnLength),Axial)=0 ;
+
+EQUATION
+## column related properties
+column_crosssection   = (column_diameter/2)^2*pi*((column_external_porosity)/1); # [cm2] colum cross section
+
+## variables relevant for gradient method ans sample feeding option II 
+t_prior_sample        = Sample2Column_vol/mob_phase_flowrate_init;
+t_feeding_sample      = Sample_vol/(column_crosssection*mob_phase_vel_init);
+t_feeding_sample_fade = t_feeding_sample*percent_t_feeding_sample_fade/100;
+
+## Injectioon profile
+FOR i := 1 TO Sample_number_components DO
+    IF time_t > t_prior_sample AND time_t  <= (t_prior_sample + t_feeding_sample) THEN 
+        Sample_conc_analyte_inlet(i) = Sample_conc_analyte(i);
+    ELSE
+        Sample_conc_analyte_inlet(i) = 0 ;
+    END 
+END 
+
+## mobile phase velocity changes
+{IF time_t > (t_prior_sample + t_feeding_sample )  THEN
+    mob_phase_flowrate                   = mob_phase_flowrate_init + mob_phase_flowrate_grad * (time_t-(t_prior_sample + t_feeding_sample));
+    time_control_vel_change=time_t-(t_prior_sample + t_feeding_sample);
+ELSE
+    mob_phase_flowrate                   = mob_phase_flowrate_init ;
+    time_control_vel_change=0;
+END}
+mob_phase_flowrate = mob_phase_flowrate_init ;
+time_control_vel_change=0;
+##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+mob_phase_vel=(mob_phase_flowrate/(column_crosssection));           # v[cm/min]=FR[cm3/min]/A[cm2] * porosity[-]
+mob_phase_vel_init=(mob_phase_flowrate_init/column_crosssection);   # v[cm/min]=FR[cm3/min]/A[cm2] * porosity[-] ..used for t_feeding_sample only
+apparent_disp_const = ColumnLength*mob_phase_vel/(2*NETP);          # [-]
+
+## mobile phase concetration changes at inlet
+t_prior_gradient=Gradient2Column_vol/mob_phase_flowrate_init;
+
+mob_phase_volfraction_org_inlet_grad = (mob_phase_volfraction_org_inlet_final-mob_phase_volfraction_org_inlet_init)/(gradient_increase_time);#[1/s]
+#mob_phase_volfration_org_inlet = mob_phase_volfraction_org_inlet_init ;
+
+CASE mob_phase_volfration_org_inlet_Max_selector OF
+WHEN NonFullOrg:
+    IF time_t >  (t_prior_gradient + t_feeding_sample + gradient_initial_hold_time) THEN #Note check t_feeding_sample needs to be considered or not (makes sure)
+    mob_phase_volfration_org_inlet=mob_phase_volfraction_org_inlet_init + mob_phase_volfraction_org_inlet_grad * (time_t-(t_prior_gradient + t_feeding_sample + gradient_initial_hold_time));
+    ELSE
+    mob_phase_volfration_org_inlet=mob_phase_volfraction_org_inlet_init ;
+    END
+        SWITCH TO  FullOrg IF mob_phase_volfration_org_inlet>0.9999*mob_phase_volfraction_org_inlet_final;
+WHEN FullOrg:
+     mob_phase_volfration_org_inlet=0.9999*mob_phase_volfraction_org_inlet_final;
+        SWITCH TO  NonFullOrg IF mob_phase_volfration_org_inlet<0.9999*mob_phase_volfraction_org_inlet_final;
+END
+
+## process characteristics/measurable calculations (not model but analysis relevant)
+vol_phase_ratio = ((1-column_total_porosity)/column_total_porosity);
+
+FOR i := 1 TO Sample_number_components DO
+    amount_tot_column(i)               = SIGMA(C(i,) + vol_phase_ratio * C_adsorbed(i,)) ;
+    amount_tot_mobile_phase(i)         = SIGMA(C(i,)                                 ) ;
+    amount_tot_stat_phase(i)           = SIGMA(      vol_phase_ratio * C_adsorbed(i,)) ;
+END
+
+C_adsorbed_norm=C_adsorbed*vol_phase_ratio;
+
+
+## Mass Balance (= Equilibrium-Dispersive Model)
+
+## concentration solute
+FOR i := 1 TO Sample_number_components DO
+    FOR z:=0|+ TO ColumnLength|- DO
+    $(C(i,z) + vol_phase_ratio *C_adsorbed(i,z)) + mob_phase_vel * PARTIAL(C(i,z),Axial)  = apparent_disp_const * PARTIAL(C(i,z),Axial,Axial); # does work work 
+    END
+END
+
+
+## composition mobile phase
+FOR z:=0|+ TO ColumnLength|- DO
+    $(mob_phase_volfraction_org(z)) + mob_phase_vel * PARTIAL(mob_phase_volfraction_org(z),Axial)  = apparent_disp_const * PARTIAL(mob_phase_volfraction_org(z),Axial,Axial); 
+END
+
+
+## Exchnage with submodel: adsorpion isotherm
+EqDiMo_Isotherm.T_K = Temperature_K;
+
+FOR i := 1 TO Sample_number_components DO
+    FOR z:=0 TO ColumnLength DO
+        EqDiMo_Isotherm.a(i,z) = a(i,z) ;
+        EqDiMo_Isotherm.C_adsorbed(i,z)= C_adsorbed(i,z) ;
+        EqDiMo_Isotherm.C(i,z)= C(i,z) ;
+    END
+END
+
+FOR z:=0 TO ColumnLength DO
+    EqDiMo_Isotherm.phi_acn(z)=mob_phase_volfraction_org(z);
+END
+
+
+## Calculation of elution time
+FOR i := 1 TO Sample_number_components DO
+    C_column_exit(i)=C(i,ColumnLength);
+END
+
+## Definitions needed 
+Temperature_C=Temperature_K-273.15;
+$time_t=1;
+$C_inlet_cum = Sample_conc_analyte_inlet;
+$C_outlet_cum = C_column_exit ;
+
+# Sensitivity Equations
+FOR i := 1 TO Sample_number_components DO
+    FOR z:=0|+ TO ColumnLength|- DO
+        #(1+vol_phase_ratio*EqDiMo_Isotherm.a0(i)*EXP(EqDiMo_Isotherm.Ct(i)*(1/Temperature_K-1/273.15))*EXP(-1*EqDiMo_Isotherm.S*mob_phase_volfraction_org(z)))*$Q_sens(i, z, 1)+mob_phase_vel*PARTIAL(Q_sens(i,z,1),Axial)-apparent_disp_const*PARTIAL(Q_sens(i,z,1),Axial,Axial)+(1*                                                                      EXP(EqDiMo_Isotherm.Ct(i)*(1/Temperature_K-1/273.15))*EXP(-1*EqDiMo_Isotherm.S*mob_phase_volfraction_org(z)))*$(C(i,z))=0;
+        #(1+vol_phase_ratio*EqDiMo_Isotherm.a0(i)*EXP(EqDiMo_Isotherm.Ct(i)*(1/Temperature_K-1/273.15))*EXP(-1*EqDiMo_Isotherm.S*mob_phase_volfraction_org(z)))*$Q_sens(i, z, 2)+mob_phase_vel*PARTIAL(Q_sens(i,z,2),Axial)-apparent_disp_const*PARTIAL(Q_sens(i,z,2),Axial,Axial)+(vol_phase_ratio*EqDiMo_Isotherm.a0(i)*(1/Temperature_K-1/273.15)*       EXP(EqDiMo_Isotherm.Ct(i)*(1/Temperature_K-1/273.15))*EXP(-1*EqDiMo_Isotherm.S*mob_phase_volfraction_org(z)))*$(C(i,z))=0;
+        #(1+vol_phase_ratio*EqDiMo_Isotherm.a0(i)*EXP(EqDiMo_Isotherm.Ct(i)*(1/Temperature_K-1/273.15))*EXP(-1*EqDiMo_Isotherm.S*mob_phase_volfraction_org(z)))*$Q_sens(i, z, 3)+mob_phase_vel*PARTIAL(Q_sens(i,z,3),Axial)-apparent_disp_const*PARTIAL(Q_sens(i,z,3),Axial,Axial)+(-1* vol_phase_ratio*EqDiMo_Isotherm.a0(i)*mob_phase_volfraction_org(z)* EXP(EqDiMo_Isotherm.Ct(i)*(1/Temperature_K-1/273.15))*EXP(-1*EqDiMo_Isotherm.S*mob_phase_volfraction_org(z)))*$(C(i,z))=0;
+        $(Q_sens(i, z, 1)+vol_phase_ratio*Q_sens(i, z, 1)*EqDiMo_Isotherm.a(i,z))+mob_phase_vel*PARTIAL(Q_sens(i,z,1),Axial)-apparent_disp_const*PARTIAL(Q_sens(i,z,1),Axial,Axial)+(1*                                                                      EXP(EqDiMo_Isotherm.Ct(i)*(1/Temperature_K-1/273.15))*EXP(-1*EqDiMo_Isotherm.S*mob_phase_volfraction_org(z)))*$(C(i,z))=0;
+        $(Q_sens(i, z, 2)+vol_phase_ratio*Q_sens(i, z, 2)*EqDiMo_Isotherm.a(i,z))+mob_phase_vel*PARTIAL(Q_sens(i,z,2),Axial)-apparent_disp_const*PARTIAL(Q_sens(i,z,2),Axial,Axial)+(vol_phase_ratio*EqDiMo_Isotherm.a0(i)*(1/Temperature_K-1/273.15)*       EXP(EqDiMo_Isotherm.Ct(i)*(1/Temperature_K-1/273.15))*EXP(-1*EqDiMo_Isotherm.S*mob_phase_volfraction_org(z)))*$(C(i,z))=0;
+        $(Q_sens(i, z, 3)+vol_phase_ratio*Q_sens(i, z, 3)*EqDiMo_Isotherm.a(i,z))+mob_phase_vel*PARTIAL(Q_sens(i,z,3),Axial)-apparent_disp_const*PARTIAL(Q_sens(i,z,3),Axial,Axial)+(-1* vol_phase_ratio*EqDiMo_Isotherm.a0(i)*mob_phase_volfraction_org(z)* EXP(EqDiMo_Isotherm.Ct(i)*(1/Temperature_K-1/273.15))*EXP(-1*EqDiMo_Isotherm.S*mob_phase_volfraction_org(z)))*$(C(i,z))=0;
+    END
+END
+
+Q_sens_exit(, ) = Q_sens(, ColumnLength, );]]></Body>
+    </ModelEntity>
+    <ModelEntity name="unit_conversion_factors_extended_gML" version="8" UnitNameShown="true" UnitModelShown="true" AutoRouteConnections="true">
+      <Properties>
+        <StringProperty name="CreatedBy">Monica</StringProperty>
+        <DateProperty name="CreatedDate">2022-02-11T14:45:43Z</DateProperty>
+        <StringProperty name="OriginalProject"></StringProperty>
+        <StringProperty name="DefaultTab">language</StringProperty>
+        <StringProperty name="DefaultCaseTab">reports</StringProperty>
+        <BooleanProperty name="DisplayedInPalette">false</BooleanProperty>
+        <IntegerProperty name="SortPriority">2147483647</IntegerProperty>
+        <BooleanProperty name="RecycleBreaker">false</BooleanProperty>
+        <BooleanProperty name="IncludeInitialisationProcedure">true</BooleanProperty>
+        <BooleanProperty name="Win32LineSeparation">false</BooleanProperty>
+      </Properties>
+      <Icon>-199773695</Icon>
+      <FlowsheetLayers DefaultLayer="Default">
+        <Layer name="Default" visible="true" printed="true"/>
+      </FlowsheetLayers>
+      <UMS><![CDATA[]]></UMS>
+      <Body><![CDATA[PARAMETER
+# length
+in_TO_cm                    AS REAL DEFAULT 2.54
+in_TO_m                     AS REAL
+in_TO_mm                    AS REAL
+m_TO_in                     AS REAL
+m_TO_cm                     AS REAL DEFAULT 100
+mm_TO_m                     AS REAL DEFAULT 0.001
+m_TO_mm                     AS REAL
+ft_TO_m                     AS REAL 
+m_TO_ft                     AS REAL
+ft_TO_in                    AS REAL DEFAULT 12
+micron_TO_m                 AS REAL DEFAULT 1e-6
+nm_TO_m                     AS REAL DEFAULT 1e-9
+cm_TO_mm                    AS REAL DEFAULT 10
+cm_TO_m                     AS REAL
+
+# area
+m2_to_ft2                   AS REAL
+m2_to_cm2                   AS REAL DEFAULT 1e4  # units: cm^2/m^2
+cm2_to_m2                   AS REAL DEFAULT 1e-4 # units: m^2/cm^2 
+
+# volume
+m3_to_cm3                   AS REAL
+m3_to_ft3                   AS REAL
+gallon_to_m3                AS REAL DEFAULT 3.785e-3
+ml_to_m3                    AS REAL DEFAULT 1e-6
+m3_to_ml                    AS REAL DEFAULT 1e6
+L_to_m3                     AS REAL DEFAULT 1e-3
+m3_to_L                     AS REAL
+mm3_to_m3                   AS REAL DEFAULT 1e-9
+m3_to_mm3                   AS REAL
+
+# mass
+kg_to_g                     AS REAL DEFAULT 1000
+g_to_kg                     AS REAL
+g_to_mg                     AS REAL DEFAULT 1E3
+kg_to_lb                    AS REAL DEFAULT 2.20462262185
+lb_TO_kg                    AS REAL 
+LT_to_lb                    AS REAL DEFAULT 2240
+mton_to_kg                  AS REAL DEFAULT 1000
+kg_to_mton                  AS REAL
+mg_to_kg                    AS REAL DEFAULT 1E-6
+kg_to_tonne                 AS REAL DEFAULT 1E-3
+tonne_to_kg                 AS REAL 
+
+# specific_volume
+cm3_g_TO_m3_kg              AS REAL
+
+# time
+hr_TO_s                     AS REAL 
+s_TO_hr                     AS REAL
+s_TO_min                    AS REAL
+min_TO_s                    AS REAL DEFAULT   60
+hr_TO_min                   AS REAL DEFAULT   60
+ks_TO_s                     AS REAL DEFAULT 1000
+day_TO_hr                   AS REAL DEFAULT 24
+hr_TO_day                   AS REAL
+
+# mass flow rate
+g_hr_TO_kg_s                AS REAL
+kg_min_TO_kg_s              AS REAL
+kg_s_TO_kg_hr               AS REAL
+
+# energy
+BTU_TO_J                    AS REAL DEFAULT 1055
+MMBTU_TO_J                  AS REAL 
+cal_TO_J                    AS REAL DEFAULT 4.184
+kJ_to_J                     AS REAL DEFAULT 1000
+MJ_to_J                     AS REAL DEFAULT 1E6
+J_to_kJ                     AS REAL
+J_to_MJ                     AS REAL
+GJ_to_J                     AS REAL DEFAULT 1E9 
+kcal_TO_J                   AS REAL 
+kcal_to_kJ                  AS REAL
+MMkcal_TO_J                 AS REAL
+MJ_to_kJ                    AS REAL DEFAULT 1E3
+kJ_to_MJ                    AS REAL
+J_to_GJ                     AS REAL
+
+# power
+hp_to_W                     AS REAL
+kW_TO_hp                    AS REAL DEFAULT 1.341022089595028
+W_to_kW                     AS REAL DEFAULT 0.001
+kW_to_W                     AS REAL
+
+# pressure
+bar_to_Pa                   AS REAL DEFAULT 1e5
+bar_to_kPa                  AS REAL DEFAULT 1e2
+bar_to_psi                  AS REAL
+atm_TO_Pa                   AS REAL DEFAULT 101325
+atm_TO_psi                  AS REAL DEFAULT 14.6959
+psi_TO_Pa                   AS REAL
+pa_TO_psi                   AS REAL
+psi_to_bar                  AS REAL
+Pa_to_MPa                   AS REAL DEFAULT 1e-6
+MPa_to_Pa                   AS REAL
+mmH2O_to_Pa                 AS REAL DEFAULT 9.80665
+Pa_TO_kg_cm2                AS REAL DEFAULT 1.0197162e-5
+kg_cm2_TO_Pa                AS REAL 
+Torr_to_bar                 AS REAL DEFAULT 1/750.061        
+mmHg_to_Pa                  AS REAL DEFAULT 133.322365
+Pa_to_kPa                   AS REAL DEFAULT 1e-3
+kPa_to_Pa                   AS REAL
+Pa_to_bar                   AS REAL 
+bar_to_atm                  AS REAL
+atm_to_bar                  AS REAL DEFAULT 1.01325 
+mmPa_to_Pa                  AS REAL DEFAULT 1E-3
+kPa_to_bar                  AS REAL
+
+
+# temperature
+offset_C_to_K               AS REAL DEFAULT 273.15
+Rankine_TO_Kelvin           AS REAL 
+Kelvin_TO_Rankine           AS REAL DEFAULT 1.8
+offset_C_to_F               AS REAL DEFAULT 32
+offset_F_to_R               AS REAL DEFAULT 459.67
+
+# diffusion constants
+mm2_s_to_m2_s               AS REAL
+m2_s_to_mm2_s               AS REAL
+
+# viscosity
+cP_to_Pas                   AS REAL DEFAULT 0.001
+Pas_to_cP                   AS REAL
+Pas_to_mPas                 AS REAL DEFAULT 1e3  # units: mPas/Pas
+mPas_to_Pas                 AS REAL DEFAULT 1e-3 # units: Pas/mPas
+
+# density
+kg_m3_TO_g_cm3              AS REAL 
+lb_ft3_TO_kg_m3             AS REAL
+lb_ft3_TO_g_cm3             AS REAL
+
+# specific heat
+BTU_lb_F_TO_J_kg_K          AS REAL
+J_kg_K_TO_BTU_lb_F          AS REAL
+
+# thermal conductivity
+BTU_hr_ft_F_TO_W_m_K        AS REAL
+BTUin_hr_ft2_F_TO_W_m_K     AS REAL 
+
+# heat transfer coefficient
+BTU_hr_ft2_F_TO_W_m2_K      AS REAL
+kcal_h_m2_degC_TO_W_m2_K    AS REAL
+
+# molar amount
+lbmol_to_mol                AS REAL
+mol_to_milli_mol            AS REAL DEFAULT 1E3
+milli_mol_to_mol            AS REAL
+mol_to_lbmol                AS REAL
+lbmol_to_scf                AS REAL DEFAULT 379.482
+kmol_TO_mol                 AS REAL DEFAULT 1000
+mol_to_kmol                 AS REAL
+
+# molecular weight
+kg_mol_TO_g_mol             AS REAL
+kg_mol_TO_lb_lbmol          AS REAL
+
+# molar flow
+kmol_hr_TO_mol_s            AS REAL
+mol_s_TO_kmol_hr            AS REAL
+lbmol_hr_TO_mol_s           AS REAL
+
+# molar specific volume
+in3_lbmol_TO_m3_mol         AS REAL 
+ft3_lbmol_TO_m3_mol         AS REAL
+
+# force
+N_TO_dyn                    AS REAL DEFAULT 1E5
+
+# surfce tension
+N_m_TO_dyn_cm               AS REAL
+
+# Non-dimensional  
+M_to_unity              AS REAL DEFAULT 1E6
+k_to_unity              AS REAL DEFAULT 1E3
+milli_to_unity          AS REAL DEFAULT 1E-3
+micro_to_unity          AS REAL DEFAULT 1E-6
+
+# Percentages
+frac_TO_pct                 AS REAL DEFAULT 100
+pct_TO_frac                 AS REAL
+
+#Scaled variables
+pressure_SI_to_scaled                   AS REAL DEFAULT 1E-5        # Pa to bar
+mass_flowrate_SI_to_scaled              AS REAL DEFAULT 1           # kg/s to kg/s
+mass_specific_enthalpy_SI_to_scaled     AS REAL DEFAULT 1E-3        # J/kg to kJ/kg
+energy_rate_SI_to_scaled                AS REAL DEFAULT 1E-3        # J/s to kJ/s
+
+pressure_scaled_to_SI                   AS REAL
+mass_flowrate_scaled_to_SI              AS REAL
+mass_specific_enthalpy_scaled_to_SI     AS REAL
+energy_rate_scaled_to_SI                AS REAL
+
+SET
+# length
+in_to_m  := in_to_cm / m_to_cm ;
+in_to_mm := in_to_cm * cm_to_mm ;
+ft_to_m  := ft_to_in*in_to_m;
+m_to_in  := 1/in_to_m;
+m_to_ft  := 1/ft_to_m;
+m_to_mm  := 1/mm_to_m;
+cm_TO_m  := 1/m_to_cm;
+
+# area
+m2_to_ft2 := m_to_ft^2 ;
+
+# volume
+m3_to_cm3 := m_to_cm^3 ;
+m3_to_ft3 := m_to_ft^3 ;
+m3_to_L   := 1/L_to_m3 ;
+m3_to_mm3 := 1/mm3_to_m3 ;
+
+# mass
+g_to_kg    := 1/kg_to_g;
+lb_to_kg   := 1/kg_to_lb;
+kg_to_mton := 1/mton_to_kg;
+tonne_to_kg := 1/kg_to_tonne;
+
+# specific_volume
+cm3_g_TO_m3_kg := (1/m3_to_cm3) / (g_to_kg);
+
+# time
+hr_TO_s := hr_TO_min * min_TO_s ;
+s_TO_hr := 1/hr_to_s;
+s_TO_min := 1/min_TO_s;
+hr_TO_day := 1/day_TO_hr;
+
+# energy
+J_to_kJ  := 1.0/kJ_to_J;
+J_to_MJ  := 1.0/MJ_to_J;
+MMBTU_to_J := BTU_TO_J * 1e6;
+kcal_to_kJ  := kcal_TO_J/1000;
+
+# mass flow rate
+g_hr_TO_kg_s := (g_to_kg) / (hr_TO_s) ;
+kg_min_TO_kg_s := 1 / (min_TO_s);
+kg_s_TO_kg_hr := hr_TO_s ;
+
+# pressure
+psi_TO_Pa  := atm_to_Pa/atm_to_psi ;
+MPa_to_Pa  := 1/Pa_to_MPa;
+bar_to_psi := bar_to_Pa/psi_to_Pa;
+Pa_to_psi  := 1/psi_to_Pa;
+kg_cm2_TO_Pa := 1 / Pa_TO_kg_cm2 ;
+psi_to_bar := 1/bar_to_psi;
+kPa_to_Pa := 1/Pa_to_kPa;
+Pa_to_bar := 1/bar_to_Pa;
+bar_to_atm := 1 / atm_to_bar ;
+kPa_to_bar := 1/bar_to_kPa;
+
+# temperature
+Rankine_TO_Kelvin := 1/Kelvin_TO_Rankine;
+# diffusion constants
+mm2_s_to_m2_s := (mm_to_m)^2 ;
+m2_s_to_mm2_s := 1/mm2_s_to_m2_s;
+
+# viscosity
+Pas_to_cP := 1/cP_to_Pas;
+
+# energy
+MMkcal_TO_J := 1e6*kcal_TO_J;
+kcal_to_J   := 1e3*cal_TO_J;
+kJ_to_MJ    := 1 / MJ_to_kJ ;
+J_to_GJ     := 1 / GJ_to_J;
+
+# power
+hp_to_W := 1000 / kW_TO_hp ;
+kW_to_W := 1 / W_to_kW;
+
+# density
+lb_ft3_TO_kg_m3 := lb_TO_kg/(ft_TO_m^3);
+lb_ft3_TO_g_cm3 := lb_ft3_TO_kg_m3/1000;
+kg_m3_TO_g_cm3  := kg_to_g / m3_to_cm3 ;
+
+# specific heat
+BTU_lb_F_TO_J_kg_K := BTU_TO_J/lb_TO_kg/Rankine_TO_Kelvin;
+J_kg_K_TO_BTU_lb_F := 1/BTU_lb_F_TO_J_kg_K;
+
+# thermal conductivity
+BTU_hr_ft_F_TO_W_m_K := BTU_TO_J/hr_TO_s/ft_TO_m/Rankine_TO_Kelvin;
+BTUin_hr_ft2_F_TO_W_m_K := BTU_TO_J*in_TO_m/hr_TO_s/(ft_TO_m^2)/Rankine_TO_Kelvin;
+
+# heat transfer coefficient
+BTU_hr_ft2_F_TO_W_m2_K   := BTU_TO_J/hr_TO_s/(ft_TO_m^2)/Rankine_TO_Kelvin;
+kcal_h_m2_degC_TO_W_m2_K := kcal_TO_J / hr_TO_s ;
+
+# molar amount
+mol_to_kmol := 1/kmol_TO_mol;
+lbmol_to_mol := lb_TO_kg/g_to_kg ;
+milli_mol_to_mol := 1/mol_to_milli_mol;
+mol_to_lbmol := 1/lbmol_to_mol;
+
+# molar flow 
+kmol_hr_TO_mol_s := kmol_to_mol/hr_TO_s ;
+mol_s_TO_kmol_hr := 1/kmol_hr_TO_mol_s ;
+lbmol_hr_TO_mol_s := lbmol_to_mol/hr_TO_s ;
+
+# molecular weight
+kg_mol_TO_g_mol     := 1000 ;
+kg_mol_TO_lb_lbmol  := 1000 ;
+
+# molar specific volume
+in3_lbmol_TO_m3_mol := (in_TO_m^3)/lbmol_to_mol ;
+ft3_lbmol_TO_m3_mol := (ft_TO_m^3)/lbmol_to_mol ;
+
+# surface tension
+N_m_TO_dyn_cm := N_TO_dyn/m_TO_cm;
+
+#Scaled variables
+pressure_scaled_to_SI := 1/pressure_SI_to_scaled;
+mass_flowrate_scaled_to_SI := 1/mass_flowrate_SI_to_scaled;
+mass_specific_enthalpy_scaled_to_SI := 1/mass_specific_enthalpy_SI_to_scaled;
+energy_rate_scaled_to_SI := 1/energy_rate_SI_to_scaled;
+
+# Fraction to percentages
+pct_TO_frac := 1/frac_TO_pct; ]]></Body>
+    </ModelEntity>
+  </Group>
+  <Group name="Tasks">
+    <TaskEntity name="gOMatlab_Task_EDM">
+      <Properties>
+        <StringProperty name="CreatedBy">Monica</StringProperty>
+        <DateProperty name="CreatedDate">2022-05-16T12:57:28Z</DateProperty>
+        <StringProperty name="ModifiedBy">Monica</StringProperty>
+        <DateProperty name="ModifiedDate">2023-03-28T11:59:42Z</DateProperty>
+        <BooleanProperty name="DisplayedInPalette">true</BooleanProperty>
+        <BooleanProperty name="Win32LineSeparation">false</BooleanProperty>
+      </Properties>
+      <Body><![CDATA[PARAMETER
+    EDM AS MODEL Model_EDM
+
+SCHEDULE
+# OperationSchedule
+SEQUENCE
+    #RESTORE "InitialStateEDM"
+    ##WHILE True DO
+    ##SEQUENCE
+
+        GET
+        #simulation parameters 
+        EDM.EqDiMo_Isotherm.a0;
+        EDM.EqDiMo_Isotherm.S;
+        EDM.EqDiMo_Isotherm.Ct;
+        EDM.NETP;
+
+        # Sample composition
+        EDM.Sample_conc_analyte;
+        EDM.Sample_vol;
+
+        #experimental settings 
+        EDM.mob_phase_flowrate_init;
+        EDM.mob_phase_volfraction_org_inlet_init;
+        EDM.mob_phase_volfraction_org_inlet_final;
+        EDM.gradient_initial_hold_time;
+        EDM.gradient_increase_time;
+        EDM.Temperature_C;
+
+        #system settings 
+        EDM.Sample2Column_vol; ###################
+        EDM.Gradient2Column_vol;
+        EDM.column_external_porosity;
+        EDM.column_total_porosity;
+        EDM.d_p;
+
+        #sample injection profile settings
+        #EDM.Sample_conc_analyte_inlet_parameter;
+        END
+
+
+
+        CONTINUE UNTIL EDM.C_outlet_cum > 0.95*EDM.C_inlet_cum
+        CONTINUE FOR 1
+
+        #CONTINUE FOR 20
+
+        SEND
+        #output
+        #EDM.time_t;
+        EDM.C_column_exit ;  
+
+        #parameters (for PE monitoring only)
+        #EDM.EqDiMo_Isotherm.a0;
+        #EDM.EqDiMo_Isotherm.S;
+        #EDM.EqDiMo_Isotherm.Ct;
+
+        #settings (for PE monitoring only)
+        #EDM.mob_phase_flowrate_init;
+        #EDM.mob_phase_volfraction_org_inlet_init;
+        #EDM.mob_phase_volfraction_org_inlet_final;
+        #EDM.gradient_initial_hold_time;
+        #EDM.gradient_increase_time;
+        #EDM.Temperature_C;
+
+        #system settings (for PE monitoring only)
+        #EDM.Sample2Column_vol;
+        #EDM.Gradient2Column_vol;
+        #EDM.column_external_porosity;
+        #EDM.column_total_porosity;
+
+        #sample injection profile settings (for PE monitoring only)
+        #EDM.Sample_conc_analyte_inlet_parameter;
+        ##END
+
+     ##END
+  END
+END]]></Body>
+    </TaskEntity>
+  </Group>
+  <Group name="Processes">
+    <ProcessEntity name="EDM_process" version="1">
+      <Properties>
+        <StringProperty name="CreatedBy">Monica</StringProperty>
+        <DateProperty name="CreatedDate">2022-05-16T12:57:19Z</DateProperty>
+        <StringProperty name="ModifiedBy">Monica</StringProperty>
+        <DateProperty name="ModifiedDate">2023-03-28T12:08:53Z</DateProperty>
+        <StringProperty name="SimulationExecutionDirectory"></StringProperty>
+        <BooleanProperty name="IncludeUnitSpecifications">true</BooleanProperty>
+        <BooleanProperty name="IncludeInitialisationProcedure">true</BooleanProperty>
+        <BooleanProperty name="Win32LineSeparation">false</BooleanProperty>
+      </Properties>
+      <Body><![CDATA[UNIT
+# Selecting the transport model
+EqDiMo    AS Model_EDM 
+
+# MONITOR the variables you want to export in a gPLOT
+MONITOR 
+EqDiMo.C_column_exit ;
+EqDiMo.Q_sens_exit ;
+
+SET
+
+WITHIN EqDiMo DO
+
+##-- column parameters: parameters defining the HPLC column dimensions (Note: values for pososities etc. are set as variables) 
+ColumnLength := 15;  # [cm]
+column_diameter := 0.46; # [cm]
+
+##-- Model selector parameters: defining sub models and sample injecttion algorithm used
+##-- 3... rectangular pulse
+Sample_injection_method := 3;   # [-] 
+
+##-- Sample parameters: parameters defining the sample composition
+Sample_number_components := 1;   # [#]
+
+##-- Sample injection parameters: parameters defining the sample composition
+Sample_conc_analyte_inlet_parameter_number := 7;   # [-]
+n_parameters := 3;
+
+Axial :=[BFDM,1,100];
+
+END
+
+ASSIGN
+WITHIN EqDiMo DO
+
+NETP := 10000;
+
+##-- sample injection variables: variables defining the sample volume and composition
+Sample2Column_vol                         := 0.0;      # [ml]  volume between sample injection and column inlet 
+Sample_vol                                := 0.001 ;   # [ml]
+
+##-- NOT USED
+percent_t_feeding_sample_fade             := 50;       # [%] of t_feeding_sample=Sample_vol/(column_crosssection*mob_phase_vel_init); 
+Sample_conc_analyte_inlet_parameter       := [+1.9824, -0.3716, +0.1492, +1.0682, -0.1223, +0.3282, 1.0772] ; # [-] the last parameter corrects the area of the fit, i.e., area over time = 1. 
+
+##-- HPLC column and operation variables: variables defining the sample volume and composition
+Gradient2Column_vol                       := 0.0;      # [ml] volume between gradient generation and column inlet
+column_external_porosity                  := 0.383;    # [-] The volume fraction of the column that is available to the mobile phase percolating through the bed.
+column_total_porosity                     := 0.645;    # [-] The volume fraction of the column that is available to the mobile phase.
+d_p                                       := 0.0005;   # [cm]
+Temperature_C                             := 25;       # [°C]   The temperature of column in Celsius
+
+mob_phase_flowrate_init                   := 1 ;     # [ml/min]     
+mob_phase_flowrate_grad                   := 0.0 ;     # [1/s]   flowrate=flowrate+t*flowrate
+
+mob_phase_volfraction_org_inlet_init      := 0.14 ;    # [-]         Note:mob_phase_volfraction_comp1<=1
+gradient_initial_hold_time                := 0  ;      # [min]
+gradient_increase_time                    := 100 ;       # [min]
+mob_phase_volfraction_org_inlet_final     := 0.14;   # [1/min]     Note:mob_phase_volfraction_comp1<=1
+
+##-- adsorption isotherm variables: linear adsorption isother
+FOR i := 1 TO Sample_number_components DO
+    Sample_conc_analyte(i)  := 1.55 ;       # [mol/L]
+
+    # PARAMETERS of the linear Isotherm 
+    EqDiMo_Isotherm.a0(i)   := 20 ; # [-]
+    EqDiMo_Isotherm.S(i)    := 8  ; # [-]
+    EqDiMo_Isotherm.Ct(i)   := 1200 ; # [K]
+    EqDiMo_Isotherm.qs(i)   := 1 ; # [g/L]
+END
+
+END
+
+####---- Initial values in transport model ----#### ################################################################################################################
+INITIAL
+# @x,t=0##
+WITHIN EqDiMo DO 
+    FOR i := 1 TO Sample_number_components DO
+        FOR z:=0|+ TO ColumnLength |- DO
+        C(i,z)=0;
+
+            FOR params:=1 TO n_parameters DO
+                Q_sens(i,z,params)=0;
+            END 
+        END
+        
+    END
+        FOR z:=0|+ TO ColumnLength |- DO
+        mob_phase_volfraction_org(z)=mob_phase_volfraction_org_inlet_init;
+        END
+    time_t=0;
+    C_inlet_cum = 0;
+    C_outlet_cum = 0;
+END
+
+SOLUTIONPARAMETERS
+    gPLOT := ON
+    ReportingInterval := 0.05
+    IndexReduction := ON ;
+    DASolver := "DAEBDF" [
+        "AbsoluteTolerance" := 1.0E-7,
+        "EffectiveZero" := 2.0E-7,
+        "ErrorNormComputation" := "DifferentialAndScaledAlgebraic",
+        #"MaxStepSize" := 0.01,
+        "RelativeTolerance" := 1.0E-7
+    ]
+
+    FPI := "eventFPI"
+
+SCHEDULE
+## uncomment for normal uuse
+#CONTINUE FOR 20 #[min]
+
+## uncomment for use with gOPYTHON
+       SEQUENCE
+            SAVE "InitialStateEDM"
+            gOMatlab_Task_EDM(EDM IS EqDiMo)
+       END
+]]></Body>
+    </ProcessEntity>
+  </Group>
+  <Group name="Experiments">
+    <Group name="... performed">
+    </Group>
+    <Group name="... to be designed">
+    </Group>
+  </Group>
+</gMB:GpromsProject>

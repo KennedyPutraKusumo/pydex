@@ -1,0 +1,41 @@
+
+  gPROMS (R) - Version 2022.1.1 (x64) for Microsoft Windows NT 10.0 Jul 21 2022
+general PROcess Modelling System
+
+Copyright (c) Siemens 1997-2022
+
+gPROMS is a trademark of Siemens Process Systems Engineering Limited.
+All other registered and pending trademarks mentioned in this
+software are considered the sole property of their respective
+owners. All rights reserved.
+
+This computer program is protected by copyright law and 
+international treaties. Unauthorised copying, reproduction or
+distribution of this program is a violation of applicable laws.
+
+Visit WWW at http://www.psenterprise.com/ for more information.
+Access https://support.sw.siemens.com/en-US/support-case for product support.
+
+Connecting to license server.
+Requesting license for 9100_GPROMS_ENCRYPTED from server ...
+License granted by server ls-2.chemeng.ucl.ac.uk.
+
+The following processes are available:
+
+  EDM_process
+
+Requesting license for 9100_SIM from server ...
+License granted by server ls-2.chemeng.ucl.ac.uk.
+Loaded "gPLOT.dll".
+Execution of EDM_process completed successfully.
+Block information for reinitialisation will be used.
+Block information was also found for: initialisation, postcalculation
+
+Simulation took 6.40088 seconds.
+Total CPU time: 6.391
+
+Returning license for 9100_SIM to server ...
+License returned to server.
+Returning license for 9100_GPROMS_ENCRYPTED to server ...
+License returned to server.
+Disconnected from license server.

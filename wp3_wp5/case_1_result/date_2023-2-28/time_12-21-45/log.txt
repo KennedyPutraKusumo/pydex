@@ -1,0 +1,3415 @@
+TI CONTROLS:
+[20.    0.05]
+MODEL PARAMETERS:
+[  40 1200    8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+[WARNING]: because the error_cov is not given, Pydex defaults to the identity matrix of size 1x1.
+====================================================================================================
+Initialization complete: designer ready.
+----------------------------------------------------------------------------------------------------
+Number of model parameters              : 3
+Number of candidates                    : 40
+Number of responses                     : 1
+Number of measured responses            : 1
+Number of time-invariant controls       : 2
+Number of sampling time choices         : 1001
+Covariance of measured responses        : 
+ [[1.]]
+====================================================================================================
+############################### Computing Optimal Experiment Design ################################
+Started on                              : 2023-02-28 12:21:58.237726
+Criterion                               : d_opt_criterion
+Pseudo-bayesian                         : False
+Dynamic                                 : True
+Time-invariant Controls                 : True
+Time-varying Controls                   : False
+Number of Candidates                    : 40
+Number of Sampling Time Choices         : 1001
+Sampling Times Optimized                : False
+---------------------------------------[Sensitivity Analysis]---------------------------------------
+Use Finite Difference                   : True
+Richardson Extrapolation Steps          : 1
+Normalized by Parameter Values          : True
+----------------------------------------------------------------------------------------------------
+TI CONTROLS:
+[20.    0.05]
+MODEL PARAMETERS:
+[  40 1200    8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[20.    0.05]
+MODEL PARAMETERS:
+[  47.42714413 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[20.    0.05]
+MODEL PARAMETERS:
+[  40.         1214.18181964    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[20.    0.05]
+MODEL PARAMETERS:
+[  40.         1200.           12.39444915]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[20.    0.05]
+MODEL PARAMETERS:
+[  43.71357207 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[20.    0.05]
+MODEL PARAMETERS:
+[  40.         1207.09090982    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[20.    0.05]
+MODEL PARAMETERS:
+[  40.         1200.           10.19722458]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[20.    0.15]
+MODEL PARAMETERS:
+[  40 1200    8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[20.    0.15]
+MODEL PARAMETERS:
+[  47.42714413 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[20.    0.15]
+MODEL PARAMETERS:
+[  40.         1214.18181964    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[20.    0.15]
+MODEL PARAMETERS:
+[  40.         1200.           12.39444915]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[20.    0.15]
+MODEL PARAMETERS:
+[  43.71357207 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[20.    0.15]
+MODEL PARAMETERS:
+[  40.         1207.09090982    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[20.    0.15]
+MODEL PARAMETERS:
+[  40.         1200.           10.19722458]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[20.    0.25]
+MODEL PARAMETERS:
+[  40 1200    8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[20.    0.25]
+MODEL PARAMETERS:
+[  47.42714413 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[20.    0.25]
+MODEL PARAMETERS:
+[  40.         1214.18181964    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[20.    0.25]
+MODEL PARAMETERS:
+[  40.         1200.           12.39444915]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[20.    0.25]
+MODEL PARAMETERS:
+[  43.71357207 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[20.    0.25]
+MODEL PARAMETERS:
+[  40.         1207.09090982    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[20.    0.25]
+MODEL PARAMETERS:
+[  40.         1200.           10.19722458]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[20.    0.35]
+MODEL PARAMETERS:
+[  40 1200    8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[20.    0.35]
+MODEL PARAMETERS:
+[  47.42714413 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[20.    0.35]
+MODEL PARAMETERS:
+[  40.         1214.18181964    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[20.    0.35]
+MODEL PARAMETERS:
+[  40.         1200.           12.39444915]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[20.    0.35]
+MODEL PARAMETERS:
+[  43.71357207 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[20.    0.35]
+MODEL PARAMETERS:
+[  40.         1207.09090982    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[20.    0.35]
+MODEL PARAMETERS:
+[  40.         1200.           10.19722458]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+[Candidate       4/40]: time elapsed          268.65 seconds.
+TI CONTROLS:
+[20.    0.45]
+MODEL PARAMETERS:
+[  40 1200    8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[20.    0.45]
+MODEL PARAMETERS:
+[  47.42714413 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[20.    0.45]
+MODEL PARAMETERS:
+[  40.         1214.18181964    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[20.    0.45]
+MODEL PARAMETERS:
+[  40.         1200.           12.39444915]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[20.    0.45]
+MODEL PARAMETERS:
+[  43.71357207 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[20.    0.45]
+MODEL PARAMETERS:
+[  40.         1207.09090982    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[20.    0.45]
+MODEL PARAMETERS:
+[  40.         1200.           10.19722458]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[20.    0.55]
+MODEL PARAMETERS:
+[  40 1200    8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[20.    0.55]
+MODEL PARAMETERS:
+[  47.42714413 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[20.    0.55]
+MODEL PARAMETERS:
+[  40.         1214.18181964    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[20.    0.55]
+MODEL PARAMETERS:
+[  40.         1200.           12.39444915]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[20.    0.55]
+MODEL PARAMETERS:
+[  43.71357207 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[20.    0.55]
+MODEL PARAMETERS:
+[  40.         1207.09090982    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[20.    0.55]
+MODEL PARAMETERS:
+[  40.         1200.           10.19722458]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[20.    0.65]
+MODEL PARAMETERS:
+[  40 1200    8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[20.    0.65]
+MODEL PARAMETERS:
+[  47.42714413 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[20.    0.65]
+MODEL PARAMETERS:
+[  40.         1214.18181964    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[20.    0.65]
+MODEL PARAMETERS:
+[  40.         1200.           12.39444915]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[20.    0.65]
+MODEL PARAMETERS:
+[  43.71357207 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[20.    0.65]
+MODEL PARAMETERS:
+[  40.         1207.09090982    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[20.    0.65]
+MODEL PARAMETERS:
+[  40.         1200.           10.19722458]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[20.    0.75]
+MODEL PARAMETERS:
+[  40 1200    8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[20.    0.75]
+MODEL PARAMETERS:
+[  47.42714413 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[20.    0.75]
+MODEL PARAMETERS:
+[  40.         1214.18181964    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[20.    0.75]
+MODEL PARAMETERS:
+[  40.         1200.           12.39444915]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[20.    0.75]
+MODEL PARAMETERS:
+[  43.71357207 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[20.    0.75]
+MODEL PARAMETERS:
+[  40.         1207.09090982    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[20.    0.75]
+MODEL PARAMETERS:
+[  40.         1200.           10.19722458]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+[Candidate       8/40]: time elapsed          432.00 seconds.
+TI CONTROLS:
+[20.    0.85]
+MODEL PARAMETERS:
+[  40 1200    8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[20.    0.85]
+MODEL PARAMETERS:
+[  47.42714413 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[20.    0.85]
+MODEL PARAMETERS:
+[  40.         1214.18181964    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[20.    0.85]
+MODEL PARAMETERS:
+[  40.         1200.           12.39444915]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[20.    0.85]
+MODEL PARAMETERS:
+[  43.71357207 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[20.    0.85]
+MODEL PARAMETERS:
+[  40.         1207.09090982    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[20.    0.85]
+MODEL PARAMETERS:
+[  40.         1200.           10.19722458]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[20.    0.95]
+MODEL PARAMETERS:
+[  40 1200    8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[20.    0.95]
+MODEL PARAMETERS:
+[  47.42714413 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[20.    0.95]
+MODEL PARAMETERS:
+[  40.         1214.18181964    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[20.    0.95]
+MODEL PARAMETERS:
+[  40.         1200.           12.39444915]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[20.    0.95]
+MODEL PARAMETERS:
+[  43.71357207 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[20.    0.95]
+MODEL PARAMETERS:
+[  40.         1207.09090982    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[20.    0.95]
+MODEL PARAMETERS:
+[  40.         1200.           10.19722458]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[30.    0.05]
+MODEL PARAMETERS:
+[  40 1200    8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[30.    0.05]
+MODEL PARAMETERS:
+[  47.42714413 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[30.    0.05]
+MODEL PARAMETERS:
+[  40.         1214.18181964    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[30.    0.05]
+MODEL PARAMETERS:
+[  40.         1200.           12.39444915]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[30.    0.05]
+MODEL PARAMETERS:
+[  43.71357207 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[30.    0.05]
+MODEL PARAMETERS:
+[  40.         1207.09090982    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[30.    0.05]
+MODEL PARAMETERS:
+[  40.         1200.           10.19722458]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[30.    0.15]
+MODEL PARAMETERS:
+[  40 1200    8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[30.    0.15]
+MODEL PARAMETERS:
+[  47.42714413 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[30.    0.15]
+MODEL PARAMETERS:
+[  40.         1214.18181964    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[30.    0.15]
+MODEL PARAMETERS:
+[  40.         1200.           12.39444915]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[30.    0.15]
+MODEL PARAMETERS:
+[  43.71357207 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[30.    0.15]
+MODEL PARAMETERS:
+[  40.         1207.09090982    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[30.    0.15]
+MODEL PARAMETERS:
+[  40.         1200.           10.19722458]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+[Candidate      12/40]: time elapsed          720.67 seconds.
+TI CONTROLS:
+[30.    0.25]
+MODEL PARAMETERS:
+[  40 1200    8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[30.    0.25]
+MODEL PARAMETERS:
+[  47.42714413 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[30.    0.25]
+MODEL PARAMETERS:
+[  40.         1214.18181964    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[30.    0.25]
+MODEL PARAMETERS:
+[  40.         1200.           12.39444915]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[30.    0.25]
+MODEL PARAMETERS:
+[  43.71357207 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[30.    0.25]
+MODEL PARAMETERS:
+[  40.         1207.09090982    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[30.    0.25]
+MODEL PARAMETERS:
+[  40.         1200.           10.19722458]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[30.    0.35]
+MODEL PARAMETERS:
+[  40 1200    8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[30.    0.35]
+MODEL PARAMETERS:
+[  47.42714413 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[30.    0.35]
+MODEL PARAMETERS:
+[  40.         1214.18181964    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[30.    0.35]
+MODEL PARAMETERS:
+[  40.         1200.           12.39444915]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[30.    0.35]
+MODEL PARAMETERS:
+[  43.71357207 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[30.    0.35]
+MODEL PARAMETERS:
+[  40.         1207.09090982    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[30.    0.35]
+MODEL PARAMETERS:
+[  40.         1200.           10.19722458]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[30.    0.45]
+MODEL PARAMETERS:
+[  40 1200    8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[30.    0.45]
+MODEL PARAMETERS:
+[  47.42714413 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[30.    0.45]
+MODEL PARAMETERS:
+[  40.         1214.18181964    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[30.    0.45]
+MODEL PARAMETERS:
+[  40.         1200.           12.39444915]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[30.    0.45]
+MODEL PARAMETERS:
+[  43.71357207 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[30.    0.45]
+MODEL PARAMETERS:
+[  40.         1207.09090982    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[30.    0.45]
+MODEL PARAMETERS:
+[  40.         1200.           10.19722458]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[30.    0.55]
+MODEL PARAMETERS:
+[  40 1200    8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[30.    0.55]
+MODEL PARAMETERS:
+[  47.42714413 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[30.    0.55]
+MODEL PARAMETERS:
+[  40.         1214.18181964    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[30.    0.55]
+MODEL PARAMETERS:
+[  40.         1200.           12.39444915]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[30.    0.55]
+MODEL PARAMETERS:
+[  43.71357207 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[30.    0.55]
+MODEL PARAMETERS:
+[  40.         1207.09090982    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[30.    0.55]
+MODEL PARAMETERS:
+[  40.         1200.           10.19722458]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+[Candidate      16/40]: time elapsed          900.20 seconds.
+TI CONTROLS:
+[30.    0.65]
+MODEL PARAMETERS:
+[  40 1200    8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[30.    0.65]
+MODEL PARAMETERS:
+[  47.42714413 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[30.    0.65]
+MODEL PARAMETERS:
+[  40.         1214.18181964    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[30.    0.65]
+MODEL PARAMETERS:
+[  40.         1200.           12.39444915]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[30.    0.65]
+MODEL PARAMETERS:
+[  43.71357207 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[30.    0.65]
+MODEL PARAMETERS:
+[  40.         1207.09090982    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[30.    0.65]
+MODEL PARAMETERS:
+[  40.         1200.           10.19722458]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[30.    0.75]
+MODEL PARAMETERS:
+[  40 1200    8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[30.    0.75]
+MODEL PARAMETERS:
+[  47.42714413 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[30.    0.75]
+MODEL PARAMETERS:
+[  40.         1214.18181964    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[30.    0.75]
+MODEL PARAMETERS:
+[  40.         1200.           12.39444915]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[30.    0.75]
+MODEL PARAMETERS:
+[  43.71357207 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[30.    0.75]
+MODEL PARAMETERS:
+[  40.         1207.09090982    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[30.    0.75]
+MODEL PARAMETERS:
+[  40.         1200.           10.19722458]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[30.    0.85]
+MODEL PARAMETERS:
+[  40 1200    8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[30.    0.85]
+MODEL PARAMETERS:
+[  47.42714413 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[30.    0.85]
+MODEL PARAMETERS:
+[  40.         1214.18181964    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[30.    0.85]
+MODEL PARAMETERS:
+[  40.         1200.           12.39444915]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[30.    0.85]
+MODEL PARAMETERS:
+[  43.71357207 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[30.    0.85]
+MODEL PARAMETERS:
+[  40.         1207.09090982    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[30.    0.85]
+MODEL PARAMETERS:
+[  40.         1200.           10.19722458]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[30.    0.95]
+MODEL PARAMETERS:
+[  40 1200    8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[30.    0.95]
+MODEL PARAMETERS:
+[  47.42714413 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[30.    0.95]
+MODEL PARAMETERS:
+[  40.         1214.18181964    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[30.    0.95]
+MODEL PARAMETERS:
+[  40.         1200.           12.39444915]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[30.    0.95]
+MODEL PARAMETERS:
+[  43.71357207 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[30.    0.95]
+MODEL PARAMETERS:
+[  40.         1207.09090982    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[30.    0.95]
+MODEL PARAMETERS:
+[  40.         1200.           10.19722458]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+[Candidate      20/40]: time elapsed         1083.35 seconds.
+TI CONTROLS:
+[40.    0.05]
+MODEL PARAMETERS:
+[  40 1200    8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[40.    0.05]
+MODEL PARAMETERS:
+[  47.42714413 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[40.    0.05]
+MODEL PARAMETERS:
+[  40.         1214.18181964    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[40.    0.05]
+MODEL PARAMETERS:
+[  40.         1200.           12.39444915]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[40.    0.05]
+MODEL PARAMETERS:
+[  43.71357207 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[40.    0.05]
+MODEL PARAMETERS:
+[  40.         1207.09090982    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[40.    0.05]
+MODEL PARAMETERS:
+[  40.         1200.           10.19722458]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[40.    0.15]
+MODEL PARAMETERS:
+[  40 1200    8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[40.    0.15]
+MODEL PARAMETERS:
+[  47.42714413 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[40.    0.15]
+MODEL PARAMETERS:
+[  40.         1214.18181964    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[40.    0.15]
+MODEL PARAMETERS:
+[  40.         1200.           12.39444915]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[40.    0.15]
+MODEL PARAMETERS:
+[  43.71357207 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[40.    0.15]
+MODEL PARAMETERS:
+[  40.         1207.09090982    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[40.    0.15]
+MODEL PARAMETERS:
+[  40.         1200.           10.19722458]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[40.    0.25]
+MODEL PARAMETERS:
+[  40 1200    8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[40.    0.25]
+MODEL PARAMETERS:
+[  47.42714413 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[40.    0.25]
+MODEL PARAMETERS:
+[  40.         1214.18181964    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[40.    0.25]
+MODEL PARAMETERS:
+[  40.         1200.           12.39444915]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[40.    0.25]
+MODEL PARAMETERS:
+[  43.71357207 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[40.    0.25]
+MODEL PARAMETERS:
+[  40.         1207.09090982    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[40.    0.25]
+MODEL PARAMETERS:
+[  40.         1200.           10.19722458]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[40.    0.35]
+MODEL PARAMETERS:
+[  40 1200    8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[40.    0.35]
+MODEL PARAMETERS:
+[  47.42714413 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[40.    0.35]
+MODEL PARAMETERS:
+[  40.         1214.18181964    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[40.    0.35]
+MODEL PARAMETERS:
+[  40.         1200.           12.39444915]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[40.    0.35]
+MODEL PARAMETERS:
+[  43.71357207 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[40.    0.35]
+MODEL PARAMETERS:
+[  40.         1207.09090982    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[40.    0.35]
+MODEL PARAMETERS:
+[  40.         1200.           10.19722458]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+[Candidate      24/40]: time elapsed         1337.10 seconds.
+TI CONTROLS:
+[40.    0.45]
+MODEL PARAMETERS:
+[  40 1200    8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[40.    0.45]
+MODEL PARAMETERS:
+[  47.42714413 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[40.    0.45]
+MODEL PARAMETERS:
+[  40.         1214.18181964    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[40.    0.45]
+MODEL PARAMETERS:
+[  40.         1200.           12.39444915]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[40.    0.45]
+MODEL PARAMETERS:
+[  43.71357207 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[40.    0.45]
+MODEL PARAMETERS:
+[  40.         1207.09090982    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[40.    0.45]
+MODEL PARAMETERS:
+[  40.         1200.           10.19722458]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[40.    0.55]
+MODEL PARAMETERS:
+[  40 1200    8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[40.    0.55]
+MODEL PARAMETERS:
+[  47.42714413 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[40.    0.55]
+MODEL PARAMETERS:
+[  40.         1214.18181964    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[40.    0.55]
+MODEL PARAMETERS:
+[  40.         1200.           12.39444915]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[40.    0.55]
+MODEL PARAMETERS:
+[  43.71357207 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[40.    0.55]
+MODEL PARAMETERS:
+[  40.         1207.09090982    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[40.    0.55]
+MODEL PARAMETERS:
+[  40.         1200.           10.19722458]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[40.    0.65]
+MODEL PARAMETERS:
+[  40 1200    8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[40.    0.65]
+MODEL PARAMETERS:
+[  47.42714413 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[40.    0.65]
+MODEL PARAMETERS:
+[  40.         1214.18181964    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[40.    0.65]
+MODEL PARAMETERS:
+[  40.         1200.           12.39444915]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[40.    0.65]
+MODEL PARAMETERS:
+[  43.71357207 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[40.    0.65]
+MODEL PARAMETERS:
+[  40.         1207.09090982    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[40.    0.65]
+MODEL PARAMETERS:
+[  40.         1200.           10.19722458]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[40.    0.75]
+MODEL PARAMETERS:
+[  40 1200    8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[40.    0.75]
+MODEL PARAMETERS:
+[  47.42714413 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[40.    0.75]
+MODEL PARAMETERS:
+[  40.         1214.18181964    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[40.    0.75]
+MODEL PARAMETERS:
+[  40.         1200.           12.39444915]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[40.    0.75]
+MODEL PARAMETERS:
+[  43.71357207 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[40.    0.75]
+MODEL PARAMETERS:
+[  40.         1207.09090982    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[40.    0.75]
+MODEL PARAMETERS:
+[  40.         1200.           10.19722458]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+[Candidate      28/40]: time elapsed         1500.48 seconds.
+TI CONTROLS:
+[40.    0.85]
+MODEL PARAMETERS:
+[  40 1200    8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[40.    0.85]
+MODEL PARAMETERS:
+[  47.42714413 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[40.    0.85]
+MODEL PARAMETERS:
+[  40.         1214.18181964    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[40.    0.85]
+MODEL PARAMETERS:
+[  40.         1200.           12.39444915]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[40.    0.85]
+MODEL PARAMETERS:
+[  43.71357207 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[40.    0.85]
+MODEL PARAMETERS:
+[  40.         1207.09090982    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[40.    0.85]
+MODEL PARAMETERS:
+[  40.         1200.           10.19722458]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[40.    0.95]
+MODEL PARAMETERS:
+[  40 1200    8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[40.    0.95]
+MODEL PARAMETERS:
+[  47.42714413 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[40.    0.95]
+MODEL PARAMETERS:
+[  40.         1214.18181964    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[40.    0.95]
+MODEL PARAMETERS:
+[  40.         1200.           12.39444915]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[40.    0.95]
+MODEL PARAMETERS:
+[  43.71357207 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[40.    0.95]
+MODEL PARAMETERS:
+[  40.         1207.09090982    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[40.    0.95]
+MODEL PARAMETERS:
+[  40.         1200.           10.19722458]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[50.    0.05]
+MODEL PARAMETERS:
+[  40 1200    8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[50.    0.05]
+MODEL PARAMETERS:
+[  47.42714413 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[50.    0.05]
+MODEL PARAMETERS:
+[  40.         1214.18181964    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[50.    0.05]
+MODEL PARAMETERS:
+[  40.         1200.           12.39444915]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[50.    0.05]
+MODEL PARAMETERS:
+[  43.71357207 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[50.    0.05]
+MODEL PARAMETERS:
+[  40.         1207.09090982    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[50.    0.05]
+MODEL PARAMETERS:
+[  40.         1200.           10.19722458]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[50.    0.15]
+MODEL PARAMETERS:
+[  40 1200    8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[50.    0.15]
+MODEL PARAMETERS:
+[  47.42714413 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[50.    0.15]
+MODEL PARAMETERS:
+[  40.         1214.18181964    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[50.    0.15]
+MODEL PARAMETERS:
+[  40.         1200.           12.39444915]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[50.    0.15]
+MODEL PARAMETERS:
+[  43.71357207 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[50.    0.15]
+MODEL PARAMETERS:
+[  40.         1207.09090982    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[50.    0.15]
+MODEL PARAMETERS:
+[  40.         1200.           10.19722458]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+[Candidate      32/40]: time elapsed         1729.60 seconds.
+TI CONTROLS:
+[50.    0.25]
+MODEL PARAMETERS:
+[  40 1200    8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[50.    0.25]
+MODEL PARAMETERS:
+[  47.42714413 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[50.    0.25]
+MODEL PARAMETERS:
+[  40.         1214.18181964    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[50.    0.25]
+MODEL PARAMETERS:
+[  40.         1200.           12.39444915]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[50.    0.25]
+MODEL PARAMETERS:
+[  43.71357207 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[50.    0.25]
+MODEL PARAMETERS:
+[  40.         1207.09090982    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[50.    0.25]
+MODEL PARAMETERS:
+[  40.         1200.           10.19722458]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[50.    0.35]
+MODEL PARAMETERS:
+[  40 1200    8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[50.    0.35]
+MODEL PARAMETERS:
+[  47.42714413 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[50.    0.35]
+MODEL PARAMETERS:
+[  40.         1214.18181964    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[50.    0.35]
+MODEL PARAMETERS:
+[  40.         1200.           12.39444915]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[50.    0.35]
+MODEL PARAMETERS:
+[  43.71357207 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[50.    0.35]
+MODEL PARAMETERS:
+[  40.         1207.09090982    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[50.    0.35]
+MODEL PARAMETERS:
+[  40.         1200.           10.19722458]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[50.    0.45]
+MODEL PARAMETERS:
+[  40 1200    8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[50.    0.45]
+MODEL PARAMETERS:
+[  47.42714413 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[50.    0.45]
+MODEL PARAMETERS:
+[  40.         1214.18181964    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[50.    0.45]
+MODEL PARAMETERS:
+[  40.         1200.           12.39444915]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[50.    0.45]
+MODEL PARAMETERS:
+[  43.71357207 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[50.    0.45]
+MODEL PARAMETERS:
+[  40.         1207.09090982    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[50.    0.45]
+MODEL PARAMETERS:
+[  40.         1200.           10.19722458]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[50.    0.55]
+MODEL PARAMETERS:
+[  40 1200    8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[50.    0.55]
+MODEL PARAMETERS:
+[  47.42714413 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[50.    0.55]
+MODEL PARAMETERS:
+[  40.         1214.18181964    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[50.    0.55]
+MODEL PARAMETERS:
+[  40.         1200.           12.39444915]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[50.    0.55]
+MODEL PARAMETERS:
+[  43.71357207 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[50.    0.55]
+MODEL PARAMETERS:
+[  40.         1207.09090982    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[50.    0.55]
+MODEL PARAMETERS:
+[  40.         1200.           10.19722458]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+[Candidate      36/40]: time elapsed         1896.84 seconds.
+TI CONTROLS:
+[50.    0.65]
+MODEL PARAMETERS:
+[  40 1200    8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[50.    0.65]
+MODEL PARAMETERS:
+[  47.42714413 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[50.    0.65]
+MODEL PARAMETERS:
+[  40.         1214.18181964    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[50.    0.65]
+MODEL PARAMETERS:
+[  40.         1200.           12.39444915]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[50.    0.65]
+MODEL PARAMETERS:
+[  43.71357207 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[50.    0.65]
+MODEL PARAMETERS:
+[  40.         1207.09090982    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[50.    0.65]
+MODEL PARAMETERS:
+[  40.         1200.           10.19722458]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[50.    0.75]
+MODEL PARAMETERS:
+[  40 1200    8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[50.    0.75]
+MODEL PARAMETERS:
+[  47.42714413 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[50.    0.75]
+MODEL PARAMETERS:
+[  40.         1214.18181964    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[50.    0.75]
+MODEL PARAMETERS:
+[  40.         1200.           12.39444915]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[50.    0.75]
+MODEL PARAMETERS:
+[  43.71357207 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[50.    0.75]
+MODEL PARAMETERS:
+[  40.         1207.09090982    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[50.    0.75]
+MODEL PARAMETERS:
+[  40.         1200.           10.19722458]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[50.    0.85]
+MODEL PARAMETERS:
+[  40 1200    8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[50.    0.85]
+MODEL PARAMETERS:
+[  47.42714413 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[50.    0.85]
+MODEL PARAMETERS:
+[  40.         1214.18181964    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[50.    0.85]
+MODEL PARAMETERS:
+[  40.         1200.           12.39444915]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[50.    0.85]
+MODEL PARAMETERS:
+[  43.71357207 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[50.    0.85]
+MODEL PARAMETERS:
+[  40.         1207.09090982    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[50.    0.85]
+MODEL PARAMETERS:
+[  40.         1200.           10.19722458]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[50.    0.95]
+MODEL PARAMETERS:
+[  40 1200    8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[50.    0.95]
+MODEL PARAMETERS:
+[  47.42714413 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[50.    0.95]
+MODEL PARAMETERS:
+[  40.         1214.18181964    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[50.    0.95]
+MODEL PARAMETERS:
+[  40.         1200.           12.39444915]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[50.    0.95]
+MODEL PARAMETERS:
+[  43.71357207 1200.            8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[50.    0.95]
+MODEL PARAMETERS:
+[  40.         1207.09090982    8.        ]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[50.    0.95]
+MODEL PARAMETERS:
+[  40.         1200.           10.19722458]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+[Candidate      40/40]: time elapsed         2081.37 seconds.
+----------------------------------------------------------------------------------------------------
+===============================================================================
+                                     CVXPY                                     
+                                     v1.3.0                                    
+===============================================================================
