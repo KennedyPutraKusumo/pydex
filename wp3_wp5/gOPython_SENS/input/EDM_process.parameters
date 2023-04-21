@@ -1,0 +1,23 @@
+# WARNING: This file is intended for internal use only.
+# Modifying it may lead to unpredictable behaviour.
+!VERSION
+1.0
+!PROCESS
+{EqDiMo
+R:ColumnLength = 15
+R:column_diameter = 0.46
+I:Sample_injection_method = 3
+I:Sample_number_components = 1
+I:Sample_conc_analyte_inlet_parameter_number = 7
+I:n_parameters = 3
+D:Axial 0.0 : 15.0 [BFDM, 1, 100]
+{EqDiMo_Isotherm
+R:ColumnLength = 15
+I:Sample_number_components = 1
+D:Axial 0.0 : 15.0 [BFDM, 1, 100]
+}
+}
+!CONSTANTS
+{#model_edm
+R:pi = 3.14159265359
+}

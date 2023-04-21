@@ -1,0 +1,221 @@
+TI CONTROLS:
+[20.    0.05]
+MODEL PARAMETERS:
+[40 12  8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[20.    0.05]
+MODEL PARAMETERS:
+[40 12  8]
+====================================================================================================
+Initialization complete: designer ready.
+----------------------------------------------------------------------------------------------------
+Number of model parameters              : 3
+Number of candidates                    : 9
+Number of responses                     : 1
+Number of measured responses            : 1
+Number of time-invariant controls       : 2
+Number of sampling time choices         : 1001
+Covariance of measured responses        : 
+ [[1.e-05]]
+====================================================================================================
+############################### Computing Optimal Experiment Design ################################
+Started on                              : 2023-04-18 17:19:45.577000
+Criterion                               : d_opt_criterion
+Pseudo-bayesian                         : False
+Dynamic                                 : True
+Time-invariant Controls                 : True
+Time-varying Controls                   : False
+Number of Candidates                    : 9
+Number of Sampling Time Choices         : 1001
+Sampling Times Optimized                : False
+---------------------------------------[Sensitivity Analysis]---------------------------------------
+Use Finite Difference                   : False
+Normalized by Parameter Values          : True
+----------------------------------------------------------------------------------------------------
+TI CONTROLS:
+[20.    0.05]
+MODEL PARAMETERS:
+[40 12  8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+[Candidate        1/9]: time elapsed            1.65 seconds.
+TI CONTROLS:
+[20.   0.5]
+MODEL PARAMETERS:
+[40 12  8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+[Candidate        2/9]: time elapsed            3.40 seconds.
+TI CONTROLS:
+[20.    0.95]
+MODEL PARAMETERS:
+[40 12  8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+[Candidate        3/9]: time elapsed            5.33 seconds.
+TI CONTROLS:
+[35.    0.05]
+MODEL PARAMETERS:
+[40 12  8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+[Candidate        4/9]: time elapsed            6.93 seconds.
+TI CONTROLS:
+[35.   0.5]
+MODEL PARAMETERS:
+[40 12  8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+[Candidate        5/9]: time elapsed            8.69 seconds.
+TI CONTROLS:
+[35.    0.95]
+MODEL PARAMETERS:
+[40 12  8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+[Candidate        6/9]: time elapsed           10.68 seconds.
+TI CONTROLS:
+[50.    0.05]
+MODEL PARAMETERS:
+[40 12  8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+[Candidate        7/9]: time elapsed           12.28 seconds.
+TI CONTROLS:
+[50.   0.5]
+MODEL PARAMETERS:
+[40 12  8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+[Candidate        8/9]: time elapsed           14.02 seconds.
+TI CONTROLS:
+[50.    0.95]
+MODEL PARAMETERS:
+[40 12  8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+[Candidate        9/9]: time elapsed           15.99 seconds.
+----------------------------------------------------------------------------------------------------
+===============================================================================
+                                     CVXPY                                     
+                                     v1.3.1                                    
+===============================================================================
+-------------------------------------------------------------------------------
+                                  Compilation                                  
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+                                Numerical solver                               
+-------------------------------------------------------------------------------
+
+
+-------------------------------------------------------------------------------
+                                    Summary                                    
+-------------------------------------------------------------------------------
+---------------------------------[Optimization Complete in 4.90 s]----------------------------------
+Complete: 
+ ~ sensitivity analysis took 16.00 CPU seconds.
+ ~ optimization with MOSEK via cvxpy took 4.90 CPU seconds.
+####################################################################################################
+
+######################################## Optimal Candidates ########################################
+Obtained on                             : 2023-04-18 17:20:20.500416
+Criterion (higher is better)            : d_opt_criterion
+Criterion Value (efforts sum to None)   : -17.577391853470907
+Pseudo-bayesian                         : False
+CVaR Problem                            : False
+Dynamic                                 : True
+Time-invariant Controls                 : True
+Time-varying Controls                   : False
+Number of Candidates                    : 9
+Number of Optimal Candidates            : 4
+Number of Sampling Time Choices         : 1001
+Sampling Times Optimized                : False
+Information Matrix Regularized          : False
+Minimum Effort Threshold                : 0.0001
+-------------------------------------------[Candidate 1]--------------------------------------------
+                             Recommended Effort: 28.22% of experiments                              
+Time-invariant Controls:
+[20.    0.05]
+Sampling Times:
+[ 0.    0.05  0.1  ... 49.9  49.95 50.  ]
+-------------------------------------------[Candidate 2]--------------------------------------------
+                             Recommended Effort: 26.33% of experiments                              
+Time-invariant Controls:
+[20.   0.5]
+Sampling Times:
+[ 0.    0.05  0.1  ... 49.9  49.95 50.  ]
+-------------------------------------------[Candidate 7]--------------------------------------------
+                             Recommended Effort: 29.41% of experiments                              
+Time-invariant Controls:
+[50.    0.05]
+Sampling Times:
+[ 0.    0.05  0.1  ... 49.9  49.95 50.  ]
+-------------------------------------------[Candidate 8]--------------------------------------------
+                             Recommended Effort: 16.04% of experiments                              
+Time-invariant Controls:
+[50.   0.5]
+Sampling Times:
+[ 0.    0.05  0.1  ... 49.9  49.95 50.  ]
+####################################################################################################

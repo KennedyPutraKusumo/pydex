@@ -31,8 +31,8 @@ Execution of EDM_process completed successfully.
 Block information for reinitialisation will be used.
 Block information was also found for: initialisation, postcalculation
 
-Simulation took 20.9474 seconds.
-Total CPU time: 20.859
+Simulation took 1.20943 seconds.
+Total CPU time: 1.172
 
 Returning license for 9100_SIM to server ...
 License returned to server.

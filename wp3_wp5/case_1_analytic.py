@@ -5,6 +5,7 @@ import numpy as np
 if __name__ == '__main__':
     designer_1 = Designer()
     designer_1.simulate = pydex_sim
+    designer_1.use_finite_difference = False
 
     designer_1.ti_controls_candidates = designer_1.enumerate_candidates(
         bounds=np.array([
@@ -12,8 +13,8 @@ if __name__ == '__main__':
             [0.05, 0.95],   # organic modifier fraction phi vol/vol
         ]),
         levels=np.array([
-            4,
-            10,
+            3,
+            3,
         ])
     )
     designer_1.sampling_times_candidates = np.array([
@@ -25,7 +26,7 @@ if __name__ == '__main__':
         8,
     ])
     designer_1._norm_sens_by_params = True
-    designer_1._num_steps = 1
+    designer_1.error_cov = 1e-5 * np.eye(1)
     designer_1.start_logging()
     designer_1.initialize(verbose=2)
     designer_1.design_experiment(
@@ -34,5 +35,8 @@ if __name__ == '__main__':
         save_atomics=True,
         optimize_sampling_times=False,
     )
+    designer_1.plot_optimal_sensitivities(write=True)
+    designer_1.plot_optimal_predictions(write=True)
+    designer_1.show_plots()
     designer_1.print_optimal_candidates()
     designer_1.stop_logging()

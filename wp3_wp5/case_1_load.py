@@ -54,6 +54,7 @@ if __name__ == '__main__':
         save_sensitivities=True,
         save_atomics=True,
         optimize_sampling_times=True,
+        n_spt=2,
     )
     designer_1.print_optimal_candidates()
     designer_1.plot_optimal_sensitivities(write=True)

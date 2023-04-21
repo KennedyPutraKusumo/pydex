@@ -1,0 +1,14 @@
+{
+    "version": 1,
+    "signature": "A601120933049C294B7661881D8C366BF4A2A8B4A781F0AACAAE6A144C601C80",
+    "licenses": [
+        {
+            "feature": "9100_GPROMS_ENCRYPTED",
+            "count": 1
+        },
+        {
+            "feature": "9100_SIM",
+            "count": 1
+        }
+    ]
+}

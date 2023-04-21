@@ -1,0 +1,595 @@
+TI CONTROLS:
+[20.    0.05]
+MODEL PARAMETERS:
+[40 12  8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[20.    0.05]
+MODEL PARAMETERS:
+[40 12  8]
+====================================================================================================
+Initialization complete: designer ready.
+----------------------------------------------------------------------------------------------------
+Number of model parameters              : 3
+Number of candidates                    : 40
+Number of responses                     : 1
+Number of measured responses            : 1
+Number of time-invariant controls       : 2
+Number of sampling time choices         : 1001
+Covariance of measured responses        : 
+ [[1.e-05]]
+====================================================================================================
+############################### Computing Optimal Experiment Design ################################
+Started on                              : 2023-04-18 17:13:49.446781
+Criterion                               : d_opt_criterion
+Pseudo-bayesian                         : False
+Dynamic                                 : True
+Time-invariant Controls                 : True
+Time-varying Controls                   : False
+Number of Candidates                    : 40
+Number of Sampling Time Choices         : 1001
+Sampling Times Optimized                : True
+---------------------------------------[Sensitivity Analysis]---------------------------------------
+Use Finite Difference                   : False
+Normalized by Parameter Values          : True
+----------------------------------------------------------------------------------------------------
+TI CONTROLS:
+[20.    0.05]
+MODEL PARAMETERS:
+[40 12  8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[20.    0.15]
+MODEL PARAMETERS:
+[40 12  8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[20.    0.25]
+MODEL PARAMETERS:
+[40 12  8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[20.    0.35]
+MODEL PARAMETERS:
+[40 12  8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+[Candidate       4/40]: time elapsed            6.25 seconds.
+TI CONTROLS:
+[20.    0.45]
+MODEL PARAMETERS:
+[40 12  8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[20.    0.55]
+MODEL PARAMETERS:
+[40 12  8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[20.    0.65]
+MODEL PARAMETERS:
+[40 12  8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[20.    0.75]
+MODEL PARAMETERS:
+[40 12  8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+[Candidate       8/40]: time elapsed           13.56 seconds.
+TI CONTROLS:
+[20.    0.85]
+MODEL PARAMETERS:
+[40 12  8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[20.    0.95]
+MODEL PARAMETERS:
+[40 12  8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[30.    0.05]
+MODEL PARAMETERS:
+[40 12  8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[30.    0.15]
+MODEL PARAMETERS:
+[40 12  8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+[Candidate      12/40]: time elapsed           20.75 seconds.
+TI CONTROLS:
+[30.    0.25]
+MODEL PARAMETERS:
+[40 12  8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[30.    0.35]
+MODEL PARAMETERS:
+[40 12  8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[30.    0.45]
+MODEL PARAMETERS:
+[40 12  8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[30.    0.55]
+MODEL PARAMETERS:
+[40 12  8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+[Candidate      16/40]: time elapsed           27.31 seconds.
+TI CONTROLS:
+[30.    0.65]
+MODEL PARAMETERS:
+[40 12  8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[30.    0.75]
+MODEL PARAMETERS:
+[40 12  8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[30.    0.85]
+MODEL PARAMETERS:
+[40 12  8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[30.    0.95]
+MODEL PARAMETERS:
+[40 12  8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+[Candidate      20/40]: time elapsed           35.18 seconds.
+TI CONTROLS:
+[40.    0.05]
+MODEL PARAMETERS:
+[40 12  8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[40.    0.15]
+MODEL PARAMETERS:
+[40 12  8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[40.    0.25]
+MODEL PARAMETERS:
+[40 12  8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[40.    0.35]
+MODEL PARAMETERS:
+[40 12  8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+[Candidate      24/40]: time elapsed           41.41 seconds.
+TI CONTROLS:
+[40.    0.45]
+MODEL PARAMETERS:
+[40 12  8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[40.    0.55]
+MODEL PARAMETERS:
+[40 12  8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[40.    0.65]
+MODEL PARAMETERS:
+[40 12  8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[40.    0.75]
+MODEL PARAMETERS:
+[40 12  8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+[Candidate      28/40]: time elapsed           48.68 seconds.
+TI CONTROLS:
+[40.    0.85]
+MODEL PARAMETERS:
+[40 12  8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[40.    0.95]
+MODEL PARAMETERS:
+[40 12  8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[50.    0.05]
+MODEL PARAMETERS:
+[40 12  8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[50.    0.15]
+MODEL PARAMETERS:
+[40 12  8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+[Candidate      32/40]: time elapsed           55.96 seconds.
+TI CONTROLS:
+[50.    0.25]
+MODEL PARAMETERS:
+[40 12  8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[50.    0.35]
+MODEL PARAMETERS:
+[40 12  8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[50.    0.45]
+MODEL PARAMETERS:
+[40 12  8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[50.    0.55]
+MODEL PARAMETERS:
+[40 12  8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+[Candidate      36/40]: time elapsed           62.60 seconds.
+TI CONTROLS:
+[50.    0.65]
+MODEL PARAMETERS:
+[40 12  8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[50.    0.75]
+MODEL PARAMETERS:
+[40 12  8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[50.    0.85]
+MODEL PARAMETERS:
+[40 12  8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+TI CONTROLS:
+[50.    0.95]
+MODEL PARAMETERS:
+[40 12  8]
+gO:Python selecting gPROMS model 'input\ EDM_process '.
+
+gO:Python simulating gPROMS PROCESS ' EDM_process '.
+
+gO:Python exchanging data with gPROMS.
+
+gO:Python stopping.
+
+[Candidate      40/40]: time elapsed           70.61 seconds.
+----------------------------------------------------------------------------------------------------
+===============================================================================
+                                     CVXPY                                     
+                                     v1.3.1                                    
+===============================================================================
+-------------------------------------------------------------------------------
+                                  Compilation                                  
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+                                Numerical solver                               
+-------------------------------------------------------------------------------
+
+
+-------------------------------------------------------------------------------
+                                    Summary                                    
+-------------------------------------------------------------------------------
+---------------------------------[Optimization Complete in 38.03 s]---------------------------------
+Complete: 
+ ~ sensitivity analysis took 70.61 CPU seconds.
+ ~ optimization with MOSEK via cvxpy took 38.03 CPU seconds.
+####################################################################################################
+
+######################################## Optimal Candidates ########################################
+Obtained on                             : 2023-04-18 17:17:03.881864
+Criterion (higher is better)            : d_opt_criterion
+Criterion Value (efforts sum to None)   : -4.819772446798847
+Pseudo-bayesian                         : False
+CVaR Problem                            : False
+Dynamic                                 : True
+Time-invariant Controls                 : True
+Time-varying Controls                   : False
+Number of Candidates                    : 40
+Number of Optimal Candidates            : 4
+Number of Sampling Time Choices         : 1001
+Sampling Times Optimized                : True
+Number of Samples Per Experiment        : 1
+Information Matrix Regularized          : False
+Minimum Effort Threshold                : 0.0001
+-------------------------------------------[Candidate 3]--------------------------------------------
+                             Recommended Effort: 25.94% of experiments                              
+Time-invariant Controls:
+[20.    0.25]
+Sampling Times:
+[      5.70]: dedicate 25.94% of experiments
+-------------------------------------------[Candidate 6]--------------------------------------------
+                             Recommended Effort: 26.56% of experiments                              
+Time-invariant Controls:
+[20.    0.55]
+Sampling Times:
+[      2.45]: dedicate 26.56% of experiments
+-------------------------------------------[Candidate 33]-------------------------------------------
+                             Recommended Effort: 26.67% of experiments                              
+Time-invariant Controls:
+[50.    0.25]
+Sampling Times:
+[      4.55]: dedicate 26.67% of experiments
+-------------------------------------------[Candidate 36]-------------------------------------------
+                             Recommended Effort: 20.83% of experiments                              
+Time-invariant Controls:
+[50.    0.55]
+Sampling Times:
+[      2.35]: dedicate 20.83% of experiments
+####################################################################################################

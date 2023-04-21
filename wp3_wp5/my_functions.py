@@ -7,8 +7,6 @@ Created on Mon Dec 19 15:13:42 2022
 
 import numpy as np
 import pandas as pd
-import os
-from scipy.optimize import curve_fit
 import gopython
 import os
 from io import StringIO
@@ -47,7 +45,11 @@ def HPLC_simulation(theta, U):
     fname = "EDM_process"
 
     # Move to the directory containing the gPROMS file
-    os.chdir("gPROMS_file")
+    try:
+        os.chdir("gOPython_SENS")
+        # os.chdir("gPROMS_file")
+    except FileNotFoundError:
+        pass
 
     # Start gOPython
     status = gopython.start(fname, fname, fname)
@@ -67,10 +69,11 @@ def HPLC_simulation(theta, U):
     # Convert into the desired format
     time = outputdata[:, 0]
     Cout = outputdata[:, 1]
-    
-    os.chdir("General/")
+    Sens = outputdata[:, 2:]
 
-    return  time, Cout 
+    # os.chdir("General/")
+
+    return time, Cout, Sens
 
 def gp2py(fname):
     """
